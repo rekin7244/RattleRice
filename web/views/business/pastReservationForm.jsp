@@ -191,6 +191,23 @@ a.article, a.article:hover {
 		display: none;
 	}
 }
+
+.container ul {
+	list-style: none;
+	padding: 0;
+}
+
+.container ul li {
+	display: inline-block;
+}
+
+.li2 {
+	float: right;
+}
+
+.table {
+	padding: 0;
+}
 </style>
 </head>
 
@@ -247,9 +264,9 @@ a.article, a.article:hover {
 
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item"><a class="nav-link"
-								href="reservationForm.jsp">예약관리</a></li>
 							<li class="nav-item active"><a class="nav-link"
+								href="reservationForm.jsp">예약관리</a></li>
+							<li class="nav-item"><a class="nav-link"
 								href="businessFormShop.jsp">매장관리</a></li>
 
 						</ul>
@@ -258,58 +275,48 @@ a.article, a.article:hover {
 			</nav>
 
 
-			<div class="container col-sm-9">
-				<div style="border: 0.5px solid lightgray; width: 70%; height: 40%;">
-					<img src="../../images/SoyShrimp.jpg" width="50%" height="50%">
+			<div class="container col-sm-9 table">
+				<ul>
+					<li>지난 예약 기록</li>
+					<li class="li2">* 최근 3개월 까지 표시됩니다.</li>
+				</ul>
 
-					<!-- <img src="${pageContext.request.contextPath}/getPic?pic_no=${pic_no}" width="300" height="210"> -->
-				</div>
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background: lightgray">
+							<th>예약자</th>
+							<th>예약시간</th>
+							<th>인원</th>
+							<th>예약선택</th>
+							<th>특이사항</th>
 
-				<div class="container col-sm-9" style="float: left;">
-					<table id="info" border="1">
-						<tbody align="center">
-							<tr>
-								<td>hp :</td>
-								<td>02-1234-5555</td>
-							</tr>
-							<tr>
-								<td>위치 :</td>
-								<td>서울시 강남구 역삼동</td>
-							</tr>
-							<tr>
-								<td>영업시간 :</td>
-								<td>평일00:00 ~ 00:00<br> 공휴일00:00 ~ 00:00
-								</td>
-
-							</tr>
-							<tr>
-								<td>매장소개 :</td>
-								<td>난너를믿었던만큼 난네 친구도 믿었기에</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="container col-sm-9" style="float: right; width: 30%;">
-				<table id="menu" border="1">
-					<thead align="center">
-						<th align="center">메뉴</th>
-						<th>가격</th>
+						</tr>
 					</thead>
-					<tbody align="center">
+					<tbody>
 						<tr>
-							<td>간장새우</td>
-							<td>10,000원</td>
+							<td>홍길동</td>
+							<td>19.04.25<br>18:00
+							</td>
+							<td>4명</td>
+							<td>-</td>
+							<td>완료</td>
 						</tr>
 						<tr>
-							<td>간장새우 정식</td>
-							<td>10,000원</td>
+							<td>김난지</td>
+							<td>19.04.25<br>18:00
+							</td>
+							<td>3명</td>
+							<td>-</td>
+							<td>완료</td>
 						</tr>
 						<tr>
-							<td>간장새우 스페셜</td>
-							<td>10,000원</td>
+							<td>박호세</td>
+							<td>19.04.25<br>18:00
+							</td>
+							<td>6명</td>
+							<td>-</td>
+							<td>완료</td>
 						</tr>
-
 					</tbody>
 				</table>
 			</div>
