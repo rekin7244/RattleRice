@@ -184,23 +184,23 @@
 								</div>
 								<div class="form-group">
 									<input type="text" name="businessNumber" id="businessNumber"
-										class="form-control" placeholder="사업자 번호" readonly >
+										class="form-control" placeholder="사업자 번호" readonly>
 
 								</div>
 								<div class="form-group">
 									<input type="text" name="businessTitle" id="businessTitle"
-										class="form-control" placeholder="상호명" readonly >
+										class="form-control" placeholder="상호명" readonly>
 								</div>
 								<div class="form-group">
 									<input type="text" name="businessName" id="businessName"
-										class="form-control" placeholder="사업자명" readonly >
+										class="form-control" placeholder="사업자명" readonly>
 								</div>
 
 								<div class="form-group">
-									<input type="tel" name="tel" id="tel"
-										class="form-control" placeholder="휴대폰 번호" readonly >
+									<input type="tel" name="tel" id="tel" class="form-control"
+										placeholder="휴대폰 번호" readonly>
 								</div>
-								
+
 								<hr>
 								<div class="top">
 									<h4 class="title">기본 정보</h4>
@@ -220,8 +220,8 @@
 								</div>
 								<div class="form-group">
 									<input type="text" name="userId" id="userId"
-										class="form-control" placeholder="정산 계좌" readonly >
-									<button class="btn btn-warning" >계좌인증</button>
+										class="form-control" placeholder="정산 계좌" readonly>
+									<button class="btn btn-warning">계좌인증</button>
 								</div>
 								<div class="form-group">
 									<div class="row">

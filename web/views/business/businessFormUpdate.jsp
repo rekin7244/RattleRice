@@ -32,7 +32,6 @@
 	crossorigin="anonymous"></script>
 
 <style>
-
 @import
 	"https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
@@ -44,7 +43,7 @@ body {
 
 /* 환영메세지 */
 p {
-	text-align:center;
+	text-align: center;
 	font-family: 'Poppins', sans-serif;
 	font-size: 1.1em;
 	font-weight: 300;
@@ -58,7 +57,6 @@ a, a:hover, a:focus {
 	text-decoration: none;
 	transition: all 0.3s;
 }
-
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -84,9 +82,8 @@ a, a:hover, a:focus {
 	margin-left: -250px;
 }
 
-
 #sidebar .sidebar-header {
-	text-align:right;
+	text-align: right;
 	padding: 10px;
 	background: #aaaaaa;
 }
@@ -94,7 +91,6 @@ a, a:hover, a:focus {
 #sidebar ul.components {
 	padding: 20px 0;
 	border-bottom: 1px solid #47748b;
-	
 }
 
 #sidebar ul p {
@@ -211,9 +207,9 @@ a.article, a.article:hover {
 				<p>
 					<b>___ 사업자님 환영합니다.</b>
 				</p>
-				<li class="active">
-				<a href="#homeSubmenu" data-toggle="collapse" 
-				aria-expanded="false" class="dropdown-toggle">예약관리</a>
+				<li class="active"><a href="#homeSubmenu"
+					data-toggle="collapse" aria-expanded="false"
+					class="dropdown-toggle">예약관리</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
 						<li><a href="#">예약 관리</a></li>
 						<li><a href="#">예약 신청 현황</a></li>
@@ -263,110 +259,118 @@ a.article, a.article:hover {
 			</nav>
 
 
-<div class="container col-sm-9">
-				<div class="container col-sm-9"  style="border: 0.5px solid lightgray; 
-			float: left; width: 25%; height: 90%; overflow-x: auto;" >
-				<h4 align="center">매장정보</h4>
-				<br><br>
-				<form action="#" method="post">
-					<table align="center" style="min-width:500px;border-collapse:separate;border-spacing:0 10px;">
-					<tr>
-						<td><label>hp : </label></td>
-						<td><input type="tel" name="phone"></td>				
-					</tr>
-					<tr>
-						<td><label>위치 : </label></td>
-						<td><input type="text" name="address"></td>			
-					</tr>
-					<tr>
-						<td><label>영업시간(평일) : </label></td>
-						<td><input type="time" name="openTime1"></td>	
-						<td><input type="time" name="closeTime1"></td>				
-					</tr>
-					<tr>
-						<td><label>영업시간(공휴일) : </label></td>
-						<td><input type="time" name="openTime1"></td>	
-						<td><input type="time" name="closeTime2"></td>				
-					</tr>
-					<tr>
-						<td><label>간단한 소개 : </label></td>
-						<td><input type="text" name="introducer" style="width:175px; height:80px;"></td>				
-					</tr>
-									
-					</table>				
-				</form>
-			</div>
-			<div class="container col-sm-9"  style="border: 0.5px solid lightgray; 
-			float: left; width: 25%; height: 90%; overflow-x: auto;" >
-			<h4 align="center">메뉴</h4>
-				<br><br>
-				<form action="#" method="post">
-					<table class="table table-bordered" style="min-width:500px;" >
-						<thead>
-							<tr style="background: lightgray">
-								<th align="center">메뉴명</th>
-								<th align="center">가격</th>
-							</tr>
-						</thead>
-						<tbody>
+			<div class="container col-sm-9">
+				<div class="container col-sm-9"
+					style="border: 0.5px solid lightgray; float: left; width: 25%; height: 90%; overflow-x: auto;">
+					<h4 align="center">매장정보</h4>
+					<br>
+					<br>
+					<form action="#" method="post">
+						<table align="center"
+							style="min-width: 500px; border-collapse: separate; border-spacing: 0 10px;">
 							<tr>
-								<td><input type="text" name="menu1"></td>
-								<td><input type="number" name="menuPrice1"></td>
+								<td><label>hp : </label></td>
+								<td><input type="tel" name="phone"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="menu2"></td>
-								<td><input type="number" name="menuPrice1"></td>
+								<td><label>위치 : </label></td>
+								<td><input type="text" name="address"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="menu3"></td>
-								<td><input type="number" name="menuPrice1"></td>
+								<td><label>영업시간(평일) : </label></td>
+								<td><input type="time" name="openTime1"></td>
+								<td><input type="time" name="closeTime1"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="menu4"></td>
-								<td><input type="number" name="menuPrice1"></td>
-							</tr>	
-						</tbody>		
-					</table>				
-				</form>
-			</div>
-			
-			<div class="container col-sm-9"  style="border: 0.5px solid lightgray; 
-					float: left; width: 25%; height:90%;" >
-				<form action="#" method="post">
-					<h4 align="center">사진첨부</h4>
-						<div style="border: 0.5px solid lightgray; margin 0 auto; height:65%;">
-							<h4><a href="#">사진첨부링크</a></h4>
-						</div>
-				</form>	
+								<td><label>영업시간(공휴일) : </label></td>
+								<td><input type="time" name="openTime1"></td>
+								<td><input type="time" name="closeTime2"></td>
+							</tr>
+							<tr>
+								<td><label>간단한 소개 : </label></td>
+								<td><input type="text" name="introducer"
+									style="width: 175px; height: 80px;"></td>
+							</tr>
+
+						</table>
+					</form>
 				</div>
-				
-		</div>
-		</div>
-	
-		<button type="submit" style="float:right;">적용</button>&nbsp;
-		<button  style="float:right;">미리보기</button>
+				<div class="container col-sm-9"
+					style="border: 0.5px solid lightgray; float: left; width: 25%; height: 90%; overflow-x: auto;">
+					<h4 align="center">메뉴</h4>
+					<br>
+					<br>
+					<form action="#" method="post">
+						<table class="table table-bordered" style="min-width: 500px;">
+							<thead>
+								<tr style="background: lightgray">
+									<th align="center">메뉴명</th>
+									<th align="center">가격</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="text" name="menu1"></td>
+									<td><input type="number" name="menuPrice1"></td>
+								</tr>
+								<tr>
+									<td><input type="text" name="menu2"></td>
+									<td><input type="number" name="menuPrice1"></td>
+								</tr>
+								<tr>
+									<td><input type="text" name="menu3"></td>
+									<td><input type="number" name="menuPrice1"></td>
+								</tr>
+								<tr>
+									<td><input type="text" name="menu4"></td>
+									<td><input type="number" name="menuPrice1"></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+
+				<div class="container col-sm-9"
+					style="border: 0.5px solid lightgray; float: left; width: 25%; height: 90%;">
+					<form action="#" method="post">
+						<h4 align="center">사진첨부</h4>
+						<div
+							style="border: 0.5px solid lightgray; margin 0 auto; height: 65%;">
+							<h4>
+								<a href="#">사진첨부링크</a>
+							</h4>
+						</div>
+					</form>
+				</div>
+
 			</div>
+		</div>
+
+		<button type="submit" style="float: right;">적용</button>
+		&nbsp;
+		<button style="float: right;">미리보기</button>
+	</div>
 
 
-			<!-- jQuery CDN - Slim version (=without AJAX) -->
-			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-				integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-				crossorigin="anonymous"></script>
-			<!-- Popper.JS -->
-			<script
-				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-				integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-				crossorigin="anonymous"></script>
-			<!-- Bootstrap JS -->
-			<script
-				src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-				integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-				crossorigin="anonymous"></script>
-			<!-- jQuery Custom Scroller CDN -->
-			<script
-				src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<!-- Popper.JS -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+		integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+		integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+		crossorigin="anonymous"></script>
+	<!-- jQuery Custom Scroller CDN -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-			<script type="text/javascript">
+	<script type="text/javascript">
 				$(document).ready(
 						function() {
 							$("#sidebar").mCustomScrollbar({
@@ -383,7 +387,7 @@ a.article, a.article:hover {
 												'aria-expanded', 'false');
 									});
 						});
-			</script> 
+			</script>
 </body>
 
 </html>

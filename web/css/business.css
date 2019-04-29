@@ -1,12 +1,12 @@
-.container ul{
-	list-style:none;
+.container ul {
+	list-style: none;
 }
 
-.container ul li{
-	display: inline-block;	
+.container ul li {
+	display: inline-block;
 }
 
-.li2{
+.li2 {
 	float: right;
 }
 

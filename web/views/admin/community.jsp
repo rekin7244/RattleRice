@@ -171,7 +171,7 @@ a.article, a.article:hover {
 }
 
 #update {
- 	padding:10px;
+	padding: 10px;
 	margin-left: 1500px;
 }
 </style>
@@ -292,13 +292,13 @@ a.article, a.article:hover {
 								</thead>
 								<tbody>
 									<tr>
-									<td>1</td>
+										<td>1</td>
 										<td>공지사항 테스트</td>
 										<td>관리자</td>
 										<td>2018-03-01 19:31</td>
 										<td>196</td>
 									</tr>
-										<tr>
+									<tr>
 										<td>2</td>
 										<td>딸랑밥 이용방법</td>
 										<td>관리자</td>

@@ -253,8 +253,8 @@
 							<td><input type="text" class="input_type02" id="tel1"
 								value="" maxlength="4" name="tel1" /> <input type="text"
 								class="input_type02" id="tel2" value="" maxlength="4"
-								name="tel2" /> <input type="text" class="input_type02" id="tel3"
-								value="" maxlength="4" name="tel3" /></td>
+								name="tel2" /> <input type="text" class="input_type02"
+								id="tel3" value="" maxlength="4" name="tel3" /></td>
 							<td>문의내용</td>
 							<td><input type="text" class="input_type01" id="title"
 								style="width: 260px;" value="" name="title" /></td>
@@ -354,8 +354,7 @@
 					<br>
 
 				</form>
-				<br>
-				<br>
+				<br> <br>
 				<table style="width: 100%; text-align: center;"
 					class="table table-striped table-bordered table-hover">
 					<tr class="info">

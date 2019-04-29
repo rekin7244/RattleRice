@@ -196,7 +196,7 @@
 
 
 							<input type="button" name="login-submit" id="login-submit"
-								tabindex="4" class="form-control btn btn-success" value="일반회원" 
+								tabindex="4" class="form-control btn btn-success" value="일반회원"
 								onclick="window.open('views/member/memberJoinForm.jsp')">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="button" name="login-submit" id="login-submit"

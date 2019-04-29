@@ -1,52 +1,52 @@
 img {
 	width: 100%;
-	
 }
+
 #bg-img {
-   height: 650px;
-   background-image: url('../images/main.jpg');
-   background-repeat: no-repeat;
-   background-size: cover;
-   background-position: 50% 50%;
-   background-attachment: fixed;
+	height: 650px;
+	background-image: url('../images/main.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 50% 50%;
+	background-attachment: fixed;
 }
 
 #bgtext {
-   transition-duration: 1s;
+	transition-duration: 1s;
 }
 
- #bgtext:hover {
-   color: orangered;
-   text-shadow: 3px 3px orange;
-   font-weight: bold;
-   font-size: 100px;
-   
+#bgtext:hover {
+	color: orangered;
+	text-shadow: 3px 3px orange;
+	font-weight: bold;
+	font-size: 100px;
 }
-
 
 #bgtext {
-   padding: 100px;
-   padding-left: 70px;
-   text-align: center;
-   color: white;
-   font-size: 53px;
-   font-family: 'Megrim', cursive;
-   text-shadow: 0px 0px 10px #000, 0px 0px 10px #000, 0px 0px 10px #000,
-      0px 0px 10px #000, 0px 0px 10px #000;
+	padding: 100px;
+	padding-left: 70px;
+	text-align: center;
+	color: white;
+	font-size: 53px;
+	font-family: 'Megrim', cursive;
+	text-shadow: 0px 0px 10px #000, 0px 0px 10px #000, 0px 0px 10px #000,
+		0px 0px 10px #000, 0px 0px 10px #000;
 }
 
 .navbar-inverse {
-   background: #F4AC8A;
-   border: none;
+	background: #F4AC8A;
+	border: none;
 }
+
 .navbar-inverse .navbar-nav>li>a {
-   color: black;
+	color: black;
 }
+
 .contact-form {
-   margin: 0 auto;
-   padding: 10px;
-   text-align: center;
-   background: yellowgreen;
+	margin: 0 auto;
+	padding: 10px;
+	text-align: center;
+	background: yellowgreen;
 }
 /* 우측하단 채팅방 아이콘 고정 */
 .fixed {
@@ -55,15 +55,6 @@ img {
 	right: 3%;
 }
 
-.fixed .icon{
+.fixed .icon {
 	font-size: 3em;
 }
-
-
-
-
-
-
-
-
-
