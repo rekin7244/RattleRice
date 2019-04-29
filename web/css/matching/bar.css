@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+#menu i.icon {
+	font-size: 1.7em;
+	color: white;
+}
+
+#header i.icon {
+	font-size: 1.5em;
+	color: white;
+}
+
+#header .search {
+	float: right;
+	position: absolute;
+}
+
+.navbar-nav {
+	margin: 0;
+}
+
+.nav>li {
+   display: inline-block;
+   width: 23%;
+   text-align: center;
+}
+
+.nav>li>a {
+   color:white;
+}
+
+.navbar {
+   background: #1ABC9C;   
+}
