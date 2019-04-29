@@ -191,6 +191,18 @@ a.article, a.article:hover {
 		display: none;
 	}
 }
+
+.container ul {
+	list-style: none;
+	padding: 0;
+}
+
+.li2 {
+	float: right;
+}
+.buttonPadding{
+padding-bottom: 30px;
+}
 </style>
 </head>
 
@@ -211,9 +223,8 @@ a.article, a.article:hover {
 					data-toggle="collapse" aria-expanded="false"
 					class="dropdown-toggle">예약관리</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
-						<li><a href="#">예약 관리</a></li>
-						<li><a href="#">예약 신청 현황</a></li>
-						<li><a href="#">지난 예약 기록</a></li>
+						<li><a href="reservationForm.jsp">예약 신청 현황</a></li>
+						<li><a href="pastReservationForm.jsp">지난 예약 기록</a></li>
 					</ul></li>
 
 				<li><a href="#pageSubmenu" data-toggle="collapse"
@@ -236,8 +247,16 @@ a.article, a.article:hover {
 				<div class="container-fluid">
 
 					<button type="button" id="sidebarCollapse" class="btn btn-info">
-						<i class="fas fa-align-left"></i> <span>Toggle Sidebar</span>
+						<i class="fas fa-align-left"></i> <span>menu</span>
 					</button>
+					<button class="btn btn-dark d-inline-block d-lg-none ml-auto"
+						type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<i class="fas fa-align-justify"></i>
+					</button>
+
 					<button class="btn btn-dark d-inline-block d-lg-none ml-auto"
 						type="button" data-toggle="collapse"
 						data-target="#navbarSupportedContent"
@@ -248,11 +267,11 @@ a.article, a.article:hover {
 
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="#">Page</a>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="#">Page</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">Page</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">Page</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="reservationForm.jsp">예약관리</a></li>
+							<li class="nav-item active"><a class="nav-link"
+								href="businessFormShop.jsp">매장관리</a></li>
+
 						</ul>
 					</div>
 				</div>
@@ -260,11 +279,16 @@ a.article, a.article:hover {
 
 
 			<div class="container col-sm-9">
+				<div class="buttonPadding">
+					<ul>
+						<li class="li2"><button type="submit" style="float: right;">적용</button></li>
+						<li class="li2"><button style="float: right;">미리보기</button>
+					</ul>
+				</div>
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray; float: left; width: 25%; height: 90%; overflow-x: auto;">
+					style="border: 0.5px solid lightgray;  height: 90%; overflow-x: auto;">
 					<h4 align="center">매장정보</h4>
-					<br>
-					<br>
+					<br> <br>
 					<form action="#" method="post">
 						<table align="center"
 							style="min-width: 500px; border-collapse: separate; border-spacing: 0 10px;">
@@ -296,10 +320,9 @@ a.article, a.article:hover {
 					</form>
 				</div>
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray; float: left; width: 25%; height: 90%; overflow-x: auto;">
+					style="border: 0.5px solid lightgray;  height: 90%; overflow-x: auto;">
 					<h4 align="center">메뉴</h4>
-					<br>
-					<br>
+					<br> <br>
 					<form action="#" method="post">
 						<table class="table table-bordered" style="min-width: 500px;">
 							<thead>
@@ -331,7 +354,7 @@ a.article, a.article:hover {
 				</div>
 
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray; float: left; width: 25%; height: 90%;">
+					style="border: 0.5px solid lightgray;   height: 90%;">
 					<form action="#" method="post">
 						<h4 align="center">사진첨부</h4>
 						<div
@@ -346,9 +369,7 @@ a.article, a.article:hover {
 			</div>
 		</div>
 
-		<button type="submit" style="float: right;">적용</button>
-		&nbsp;
-		<button style="float: right;">미리보기</button>
+
 	</div>
 
 
@@ -371,23 +392,18 @@ a.article, a.article:hover {
 		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
 	<script type="text/javascript">
-				$(document).ready(
-						function() {
-							$("#sidebar").mCustomScrollbar({
-								theme : "minimal"
-							});
+		$(document).ready(function() {
+			$("#sidebar").mCustomScrollbar({
+				theme : "minimal"
+			});
 
-							$('#sidebarCollapse').on(
-									'click',
-									function() {
-										$('#sidebar, #content').toggleClass(
-												'active');
-										$('.collapse.in').toggleClass('in');
-										$('a[aria-expanded=true]').attr(
-												'aria-expanded', 'false');
-									});
-						});
-			</script>
+			$('#sidebarCollapse').on('click', function() {
+				$('#sidebar, #content').toggleClass('active');
+				$('.collapse.in').toggleClass('in');
+				$('a[aria-expanded=true]').attr('aria-expanded', 'false');
+			});
+		});
+	</script>
 </body>
 
 </html>

@@ -211,9 +211,8 @@ a.article, a.article:hover {
 					data-toggle="collapse" aria-expanded="false"
 					class="dropdown-toggle">예약관리</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
-						<li><a href="#">예약 관리</a></li>
-						<li><a href="#">예약 신청 현황</a></li>
-						<li><a href="#">지난 예약 기록</a></li>
+						<li><a href="reservationForm.jsp">예약 신청 현황</a></li>
+						<li><a href="pastReservationForm.jsp">지난 예약 기록</a></li>
 					</ul></li>
 
 				<li><a href="#pageSubmenu" data-toggle="collapse"
@@ -230,34 +229,32 @@ a.article, a.article:hover {
 		</nav>
 
 		<!-- Page Content  -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container-fluid">
+		<div id="content">
 
-				<button type="button" id="sidebarCollapse" class="btn btn-info">
-					<i class="fas fa-align-left"></i> <span>Toggle Sidebar</span>
-				</button>
-				<button class="btn btn-dark d-inline-block d-lg-none ml-auto"
-					type="button" data-toggle="collapse"
-					data-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<i class="fas fa-align-justify"></i>
-				</button>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<div class="container-fluid">
 
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="nav navbar-nav ml-auto">
-						<li class="nav-item active"><a class="nav-link" href="#">Page</a>
-						</li>
-						<li class="nav-item"><a class="nav-link" href="#">Page</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Page</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Page</a></li>
-					</ul>
+					<button type="button" id="sidebarCollapse" class="btn btn-info">
+						<i class="fas fa-align-left"></i> <span>Toggle Sidebar</span>
+					</button>
+					<button class="btn btn-dark d-inline-block d-lg-none ml-auto"
+						type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<i class="fas fa-align-justify"></i>
+					</button>
+
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="nav navbar-nav ml-auto">
+							<li class="nav-item active"><a class="nav-link" href="reservationForm.jsp">예약관리</a>
+							</li>
+							<li class="nav-item"><a class="nav-link" href="businessFormShop.jsp">매장관리</a></li>
+							
+						</ul>
+					</div>
 				</div>
-			</div>
-		</nav>
-		<div id="content" class="container-fluid">
-
-
+			</nav>
 
 			<div class="col-md-8">
 				<p>매출분석</p>
