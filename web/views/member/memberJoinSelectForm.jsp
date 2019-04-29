@@ -22,6 +22,7 @@
 	box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
 	width: 500px;
 	height: 300px;
+	margin: 0 auto;
 }
 
 .panel-join>.panel-heading {
@@ -159,6 +160,9 @@
 	text-align: center;
 	display: inline-block;
 }
+.selectImg{
+width: auto;
+}
 </style>
 <title>딸랑밥 회원가입</title>
 </head>
@@ -182,11 +186,11 @@
 							<div class="center"></div>
 							<div class="one">사업자 등록증을 소지한 사업자</div>
 							<div class="one">
-								<img src="images/user.PNG">
+								<img src="images/user.PNG" class="selectImg">
 							</div>
 							<div class="center">or</div>
 							<div class="one">
-								<img src="images/bUser.PNG">
+								<img src="images/bUser.PNG" class="selectImg">
 							</div>
 						</div>
 

@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>My Homepage</title>
+
+<style>
+body::-webkit-scrollbar { 
+    display: none; 
+}
+</style>
 <link href="https://fonts.googleapis.com/css?family=Gaegu:700|Megrim"
 	rel="stylesheet">
 <link rel="stylesheet"
@@ -78,14 +84,12 @@
 			<div class="modal-dialog modal-sm">
 				<%@include file="views/member/memberLoginForm.jsp"%>
 				<!-- Modal content-->
-				<div class="modal-content"></div>
 			</div>
 		</div>
 		<div class="modal fade" id="joinModla" role="dialog">
 			<div class="modal-dialog">
 				<%@include file="views/member/memberJoinSelectForm.jsp"%>
 				<!-- Modal content-->
-				<div class="modal-content"></div>
 			</div>
 		</div>
 	</div>
