@@ -10,14 +10,13 @@
 <link rel="stylesheet" href="/rr/css/semantic.min.css">
 <script src="/rr/js/semantic.min.js"></script>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
 <!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- 메뉴바 스타일 -->
 <link rel="stylesheet" type="text/css" href="../../css/matching/bar.css">
 <title>Insert title here</title>
@@ -36,6 +35,9 @@
 </head>
 <body>
 	<%@ include file="header.jsp"%>
+	<div class="bar">
+		<p>채팅방</p>
+	</div>
 	<%@ include file="menubar.jsp"%>
 
 	<!-- 방 생성 (선택) -->
@@ -192,7 +194,7 @@
 					</div>
 					<div class="modal-body" data-backdrop="static">
 						<p style="color: #4abeca; font-size: 0.8em;">키워드를 입력하세요.</p>
-						<input type="text" class="form-control" id="ks"
+						<input type="search" class="form-control" id="ks"
 							placeholder="Input Text Here.">
 					</div>
 					<div class="modal-footer" data-backdrop="static">

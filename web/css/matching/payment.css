@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.nav-tabs>li {
+	width:50%;
+}
+
+.bar {
+	margin: 17% 0 0 0;
+}
+
+.paybtn {
+	position: relative;
+	left: 41%;
+}

@@ -4,8 +4,8 @@
 	style="padding: 3px 0">
 	<div class="container">
 		<div id="header">
-			<ul class="nav navbar-nav ">
-				<li style="left: -3%;"><a href="main.jsp"><i
+			<ul class="nav navbar-nav mainbar">
+				<li class="" style="left: -3%;"><a href="main.jsp"><i
 						class="arrow left icon"></i></a></li>
 				<li data-toggle="modal" data-target="#msearch" class="search"
 					style="right: 0%;"><a href="#msearch"><i
@@ -17,4 +17,3 @@
 		</div>
 	</div>
 </nav>
-
