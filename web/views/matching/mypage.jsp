@@ -75,9 +75,9 @@
 				<button type="button" class="btn btn-default">변경</button>
 			</div>
 		</form>
-		
+
 		<br>
-		
+
 		<div class="cash">
 			<div class="coin pay">
 				<a href="payment.jsp"> <label><i class="bell icon"

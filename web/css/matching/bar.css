@@ -20,15 +20,15 @@
 }
 
 .nav>li {
-   display: inline-block;
-   width: 23%;
-   text-align: center;
+	display: inline-block;
+	width: 23%;
+	text-align: center;
 }
 
 .nav>li>a {
-   color:white;
+	color: white;
 }
 
 .navbar {
-   background: #1ABC9C;   
+	background: #1ABC9C;
 }

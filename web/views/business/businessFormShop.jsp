@@ -32,7 +32,6 @@
 	crossorigin="anonymous"></script>
 
 <style>
-
 @import
 	"https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
@@ -44,7 +43,7 @@ body {
 
 /* 환영메세지 */
 p {
-	text-align:center;
+	text-align: center;
 	font-family: 'Poppins', sans-serif;
 	font-size: 1.1em;
 	font-weight: 300;
@@ -58,7 +57,6 @@ a, a:hover, a:focus {
 	text-decoration: none;
 	transition: all 0.3s;
 }
-
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -84,9 +82,8 @@ a, a:hover, a:focus {
 	margin-left: -250px;
 }
 
-
 #sidebar .sidebar-header {
-	text-align:right;
+	text-align: right;
 	padding: 10px;
 	background: #aaaaaa;
 }
@@ -94,7 +91,6 @@ a, a:hover, a:focus {
 #sidebar ul.components {
 	padding: 20px 0;
 	border-bottom: 1px solid #47748b;
-	
 }
 
 #sidebar ul p {
@@ -211,9 +207,9 @@ a.article, a.article:hover {
 				<p>
 					<b>___ 사업자님 환영합니다.</b>
 				</p>
-				<li class="active">
-				<a href="#homeSubmenu" data-toggle="collapse" 
-				aria-expanded="false" class="dropdown-toggle">예약관리</a>
+				<li class="active"><a href="#homeSubmenu"
+					data-toggle="collapse" aria-expanded="false"
+					class="dropdown-toggle">예약관리</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
 						<li><a href="#">예약 관리</a></li>
 						<li><a href="#">예약 신청 현황</a></li>
@@ -263,42 +259,43 @@ a.article, a.article:hover {
 			</nav>
 
 
-         <div class="container col-sm-9">
-				<div style="border: 0.5px solid lightgray; width:70%; height:40%;">				
-			<img src="../../images/SoyShrimp.jpg" width="50%" height="50%">
-				
-				<!-- <img src="${pageContext.request.contextPath}/getPic?pic_no=${pic_no}" width="300" height="210"> -->
-			</div>
+			<div class="container col-sm-9">
+				<div style="border: 0.5px solid lightgray; width: 70%; height: 40%;">
+					<img src="../../images/SoyShrimp.jpg" width="50%" height="50%">
 
-				<div class="container col-sm-9" style="float:left; width:30%;">
-				<table id="info">
-					<tbody  align="center">
-						<tr>
-							<td>hp :</td>
-							<td>02-1234-5555</td>
-						</tr>
-						<tr>
-							<td>위치 :</td>
-							<td>서울시 강남구 역삼동</td>
-						</tr>
-						<tr>
-							<td>영업시간 :</td>
-							<td>평일00:00 ~ 00:00<br>
-							공휴일00:00 ~ 00:00
-							</td>
-							
-						</tr>
-						<tr>
-							<td>매장소개 :</td>
-							<td>난너를믿었던만큼 난네 친구도 믿었기에</td>
-						</tr>
-					</tbody>
-				</table>
+					<!-- <img src="${pageContext.request.contextPath}/getPic?pic_no=${pic_no}" width="300" height="210"> -->
+				</div>
+
+				<div class="container col-sm-9" style="float: left; width: 30%;">
+					<table id="info">
+						<tbody align="center">
+							<tr>
+								<td>hp :</td>
+								<td>02-1234-5555</td>
+							</tr>
+							<tr>
+								<td>위치 :</td>
+								<td>서울시 강남구 역삼동</td>
+							</tr>
+							<tr>
+								<td>영업시간 :</td>
+								<td>평일00:00 ~ 00:00<br> 공휴일00:00 ~ 00:00
+								</td>
+
+							</tr>
+							<tr>
+								<td>매장소개 :</td>
+								<td>난너를믿었던만큼 난네 친구도 믿었기에</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
-			<div class="container col-sm-9" style="float:right; width:30%;">
+			<div class="container col-sm-9" style="float: right; width: 30%;">
 				<table id="menu">
-						<thead align="center"><th  align="center">메뉴</th></thead>
+					<thead align="center">
+						<th align="center">메뉴</th>
+					</thead>
 					<tbody align="center">
 						<tr>
 							<td>간장새우</td>
@@ -312,7 +309,7 @@ a.article, a.article:hover {
 							<td>간장새우 스페셜</td>
 							<td>10,000원</td>
 						</tr>
-						
+
 					</tbody>
 				</table>
 			</div>
@@ -353,7 +350,7 @@ a.article, a.article:hover {
 												'aria-expanded', 'false');
 									});
 						});
-			</script> 
+			</script>
 </body>
 
 </html>

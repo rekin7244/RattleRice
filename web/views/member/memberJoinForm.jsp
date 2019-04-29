@@ -119,13 +119,13 @@
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
-.btn-primary{
+
+.btn-primary {
 	width: 70px;
 	padding: 0%;
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
-
 
 .form-control {
 	width: 300px;

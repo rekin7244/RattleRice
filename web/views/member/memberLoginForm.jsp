@@ -169,8 +169,7 @@
 							<input type="submit" name="login-submit" id="login-submit"
 								tabindex="4" class="form-control btn btn-success" value="회원가입"
 								data-toggle="modal" data-dismiss="modal"
-								data-target="#joinModal"> 
-							<input type="submit"
+								data-target="#joinModal"> <input type="submit"
 								name="login-submit" id="login-submit" tabindex="4"
 								class="form-control btn btn-primary" value="로그인">
 
