@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -154,9 +155,9 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-lg-12">
-					<form id="login-form" action="#" method="post" role="form">
+					<form id="login-form" action="<%= request.getContextPath() %>/loginMember" method="get" role="form">
 						<div class="form-group">
-							<input type="text" name="username" id="username" tabindex="1"
+							<input type="text" name="userId" id="userId" tabindex="1"
 								class="form-control" placeholder="Username" value="">
 						</div>
 						<div class="form-group">

@@ -1,4 +1,4 @@
-package com.kh.w6.common;
+package com.kh.rr.common;
 
 import java.sql.Statement;
 import java.io.FileReader;

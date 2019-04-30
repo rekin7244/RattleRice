@@ -353,7 +353,7 @@ body::-webkit-scrollbar {
 					<br>
 					<div class="pull-right">
 						<button type="submit" class="btn btn-primary" value="검색"
-							onclick="">검색</button>
+							onclick="" style="width: 100%;">검색</button>
 					</div>
 					<br>
 

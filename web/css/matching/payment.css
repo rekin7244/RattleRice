@@ -9,6 +9,36 @@
 }
 
 .paybtn {
-	position: relative;
-	left: 41%;
+	float: right; 
+	margin-top: 6px;
+	border: none;
 }
+
+.tab-content .payTab {
+	position: fixed;
+    top: 81.5%;
+    width: 100%;
+    background: #FFE8EE;
+    height: 44px;
+}
+
+.tab-content label {
+	margin-top : 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

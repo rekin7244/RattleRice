@@ -47,19 +47,19 @@
 
 	<div class="tab-content">
 		<div id="bellTab" class="tab-pane fade in active">
-			<div class="container-fluid">
+			<div class="container-fluid payTab">
 				<label><i class="bell icon" style="color: gold"></i>보유 bell
 				</label> <label><span style="color: #4abeca;">10</span>벨</label>
 			</div>
 		</div>
 
 		<div id="billTab" class="tab-pane fade">
-			<div class="container-fluid">
+			<div class="container-fluid payTab">
 				<label><i class="money bill alternate icon"
 					style="color: gold"></i>보유 bill </label> <label><span
 					style="color: #4abeca;">10000</span>빌</label>
 				<button type="button" class="btn btn-default paybtn"
-					data-toggle="modal" data-target="#refund">환급신청</button>
+					data-toggle="modal" data-target="#refund" >환급신청</button>
 			</div>
 		</div>
 	</div>
