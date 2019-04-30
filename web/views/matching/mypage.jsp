@@ -9,19 +9,18 @@
 <link rel="stylesheet" href="/rr/css/semantic.min.css">
 <!-- 부트스트랩 -->
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
 <!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- 메뉴바 스타일 -->
 <link rel="stylesheet" type="text/css" href="../../css/matching/bar.css">
 <!-- 마이페이지 -->
 <link rel="stylesheet" type="text/css"
-	href="../../css/matching/user.css">
+	href="../../css/matching/mypage.css">
 <title>Insert title here</title>
 <script>
 	$(function() {
@@ -34,7 +33,7 @@
 <body>
 	<%@ include file="header.jsp"%>
 
-	<div class="content" style="margin-top: 14%;">
+	<div class="content bar">
 
 		<div class="img" align="center">
 			<img src="../../images/profile.PNG"><br>
@@ -72,7 +71,7 @@
 			</div>
 			<br> <br>
 			<div class="line" align="right">
-				<button type="button" class="btn btn-default">변경</button>
+				<button type="submit" class="btn btn-default">변경</button>
 			</div>
 		</form>
 

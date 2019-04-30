@@ -19,14 +19,10 @@
 	margin: 0;
 }
 
-.nav>li {
+.mainbar>li {
 	display: inline-block;
-	width: 23%;
+	width: 24%;
 	text-align: center;
-}
-
-.nav>li>a {
-	color: white;
 }
 
 .navbar {
