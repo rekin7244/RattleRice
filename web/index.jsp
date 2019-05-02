@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.Member"%>
+	
+<%
+	Member loginUser = (Member) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -420,12 +424,17 @@ body::-webkit-scrollbar {
 	</div>
 	<br>
 	<br>
-	<br>
-	<div class="fixed">
-		<a
-			onclick="window.open('views/matching/main.jsp', '', 'top=50px, left=800px, height=500, width=400')"><i
-			class="comment outline icon"></i></a>
-	</div>
+	
+	<%if(loginUser != null){ %>
+		<div class="fixed">
+			<a
+				onclick="window.open('views/matching/main.jsp', '', 'top=50px, left=800px, height=500, width=400')"><i
+				class="comment outline icon"></i></a>
+		</div>
+		
+	<%}else{ %>
+	
+	<%} %>
 	<div class="footer">
 		<%@ include file="views/common/footer.jsp"%>
 	</div>
