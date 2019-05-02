@@ -47,17 +47,18 @@ public class MemberDao {
 			if(rset.next()) {
 				loginUser = new Member();
 				
-				loginUser.setUserId(rset.getString("USER_ID"));
+				loginUser.setUno(rset.getInt("UNo"));
+				loginUser.setUserId(rset.getString("USER_Id"));
 				loginUser.setUserPwd(rset.getString("USER_PWD"));
-				loginUser.setUserName(rset.getString("USER_NAME"));
-				loginUser.setGender(rset.getString("GENDER"));
-				loginUser.setAge(rset.getInt("AGE"));
-				loginUser.setEmail(rset.getString("EMAIL"));
+				loginUser.setNickName(rset.getString("NICK_NAME"));
 				loginUser.setPhone(rset.getString("PHONE"));
+				loginUser.setEmail(rset.getString("EMAIL"));
 				loginUser.setAddress(rset.getString("ADDRESS"));
-				loginUser.setHobby(rset.getString("HOBBY"));
+				loginUser.setInterest(rset.getString("INTEREST"));
 				loginUser.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				System.out.println(rset.getString("USER_ID"));
+				loginUser.setModifyDate(rset.getDate("MODIFY_DATE"));
+				loginUser.setStatus(rset.getString("STATUS"));
+				
 			}
 			
 		} catch (SQLException e) {

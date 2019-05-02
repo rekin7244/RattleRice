@@ -53,15 +53,15 @@ public class LoginMemberServlet extends HttpServlet {
 				response.sendRedirect(page);
 			}else{
 				
-					page="views/common/errorPage.jsp";
-					request.setAttribute("msg", "로그인에러!");
-					try {
-						throw new LoginException("로그인에러!");
-					} catch (LoginException e) {
-						RequestDispatcher view = 
-								request.getRequestDispatcher(page);
-						view.forward(request, response);
-					}
+				page="views/common/errorPage.jsp";
+				request.setAttribute("msg", "로그인에러!");
+				try {
+					throw new LoginException("로그인에러!");
+				} catch (LoginException e) {
+					RequestDispatcher view = 
+							request.getRequestDispatcher(page);
+					view.forward(request, response);
+				}
 					
 				
 			}
