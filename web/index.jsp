@@ -424,7 +424,6 @@ body::-webkit-scrollbar {
 	</div>
 	<br>
 	<br>
-	<br>
 	
 	<%if(loginUser != null){ %>
 		<div class="fixed">
