@@ -5,6 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
 	$(function() {
@@ -152,7 +155,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-lg-12">
-					<form id="login-form" action="<%= request.getContextPath() %>/login.me" method="post" role="form">
+					<form id="login-form" action="<%= request.getContextPath() %>/loginMember" method="get" role="form">
 						<div class="form-group">
 							<input type="text" name="userId" id="userId" tabindex="1"
 								class="form-control" placeholder="Username" value="">
