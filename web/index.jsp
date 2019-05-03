@@ -15,20 +15,25 @@ body::-webkit-scrollbar {
     display: none; 
 }
 </style>
-<link href="https://fonts.googleapis.com/css?family=Gaegu:700|Megrim"
-	rel="stylesheet">
+
+<link rel="stylesheet" href="/rr/css/semantic.min.css">
+<link rel="stylesheet" type="text/css" href="/rr/css/index.css">
+<link rel="stylesheet" type="text/css" href="/rr/css/footer.css">
+<script src="/rr/js/semantic.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="/rr/css/semantic.min.css">
-<link rel="stylesheet" type="text/css" href="css/index.css">
-<link rel="stylesheet" type="text/css" href="css/footer.css">
-<script src="/rr/js/semantic.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="/js/semantic.min.js"></script>
 <script>
+		$.noConflict();
+		var J = jQuery;
+	$(function(){
+		J("h1").removeClass('ligh_light');
+		
+	});
    function fnMove(seq) {
       var offset = $("#div" + seq).offset();
       $('html, body').animate({
@@ -87,21 +92,18 @@ body::-webkit-scrollbar {
 		<div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog modal-sm">
 				<%@include file="views/member/memberLoginForm.jsp"%>
-				<!-- Modal content-->
+				Modal content
 			</div>
 		</div>
 		<div class="modal fade" id="joinModla" role="dialog">
 			<div class="modal-dialog">
 				<%@include file="views/member/memberJoinSelectForm.jsp"%>
-				<!-- Modal content-->
+				Modal content
 			</div>
 		</div>
 	</div>
 
-	<!-- Sign up 모달 -->
-	<div class="container">
-		<!-- Modal -->
-	</div>
+
 	<br>
 	<br>
 	<div id="div1" class="container-fluid"></div>

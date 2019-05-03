@@ -47,16 +47,10 @@ public class MemberDao {
 			if(rset.next()) {
 				loginUser = new Member();
 				
-				loginUser.setUno(rset.getInt("UNo"));
-				loginUser.setUserId(rset.getString("USER_Id"));
+				loginUser.setUserId(rset.getString("USER_ID"));
 				loginUser.setUserPwd(rset.getString("USER_PWD"));
-				loginUser.setNickName(rset.getString("NICK_NAME"));
-				loginUser.setPhone(rset.getString("PHONE"));
-				loginUser.setEmail(rset.getString("EMAIL"));
-				loginUser.setAddress(rset.getString("ADDRESS"));
-				loginUser.setInterest(rset.getString("INTEREST"));
-				loginUser.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				loginUser.setModifyDate(rset.getDate("MODIFY_DATE"));
+				loginUser.setUserName(rset.getString("USER_NAME"));
+				loginUser.setmKind(rset.getString("MEMBER_KIND"));
 				loginUser.setStatus(rset.getString("STATUS"));
 				
 			}
