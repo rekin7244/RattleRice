@@ -33,9 +33,9 @@ public class MemberDao {
 		Member loginUser = null;
 		
 		String query = prop.getProperty("loginCheck");
-		System.out.println(query);
+		/*System.out.println(query);
 		System.out.println(userId);
-		System.out.println(password);
+		System.out.println(password);*/
 		try {
 			pstmt = con.prepareStatement(query);
 			
@@ -47,16 +47,8 @@ public class MemberDao {
 			if(rset.next()) {
 				loginUser = new Member();
 				
-				loginUser.setUno(rset.getInt("UNo"));
 				loginUser.setUserId(rset.getString("USER_Id"));
 				loginUser.setUserPwd(rset.getString("USER_PWD"));
-				loginUser.setNickName(rset.getString("NICK_NAME"));
-				loginUser.setPhone(rset.getString("PHONE"));
-				loginUser.setEmail(rset.getString("EMAIL"));
-				loginUser.setAddress(rset.getString("ADDRESS"));
-				loginUser.setInterest(rset.getString("INTEREST"));
-				loginUser.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				loginUser.setModifyDate(rset.getDate("MODIFY_DATE"));
 				loginUser.setStatus(rset.getString("STATUS"));
 				
 			}
