@@ -45,8 +45,12 @@ public class LoginMemberServlet extends HttpServlet {
 		if(loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-
-			page = "index.jsp";
+			
+			if(loginUser.getUserId().equals("admin")) {
+				page=request.getContextPath()+"/views/admin/adminForm.jsp";
+			}else {				
+				page = "index.jsp";
+			}
 			response.sendRedirect(page);
 		}else{
 
