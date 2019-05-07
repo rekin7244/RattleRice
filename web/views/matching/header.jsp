@@ -1,5 +1,85 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<head>
+<style>
+#menu i.icon {
+	font-size: 1.7em;
+	color: white;
+}
+
+#header i.icon {
+	font-size: 1.5em;
+	color: white;
+}
+
+#header .search {
+	float: right;
+	position: absolute;
+}
+
+.navbar-nav {
+	margin: 0;
+}
+
+.mainbar>li {
+	display: inline-block;
+	width: 24%;
+	text-align: center;
+}
+
+.navbar {
+	background: #1ABC9C;
+}
+/* 마이페이지 css */
+ul, body {
+	margin: 0 !important;
+}
+
+.cash>div>a {
+	text-decoration: none;
+	color: black;
+}
+
+.img .icon {
+	font-size: 1.3em;
+	margin-left: 0.3em;
+}
+
+.content {
+	padding: 15px;
+	margin-bottom: 14%;
+	margin-top: 15%;
+}
+
+.content .line>div {
+	display: inline-block;
+	margin-top: 20px;
+}
+
+.line {
+	margin: 0 5%;
+}
+
+.pay {
+	margin: 0 5%;
+}
+
+.title {
+	width: 30%;
+	font-weight: bold;
+}
+
+.line .contents {
+	border: none;
+	width: 67%;
+}
+
+.img .icon {
+	font-size: 1.5em;
+	color: red;
+}
+</style>
+</head>
 <nav class="navbar navbar-default navbar-fixed-top"
 	style="padding: 3px 0">
 	<div class="container">
