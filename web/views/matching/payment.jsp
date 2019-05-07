@@ -4,27 +4,45 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- Sematic UI -->
-<script src="/rr/js/semantic.min.js"></script>
-<link rel="stylesheet" href="/rr/css/semantic.min.css">
 <!-- 부트스트랩 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
 <!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- 메뉴바 스타일 -->
-<link rel="stylesheet" type="text/css" href="../../css/matching/bar.css">
-<!-- 거래내역 스타일 -->
-<link rel="stylesheet" type="text/css"
-	href="../../css/matching/payment.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <title>Insert title here</title>
+<style>
+.nav-tabs>li {
+	width:50%;
+}
+
+.bar {
+	margin: 17% 0 0 0;
+}
+
+.paybtn {
+	float: right; 
+	margin-top: 6px;
+	border: none;
+}
+
+.tab-content .payTab {
+	position: fixed;
+    top: 81.5%;
+    width: 100%;
+    background: #FFE8EE;
+    height: 44px;
+}
+
+.tab-content label {
+	margin-top : 12px;
+}
+
+</style>
 <script>
 	$(function() {
 		$(window).resize(function() {
