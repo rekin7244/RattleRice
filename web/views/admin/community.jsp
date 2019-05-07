@@ -75,7 +75,7 @@
 						<li class="nav-item active"><a class="nav-link" href="#">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="calculate.jsp">정산</a></li>
 						<li class="nav-item"><a class="nav-link" href="sms.jsp">SMS</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">로그아웃</a></li>
+						<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
 					</ul>
 				</div>
 			</div>
