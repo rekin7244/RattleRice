@@ -33,9 +33,9 @@ public class MemberDao {
 		Member loginUser = null;
 		
 		String query = prop.getProperty("loginCheck");
-		/*System.out.println(query);
+		System.out.println(query);
 		System.out.println(userId);
-		System.out.println(password);*/
+		System.out.println(password);
 		try {
 			pstmt = con.prepareStatement(query);
 			

@@ -7,27 +7,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>My Homepage</title>
-
-<style>
-body::-webkit-scrollbar { 
-    display: none; 
-}
-</style>
-<link href="https://fonts.googleapis.com/css?family=Gaegu:700|Megrim"
-	rel="stylesheet">
+<title>딸랑밥</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="/rr/css/semantic.min.css">
-<link rel="stylesheet" type="text/css" href="css/index.css">
-<link rel="stylesheet" type="text/css" href="css/footer.css">
-<script src="/rr/js/semantic.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script src="/js/semantic.min.js"></script>
 <script>
    function fnMove(seq) {
       var offset = $("#div" + seq).offset();
@@ -36,6 +22,69 @@ body::-webkit-scrollbar {
       }, 800);
    }
 </script>
+<style>
+
+img {
+	width: 100%;
+}
+
+#bg-img {
+	height: 650px;
+	background-image: url('images/main.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 50% 50%;
+	background-attachment: fixed;
+}
+
+#bgtext {
+	transition-duration: 1s;
+}
+
+#bgtext:hover {
+	color: orangered;
+	text-shadow: 3px 3px orange;
+	font-weight: bold;
+	font-size: 100px;
+}
+
+#bgtext {
+	padding: 100px;
+	padding-left: 70px;
+	text-align: center;
+	color: white;
+	font-size: 53px;
+	font-family: 'Megrim', cursive;
+	text-shadow: 0px 0px 10px #000, 0px 0px 10px #000, 0px 0px 10px #000,
+		0px 0px 10px #000, 0px 0px 10px #000;
+}
+
+.navbar-inverse {
+	background: #F4AC8A;
+	border: none;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: black;
+}
+
+.contact-form {
+	margin: 0 auto;
+	padding: 10px;
+	text-align: center;
+	background: yellowgreen;
+}
+/* 우측하단 채팅방 아이콘 고정 */
+.fixed {
+	position: fixed;
+	top: 90%;
+	right: 3%;
+}
+
+.fixed .icon {
+	font-size: 3em;
+}
+</style>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 	<div id="div0" class="container-fluid"></div>
