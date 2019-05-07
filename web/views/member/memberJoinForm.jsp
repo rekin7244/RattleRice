@@ -155,28 +155,29 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-12">
-							<form id="join-form" action="" method="post" role="form"
+							<form id="join-form" action="<%= request.getContextPath() %>/insertMember.me" method="post" role="form"
 								style="display: block;">
+								<input type="hidden" name="memberKind" id="memberKind" value="1">
 								<div class="form-group">
 									<input type="text" name="userId" id="userId"
-										class="form-control" placeholder="아이디">
+										class="form-control" placeholder="아이디" required>
 									<button class="btn btn-warning">중복확인</button>
 								</div>
 								<div class="form-group">
-									<input type="password" name="password1" id="password1"
-										class="form-control" placeholder="비밀번호">
+									<input type="password" name="userPwd" id="userPwd"
+										class="form-control" placeholder="비밀번호" required>
 								</div>
 								<div class="form-group">
-									<input type="password" name="password2" id="password2"
-										class="form-control" placeholder="비밀번호 확인">
+									<input type="password" name="userPwd2" id="userPwd2"
+										class="form-control" placeholder="비밀번호 확인" required>
 								</div>
 
 								<div class="form-group">
 									<input type="text" name="userName" id="userName"
-										class="form-control" placeholder="이름">
+										class="form-control" placeholder="이름" required>
 								</div>
 								<div class="form-group">
-									<input type="number" name="password" id="password"
+									<input type="number" name="age" id="age"
 										class="form-control" placeholder="나이">
 								</div>
 								<div class="test">

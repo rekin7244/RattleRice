@@ -52,17 +52,44 @@ public class MemberService {
 //		return result;
 //	}
 
-	public Member loginCheck(String userId, String password) {
+	public Member loginCheck(String userId, String userPwd) {
 		Connection con = getConnection();
 		
 		
 		System.out.println("service 에서 받은 userId" + userId);
-		System.out.println("service 에서 받은 password" + password);
-		Member loginUser = new MemberDao().loginCheck(con, userId, password);
+		System.out.println("service 에서 받은 password" + userPwd);
+		Member loginUser = new MemberDao().loginCheck(con, userId, userPwd);
 		
 		close(con);
 		
 		return loginUser;
+	}
+	
+	public int insertMember(Member reqMember) {
+		Connection con = getConnection();
+
+		int result = new MemberDao().insertMember(con, reqMember);
+
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		return result;
+	}
+	public int insertBusinessMember(Member reqMember) {
+		Connection con = getConnection();
+
+		int result = new MemberDao().insertBusinessMember(con, reqMember);
+
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		return result;
 	}
 
 }

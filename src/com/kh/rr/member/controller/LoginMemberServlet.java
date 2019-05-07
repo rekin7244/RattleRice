@@ -17,7 +17,7 @@ import com.kh.rr.member.model.vo.Member;
 /**
  * Servlet implementation class LoginMemberServlet
  */
-@WebServlet("/loginMember")
+@WebServlet("/loginMember.me")
 public class LoginMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -34,10 +34,10 @@ public class LoginMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
-		String password = request.getParameter("password");
+		String userPwd = request.getParameter("userPwd");
 		/*System.out.println(userId);
 		System.out.println(password);*/
-		Member loginUser = new MemberService().loginCheck(userId, password);
+		Member loginUser = new MemberService().loginCheck(userId, userPwd);
 
 		String page ="";
 
