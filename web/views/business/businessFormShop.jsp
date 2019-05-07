@@ -191,6 +191,12 @@ a.article, a.article:hover {
 		display: none;
 	}
 }
+.bottomArea{
+	position:fixed; 
+	bottom:5; 
+	width:50%;
+}
+
 </style>
 </head>
 
@@ -259,12 +265,13 @@ a.article, a.article:hover {
 
 
 			<div class="container col-sm-9">
-				<div style="border: 0.5px solid lightgray; width: 70%; height: 40%;">
-					<img src="../../images/SoyShrimp.jpg" width="50%" height="50%">
+				<div style="border: 0.5px solid lightgray; width: 70%; height: 40%;" id="imgArea">
+					<img src="../../images/joyShrimp.jpg" width="50%" height="50%">
 
 					<!-- <img src="${pageContext.request.contextPath}/getPic?pic_no=${pic_no}" width="300" height="210"> -->
 				</div>
 
+			<div class="bottomArea">
 				<div class="container col-sm-9" style="float: left;">
 					<table id="info" border="1">
 						<tbody align="center">
@@ -290,6 +297,7 @@ a.article, a.article:hover {
 					</table>
 				</div>
 			</div>
+			
 			<div class="container col-sm-9" style="float: right; width: 30%;">
 				<table id="menu" border="1">
 					<thead align="center">
@@ -313,7 +321,7 @@ a.article, a.article:hover {
 					</tbody>
 				</table>
 			</div>
-
+		</div>
 
 			<!-- jQuery CDN - Slim version (=without AJAX) -->
 			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
