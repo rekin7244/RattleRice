@@ -1,4 +1,4 @@
-package com.kh.w6.member.model.exception;
+package com.kh.rr.member.model.exception;
 
 public class MemberException {
 
