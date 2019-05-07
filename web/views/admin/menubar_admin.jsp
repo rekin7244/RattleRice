@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.*"%>
+<%
+	Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 
@@ -190,7 +193,11 @@ a.article, a.article:hover {
 </head>
 
 <body>
-
+	<% if(loginUser == null || !loginUser.getUserId().equals("admin")){ 
+		request.setAttribute("msg","잘못된 경로로 접근하셨습니다.");
+		request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
+	}%>
+	
 	<div class="wrapper">
 		<!-- Sidebar  -->
 		<nav id="sidebar">
