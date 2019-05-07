@@ -6,9 +6,7 @@
 <meta charset="UTF-8">
 <!-- 모바일 크기 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- semantic UI -->
-<link rel="stylesheet" href="/rr/css/semantic.min.css">
-<script src="/rr/js/semantic.min.js"></script>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
@@ -18,7 +16,7 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- 메뉴바 스타일 -->
-<link rel="stylesheet" type="text/css" href="../../css/matching/bar.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <title>Insert title here</title>
 <script>
 	$(function() {

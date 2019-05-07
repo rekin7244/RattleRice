@@ -17,10 +17,7 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- 메뉴바 스타일 -->
-<link rel="stylesheet" type="text/css" href="../../css/matching/bar.css">
-<!-- 마이페이지 -->
-<link rel="stylesheet" type="text/css"
-	href="../../css/matching/mypage.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <title>Insert title here</title>
 <script>
 	$(function() {
@@ -38,7 +35,7 @@
 		<div class="img" align="center">
 			<img src="../../images/profile.PNG"><br>
 			<p>
-				<i class="venus icon"></i>챙롬
+				<i class="fas fa-mars"></i>챙롬
 			</p>
 		</div>
 		<form>
