@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.matching.model.vo.*"%>
+<%ArrayList<ChattingRoom> list = 
+(ArrayList<ChattingRoom>) request.getAttribute("list"); %>	
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,12 +32,30 @@
 .genderRate {
 	display: inline-block;
 }
+.mainContent {
+	margin-top: 12.6%;
+}
+.chatRoom {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
 </style>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
-	<div class="bar">
-		<p>채팅방</p>
+	<!--채팅방목록 -->
+	<div class="mainContent" align="center">
+		<div class="chatRoom">
+			<div class="cr-content chatImg">
+				<img>
+			</div>
+			<div class="cr-content text">
+			<%for(ChattingRoom cr : list){ %>
+				<div><%=cr.getrTitle() %></div>
+				<div>모집인원 <%=cr.getpPerson() %>/<%=cr.getmPerson() %></div>
+			<%} %>
+			</div>
+		</div>
 	</div>
 	<%@ include file="menubar.jsp"%>
 
