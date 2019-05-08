@@ -459,7 +459,7 @@ body::-webkit-scrollbar {
 	<%if(loginUser != null){ %>
 		<div class="fixed">
 			<a
-				onclick="window.open('<%=request.getContextPath()%>/selectAll.ma', '', 'top=50px, left=800px, height=500, width=400')">
+				onclick="window.open('<%=request.getContextPath()%>/selectAll.cr', '', 'top=50px, left=800px, height=500, width=400')">
 				<i class="far fa-comment"></i></a>
 		</div>
 		

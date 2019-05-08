@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.rr.matching.model.service.ChattingRoomService;
 import com.kh.rr.matching.model.vo.ChattingRoom;
 
-@WebServlet("/selectAll.ma")
+@WebServlet("/selectAll.cr")
 public class SelectAllChattingRoomServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

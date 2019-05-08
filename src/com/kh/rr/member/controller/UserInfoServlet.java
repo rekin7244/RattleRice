@@ -12,7 +12,7 @@ import com.kh.rr.member.model.service.UserInfoService;
 import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.member.model.vo.UserInfo;
 
-@WebServlet("/userInfo.me")
+@WebServlet("/selectInfo.ui")
 public class UserInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,17 +25,16 @@ public class UserInfoServlet extends HttpServlet {
 		
 		UserInfo reqUi = new UserInfoService().userInfo(reqMember.getUserId());
 		
-		
 		String page = "";
 		if(reqUi != null) {
-			page = "views/matching/myPage.jsp";
+			page = "views/matching/mypage.jsp";
 			request.setAttribute("reqUi", reqUi);
-			response.sendRedirect(page);
+			
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "개인정보 조회 실패!");
-			request.getRequestDispatcher(page).forward(request, response);
 		}
+		request.getRequestDispatcher(page).forward(request, response);
 		
 	}
 

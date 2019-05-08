@@ -43,7 +43,6 @@ ul, body {
 .img i {
 	font-size: 1.3em;
 	margin-left: 0.3em;
-	color: blue;
 }
 
 .content {

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.*"%>
+<% 
+	UserInfo reqUi = (UserInfo) request.getAttribute("reqUi");
+%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,19 +36,25 @@
 	<div class="content bar">
 
 		<div class="img" align="center">
-			<img src="../../images/profile.PNG"><br>
+			<img src="<%=request.getContextPath() %>/images/profile.PNG"><br>
+			<!-- 성별별로 아이콘 다르게 나옴 -->
 			<p>
-				<i class="fas fa-mars"></i>챙롬
+			<%if(reqUi.getGender().equals("M")){ %>
+				<i class="fas fa-mars" style="color:blue;"></i><%=reqUi.getNickName() %>
+			<%}else{ %>
+				<i class="fas fa-venus" style="color:red;"></i><%=reqUi.getNickName() %>
+			<%} %>
 			</p>
 		</div>
-		<form>
+		<form action="<%= request.getContextPath()%>/update.ui" method="get">
+			<input type="hidden" name="nickName" value="<%= reqUi.getNickName()%>">
 			<div class="info line">
 				<div class="title">
 					<label for="status">상태메세지</label>
 				</div>
 				<div class="contents">
 					<input type="text" class="form-control" id="status"
-						placeholder="상태메세지를 입력해주세요.">
+						placeholder="상태메세지를 입력해주세요." name="msg" value="<%= reqUi.getMsg()%>">
 				</div>
 			</div>
 			<div class="job line">
@@ -53,7 +62,7 @@
 					<label for="job">직업</label>
 				</div>
 				<div class="contents" style="border: none;">
-					<input type="text" class="form-control" id="job" value="개발자"
+					<input type="text" class="form-control" id="job" value="<%=reqUi.getJob() %>"
 						readonly>
 				</div>
 			</div>
@@ -62,7 +71,7 @@
 					<label for="age">나이</label>
 				</div>
 				<div class="contents" style="border: none;">
-					<input type="text" class="form-control" id="age" value="24"
+					<input type="text" class="form-control" id="age" value="<%=reqUi.getAge() %>"
 						readonly>
 				</div>
 			</div>
