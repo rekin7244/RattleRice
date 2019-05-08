@@ -206,47 +206,15 @@ a.article, a.article:hover {
 </head>
 
 <body>
-
-	<div class="wrapper">
-		<!-- Sidebar  -->
-		<nav id="sidebar">
-			<div class="sidebar-header">
-				<h3>Businessman Page</h3>
-			</div>
-
-			<ul class="list-unstyled components">
-				<p>
-					<b>___ 사업자님 환영합니다.</b>
-				</p>
-				<li class="active"><a href="#homeSubmenu"
-					data-toggle="collapse" aria-expanded="false"
-					class="dropdown-toggle">예약관리</a>
-					<ul class="collapse list-unstyled" id="homeSubmenu">
-						<li><a href="reservationForm.jsp">예약 신청 현황</a></li>
-						<li><a href="pastReservationForm.jsp">지난 예약 기록</a></li>
-					</ul></li>
-
-				<li><a href="#pageSubmenu" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle">매장관리</a>
-					<ul class="collapse list-unstyled" id="pageSubmenu">
-						<li><a href="businessFormShop.jsp">매장 정보</a></li>
-						<li><a href="businessFormUpdate.jsp">매장 정보 수정</a></li>
-						<li><a href="businessFormSales.jsp">통계</a></li>
-					</ul></li>
-
-			</ul>
-
-
-		</nav>
-
-		<!-- Page Content  -->
+	
+	<%@ include file="menubar_business.jsp" %>
 		<div id="content">
 
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
 
 					<button type="button" id="sidebarCollapse" class="btn btn-info">
-						<i class="fas fa-align-left"></i> <span>Toggle Sidebar</span>
+						<i class="fas fa-align-left"></i> <span>menu</span>
 					</button>
 					<button class="btn btn-dark d-inline-block d-lg-none ml-auto"
 						type="button" data-toggle="collapse"
@@ -388,24 +356,6 @@ a.article, a.article:hover {
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-		<script type="text/javascript">
-				$(document).ready(
-						function() {
-							$("#sidebar").mCustomScrollbar({
-								theme : "minimal"
-							});
-
-							$('#sidebarCollapse').on(
-									'click',
-									function() {
-										$('#sidebar, #content').toggleClass(
-												'active');
-										$('.collapse.in').toggleClass('in');
-										$('a[aria-expanded=true]').attr(
-												'aria-expanded', 'false');
-									});
-						});
-			</script>
 </body>
 
 </html>
