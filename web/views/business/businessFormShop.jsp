@@ -162,7 +162,7 @@ a.article, a.article:hover {
 	padding: 40px;
 	min-height: 100vh;
 	transition: all 0.3s;
-	position: absolute;
+	position:absolute;
 	top: 0;
 	right: 0;
 }
@@ -192,9 +192,17 @@ a.article, a.article:hover {
 	}
 }
 .bottomArea{
-	position:fixed; 
+	position:absolute; 
 	bottom:5; 
 	width:50%;
+}
+#imgArea{
+	margin:auto;
+}
+#imgtag{
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 </style>
@@ -252,6 +260,7 @@ a.article, a.article:hover {
 					</button>
 
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<h3 align="center">매장명</h3>
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item"><a class="nav-link"
 								href="reservationForm.jsp">예약관리</a></li>
@@ -265,14 +274,13 @@ a.article, a.article:hover {
 
 
 			<div class="container col-sm-9">
-				<div style="border: 0.5px solid lightgray; width: 70%; height: 40%;" id="imgArea">
-					<img src="../../images/joyShrimp.jpg" width="50%" height="50%">
+				<div style="border: 0.5px solid lightgray; width: 70%; height: 50%;" id="imgArea">
+					<img src="../../images/joyShrimp.jpg" width="50%" height="50%" id="imgtag">
 
-					<!-- <img src="${pageContext.request.contextPath}/getPic?pic_no=${pic_no}" width="300" height="210"> -->
 				</div>
 
-			<div class="bottomArea">
-				<div class="container col-sm-9" style="float: left;">
+			
+				<div class="container col-sm-9" style="float:left; bottom:-150px;">
 					<table id="info" border="1">
 						<tbody align="center">
 							<tr>
@@ -298,7 +306,7 @@ a.article, a.article:hover {
 				</div>
 			</div>
 			
-			<div class="container col-sm-9" style="float: right; width: 30%;">
+			<div class="container col-sm-9" style="float: right; width: 30%; bottom:-150px;">
 				<table id="menu" border="1">
 					<thead align="center">
 						<th align="center">메뉴</th>
@@ -321,7 +329,7 @@ a.article, a.article:hover {
 					</tbody>
 				</table>
 			</div>
-		</div>
+	
 
 			<!-- jQuery CDN - Slim version (=without AJAX) -->
 			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
