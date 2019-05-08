@@ -29,7 +29,7 @@
 				</button>
 				&nbsp; &nbsp;
 				<div id="mainbar">
-					<a>회원 정보 조회</a>
+					<a>결제 내역 조회</a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -57,12 +57,11 @@
 					<th><input type="checkbox" id="checkmember"></th>
 					<th>번호</th>
 					<th>아이디</th>
-					<th>비밀번호</th>
-					<th>이름</th>
-					<th>나이</th>
-					<th>성별</th>
+					<th>거래일시</th>
+					<th>거래방법</th>
+					<th>결제금액</th>
 					<th>휴대폰번호</th>
-					<th>등급</th>
+					<th>상태</th>
 				</tr>
 			</thead>
 
@@ -71,34 +70,13 @@
 					<th><input type="checkbox" id="checkmember"></th>
 					<td>1</td>
 					<td>user01</td>
-					<td>1234</td>
-					<td>강다니엘</td>
-					<td>23</td>
-					<td>남</td>
+					<td>2019-05-08 15:14:12</td>
+					<td>국민카드</td>
+					<td>20,000</td>
 					<td>010-1234-1111</td>
-					<td><select>
-							<option>level1</option>
-							<option>level2</option>
-							<option>level3</option>
-					</select> &nbsp; &nbsp;
-						<button>수정</button></td>
+					<td style="color:orange;">결제완료</td>
 				</tr>
-				<tr>
-					<th><input type="checkbox" id="checkmember"></th>
-					<td>2</td>
-					<td>loveje</td>
-					<td>1234</td>
-					<td>김선지</td>
-					<td>26</td>
-					<td>여</td>
-					<td>010-1234-1111</td>
-					<td><select>
-							<option>level1</option>
-							<option>level2</option>
-							<option>level3</option>
-					</select> &nbsp; &nbsp;
-						<button>수정</button></td>
-				</tr>
+				
 			</tbody>
 		</table>
 </body>
