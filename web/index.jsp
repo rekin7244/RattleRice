@@ -119,6 +119,14 @@ img {
 					<li><a onclick="fnMove('4')">FAQ</a></li>
 					
 				</ul>
+				<% if(loginUser != null) {%>
+					<ul class="nav navbar-nav navbar-right">
+					<li><a style="font-family: 'Megrim', cursive; font-weight: bold;"><%=loginUser.getUserId()%>님</a></li>
+					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold;" 
+						href="<%= request.getContextPath()%>/logout.me"><span
+							class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+				</ul>
+				<%}else{ %>
 				<ul class="nav navbar-nav navbar-right">
 					<li data-toggle="modal" data-target="#joinModla"><a
 						style="font-family: 'Megrim', cursive; font-weight: bold;"><span
@@ -127,6 +135,7 @@ img {
 						style="font-family: 'Megrim', cursive; font-weight: bold;"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				</ul>
+				<%} %>
 			</div>
 		</div>
 	</nav>
@@ -446,7 +455,7 @@ img {
 	<%if(loginUser != null){ %>
 		<div class="fixed">
 			<a
-				onclick="window.open('views/matching/main.jsp', '', 'top=50px, left=800px, height=500, width=400')">
+				onclick="window.open('<%=request.getContextPath()%>/selectAll.ma', '', 'top=50px, left=800px, height=500, width=400')">
 				<i class="far fa-comment"></i></a>
 		</div>
 		

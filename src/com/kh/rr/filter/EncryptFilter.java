@@ -17,9 +17,7 @@ import com.kh.rr.wrapper.LoginWrapper;
 @WebFilter("*.me")
 public class EncryptFilter implements Filter {
 
-    public EncryptFilter() {
-    	System.out.println("나도 객체 생성");
-    }
+    public EncryptFilter() {}
 
 
 	public void destroy() {
