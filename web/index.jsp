@@ -86,6 +86,10 @@ img {
 .fixed .far {
 	font-size: 3em;
 }
+
+body::-webkit-scrollbar { 
+    display: none; 
+}
 </style>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -121,7 +125,7 @@ img {
 				</ul>
 				<% if(loginUser != null) {%>
 					<ul class="nav navbar-nav navbar-right">
-					<li><a style="font-family: 'Megrim', cursive; font-weight: bold;"><%=loginUser.getUserId()%>님</a></li>
+					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold;" href="views/member/myPageForm.jsp"><%=loginUser.getUserId()%>님</a></li>
 					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold;" 
 						href="<%= request.getContextPath()%>/logout.me"><span
 							class="glyphicon glyphicon-log-in"></span> Logout</a></li>

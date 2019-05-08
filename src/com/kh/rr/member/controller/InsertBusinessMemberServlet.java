@@ -22,7 +22,7 @@ public class InsertBusinessMemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-		String userName = "사업자테스트이름";
+		String userName = "사업자";
 		String memberType = request.getParameter("memberType");
 		
 		//service 호출
