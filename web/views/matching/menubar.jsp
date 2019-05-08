@@ -9,7 +9,7 @@
 				<li data-toggle="modal" data-target="#createChat"><a
 					href="#createChat"><i class="fas fa-user-plus"></i></a></li>
 				<li><a href="#"><i class="far fa-comment-dots"></i></a></li>
-				<li><a href="<%=request.getContextPath()%>/views/matching/mypage.jsp"><i class="fas fa-user"></i></a></li>
+				<li><a href="<%=request.getContextPath()%>/userInfo.me"><i class="fas fa-user"></i></a></li>
 			</ul>
 		</div>
 	</div>
