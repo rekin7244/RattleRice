@@ -171,6 +171,7 @@ a.article, a.article:hover {
 	width: 100%;
 }
 
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -191,6 +192,16 @@ a.article, a.article:hover {
 		display: none;
 	}
 }
+
+.col-sm-3 col-md-3{
+	position: relative;
+    float: left;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+
 </style>
 </head>
 
