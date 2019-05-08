@@ -205,7 +205,7 @@ width: auto;
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="button" name="login-submit" id="login-submit"
 								tabindex="4" class="form-control btn btn-primary" value="사업자 회원"
-								onclick="window.open('views/member/bMemberJoinForm.jsp')">
+								onclick="window.open('views/member/businessMemberJoinForm.jsp')">
 
 
 						</div>
