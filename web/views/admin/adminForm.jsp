@@ -58,33 +58,28 @@
 				<th>나이</th>
 				<th>성별</th>
 				<th>휴대폰번호</th>
+				<th>등급</th>
 			</tr>
 		</thead>
+		
 		<tbody>
 			<tr>
 				<td>user01</td>
 				<td>1234</td>
-				<td>김짐빔</td>
-				<td>28</td>
+				<td>강다니엘</td>
+				<td>23</td>
 				<td>남</td>
 				<td>010-1234-1111</td>
+				<td>
+					<select>
+						<option>level1</option>
+						<option>level2</option>
+						<option>level3</option>
+					</select>
+					<button>수정</button>
+				</td>
 			</tr>
-			<tr>
-				<td>kbcl</td>
-				<td>55555</td>
-				<td>박호세</td>
-				<td>20</td>
-				<td>남</td>
-				<td>010-1234-5678</td>
-			</tr>
-			<tr>
-				<td>swss</td>
-				<td>shirmp</td>
-				<td>강다니엘</td>
-				<td>22</td>
-				<td>남</td>
-				<td>010-2993-2222</td>
-			</tr>
+			
 		</tbody>
 	</table>
 
