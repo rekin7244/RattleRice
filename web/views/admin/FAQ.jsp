@@ -39,6 +39,10 @@
 	padding:10px;
 }
 
+#img{
+	width:20px;
+	height:20px;
+}
 
 </style>
 </head>
@@ -65,7 +69,7 @@
 				</button>
 				&nbsp; &nbsp;
 				<div id="mainbar">
-					<a>공지사항</a>
+					<a>Q & A</a>
 				</div>
 
 				<iframe name='action' width="0" height="0" frameborder="0"
@@ -109,17 +113,24 @@
 							<tbody>
 								<tr>
 									<td>1</td>
-									<td>공지사항 테스트</td>
-									<td>관리자</td>
+									<td>포인트 환불받을 수 있나요?</td>
+									<td>user01</td>
 									<td>2018-03-01 19:31</td>
 									<td>196</td>
 								</tr>
 								<tr>
 									<td>2</td>
-									<td>딸랑밥 이용방법</td>
+									<td><img id="img" src="../../images/enter-arrow.png"> 포인트 환불받을 수 있나요?</td>
 									<td>관리자</td>
-									<td>2019-04-29 12:10</td>
+									<td>2019-03-02 12:10</td>
 									<td>56</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>방이 안들어가져요</td>
+									<td>loveje</td>
+									<td>2019-05-09 11:11</td>
+									<td>18</td>
 								</tr>
 							</tbody>
 						</table>

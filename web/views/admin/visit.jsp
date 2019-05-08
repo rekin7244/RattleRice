@@ -39,6 +39,10 @@
 	padding:10px;
 }
 
+#img{
+	width:20px;
+	height:20px;
+}
 
 </style>
 </head>
@@ -65,7 +69,7 @@
 				</button>
 				&nbsp; &nbsp;
 				<div id="mainbar">
-					<a>공지사항</a>
+					<a>후기게시판</a>
 				</div>
 
 				<iframe name='action' width="0" height="0" frameborder="0"
@@ -102,6 +106,7 @@
 									<th>글번호</th>
 									<th>제목</th>
 									<th>작성자</th>
+									<th>별점</th>
 									<th>작성일</th>
 									<th>조회수</th>
 								</tr>
@@ -109,17 +114,27 @@
 							<tbody>
 								<tr>
 									<td>1</td>
-									<td>공지사항 테스트</td>
-									<td>관리자</td>
+									<td>역삼 간장새우 맛집 인정~! <img id="img" src="../../images/picture.png"></td>
+									<td>user01</td>
+									<td>
+									<% for (int i=1; i<6; i++){ %>
+									<img id="img" src ="../../images/star.png">
+									<%} %>
+									</td>
 									<td>2018-03-01 19:31</td>
-									<td>196</td>
+									<td>126</td>
 								</tr>
 								<tr>
 									<td>2</td>
-									<td>딸랑밥 이용방법</td>
-									<td>관리자</td>
-									<td>2019-04-29 12:10</td>
-									<td>56</td>
+									<td>맥주 한잔하기 좋아용 *^^*~~~</td>
+									<td>loveje</td>
+									<td>
+									<% for (int i=1; i<6; i++){ %>
+									<img id="img" src ="../../images/star.png">
+									<%} %>
+									</td>
+									<td>2019-05-09 11:11</td>
+									<td>18</td>
 								</tr>
 							</tbody>
 						</table>

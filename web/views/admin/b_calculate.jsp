@@ -194,7 +194,7 @@ a.article, a.article:hover {
 				</button>
 				&nbsp; &nbsp;
 				<div id="mainbar">
-					<a>취소 / 환불</a>
+					<a>사업자 정산</a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -223,13 +223,13 @@ a.article, a.article:hover {
 				<tr style="background: lightgray" align="center">
 					<th><input type="checkbox" id="checkmember"></th>
 					<th>번호</th>
-					<th>아이디</th>
-					<th>결제일시</th>
-					<th>결제취소일</th>
-					<th>결제번호</th>
-					<th>결제금액</th>
-					<th>결제방법</th>
-					<th>상태</th>
+					<th>사업자번호</th>
+					<th>상호명</th>
+					<th>휴대폰번호</th>
+					<th>카드 매출</th>
+					<th>입금</th>
+					<th>총잔액</th>
+
 					<th>관리</th>
 				</tr>
 			</thead>
@@ -238,13 +238,12 @@ a.article, a.article:hover {
 				<tr>
 					<th><input type="checkbox" id="checkmember"></th>
 					<td>1</td>
-					<td>user01</td>
-					<td>2019-05-08</td>
-					<td>2019-05-09</td>
-					<td>2019050812345</td>
-					<td>20,000</td>
-					<td>국민카드</td>
-					<td>취소요청</td>
+					<td>12345-678910</td>
+					<td>홍콩반점</td>
+					<td>010-0000-0000</td>
+					<td>954,300</td>
+					<td>0</td>
+					<td>954,300</td>
 					<td><button>확인</button>&nbsp;<button>취소</button></td>
 				</tr>
 				</tbody>
