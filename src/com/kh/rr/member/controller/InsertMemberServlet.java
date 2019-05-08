@@ -26,7 +26,7 @@ public class InsertMemberServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		String userName = request.getParameter("userName");
-		String memberKind = request.getParameter("memberKind");
+		String memberType = request.getParameter("memberType");
 		
 		
 		/*if(irr != null) {
@@ -48,7 +48,7 @@ public class InsertMemberServlet extends HttpServlet {
 		reqMember.setUserId(userId);
 		reqMember.setUserPwd(userPwd);
 		reqMember.setUserName(userName);
-		reqMember.setMemberKind(memberKind);
+		reqMember.setMemberType(memberType);
 		
 		int result = new MemberService().insertMember(reqMember);
 		

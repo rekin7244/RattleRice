@@ -157,7 +157,7 @@
 						<div class="col-lg-12">
 							<form id="join-form" action="<%= request.getContextPath() %>/insertMember.me" method="post" role="form"
 								style="display: block;">
-								<input type="hidden" name="memberKind" id="memberKind" value="1">
+								<input type="hidden" name="memberType" id="memberType" value="1">
 								<div class="form-group">
 									<input type="text" name="userId" id="userId"
 										class="form-control" placeholder="아이디" required>

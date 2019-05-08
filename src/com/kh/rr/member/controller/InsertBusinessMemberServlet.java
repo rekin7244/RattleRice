@@ -23,14 +23,14 @@ public class InsertBusinessMemberServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		String userName = "사업자테스트이름";
-		String memberKind = request.getParameter("memberKind");
+		String memberType = request.getParameter("memberType");
 		
 		//service 호출
 		Member reqMember = new Member();
 		reqMember.setUserId(userId);
 		reqMember.setUserPwd(userPwd);
 		reqMember.setUserName(userName);
-		reqMember.setMemberKind(memberKind);
+		reqMember.setMemberType(memberType);
 		
 		int result = new MemberService().insertBusinessMember(reqMember);
 		

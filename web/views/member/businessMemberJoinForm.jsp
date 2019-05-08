@@ -178,7 +178,7 @@
 						<div class="col-lg-12">
 							<form id="join-form" action="<%= request.getContextPath() %>/insertBMember.me" method="post" role="form"
 								style="display: block;">
-								<input type="hidden" name="memberKind" id="memberKind" value="2">
+								<input type="hidden" name="memberType" id="memberType" value="2">
 								<div class="top">
 									<h4 class="title">사업자 인증</h4>
 									<button class="btn btn-primary" id="topBtn">사업자 인증</button>
