@@ -29,7 +29,7 @@
 				</button>
 				&nbsp; &nbsp;
 				<div id="mainbar">
-					<a>회원 정보 조회</a>
+					<a>사업자 정보 조회</a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -39,7 +39,7 @@
 						<li class="nav-item"><a class="nav-link" href="calculate.jsp">정산</a></li>
 						<li class="nav-item"><a class="nav-link" href="sms.jsp">SMS</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
+							href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
 					</ul>
 				</div>
 			</div>
@@ -58,9 +58,10 @@
 					<th>번호</th>
 					<th>아이디</th>
 					<th>비밀번호</th>
-					<th>이름</th>
-					<th>나이</th>
-					<th>성별</th>
+					<th>사업자번호</th>
+					<th>상호명</th>
+					<th>사업자명</th>
+					<th>계좌</th>
 					<th>휴대폰번호</th>
 					<th>등급</th>
 				</tr>
@@ -68,14 +69,15 @@
 
 			<tbody align="center">
 				<tr>
-					<th><input type="checkbox" id="checkmember"></th>
+					<td><input type="checkbox" id="checkmember"></td>
 					<td>1</td>
-					<td>user01</td>
+					<td>user100</td>
 					<td>1234</td>
-					<td>강다니엘</td>
-					<td>23</td>
-					<td>남</td>
-					<td>010-1234-1111</td>
+					<td>123-456789-123456</td>
+					<td>홍콩반점</td>
+					<td>백종원</td>
+					<td><button>상세보기</button></td>
+					<td>010-1111-1111</td>
 					<td><select>
 							<option>level1</option>
 							<option>level2</option>
@@ -83,22 +85,7 @@
 					</select> &nbsp; &nbsp;
 						<button>수정</button></td>
 				</tr>
-				<tr>
-					<th><input type="checkbox" id="checkmember"></th>
-					<td>2</td>
-					<td>loveje</td>
-					<td>1234</td>
-					<td>김선지</td>
-					<td>26</td>
-					<td>여</td>
-					<td>010-1234-1111</td>
-					<td><select>
-							<option>level1</option>
-							<option>level2</option>
-							<option>level3</option>
-					</select> &nbsp; &nbsp;
-						<button>수정</button></td>
-				</tr>
+
 			</tbody>
 		</table>
 </body>

@@ -214,9 +214,9 @@ a.article, a.article:hover {
 					class="dropdown-toggle">회원관리</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
 						<li><a href="adminForm.jsp">회원 정보 조회</a></li>
-						<li><a href="#">사업자 정보 조회</a></li>
-						<li><a href="#">탈퇴 회원 조회</a></li>
-						<li><a href="#">결제 내역 조회</a></li>
+						<li><a href="bisinessmanForm.jsp">사업자 정보 조회</a></li>
+						<li><a href="withdrawal.jsp">탈퇴 회원 조회</a></li>
+						<li><a href="payment.jsp">결제 내역 조회</a></li>
 					</ul></li>
 
 				<li><a href="#pageSubmenu" data-toggle="collapse"
