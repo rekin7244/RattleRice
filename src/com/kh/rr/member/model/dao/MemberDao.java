@@ -47,11 +47,11 @@ public class MemberDao {
 			if(rset.next()) {
 				loginUser = new Member();
 				
-				loginUser.setUserId(rset.getString("USER_Id"));
-				loginUser.setUserPwd(rset.getString("USER_PWD"));
-				loginUser.setUserName(rset.getString("USER_NAME"));
-				loginUser.setMemberKind(rset.getString("MEMBER_KIND"));
-				loginUser.setStatus(rset.getString("STATUS"));
+				loginUser.setUserId(rset.getString("M_ID"));
+				loginUser.setUserPwd(rset.getString("M_PWD"));
+				loginUser.setUserName(rset.getString("M_NAME"));
+				loginUser.setMemberType(rset.getString("M_TYPE"));
+				loginUser.setStatus(rset.getString("M_STATUS"));
 				
 			}
 			
@@ -78,7 +78,7 @@ public class MemberDao {
 			pstmt.setString(1, reqMember.getUserId());
 			pstmt.setString(2, reqMember.getUserPwd());
 			pstmt.setString(3, reqMember.getUserName());
-			pstmt.setString(4, reqMember.getMemberKind());
+			pstmt.setString(4, reqMember.getMemberType());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -101,7 +101,7 @@ public class MemberDao {
 			pstmt.setString(1, reqMember.getUserId());
 			pstmt.setString(2, reqMember.getUserPwd());
 			pstmt.setString(3, reqMember.getUserName());
-			pstmt.setString(4, reqMember.getMemberKind());
+			pstmt.setString(4, reqMember.getMemberType());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
