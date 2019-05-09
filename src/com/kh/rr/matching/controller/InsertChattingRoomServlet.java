@@ -48,6 +48,7 @@ public class InsertChattingRoomServlet extends HttpServlet {
 		reqCr.setpTime(pTime);
 		reqCr.setmPerson(mPerson);
 		reqCr.setLocation(location);
+		reqCr.setrKind("일반");
 		
 		int result = new ChattingRoomService().insertChattingRoom(reqCr);
 		if(result > 0) {

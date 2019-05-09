@@ -50,7 +50,7 @@ public class ChattingRoomDao {
 				cr.setdTime(rset.getString("DTIME"));
 				cr.setStatus(rset.getString("STATUS"));
 				cr.setcDate(rset.getDate("CREATE_DATE"));
-				cr.setpKind(rset.getString("PERSON_KIND"));
+				cr.setrKind(rset.getString("ROOM_KIND"));
 				cr.setrTitle(rset.getString("RTITLE"));
 				
 				list.add(cr);
@@ -81,9 +81,27 @@ public class ChattingRoomDao {
 			pstmt.setString(4, reqCr.getpTime());
 			pstmt.setInt(5, reqCr.getmPerson());
 			pstmt.setString(6, reqCr.getLocation());
+			pstmt.setString(7, reqCr.getrKind());
 			
 			result = pstmt.executeUpdate();
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertPremiumChattingRoom(Connection con, ChattingRoom reqCr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertPremiumChattingRoom");
+		
+		try {
+			pstmt = con.prepareStatement(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

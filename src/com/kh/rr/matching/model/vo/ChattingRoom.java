@@ -3,23 +3,28 @@ package com.kh.rr.matching.model.vo;
 import java.sql.Date;
 
 public class ChattingRoom {
-	private int rno;
-	private Date pDate;
-	private String category;
-	private String pTime;
-	private int mPerson;
-	private int pPerson;
-	private String location;
-	private String dTime;
-	private String status;
-	private Date cDate;
-	private String pKind;
-	private String rTitle;
+	private int rno;			//시퀀스
+	private Date pDate;			//약속날짜
+	private String category;	//음식종류
+	private String pTime;		//약속시간
+	private int mPerson;		//최대인원
+	private int pPerson;		//현재인원
+	private String location;	//약속장소
+	private String dTime;		//마감시간
+	private String status;		//상태
+	private Date cDate;			//생성날짜
+	private String rKind;		//일반or프리미엄
+	private String rTitle;		//방제목
+	
+	//여기서부터는 프리미엄 방 생성시만 붙는 조건
+	private String sRatio; 		//성비
+	private String job; 		//직업
+	private int age; 			//나이제한
 	
 	public ChattingRoom() {}
 
 	public ChattingRoom(int rno, Date pDate, String category, String pTime, int mPerson, int pPerson, String location,
-			String dTime, String status, Date cDate, String pKind, String rTitle) {
+			String dTime, String status, Date cDate, String rKind, String rTitle, String sRatio, String job, int age) {
 		super();
 		this.rno = rno;
 		this.pDate = pDate;
@@ -31,8 +36,11 @@ public class ChattingRoom {
 		this.dTime = dTime;
 		this.status = status;
 		this.cDate = cDate;
-		this.pKind = pKind;
+		this.rKind = rKind;
 		this.rTitle = rTitle;
+		this.sRatio = sRatio;
+		this.job = job;
+		this.age = age;
 	}
 
 	public int getRno() {
@@ -115,12 +123,12 @@ public class ChattingRoom {
 		this.cDate = cDate;
 	}
 
-	public String getpKind() {
-		return pKind;
+	public String getrKind() {
+		return rKind;
 	}
 
-	public void setpKind(String pKind) {
-		this.pKind = pKind;
+	public void setrKind(String rKind) {
+		this.rKind = rKind;
 	}
 
 	public String getrTitle() {
@@ -131,13 +139,37 @@ public class ChattingRoom {
 		this.rTitle = rTitle;
 	}
 
+	public String getsRatio() {
+		return sRatio;
+	}
+
+	public void setsRatio(String sRatio) {
+		this.sRatio = sRatio;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
 	@Override
 	public String toString() {
 		return "ChattingRoom [rno=" + rno + ", pDate=" + pDate + ", category=" + category + ", pTime=" + pTime
 				+ ", mPerson=" + mPerson + ", pPerson=" + pPerson + ", location=" + location + ", dTime=" + dTime
-				+ ", status=" + status + ", cDate=" + cDate + ", pKind=" + pKind + ", rTitle=" + rTitle + "]";
+				+ ", status=" + status + ", cDate=" + cDate + ", rKind=" + rKind + ", rTitle=" + rTitle + ", sRatio="
+				+ sRatio + ", job=" + job + ", age=" + age + "]";
 	}
-	
 	
 	
 }
