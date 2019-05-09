@@ -17,8 +17,13 @@ public class ChattingRoomService {
 
 	public int insertChattingRoom(ChattingRoom reqCr) {
 		Connection con = getConnection();
+		int result = 0;
 		
-		int result = new ChattingRoomDao().insertChattingRoom(con, reqCr);
+		if(reqCr.getsRatio() != null) {
+			result = new ChattingRoomDao().insertPremiumChattingRoom(con,reqCr);
+		}else {
+			result = new ChattingRoomDao().insertChattingRoom(con, reqCr);
+		}
 		
 		if(result > 0) {
 			commit(con);

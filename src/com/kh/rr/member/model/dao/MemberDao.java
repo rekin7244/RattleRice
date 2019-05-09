@@ -17,7 +17,6 @@ public class MemberDao {
 
 	public MemberDao() {
 		String fileName = MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
-
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (IOException e) {
@@ -33,9 +32,6 @@ public class MemberDao {
 		Member loginUser = null;
 		
 		String query = prop.getProperty("loginCheck");
-		/*System.out.println(query);
-		System.out.println(userId);
-		System.out.println(password);*/
 		try {
 			pstmt = con.prepareStatement(query);
 			
@@ -61,8 +57,6 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		
-		System.out.println("dao에서 보낸 member객체" + loginUser);
 		
 		return loginUser;
 	}

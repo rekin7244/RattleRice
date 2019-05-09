@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.matching.model.vo.*"%>
-<%ArrayList<ChattingRoom> list = 
-(ArrayList<ChattingRoom>) request.getAttribute("list"); %>	
+<%
+	ArrayList<ChattingRoom> list = 
+		(ArrayList<ChattingRoom>) request.getAttribute("list"); 
+%>	
 	
 <!DOCTYPE html>
 <html>
@@ -32,7 +34,7 @@
 	});
 </script>
 <style>
-	.genderRate {
+	.sexRatio {
 		display: inline-block;
 	}
 	.mainContent {
@@ -49,6 +51,22 @@
 		cursor: pointer;
 	}
 </style>
+<script>
+	function premiumCondition(){
+		console.log("함수실행");
+		$location = $("#pLocation").val();
+		$time = $("#pTime").val().split('T');
+		$mPerson = $("#pMperson").val();
+		$rName = $("#pRname").val();
+		
+		$("#allVal").val($location + "," + $time[0] + "," + $time[1] + "," +
+				$mPerson + "," + $rName);
+		console.log($("#allVal").val());
+	}
+
+	
+	
+</script>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
@@ -145,7 +163,7 @@
 							<button type="submit" class="btn btn-default" style="float:right">생성</button>
 						</form>
 					</div>
-					<div class="modal-footer" data-backdrop="static" style="border:none">
+					<div class="modal-footer" data-backdrop="static">
 					</div>
 				</div>
 
@@ -160,8 +178,6 @@
 		<div class="modal fade" id="createChatp" role="dialog"
 			data-backdrop="static">
 			<div class="modal-dialog modal-sm" data-backdrop="static">
-
-				Modal content
 				<div class="modal-content" data-backdrop="static">
 					<div class="modal-header" data-backdrop="static">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -170,29 +186,38 @@
 					<div class="modal-body" data-backdrop="static">
 						<form>
 							<div class="form-group">
-								<label for="location">위치</label> <input type="text"
-									class="form-control" id="location">
+								<label for="pLocation">위치</label> <input type="text"
+									class="form-control" id="pLocation">
 							</div>
 							<div class="form-group">
-								<label for="time">시간</label> <input type="datetime-local"
-									class="form-control" id="time">
+								<label for="pTime">시간</label> <input type="datetime-local"
+									class="form-control" id="pTime">
 							</div>
 							<div class="form-group">
-								<label for="membercount">인원수</label> <input type="number"
-									class="form-control" id="membercount" min="2">
+								<label for="pMperson">인원수</label> <input type="text"
+									class="form-control" id="pMperson">
 							</div>
 							<div class="form-group">
-								<label for="rname">방 제목</label> <input type="text"
-									class="form-control" id="rname"
+								<label for="pRname">방 제목</label> <input type="text"
+									class="form-control" id="pRname"
 									placeholder="ex) 역삼역 9시에 간장새우 드실분~">
 							</div>
+								<div class="form-group">
+								<label for="fcategory">메뉴</label> <select class="form-control"
+									id="fcategory" name="category">
+									<option value="10">한식</option>
+									<option value="20">중식</option>
+									<option value="30">일식</option>
+									<option value="40">양식</option>
+								</select>
+							</div>
+							<button type="button" class="btn btn-default" data-dismiss="modal" style="float:right"
+								aria-label="Close">취소</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal" style="float:right"
+								data-toggle="modal" data-target="#createChatp2" onclick="premiumCondition();">다음</button>
 						</form>
 					</div>
 					<div class="modal-footer" data-backdrop="static">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							aria-label="Close">취소</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							data-toggle="modal" data-target="#createChatp2">다음</button>
 					</div>
 				</div>
 
@@ -207,51 +232,48 @@
 			data-backdrop="static">
 			<div class="modal-dialog modal-sm" data-backdrop="static">
 
-				Modal content
 				<div class="modal-content" data-backdrop="static">
 					<div class="modal-header" data-backdrop="static">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">프리미엄방 생성</h4>
 					</div>
 					<div class="modal-body" data-backdrop="static">
-						<form>
+						<form action="<%= request.getContextPath()%>/insert.pcr" method="get">
+							<input type="hidden" value="" id="allVal" name="allVal"> 
 							<div class="form-group">
 								<label>성비</label>
 								<div>
 									<label>남<i class="mars icon" style="color: blue"></i></label> <input
-										type="number" class="form-control genderRate" id="male"
-										min="0" style="width: 60px;"> &nbsp; &nbsp; &nbsp;
+										type="text" class="form-control sexRatio" id="male" name="male"
+										style="width: 60px;"> &nbsp; &nbsp; &nbsp;
 									&nbsp; &nbsp; &nbsp; <label>여<i class="venus icon"
-										style="color: red"></i></label> <input type="number"
-										class="form-control genderRate" id="female" min="0"
+										style="color: red"></i></label> <input type="text"
+										class="form-control sexRatio" id="female" name="female"
 										style="width: 60px;">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="age">나이</label> <select class="form-control"
-									id="age">
-									<option>20대</option>
-									<option>30대</option>
-									<option>40대</option>
-									<option>50대</option>
+									id="age" name="age">
+									<option value="20">20대</option>
+									<option value="30">30대</option>
+									<option value="40">40대</option>
+									<option value="50">50대</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="jobname">직업</label> <input type="text"
-									class="form-control" id="jobname">
+								<label for="job">직업</label> <input type="text"
+									class="form-control" id="job" name="job">
 							</div>
 							<br>
 							<p style="font-size: 0.8em; color: #3498db; text-align: center;">※
 								생성버튼을 누를 시 1코인이 소비됩니다.</p>
+							<button type="button" class="btn btn-default" data-dismiss="modal"
+								data-toggle="modal" data-target="#createChatp">이전</button>
+							<input type="submit" class="btn btn-default"value="생성">
 						</form>
 					</div>
-					<div class="modal-footer" data-backdrop="static">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							data-toggle="modal" data-target="#createChatp">이전</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">생성</button>
-					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
