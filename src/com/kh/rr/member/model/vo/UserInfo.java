@@ -2,7 +2,7 @@ package com.kh.rr.member.model.vo;
 
 import java.sql.Date;
 
-public class UserInfo {
+public class UserInfo implements java.io.Serializable{
 	private String gender;
 	private Date birthday;
 	private int age;

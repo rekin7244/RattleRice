@@ -193,13 +193,10 @@ a.article, a.article:hover {
 	}
 }
 
-.col-sm-3 col-md-3{
-	position: relative;
-    float: left;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-}
+ #topMenu li{
+	float:left;
+	margin-left:20px;
+}	
 
 
 </style>
@@ -229,6 +226,7 @@ a.article, a.article:hover {
 							<li class="nav-item active"><a class="nav-link" href="reservationForm.jsp">예약관리</a>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="businessFormShop.jsp">매장관리</a></li>
+							 <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
 							
 						</ul>
 					</div>
@@ -236,19 +234,15 @@ a.article, a.article:hover {
 			</nav>
 
 			<div class="col-md-8">
-				<p>매출분석</p>
-				<ul id="topMenu">
+				<p style="font-weight:bold">매출분석</p>
+				<ul id="topMenu" style="list-style:none; diplay:flex;">
 					<li>test(사업장명)</li>
 					<li><label>기준년월 : <input type="date"></label>
 					<li><button>검색하기</button></li>
-				</ul>
-				<br>
-				<ul>
-
-					<!-- 엑셀파일 다운로드 -->
 					<li class="li2"><button>엑셀다운로드</button></li>
-				</ul>
-
+					</ul>
+				</div>
+			<div class="col-sm-9">
 				<table class="table table-bordered">
 					<thead>
 						<tr style="background: lightgray">
@@ -320,8 +314,11 @@ a.article, a.article:hover {
 					<h3>그래프 들어갈 부분</h3>
 				</div>
 			</div>
+		</div>
 			<div class="col-sm-3 col-md-3"
-				style="border: 0.5px solid lightgray; width: 25%; height: 80%; background: gray;">
+				style="border: 0.5px solid lightgray; width: 20%; height: 80%; 
+				background: gray; float:right; position:absolute; right:25px; top:125px;">
+				<br>
 				<h3 align="center">정산 금액</h3>
 				<br>
 				<h2 align="center">Day-4</h2>
@@ -329,13 +326,11 @@ a.article, a.article:hover {
 				<p>영원히 투명하되 때까지 돋고, 실로 인류의 가슴이 그들은 것이다. 과실이 눈이 고 행을 실현에 주며,
 					사막이다. 곳으로 그들의 얼마나 방황하였으며, 낙원을 우리의 꽃이 보는 위하여 사막이다. 무엇을 살았으며, 같은 보라.
 					청춘은 이 상의 내려온 있으며, 그들은 위하여, 피고 어디 위하여, 아니다. 발휘하기 대한 두손을 인간이 때문이다.
-					웅대한 생명을 뭇 사막이다. 그것을 소담스러운 인도하겠 다는 스며들어 힘있다. 눈이 청춘은 주는 위하여서 소담스러운
-					창공에 낙원을 대한 물방아 것이다. 일월과 생의 행복스럽고 반짝이는 속에서 우리의 것이다. 생명을 열락의 피에 위하여서.</p>
+					웅대한 생명을 뭇 사막이다. 그것을 소담스러운 인도하겠 다는 스며들어 힘있다.</p>
 			</div>
 
 
 
-		</div>
 
 
 		<!-- jQuery CDN - Slim version (=without AJAX) -->
