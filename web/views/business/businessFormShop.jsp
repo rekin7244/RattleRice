@@ -234,7 +234,8 @@ a.article, a.article:hover {
 								href="reservationForm.jsp">예약관리</a></li>
 							<li class="nav-item active"><a class="nav-link"
 								href="businessFormShop.jsp">매장관리</a></li>
-
+							 <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
+							
 						</ul>
 					</div>
 				</div>
@@ -243,7 +244,7 @@ a.article, a.article:hover {
 
 			<div class="container col-sm-9">
 				<div style="border: 0.5px solid lightgray; width: 70%; height: 50%;" id="imgArea">
-					<img src="../../images/joyShrimp.jpg" width="50%" height="50%" id="imgtag">
+					<img src="../../images/joyShrimp.jpg" width="80%" height="50%" id="imgtag">
 
 				</div>
 
@@ -267,7 +268,7 @@ a.article, a.article:hover {
 							</tr>
 							<tr>
 								<td>매장소개 :</td>
-								<td>난너를믿었던만큼 난네 친구도 믿었기에</td>
+								<td>난너를 믿었던 만큰 난 너를 믿었기에</td>
 							</tr>
 						</tbody>
 					</table>

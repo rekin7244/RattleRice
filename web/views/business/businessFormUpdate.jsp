@@ -203,6 +203,10 @@ a.article, a.article:hover {
 .buttonPadding{
 padding-bottom: 30px;
 }
+
+#topMenu li {
+	margin-right:20px;
+}
 </style>
 </head>
 
@@ -239,7 +243,8 @@ padding-bottom: 30px;
 								href="reservationForm.jsp">예약관리</a></li>
 							<li class="nav-item active"><a class="nav-link"
 								href="businessFormShop.jsp">매장관리</a></li>
-
+							 <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
+							
 						</ul>
 					</div>
 				</div>
@@ -248,13 +253,15 @@ padding-bottom: 30px;
 
 			<div class="container col-sm-9">
 				<div class="buttonPadding">
-					<ul>
+					<ul id="topMenu">
 						<li class="li2"><button type="submit" style="float: right;">적용</button></li>
 						<li class="li2"><button style="float: right;">미리보기</button>
 					</ul>
 				</div>
+				<br>
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray;  height: 90%; overflow-x: auto;">
+					style="border: 0.5px solid lightgray;  height: 90%; float: left; width: 33%; padding:10px; 
+					overflow-x: auto;">
 					<h4 align="center">매장정보</h4>
 					<br> <br>
 					<form action="#" method="post">
@@ -288,7 +295,8 @@ padding-bottom: 30px;
 					</form>
 				</div>
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray;  height: 90%; overflow-x: auto;">
+					style="border: 0.5px solid lightgray;  height: 90%; 
+					float: left; width: 33%; padding:10px; overflow-x: auto;">
 					<h4 align="center">메뉴</h4>
 					<br> <br>
 					<form action="#" method="post">
@@ -322,7 +330,7 @@ padding-bottom: 30px;
 				</div>
 
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray;   height: 90%;">
+					style="border: 0.5px solid lightgray; height: 90%;float: left; width: 33%; padding:10px;">
 					<form action="#" method="post">
 						<h4 align="center">사진첨부</h4>
 						<div

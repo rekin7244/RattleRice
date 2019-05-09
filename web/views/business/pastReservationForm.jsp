@@ -237,7 +237,8 @@ a.article, a.article:hover {
 								href="reservationForm.jsp">예약관리</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="businessFormShop.jsp">매장관리</a></li>
-
+							 <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
+							
 						</ul>
 					</div>
 				</div>
