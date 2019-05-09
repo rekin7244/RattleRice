@@ -13,8 +13,28 @@ public class UserInfoService {
 		Connection con = getConnection();
 		UserInfo reqUi = new UserInfoDao().userInfo(con, userId);
 		
-		
+		close(con);
 		return reqUi;
 	}
+
+	public int updateUserInfo(UserInfo reqUi) {
+		Connection con = getConnection();
+		
+		int result = new UserInfoDao().updateUserInfo(con, reqUi);
+		
+		close(con);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		
+		return result;
+	}
+
+	
+	
 
 }

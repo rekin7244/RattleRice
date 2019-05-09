@@ -1,15 +1,17 @@
 package com.kh.rr.matching.model.dao;
 
+import static com.kh.rr.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import static com.kh.rr.common.JDBCTemplate.*;
 import com.kh.rr.matching.model.vo.ChattingRoom;
 
 public class ChattingRoomDao {
@@ -63,6 +65,32 @@ public class ChattingRoomDao {
 		}
 		
 		return list;
+	}
+
+	public int insertChattingRoom(Connection con, ChattingRoom reqCr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertChattingRoom");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqCr.getrTitle());
+			pstmt.setDate(2, reqCr.getpDate());
+			pstmt.setString(3, reqCr.getCategory());
+			pstmt.setString(4, reqCr.getpTime());
+			pstmt.setInt(5, reqCr.getmPerson());
+			pstmt.setString(6, reqCr.getLocation());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

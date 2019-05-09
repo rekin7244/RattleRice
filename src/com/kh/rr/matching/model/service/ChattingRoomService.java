@@ -15,5 +15,20 @@ public class ChattingRoomService {
 		return list;
 	}
 
+	public int insertChattingRoom(ChattingRoom reqCr) {
+		Connection con = getConnection();
+		
+		int result = new ChattingRoomDao().insertChattingRoom(con, reqCr);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+			
+		
+		return result;
+	}
+
 	
 }

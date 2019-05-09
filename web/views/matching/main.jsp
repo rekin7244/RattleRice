@@ -26,36 +26,45 @@
 		$(window).resize(function() {
 			window.resizeTo(410, 600);
 		});
+		$(".cr-content").click(function(){
+			window.confirm("입장 하시겠습니까?");
+		})
 	});
 </script>
 <style>
-.genderRate {
-	display: inline-block;
-}
-.mainContent {
-	margin-top: 12.6%;
-}
-.chatRoom {
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-}
+	.genderRate {
+		display: inline-block;
+	}
+	.mainContent {
+		margin-top: 12.9%;
+		margin-bottom: 14.6%;
+	}
+	.cr-content-inner {
+		border-top: 1px solid black;
+	}
+	.cr-content-inner:last-child {
+		border-bottom: 1px solid black;
+	}
+	.cr-content-inner:hover {
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
 	<!--채팅방목록 -->
 	<div class="mainContent" align="center">
-		<div class="chatRoom">
-			<div class="cr-content chatImg">
-				<img>
-			</div>
 			<div class="cr-content text">
 			<%for(ChattingRoom cr : list){ %>
+			<div class="cr-content-inner">
+				<div class="cr-content chatImg">
+					<img>
+				</div>
 				<div><%=cr.getrTitle() %></div>
 				<div>모집인원 <%=cr.getpPerson() %>/<%=cr.getmPerson() %></div>
+			</div>
 			<%} %>
 			</div>
-		</div>
 	</div>
 	<%@ include file="menubar.jsp"%>
 
@@ -76,19 +85,67 @@
 						<p style="font-size: 0.8em; text-align: center;">채팅방을
 							생성하시겠습니까?</p>
 						<div align="center" data-backdrop="static">
-							<button class="btn btn-default" style="color: red">프리미엄</button>
+							<button type="button" class="btn btn-default" style="color: red" data-dismiss="modal"
+							data-toggle="modal" data-target="#createChatp"
+							onclick="window.confirm('프리미엄으로 하시겠습니까?')">프리미엄</button>
 							&nbsp;
-							<button class="btn btn-default" style="color: #4abeca">일반</button>
+							<button type="button" class="btn btn-default" style="color: #4abeca" data-dismiss="modal"
+							data-toggle="modal" data-target="#createChatp1">일반</button>
 						</div>
 						<br>
 						<p style="color: #3498db; text-align: center;">※프리미엄 방 생성시
 							1코인이 소비됩니다.</p>
 					</div>
-					<div class="modal-footer" data-backdrop="static">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							aria-label="Close">취소</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							data-toggle="modal" data-target="#createChatp">생성</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 일반 방 생성  -->
+	<div class="container">
+		<!-- Modal -->
+		<div class="modal fade" id="createChatp1" role="dialog"
+			data-backdrop="static">
+			<div class="modal-dialog modal-sm" data-backdrop="static">
+				<div class="modal-content" data-backdrop="static">
+					<div class="modal-header" data-backdrop="static">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">방 생성</h4>
+					</div>
+					<div class="modal-body" data-backdrop="static">
+						<form action="<%=request.getContextPath()%>/insert.cr" method="get">
+							<div class="form-group">
+								<label for="location">위치</label> <input type="text"
+									class="form-control" id="location" name="location">
+							</div>
+							<div class="form-group">
+								<label for="pTime">시간</label> <input type="datetime-local"
+									class="form-control" id="time" name="pTime">
+							</div>
+							<div class="form-group">
+								<label for="mPerson">인원수</label> <input type="text"
+									class="form-control" id="memberCount" name="mPerson">
+							</div>
+							<div class="form-group">
+								<label for="rTitle">방 제목</label> <input type="text"
+									class="form-control" id="rName"
+									placeholder="ex) 역삼역 9시에 간장새우 드실분~" name="rTitle">
+							</div>
+							<div class="form-group">
+								<label for="fcategory">메뉴</label> <select class="form-control"
+									id="fcategory" name="category">
+									<option value="10">한식</option>
+									<option value="20">중식</option>
+									<option value="30">일식</option>
+									<option value="40">양식</option>
+								</select>
+							</div>
+							<button type="button" class="btn btn-default" data-dismiss="modal"
+								aria-label="Close" style="float:right">취소</button>
+							<button type="submit" class="btn btn-default" style="float:right">생성</button>
+						</form>
+					</div>
+					<div class="modal-footer" data-backdrop="static" style="border:none">
 					</div>
 				</div>
 
@@ -96,7 +153,8 @@
 		</div>
 	</div>
 
-	<!-- 방 생성 (조건1) -->
+
+	<!-- 프리미엄 방 생성 (조건1) -->
 	<div class="container">
 		<!-- Modal -->
 		<div class="modal fade" id="createChatp" role="dialog"
@@ -142,7 +200,7 @@
 		</div>
 	</div>
 
-	<!-- 방 생성 (조건2) -->
+	<!-- 프리미엄 방 생성 (조건2) -->
 	<div class="container">
 		<!-- Modal -->
 		<div class="modal fade" id="createChatp2" role="dialog"
