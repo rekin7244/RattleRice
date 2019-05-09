@@ -224,16 +224,16 @@ a.article, a.article:hover {
 					<ul class="collapse list-unstyled" id="pageSubmenu">
 						<li><a href="UpdateMainForm.jsp">메인페이지 관리</a></li>
 						<li><a href="community.jsp">공지사항</a></li>
-						<li><a href="#">Q & A</a></li>
-						<li><a href="#">후기게시판</a></li>
+						<li><a href="FAQ.jsp">Q & A</a></li>
+						<li><a href="visit.jsp">후기게시판</a></li>
 					</ul></li>
 
 				<li><a href="#pageSubmenu2" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">정산관리</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu2">
 						<li><a href="calculate.jsp">취소 / 환불</a></li>
-						<li><a href="#">사업자 정산</a></li>
-						<li><a href="#">포인트정산</a></li>
+						<li><a href="b_calculate.jsp">사업자 정산</a></li>
+						<li><a href="p.calculate.jsp">포인트정산</a></li>
 					</ul></li>
 
 				<li><a href="#pageSubmenu3" data-toggle="collapse"

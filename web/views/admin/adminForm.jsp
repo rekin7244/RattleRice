@@ -4,7 +4,7 @@
 <html>
 
 <head>
-<title>관리자 페이지</title>
+<title>회원 관리</title>
 </head>
 
 <body>
@@ -34,7 +34,7 @@
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="nav navbar-nav ml-auto">
-						<li class="nav-item active"><a class="nav-link" href="#">회원관리</a></li>
+						<li class="nav-item active"><a class="nav-link" href="adminForm.jsp">회원관리</a></li>
 						<li class="nav-item"><a class="nav-link" href="community.jsp">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="calculate.jsp">정산</a></li>
 						<li class="nav-item"><a class="nav-link" href="sms.jsp">SMS</a></li>
