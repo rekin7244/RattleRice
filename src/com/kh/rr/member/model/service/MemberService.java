@@ -7,6 +7,7 @@ import java.sql.Connection;
 
 import com.kh.rr.member.model.dao.MemberDao;
 import com.kh.rr.member.model.vo.Member;
+import com.kh.rr.member.model.vo.UserInfo;
 
 public class MemberService {
 
@@ -78,6 +79,22 @@ public class MemberService {
 
 		return result;
 	}
+	
+	//UserInfo에 insert
+		public int insertUserInfo(UserInfo reqUserInfo) {
+			Connection con = getConnection();
+
+			int result = new MemberDao().insertUserInfo(con, reqUserInfo);
+
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+
+			return result;
+		}
+	
 	public int insertBusinessMember(Member reqMember) {
 		Connection con = getConnection();
 
@@ -91,5 +108,7 @@ public class MemberService {
 
 		return result;
 	}
+
+	
 
 }

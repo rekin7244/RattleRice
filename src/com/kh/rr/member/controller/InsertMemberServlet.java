@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.rr.member.model.service.MemberService;
 import com.kh.rr.member.model.vo.Member;
+import com.kh.rr.member.model.vo.UserInfo;
 
 
 @WebServlet("/insertMember.me")
@@ -27,6 +28,7 @@ public class InsertMemberServlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 		String userName = request.getParameter("userName");
 		String memberType = request.getParameter("memberType");
+		String gender = request.getParameter("gender");
 		
 		
 		/*if(irr != null) {
@@ -39,10 +41,6 @@ public class InsertMemberServlet extends HttpServlet {
 			}
 		}*/
 		
-		System.out.println("userId : " + userId);
-		System.out.println("userPwd : " + userPwd);
-		
-		
 		//service 호출
 		Member reqMember = new Member();
 		reqMember.setUserId(userId);
@@ -50,10 +48,15 @@ public class InsertMemberServlet extends HttpServlet {
 		reqMember.setUserName(userName);
 		reqMember.setMemberType(memberType);
 		
+		UserInfo reqUserInfo = new UserInfo();
+		reqUserInfo.setGender(gender);
+		reqUserInfo.setUserId(userId);
+		
 		int result = new MemberService().insertMember(reqMember);
+		int result2 = new MemberService().insertUserInfo(reqUserInfo);
 		
 		String page = "";
-		if(result > 0) {
+		if(result > 0 && result2 > 0) {
 			page = "index.jsp";
 			response.sendRedirect(page);
 		}else {
@@ -61,6 +64,8 @@ public class InsertMemberServlet extends HttpServlet {
 			request.setAttribute("msg", "회원 가입 실패!");
 			request.getRequestDispatcher(page).forward(request, response);
 		}
+		
+		
 	}
 
 	/**
