@@ -3,6 +3,7 @@
 <%
 	ArrayList<ChattingRoom> list = 
 		(ArrayList<ChattingRoom>) request.getAttribute("list"); 
+	String location = (String)request.getAttribute("location");
 %>	
 	
 <!DOCTYPE html>
@@ -131,6 +132,7 @@
 						<h4 class="modal-title">방 생성</h4>
 					</div>
 					<div class="modal-body" data-backdrop="static">
+						<button onclick="window.open('/rr/views/matching/map.jsp','', 'top=50px, left=800px, height=500, width=400')">위치선택</button>
 						<form action="<%=request.getContextPath()%>/insert.cr" method="get">
 							<div class="form-group">
 								<label for="location">위치</label> <input type="text"
