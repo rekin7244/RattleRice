@@ -128,7 +128,7 @@
 					</div>
 					
 					<div id="btn">
-						<button type="reset">재작성</button>
+						<button type="reset">재작성 헤ㅐㅆ습니다</button>
 						<button type="submit">보내기</button>
 					</div>		
 		 
