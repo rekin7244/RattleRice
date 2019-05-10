@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.Member"%>
+	pageEncoding="UTF-8"
+	import="com.kh.rr.member.model.vo.Member ,java.util.*"%>
 
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -213,6 +215,10 @@ a[data-toggle="collapse"] {
 	width: auto;
 	display: inline-block;
 }
+
+#profileImgArea {
+	cursor: pointer;
+}
 </style>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -288,9 +294,29 @@ a[data-toggle="collapse"] {
 				<div class="well">
 					<p>프로필 설정</p>
 					<br>
-					<form>
+					<form action="<%=request.getContextPath()%>/updateProfile"
+						method="post">
 						<div style="display: table-cell;">
-							<div class="profile img" style="vertical-align: middle;">이미지</div>
+							<!-- 이미지첨부-->
+							<div id="fileArea">
+								<input type="file" id="profileImg" name="profileImg"
+									onchange="loadImg(this)">
+							</div>
+							&nbsp;&nbsp;&nbsp;
+							<!-- 이미지 -->
+							<div class="profile img" style="vertical-align: middle;"
+								id="profileImgArea">
+								<img id="inProfileImg" width="200px" height="200px"
+									src="<%=request.getContextPath()%>/images/defaultProfileImg.png">
+
+
+								<%-- <input type="hidden" value="<%=hmap.get("bid")%>"> <img
+									src="/jsp/thumbnail_upload/<%=hmap.get("changeName")%>"
+									width="200px" height="200px"> --%>
+
+
+							</div>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="profile">
 								<div class="form-group">
 									<label for="usr">닉네임</label> <input type="text"
@@ -309,21 +335,21 @@ a[data-toggle="collapse"] {
 			</div>
 
 			<div class="col-sm-5 form2">
-				<div class="well" >
-					<div >
+				<div class="well">
+					<div>
 						<p>개인정보 수정</p>
 						<br>
-						<div class="profile"  >
-								<div class="form-group">
-									<label>이메일 : </label> 
-								</div>
-								<div class="form-group">
-									<label>비밀번호 : </label> 
-								</div>
-								<div class="form-group">
-									<label>연락처 : </label>
-								</div>
+						<div class="profile">
+							<div class="form-group">
+								<label>이메일 : </label>
 							</div>
+							<div class="form-group">
+								<label>비밀번호 : </label>
+							</div>
+							<div class="form-group">
+								<label>연락처 : </label>
+							</div>
+						</div>
 						<form>
 
 							<div class="profile">
@@ -332,10 +358,12 @@ a[data-toggle="collapse"] {
 										id="email">
 								</div>
 								<div class="form-group">
-									<label>비밀번호 : </label> <input type="password" class="form-input" id="usr">
+									<label>비밀번호 : </label> <input type="password"
+										class="form-input" id="usr">
 								</div>
 								<div class="form-group">
-									<label>연락처 : </label> <input type="tel" class="form-input" id="usr">
+									<label>연락처 : </label> <input type="tel" class="form-input"
+										id="usr">
 								</div>
 							</div>
 							<br>
@@ -360,6 +388,28 @@ a[data-toggle="collapse"] {
 	<%
 		}
 	%>
+
+	<script>
+		$(function() {
+			$("#fileArea").hide();
+
+			$("#profileImgArea").click(function() {
+				$("#profileImg").click();
+			});
+
+		});
+
+		function loadImg(value) {
+			if (value.files && value.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$("#inProfileImg").removeAttr("src");
+					$("#inProfileImg").attr("src", e.target.result);
+				}
+				reader.readAsDataURL(value.files[0]);
+			}
+		}
+	</script>
 
 </body>
 </html>
