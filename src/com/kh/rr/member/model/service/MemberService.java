@@ -1,9 +1,13 @@
 package com.kh.rr.member.model.service;
 
-import static com.kh.rr.common.JDBCTemplate.*;
+import static com.kh.rr.common.JDBCTemplate.close;
+import static com.kh.rr.common.JDBCTemplate.commit;
+import static com.kh.rr.common.JDBCTemplate.getConnection;
+import static com.kh.rr.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
-
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.rr.member.model.dao.MemberDao;
 import com.kh.rr.member.model.vo.Member;
@@ -109,6 +113,17 @@ public class MemberService {
 		return result;
 	}
 
-	
+	public ArrayList<HashMap<String, Object>> logincheckBusiness() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = 
+				new MemberDao().logincheckBusiness(con);
+		
+		close(con);
+		
+		
+		return list;
+	}
 
+	
 }
