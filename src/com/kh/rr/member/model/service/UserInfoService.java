@@ -1,11 +1,16 @@
 package com.kh.rr.member.model.service;
 
+import static com.kh.rr.common.JDBCTemplate.close;
+import static com.kh.rr.common.JDBCTemplate.commit;
+import static com.kh.rr.common.JDBCTemplate.getConnection;
+import static com.kh.rr.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.rr.member.model.dao.UserInfoDao;
+import com.kh.rr.member.model.vo.Attachment;
 import com.kh.rr.member.model.vo.UserInfo;
-
-import static com.kh.rr.common.JDBCTemplate.*;
 
 public class UserInfoService {
 
@@ -31,6 +36,25 @@ public class UserInfoService {
 		}
 		
 		
+		return result;
+	}
+
+	public int updateProfile(UserInfo ui, ArrayList<Attachment> fileList) { 
+		Connection con = getConnection();
+		int result = 0;
+
+		/*int result2 = new UserInfoDao().insertAttachment(con, fileList);
+
+		if (result1 > 0 && result2 == fileList.size()) {
+			commit(con);
+			result = 1;
+		} else {
+			rollback(con);
+			result = 0;
+		}
+
+		close(con);*/
+
 		return result;
 	}
 
