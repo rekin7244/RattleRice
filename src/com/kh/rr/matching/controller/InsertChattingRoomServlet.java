@@ -52,7 +52,7 @@ public class InsertChattingRoomServlet extends HttpServlet {
 		
 		int result = new ChattingRoomService().insertChattingRoom(reqCr);
 		if(result > 0) {
-			response.sendRedirect("/rr/selectAll.cr");
+			response.sendRedirect("views/matching/chatting.jsp");
 		}else {
 			request.setAttribute("msg", "채팅방 생성 실패!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
