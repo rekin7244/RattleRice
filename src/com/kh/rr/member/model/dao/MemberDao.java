@@ -8,10 +8,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.rr.member.model.vo.Member;
+import com.kh.rr.member.model.vo.StoreInfo;
 import com.kh.rr.member.model.vo.UserInfo;
+
 
 public class MemberDao {
 	private Properties prop = new Properties();
@@ -31,6 +36,7 @@ public class MemberDao {
 		ResultSet rset = null;
 		
 		Member loginUser = null;
+		StoreInfo storeinfo = null;
 		
 		String query = prop.getProperty("loginCheck");
 		try {
@@ -129,6 +135,59 @@ public class MemberDao {
 
 		return result;
 	}
+
+	public ArrayList<HashMap<String, Object>> logincheckBusiness(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("loginCheckBusiness");
+			
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				//BusinessMan
+				hmap.put("bId", rset.getString("B_ID"));
+				hmap.put("account", rset.getString("ACCOUNT"));
+				hmap.put("bankcode",rset.getString("BANKCODE"));
+				hmap.put("holder", rset.getString("HOLDER"));
+				hmap.put("bCode", rset.getString("BCODE"));
+				//StoreInfo
+				hmap.put("contact", rset.getString("CONTACT"));
+				hmap.put("location", rset.getString("LOCATION"));
+				hmap.put("opening_hore", rset.getString("OPENING_HOUR"));
+				hmap.put("intro", rset.getString("INTRO"));
+				hmap.put("brand", rset.getString("BRAND"));
+				hmap.put("sId", rset.getString("S_ID"));
+				hmap.put("status", rset.getString("STATUS"));
+				hmap.put("sCode", rset.getString("S_CODE"));
+				hmap.put("close_hore", rset.getString("CLOSE_HOUR"));
+				//StoreMenuInfo
+				hmap.put("menu", rset.getString("MENU"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("origin",rset.getString("ORIGIN"));
+				hmap.put("mId",rset.getString("MID"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+
 
 
 }

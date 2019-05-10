@@ -5,18 +5,20 @@ public class StoreMenuInfo {
 	private String menu; //메뉴명
 	private int price; //메뉴가격
 	private String origin; //원산지
+	private String sId;//매장정보 코드
 	private String mId; //메뉴코드
-	private String fId; //이미지 키
+	private String sCode; //매장코드
 	
 	public StoreMenuInfo() {}
 
-	public StoreMenuInfo(String menu, int price, String origin, String mId, String fId) {
+	public StoreMenuInfo(String menu, int price, String origin, String sId, String mId, String sCode) {
 		super();
 		this.menu = menu;
 		this.price = price;
 		this.origin = origin;
+		this.sId = sId;
 		this.mId = mId;
-		this.fId = fId;
+		this.sCode = sCode;
 	}
 
 	public String getMenu() {
@@ -43,6 +45,14 @@ public class StoreMenuInfo {
 		this.origin = origin;
 	}
 
+	public String getsId() {
+		return sId;
+	}
+
+	public void setsId(String sId) {
+		this.sId = sId;
+	}
+
 	public String getmId() {
 		return mId;
 	}
@@ -51,19 +61,19 @@ public class StoreMenuInfo {
 		this.mId = mId;
 	}
 
-	public String getfId() {
-		return fId;
+	public String getsCode() {
+		return sCode;
 	}
 
-	public void setfId(String fId) {
-		this.fId = fId;
+	public void setsCode(String sCode) {
+		this.sCode = sCode;
 	}
 
 	@Override
 	public String toString() {
-		return "StoreMenuInfo [menu=" + menu + ", price=" + price + ", origin=" + origin + ", mId=" + mId + ", fId="
-				+ fId + "]";
+		return "StoreMenuInfo [menu=" + menu + ", price=" + price + ", origin=" + origin + ", sId=" + sId + ", mId="
+				+ mId + ", sCode=" + sCode + "]";
 	}
 
-	
+		
 }
