@@ -31,10 +31,9 @@
 
 .contact-form {
 	margin: 0 auto;
-	padding-right: 10px;
+	padding: 10px;
 	text-align: center;
 	background: yellowgreen;
-	text-align: center;
 }
 
 .fixed {
@@ -63,6 +62,7 @@ p {
 	font-size: 1.1em;
 	font-weight: 300;
 	line-height: 1.7em;
+	color: #999;
 }
 
 /* sidebar menu*/
@@ -144,74 +144,8 @@ a[data-toggle="collapse"] {
 	background: gray;
 	color: white;
 }
-
-.content {
-	border: 1px solid black;
-}
-
-.content h3 {
-	margin-top: 0;
-	margin-bottom: 20px;
-}
-
-.in-content {
-	width: 100%;
-	margin: 0 auto;
-	text-align: center;
-	padding-bottom: 10px;
-}
-
-#div1 {
-	width: 45%;
-	height: 250px;
-	display: inline-block;
-}
-
-#div2 {
-	width: 45%;
-	height: 250px;
-	display: inline-block;
-}
-
-#div3 {
-	width: 49%;
-	display: inline-block;
-}
-
-#div4 {
-	width: 49%;
-	display: inline-block;
-}
-
-.container-fluid {
-	padding: 0;
-}
-
-.profile {
-	display: inline-block;
-	border: 1px solid black;
-}
-
-.form1, .form2 {
-	margin-top: 30px;
-}
-
-.form1 {
-	padding-left: 30px;
-}
-
-.form2 {
-	padding-right: 30px;
-}
-
-.img {
-	width: 200px;
-	height: 200px;
-}
-
-.form-input {
-	width: auto;
-	display: inline-block;
+.container-fluid{
+padding: 0;
 }
 </style>
 </head>
@@ -260,7 +194,7 @@ a[data-toggle="collapse"] {
 	<br>
 	<br>
 	<div id="jb-header">
-		<h1>마이페이지</h1>
+		<h1>포인트</h1>
 	</div>
 	<div class="wrapper">
 
@@ -271,82 +205,31 @@ a[data-toggle="collapse"] {
 				<p>
 					<b>메뉴</b>
 				</p>
-				<li><a href="myPageForm.jsp" class="active">마이페이지</a></li>
+				<li><a href="myPageForm.jsp">마이페이지</a></li>
 				<li><a href="myWriteForm.jsp">작성글 조회</a></li>
-				<li><a href="myPointForm.jsp">포인트</a></li>
+				<li><a href="myPointForm.jsp" class="active">포인트</a></li>
 			</ul>
 		</nav>
 	</div>
-
-
-
-
-	<div class="container-fluid text-center">
-		<div class="row content" style="border-bottom: 0px;">
-			<div class="col-sm-2 sidenav"></div>
-			<div class="col-sm-5 form1">
-				<div class="well">
-					<p>프로필 설정</p>
-					<br>
-					<form>
-						<div style="display: table-cell;">
-							<div class="profile img" style="vertical-align: middle;">이미지</div>
-							<div class="profile">
-								<div class="form-group">
-									<label for="usr">닉네임</label> <input type="text"
-										class="form-control" id="usr">
-								</div>
-								<div class="form-group">
-									<label for="comment">상태 메세지</label>
-									<textarea style="resize: none; width: 300px; height: 50px;"
-										class="form-control" id="comment"></textarea>
-								</div>
-							</div>
-						</div>
-						<button type="button" class="btn btn-warning">수정</button>
-					</form>
+	
+	<!-- Page Content  -->
+	<div id="content">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<div id="jb-content">
+					<h2>Content</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+						Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu
+						laoreet. Proin gravida velit dictum dui consequat malesuada.
+						Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam
+						vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.
+						Mauris id odio pretium, sollicitudin sapien eget, adipiscing
+						risus.</p>
 				</div>
 			</div>
-
-			<div class="col-sm-5 form2">
-				<div class="well" >
-					<div >
-						<p>개인정보 수정</p>
-						<br>
-						<div class="profile"  >
-								<div class="form-group">
-									<label>이메일 : </label> 
-								</div>
-								<div class="form-group">
-									<label>비밀번호 : </label> 
-								</div>
-								<div class="form-group">
-									<label>연락처 : </label>
-								</div>
-							</div>
-						<form>
-
-							<div class="profile">
-								<div class="form-group">
-									<label>이메일 : </label> <input type="email" class="form-input"
-										id="email">
-								</div>
-								<div class="form-group">
-									<label>비밀번호 : </label> <input type="password" class="form-input" id="usr">
-								</div>
-								<div class="form-group">
-									<label>연락처 : </label> <input type="tel" class="form-input" id="usr">
-								</div>
-							</div>
-							<br>
-							<button type="submit" class="btn btn-warning">수정</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+		</nav>
 	</div>
-
+	
 	<!-- 채팅접속 아이콘 -->
 	<%
 		if (loginUser != null) {
