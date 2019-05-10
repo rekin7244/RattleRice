@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.rr.common.MyFileRenamePolicy;
-import com.kh.rr.member.model.service.UserInfoService;
+import com.kh.rr.member.model.service.AttachmentService;
 import com.kh.rr.member.model.vo.Attachment;
-import com.kh.rr.member.model.vo.UserInfo;
+import com.kh.rr.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
-@WebServlet("/updateProfile")
+@WebServlet("/updatePro")
 public class UpdateProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,16 +28,7 @@ public class UpdateProfileServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
-		System.out.println(title);
-		
-		//폼 전송을 multipart/form-data로 전송하는 경우에는
-		//기존처럼 request.getParameter로 값을 받을 수 없다.
-		//cos.jar가 파일도 받아주고 폼의 다른 값들도 받아주는 역할을 한다.
-		//com.orelilly.servlet의 약자이다.
-		
 		if(ServletFileUpload.isMultipartContent(request)) {
-			//System.out.println("multipart로 requset 요청");
 			//전송 파일 용량 제한 : 10Mbyte로 제한
 			int maxSize = 1024 * 1024 * 10;
 			
@@ -47,18 +38,8 @@ public class UpdateProfileServlet extends HttpServlet {
 			System.out.println("root : " + root);
 			
 			//파일 저장 경로 설정
-			String filePath = root + "thumbnail_upload/";
+			String filePath = root + "profileImg_upload/";
 			
-			//객체를 생성할 때 부터 파일을 저장하고 그에 대한 정보를 가져오는 형태이다.
-			//즉 파일의 정보를 검사하여 저장하는 형태가 아닌, 저장한 다음 검사 후 삭제를 해야 한다.
-			
-			//사용자가 올린 파일명을 그대로 저장하지 않는 것이 일반적이다.
-			//1. 같은 파일명이 있는 경우 이전 파일을 덮어 쓸 수 있다.
-			//2. 한글로 된 파일명, 특수기호, 띄어쓰기 등은 서버에 따라 문제가 생길 수 도 있다.
-			//DefaultFileRenamePolicy는 cos.jar 안에 존재하는 클래스로
-			//같은 파일명이 존재하는지를 검사하고 있을 경우에는 파일명 뒤에 숫자를 붙여준다.
-			//ex : aaa.zip, aaa1.zip, aaa2.zip, ....
-			//MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
@@ -72,33 +53,29 @@ public class UpdateProfileServlet extends HttpServlet {
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();
 				
-				System.out.println("name : " + name);
-				
 				saveFiles.add(multiRequest.getFilesystemName(name));
 				originFiles.add(multiRequest.getOriginalFileName(name));
 				
-				System.out.println("fileSystem name : " + multiRequest.getFilesystemName(name));
-				System.out.println("originFile : " + multiRequest.getOriginalFileName(name));
 			}
 			
-			//UserInfo객체 생성
-			UserInfo ui = new UserInfo();
-			ui.setUserId(String.valueOf(((UserInfo)(request.getSession().getAttribute("loginUser"))).getUserId()));
+			//Attachment 객체 생성
+			Attachment att = new Attachment();
+			att.setUserId(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getUserId()));
 			
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 			for (int i = originFiles.size() - 1 ; i >= 0; i--) {
-				Attachment at = new Attachment();
-				at.setFilePath(filePath);
-				at.setOriginName(originFiles.get(i));
-				at.setChangeName(saveFiles.get(i));
+				att.setFilePath(filePath);
+				att.setOriginName(originFiles.get(i));
+				att.setChangeName(saveFiles.get(i));
+				att.setType("profile");
 				
-				fileList.add(at);
+				fileList.add(att);
 			}
 			
-			int result = new UserInfoService().updateProfile(ui, fileList);
+			int result = new AttachmentService().updateProfile(att, fileList);
 			
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath() + "/selectProfile");
+				response.sendRedirect(request.getContextPath() + "/selectPro");
 			}else {
 				for (int i = 0; i < saveFiles.size(); i++) {
 					File failedFile = new File(filePath + saveFiles.get(i));

@@ -125,7 +125,7 @@ body::-webkit-scrollbar {
 				</ul>
 				<% if(loginUser != null) {%>
 					<ul class="nav navbar-nav navbar-right">
-					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold;" href="views/member/myPageForm.jsp"><%=loginUser.getUserId()%>님</a></li>
+					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold;"><button onclick="goProfile()">test</button><%=loginUser.getUserId()%>님</a></li>
 					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold;" 
 						href="<%= request.getContextPath()%>/logout.me"><span
 							class="glyphicon glyphicon-log-in"></span> Logout</a></li>
@@ -469,6 +469,12 @@ body::-webkit-scrollbar {
 	<div class="footer">
 		<%@ include file="views/common/footer.jsp"%>
 	</div>
+	
+	<script>
+	function goProfile(){
+		location.href="/rr/selectPro";
+	}
+	</script>
 
 </body>
 </html>
