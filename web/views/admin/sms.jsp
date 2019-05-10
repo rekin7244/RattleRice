@@ -33,6 +33,24 @@
 	padding: 5px;
 	border-radius: 10px;
 }
+
+.smsForm{
+	width:800px;
+	height:500px;
+	background:lightgreen;
+}
+
+#sms{
+	margin-top:50px;
+}
+
+#sms>label{
+	background:lightgray;
+	width:100px;
+	text-align:center;
+}
+
+
 </style>
 </head>
 
@@ -73,6 +91,28 @@
 				</div>
 			</div>
 		</nav>
+		
+		<br><br>
+		
+		
+		<div class="smsForm">
+			
+			<div id="sms">
+				<label>제목</label>
+					<input type="text" placeholder="필수 입력 값이 아닙니다."> <br>				
+				<label>회신번호</label>
+				<select>
+					<option>010-2993-3144</option>
+				</select> <br>
+				<label>받는사람</label>
+					<input type="text" placeholder="전화번호('-'제외)"><button>추가</button><br>
+					<textarea cols="40" rows="10"></textarea>
+			</div>
+			
+		</div>
+		
+		
+		
 	</div>
 </body>
 
