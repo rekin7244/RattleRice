@@ -39,26 +39,5 @@ public class UserInfoService {
 		return result;
 	}
 
-	public int updateProfile(UserInfo ui, ArrayList<Attachment> fileList) { 
-		Connection con = getConnection();
-		int result = 0;
-
-		/*int result2 = new UserInfoDao().insertAttachment(con, fileList);
-
-		if (result1 > 0 && result2 == fileList.size()) {
-			commit(con);
-			result = 1;
-		} else {
-			rollback(con);
-			result = 0;
-		}
-
-		close(con);*/
-
-		return result;
-	}
-
-	
-	
 
 }
