@@ -272,7 +272,7 @@
 								생성버튼을 누를 시 1코인이 소비됩니다.</p>
 							<button type="button" class="btn btn-default" data-dismiss="modal"
 								data-toggle="modal" data-target="#createChatp">이전</button>
-							<input type="submit" class="btn btn-default"value="생성">
+							<input type="submit" class="btn btn-default" value="생성">
 						</form>
 					</div>
 				</div>
