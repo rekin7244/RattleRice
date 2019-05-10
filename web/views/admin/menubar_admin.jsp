@@ -19,7 +19,7 @@
 	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
 	crossorigin="anonymous">
 <!-- Our Custom CSS -->
-<link rel="stylesheet" href="style2.css">
+<!-- <link rel="stylesheet" href="style2.css"> -->
 <!-- Scrollbar Custom CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
@@ -50,7 +50,6 @@
 <!-- jQuery Custom Scroller CDN -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
 <style>
 @import
 	"https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
@@ -207,7 +206,7 @@ a.article, a.article:hover {
 
 			<ul class="list-unstyled components">
 				<p>
-					<b>___ 관리자 님 환영합니다.</b>
+					<b><%=loginUser.getUserName() %> 관리자 님 환영합니다.</b>
 				</p>
 				<li class="active"><a href="#homeSubmenu"
 					data-toggle="collapse" aria-expanded="false"
@@ -222,7 +221,7 @@ a.article, a.article:hover {
 				<li><a href="#pageSubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">커뮤니티 관리</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
-						<li><a href="UpdateMainForm.jsp">메인페이지 관리</a></li>
+						<li><a href="updateMainForm.jsp">메인페이지 관리</a></li>
 						<li><a href="community.jsp">공지사항</a></li>
 						<li><a href="FAQ.jsp">Q & A</a></li>
 						<li><a href="visit.jsp">후기게시판</a></li>

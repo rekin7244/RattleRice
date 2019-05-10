@@ -119,21 +119,7 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		var openWin;
-		function openChild(){
-			
-			window.name = "main";
-			
-			openWin = window.open('/rr/views/matching/map.jsp','childForm',
-						'top=50px, left=800px, height=500, width=400');
-			timer = setInterval(function(){
-				$("#location").val(openWin.$("#locationInfo").val());
-				console.log("값을 가져옴");
-			}, 1000);
-		}
-	
-	</script>
+
 	<!-- 일반 방 생성  -->
 	<div class="container">
 		<!-- Modal -->
@@ -146,7 +132,7 @@
 						<h4 class="modal-title">방 생성</h4>
 					</div>
 					<div class="modal-body" data-backdrop="static">
-						<button onclick="openChild();">위치선택</button>
+						<button onclick="window.open('/rr/views/matching/map.jsp','', 'top=50px, left=800px, height=500, width=400')">위치선택</button>
 						<form action="<%=request.getContextPath()%>/insert.cr" method="get">
 							<div class="form-group">
 								<label for="location">위치</label> <input type="text"

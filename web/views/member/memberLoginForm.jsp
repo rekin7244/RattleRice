@@ -155,7 +155,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-lg-12">
-					<form id="login-form" action="<%= request.getContextPath() %>/loginMember.me" method="post" role="form">
+					<form id="login-form" action="<%= request.getContextPath() %>/loginMember.me" method="get" role="form">
 						<div class="form-group">
 							<input type="text" name="userId" id="userId" tabindex="1"
 								class="form-control" placeholder="Username" value="">

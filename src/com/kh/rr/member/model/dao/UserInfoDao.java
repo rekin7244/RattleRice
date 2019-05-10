@@ -1,18 +1,15 @@
 package com.kh.rr.member.model.dao;
 
-import static com.kh.rr.common.JDBCTemplate.*;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Properties;
 
-import com.kh.rr.member.model.vo.Attachment;
 import com.kh.rr.member.model.vo.UserInfo;
+import static com.kh.rr.common.JDBCTemplate.*;
 
 public class UserInfoDao {
 	private Properties prop = new Properties();
@@ -82,8 +79,6 @@ public class UserInfoDao {
 		
 		return result;
 	}
-	
-	
 
 }
 

@@ -294,8 +294,8 @@ a[data-toggle="collapse"] {
 				<div class="well">
 					<p>프로필 설정</p>
 					<br>
-					<form action="<%=request.getContextPath()%>/updatePro"
-						method="post" encType="multipart/form-data">
+					<form action="<%=request.getContextPath()%>/updateProfile"
+						method="post">
 						<div style="display: table-cell;">
 							<!-- 이미지첨부-->
 							<div id="fileArea">
@@ -306,13 +306,14 @@ a[data-toggle="collapse"] {
 							<!-- 이미지 -->
 							<div class="profile img" style="vertical-align: middle;"
 								id="profileImgArea">
-								<%
-									HashMap<String, Object> hmap = list.get(0);
-								%>
-								<input type="hidden" value="<%=hmap.get("userId")%>"> <img
-									id="inProfileImg"
-									src="/rr/profileImg_upload/<%=hmap.get("changeName")%>"
-									width="200px" height="200px">
+								<img id="inProfileImg" width="200px" height="200px"
+									src="<%=request.getContextPath()%>/images/defaultProfileImg.png">
+
+
+								<%-- <input type="hidden" value="<%=hmap.get("bid")%>"> <img
+									src="/jsp/thumbnail_upload/<%=hmap.get("changeName")%>"
+									width="200px" height="200px"> --%>
+
 
 							</div>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -326,18 +327,9 @@ a[data-toggle="collapse"] {
 									<textarea style="resize: none; width: 300px; height: 50px;"
 										class="form-control" id="comment"></textarea>
 								</div>
-								<div class="form-group">
-									<label for="usr">생일</label> <input type="text"
-										class="form-control" id="usr">
-								</div>
-								<div class="form-group">
-									<label for="usr">직업</label> <input type="text"
-										class="form-control" id="usr">
-								</div>
-
 							</div>
 						</div>
-						<button type="submit" class="btn btn-warning">수정</button>
+						<button type="button" class="btn btn-warning">수정</button>
 					</form>
 				</div>
 			</div>

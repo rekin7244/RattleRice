@@ -57,8 +57,9 @@ public class MemberService {
 		Connection con = getConnection();
 		
 		
-		System.out.println("service 에서 받은 userId" + userId);
-		System.out.println("service 에서 받은 password" + userPwd);
+		System.out.println("service 에서 받은 userId : " + userId);
+		System.out.println("service 에서 받은 password : " + userPwd);
+
 		Member loginUser = new MemberDao().loginCheck(con, userId, userPwd);
 		
 		close(con);
