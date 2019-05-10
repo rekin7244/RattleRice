@@ -181,9 +181,9 @@
 										class="form-control" placeholder="나이">
 								</div>
 								<div class="test">
-									<input type="radio" name="gender" id="male" value="M">
+									<input type="radio" name="gender" id="male" value="M" required>
 									<label for="male">남자</label> &nbsp;&nbsp;&nbsp; <input
-										type="radio" name="gender" id="female" value="F"> <label
+										type="radio" name="gender" id="female" value="F" required> <label
 										for="female">여자</label>
 								</div>
 								<br>
