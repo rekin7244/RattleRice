@@ -1045,20 +1045,20 @@ body {
       <div class="row message" id="conversation">
         <div class="row message-previous">
           <div class="col-sm-12 previous">
-            <a onclick="previous(this)" id="ankitjain28" name="20">
-            Show Previous Message!
-            </a>
+            <p id="ankitjain28" name="20">
+            <%= ((Member)(request.getSession().getAttribute("loginUser"))).getUserName() %>님이 채팅에 참여하셨습니다.
+            </p>
           </div>
         </div>
 
         <div class="row message-body">
           <div class="col-sm-12 message-main-receiver">
             <div class="receiver">
-              <div class="message-text">
-               Hi, what are you doing?!
+              <div class="message-text" id="receiveM">
+              
               </div>
-              <span class="message-time pull-right">
-                Sun
+              <span class="message-time pull-right" id="uName">
+               
               </span>
             </div>
           </div>
@@ -1067,11 +1067,11 @@ body {
         <div class="row message-body">
           <div class="col-sm-12 message-main-sender">
             <div class="sender">
-              <div class="message-text">
-                I am doing nothing man!
+              <div class="message-text" id="sendM">
+              
               </div>
               <span class="message-time pull-right">
-                Sun
+              	나
               </span>
             </div>
           </div>
@@ -1210,8 +1210,10 @@ body {
 				var msg = event.data.split(":");
 				var user = msg[0];
 				var price = msg[1];
+				var uName = "<%= ((Member)(request.getSession().getAttribute("loginUser"))).getUserName() %>";
 				$("#currentPrice").html(price);
-				$("#history").append("<span>" + price + "</span><br>");
+				$("#sendM").append("<span>" + price + "</span><br>");
+				$("#mTime").append("<span>" + uName + "</span><br>");
 			}
 			
 			function onError2(event){
