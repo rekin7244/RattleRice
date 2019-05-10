@@ -64,10 +64,10 @@
     </div>
 </div>
 <div id="fixed-area" style="position:fixed; top:93%; left:76%; z-index:99;">
-	<form action="<%=request.getContextPath()%>/InsertInfo.lo" method="get">
-		<input type="hidden" value="">
-		<button type="submit" onclick="window.close()">위치 선택</button>
-	</form>
+	
+		<input id="locationInfo" type="hidden" value="">
+		<button onclick="window.close()">닫기</button>
+	
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bf07de78ccb40d07273cceb9edaf6165&libraries=services"></script>
@@ -300,6 +300,8 @@ function getInfo(marker, title){
 			//location.href='index.jsp';
 			//position:fixed 영역 안에 폼태그와 히든 인풋을 만들어서 
 			//확정 버튼을 누르면 서블릿이 동작하게 하는건 어떨까?
+					
+			$("#locationInfo").val(place[i].road_address_name);
 		}
 	}
 }
@@ -310,6 +312,40 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
+
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
