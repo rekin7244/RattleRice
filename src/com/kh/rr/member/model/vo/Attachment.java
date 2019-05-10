@@ -3,18 +3,22 @@ package com.kh.rr.member.model.vo;
 import java.sql.Date;
 
 //직렬화
-public class Attachment/*첨부파일*/ implements java.io.Serializable{
+public class Attachment/* 첨부파일 */ implements java.io.Serializable {
 	private int fid;
 	private String filePath;
 	private String originName;
 	private String changeName;
 	private Date uploadDate;
 	private String status;
-	
-	//기본생성자
-	public Attachment() {}
+	private String type;
+	private String userId;
 
-	public Attachment(int fid, String filePath, String originName, String changeName, Date uploadDate, String status) {
+	// 기본생성자
+	public Attachment() {
+	}
+
+	public Attachment(int fid, String filePath, String originName, String changeName, Date uploadDate, String status,
+			String type, String userId) {
 		super();
 		this.fid = fid;
 		this.filePath = filePath;
@@ -22,12 +26,23 @@ public class Attachment/*첨부파일*/ implements java.io.Serializable{
 		this.changeName = changeName;
 		this.uploadDate = uploadDate;
 		this.status = status;
+		this.type = type;
+		this.userId = userId;
 	}
 
 	@Override
 	public String toString() {
 		return "Attachment [fid=" + fid + ", filePath=" + filePath + ", originName=" + originName + ", changeName="
-				+ changeName + ", uploadDate=" + uploadDate + ", status=" + status + "]";
+				+ changeName + ", uploadDate=" + uploadDate + ", status=" + status + ", type=" + type + ", userId="
+				+ userId + "]";
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public int getFid() {
@@ -54,6 +69,10 @@ public class Attachment/*첨부파일*/ implements java.io.Serializable{
 		return status;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
 	public void setFid(int fid) {
 		this.fid = fid;
 	}
@@ -78,5 +97,8 @@ public class Attachment/*첨부파일*/ implements java.io.Serializable{
 		this.status = status;
 	}
 
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 }
