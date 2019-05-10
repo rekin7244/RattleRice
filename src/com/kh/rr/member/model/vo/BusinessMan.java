@@ -3,35 +3,69 @@ package com.kh.rr.member.model.vo;
 import java.sql.Date;
 
 public class BusinessMan implements java.io.Serializable{
-	//buisness_info
+	//사업자
 	private String account; //계좌번호
 	private String bankcode; //은행코드
 	private String holder; //예금주
-	//store
-	private String cotact; //연락처
-	private String location; //위치
-	private String opening_hore; //영업시작 시간 영업 종료 시간도 있어 야 하나
-	private String intro; //간단한 소개
-	private String brand; //상호명
-	private String sCode; //매장코드
-	//transaction
-	private String tid;//내역코드;
-	private Date tDate;//거래일시
-	private int tPrice;//거래금액
-	private String type;//거래구분
-	//store_update
-	private Date uDate;//업데이트한 일시
-	private String uId;//수정 이력 코드 이름이 s_id로 되어 있음 바꿔야 되나 불어 보기
-	//menu
-	private String menu; //메뉴명
-	private int price; //메뉴가격
-	private String origin; //원산지
-	private String mId; //메뉴코드
-	private String fId; //이미지 키
-	//acount_change
-	private int aId;
-	private Date cDate;
-	//private 
+	private String bCode; //사업자 등록번호
+	private String bId; //사업자 아이디
+	
+	public BusinessMan() {}
+
+	public BusinessMan(String account, String bankcode, String holder, String bCode, String bId) {
+		super();
+		this.account = account;
+		this.bankcode = bankcode;
+		this.holder = holder;
+		this.bCode = bCode;
+		this.bId = bId;
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public String getBankcode() {
+		return bankcode;
+	}
+
+	public void setBankcode(String bankcode) {
+		this.bankcode = bankcode;
+	}
+
+	public String getHolder() {
+		return holder;
+	}
+
+	public void setHolder(String holder) {
+		this.holder = holder;
+	}
+
+	public String getbCode() {
+		return bCode;
+	}
+
+	public void setbCode(String bCode) {
+		this.bCode = bCode;
+	}
+
+	public String getbId() {
+		return bId;
+	}
+
+	public void setbId(String bId) {
+		this.bId = bId;
+	}
+
+	@Override
+	public String toString() {
+		return "BusinessMan [account=" + account + ", bankcode=" + bankcode + ", holder=" + holder + ", bCode=" + bCode
+				+ ", bId=" + bId + "]";
+	}
 	
 	
 }
