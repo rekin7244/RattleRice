@@ -15,8 +15,20 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>딸랑밥</title>
-
 <script>
+	/* $(function(){
+		$.ajax({
+			url:"indexInfo.if",
+			data:{},
+			type:"get",
+			success:function(data){
+				
+			},
+			fail:function(data){
+				console.log("실패!");
+			}
+		});
+	}); */
    function fnMove(seq) {
       var offset = $("#div" + seq).offset();
       $('html, body').animate({
