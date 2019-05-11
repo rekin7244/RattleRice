@@ -137,7 +137,7 @@ body::-webkit-scrollbar {
 				</ul>
 				<% if(loginUser != null) {%>
 					<ul class="nav navbar-nav navbar-right">
-					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold;"><button onclick="goProfile()">test</button><%=loginUser.getUserId()%>님</a></li>
+					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold; cursor: pointer;" onclick="goProfile()"><%=loginUser.getUserId()%>님</a></li>
 					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold;" 
 						href="<%= request.getContextPath()%>/logout.me"><span
 							class="glyphicon glyphicon-log-in"></span> Logout</a></li>

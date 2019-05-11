@@ -14,15 +14,28 @@ import com.kh.rr.member.model.vo.Attachment;
 
 public class AttachmentService {
 
+	public int insertAttachment(Attachment reqAttachment) {
+		Connection con = getConnection();
+
+		int result = new AttachmentDao().firstInsertAttachment(con, reqAttachment);
+
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		return result;
+	}
+
 	public int updateProfile(Attachment att, ArrayList<Attachment> fileList) {
 		Connection con = getConnection();
 		int result1 = 0, result2 = 0;
-		
-		result1 = new AttachmentDao().updateStatusAttachment(con,fileList);
-		
-		if(result1 > 0) {
+
+		result1 = new AttachmentDao().updateStatusAttachment(con, fileList);
+
+		if (result1 > 0) {
 			result2 = new AttachmentDao().insertAttachment(con, fileList);
-			
+
 			if (result2 > 0) {
 				commit(con);
 			} else {
@@ -30,17 +43,15 @@ public class AttachmentService {
 			}
 		}
 
-
-
 		close(con);
 
 		return result2;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectAttachmentlList() {
+	public ArrayList<HashMap<String, Object>> selectAttachmentlList(String userId) {
 		Connection con = getConnection();
-
-		ArrayList<HashMap<String, Object>> list = new AttachmentDao().selectThumbnailList(con);
+		
+		ArrayList<HashMap<String, Object>> list = new AttachmentDao().selectAttachmentlList(con,userId);
 
 		close(con);
 
