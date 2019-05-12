@@ -1,4 +1,4 @@
-package com.kh.rr.admin.coolsms;
+package com.kh.rr.admin.model.vo;
 
 import java.io.*;
 import java.net.URLEncoder;

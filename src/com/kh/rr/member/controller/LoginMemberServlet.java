@@ -47,7 +47,8 @@ public class LoginMemberServlet extends HttpServlet {
 			session.setAttribute("loginUser", loginUser);
 			
 			if(loginUser.getUserId().equals("admin")) {
-				page=request.getContextPath()+"/views/admin/adminForm.jsp";
+				page=request.getContextPath()+"/memberlist.ad";
+				/*page = request.getContextPath() + "/views/admin/adminForm.jsp";	*/
 			}else if(loginUser.getMemberType().equals("2")){
 				//page=request.getContextPath()+"/views/business/reservationForm.jsp";
 				CheckBusinessMan checkB = new CheckBusinessMan();

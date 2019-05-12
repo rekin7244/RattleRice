@@ -1,4 +1,4 @@
-package com.kh.rr.admin.coolsms;
+package com.kh.rr.admin.model.vo;
 
 import java.io.*;
 import java.net.URL;
@@ -17,8 +17,7 @@ import org.json.simple.JSONValue;
  * Https.class
  * Https request, response를 관리하는 class 입니다.
  */
-public class Https
-{
+public class Https{
 	/*
 	 * postRequest (POST)
 	 * @param StringBuffer : data 
