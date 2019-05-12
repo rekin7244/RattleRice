@@ -18,13 +18,21 @@
 	})
 </script>
 <style>
+body {
+	background: #f5f5f5;
+}
+
+.container h2 {
+	text-align: center;
+}
+
 .panel-join {
 	border-color: #ccc;
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
 	-moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
 	box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
 	margin: auto;
-	width: 500px;
+	width: 400px;
 }
 
 .panel-join>.panel-heading {
@@ -129,8 +137,9 @@
 .btn-warning {
 	width: 70px;
 	padding: 0%;
-	padding-top: 10px;
+	padding-top: 6px;
 	padding-bottom: 10px;
+	height: 35px;
 }
 
 .form-control {
@@ -158,30 +167,32 @@
 #topBtn {
 	display: inline-block;
 	float: right;
-	width: 100px;
+	width: 82px;
+}
+
+#businessNumber, #businessTitle, #businessName, #tel, #accountNumber,
+	#userId, #userPwd, #userPwd2 {
+	height: 35px;
 }
 </style>
 <title>딸랑밥 회원가입</title>
 </head>
 <body>
 	<div class="container">
+		<h2>딸랑밥 회원가입</h2>
 		<div class="row">
 			<div class="panel panel-join">
-				<div class="panel-heading">
-					<div class="row">
-						<a class="active" id="join-form-link">사업자 회원가입</a>
-					</div>
-					<hr>
-				</div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-12">
-							<form id="join-form" action="<%= request.getContextPath() %>/insertBMember.me" method="post" role="form"
-								style="display: block;">
+							<form id="join-form"
+								action="<%=request.getContextPath()%>/insertBMember.me"
+								method="post" role="form" style="display: block;">
 								<input type="hidden" name="memberType" id="memberType" value="2">
 								<div class="top">
 									<h4 class="title">사업자 인증</h4>
-									<button class="btn btn-primary" id="topBtn">사업자 인증</button>
+									<button type="button" class="btn btn-primary" id="topBtn"
+										style="background: white; color: gray;">사업자 인증</button>
 								</div>
 								<div class="form-group">
 									<input type="text" name="businessNumber" id="businessNumber"
@@ -201,6 +212,16 @@
 									<input type="tel" name="tel" id="tel" class="form-control"
 										placeholder="휴대폰 번호" readonly>
 								</div>
+								<div class="form-group">
+									<input type="text" name="accountNumber" id="accountNumber"
+										class="form-control" placeholder="정산 계좌" readonly>
+									<div style="text-align: right; width: 100%; padding: 0;">
+										<input type="button" class="btn btn-primary"
+											style="background: white; color: gray; margin-right: 33px; margin-top: 5px;"
+											value="계좌 인증"></input>
+
+									</div>
+								</div>
 
 								<hr>
 								<div class="top">
@@ -209,7 +230,8 @@
 								<div class="form-group">
 									<input type="text" name="userId" id="userId"
 										class="form-control" placeholder="아이디" required>
-									<button class="btn btn-warning">중복확인</button>
+									<button type="button" class="btn btn-warning " id="idCheck"
+										style="background: white; color: gray;">중복확인</button>
 								</div>
 								<div class="form-group">
 									<input type="password" name="userPwd" id="userPwd"
@@ -219,26 +241,86 @@
 									<input type="password" name="userPwd2" id="userPwd2"
 										class="form-control" placeholder="비밀번호 확인" required>
 								</div>
-								<div class="form-group">
-									<input type="text" name="accountNumber" id="accountNumber"
-										class="form-control" placeholder="정산 계좌" readonly>
-									<button class="btn btn-warning">계좌인증</button>
-								</div>
+
 								<div class="form-group">
 									<div class="row">
+										<!-- <input type="submit" name="register-submit"
+											id="register-submit" class="form-control btn btn-register"
+											value="회원가입" > -->
+
 										<input type="submit" name="register-submit"
 											id="register-submit" class="form-control btn btn-register"
-											value="회원가입">
+											value="회원가입" onclick="success()" disabled>
 									</div>
 								</div>
 							</form>
-
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+		var idCheck = "0";
+		var pwdCheck = "0";
+
+		$(function() {
+			$("#idCheck").click(function() {
+				var userId = $("#userId").val();
+
+				$.ajax({
+					url : "/rr/idCheck.me",
+					type : "post",
+					data : {
+						userId : userId
+					},
+					success : function(data) {
+						if (data === "fail") {
+							alert("아이디가 중복됩니다.");
+							idCheck = "0";
+						} else {
+							alert("사용 가능합니다.");
+							idCheck = "1";
+							$("#userId").attr("readonly","readonly");
+						}
+					},
+					error : function() {
+						console.log("실패");
+					}
+				});
+			})
+		});
+		
+		$(function() {
+			$("#userPwd2").keyup(function() {
+				var pwd1 = $("#userPwd").val();
+				var pwd2 = $("#userPwd2").val();
+				if (pwd1 != "" || pwd2 != "") {
+					if (pwd1 == pwd2) {
+						$("#userPwd2").css("border", "solid 2px lightgreen");
+						// $("#register-submit").removeAttr("disabled");
+						pwdCheck = "1";
+					} else {
+						$("#userPwd2").css("border", "solid 2px red");
+						//  $("#register-submit").attr("disabled", "disabled");
+						pwdCheck = "0";
+					}
+				}
+			});
+		});
+		
+		setInterval(function() {
+			console.log("실행");
+			console.log(idCheck);
+			console.log(pwdCheck);
+			if(idCheck == "1" && pwdCheck == "1"){
+				$("#register-submit").removeAttr("disabled");
+			}else{
+				$("#register-submit").attr("disabled", "disabled");
+			}
+		},500);
+
+		
+	</script>
 </body>
 </html>
