@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.Member"%>
-	
+
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
@@ -29,15 +32,14 @@
 			}
 		});
 	}); */
-   function fnMove(seq) {
-      var offset = $("#div" + seq).offset();
-      $('html, body').animate({
-         scrollTop : offset.top
-      }, 800);
-   }
+	function fnMove(seq) {
+		var offset = $("#div" + seq).offset();
+		$('html, body').animate({
+			scrollTop : offset.top
+		}, 800);
+	}
 </script>
 <style>
-
 img {
 	width: 100%;
 }
@@ -99,8 +101,8 @@ img {
 	font-size: 3em;
 }
 
-body::-webkit-scrollbar { 
-    display: none; 
+body::-webkit-scrollbar {
+	display: none;
 }
 </style>
 </head>
@@ -133,16 +135,23 @@ body::-webkit-scrollbar {
 					<li><a onclick="fnMove('2')">Service</a></li>
 					<li><a onclick="fnMove('3')">Contact</a></li>
 					<li><a onclick="fnMove('4')">FAQ</a></li>
-					
+
 				</ul>
-				<% if(loginUser != null) {%>
-					<ul class="nav navbar-nav navbar-right">
-					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold; cursor: pointer;" onclick="goProfile()"><%=loginUser.getUserId()%>님</a></li>
-					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold;" 
-						href="<%= request.getContextPath()%>/logout.me"><span
+				<%
+					if (loginUser != null) {
+				%>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a
+						style="font-family: 'Megrim', cursive; font-weight: bold; cursor: pointer;"
+						onclick="goProfile()"><%=loginUser.getUserId()%>님</a></li>
+					<li><a
+						style="font-family: 'Megrim', cursive; font-weight: bold;"
+						href="<%=request.getContextPath()%>/logout.me"><span
 							class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 				</ul>
-				<%}else{ %>
+				<%
+					} else {
+				%>
 				<ul class="nav navbar-nav navbar-right">
 					<li data-toggle="modal" data-target="#joinModla"><a
 						style="font-family: 'Megrim', cursive; font-weight: bold;"><span
@@ -151,7 +160,9 @@ body::-webkit-scrollbar {
 						style="font-family: 'Megrim', cursive; font-weight: bold;"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				</ul>
-				<%} %>
+				<%
+					}
+				%>
 			</div>
 		</div>
 	</nav>
@@ -257,7 +268,7 @@ body::-webkit-scrollbar {
 			<div class="contact-form">
 
 				<form action="" method="post">
-				
+
 					<table>
 						<colgroup>
 							<col width="100px" />
@@ -467,25 +478,32 @@ body::-webkit-scrollbar {
 	</div>
 	<br>
 	<br>
-	
-	<%if(loginUser != null){ %>
-		<div class="fixed">
-			<a
-				onclick="window.open('<%=request.getContextPath()%>/selectAll.cr', '', 'top=50px, left=800px, height=500, width=400')">
-				<i class="far fa-comment"></i></a>
-		</div>
-		
-	<%}else{ %>
-	
-	<%} %>
+
+	<%
+		if (loginUser != null) {
+	%>
+	<div class="fixed">
+		<a
+			onclick="window.open('<%=request.getContextPath()%>/selectAll.cr', '', 'top=50px, left=800px, height=500, width=400')">
+			<i class="far fa-comment"></i>
+		</a>
+	</div>
+
+	<%
+		} else {
+	%>
+
+	<%
+		}
+	%>
 	<div class="footer">
 		<%@ include file="views/common/footer.jsp"%>
 	</div>
-	
+
 	<script>
-	function goProfile(){
-		location.href="/rr/selectPro";
-	}
+		function goProfile() {
+			location.href = "/rr/selectPro";
+		}
 	</script>
 
 </body>

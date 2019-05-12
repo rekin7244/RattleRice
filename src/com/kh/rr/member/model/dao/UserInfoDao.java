@@ -1,6 +1,6 @@
 package com.kh.rr.member.model.dao;
 
-import static com.kh.rr.common.JDBCTemplate.*;
+import static com.kh.rr.common.JDBCTemplate.close;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,10 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Properties;
 
-import com.kh.rr.member.model.vo.Attachment;
 import com.kh.rr.member.model.vo.UserInfo;
 
 public class UserInfoDao {
@@ -73,8 +71,11 @@ public class UserInfoDao {
 				try {
 					pstmt = con.prepareStatement(query);
 					pstmt.setString(1, reqUserInfo.getGender());
-					pstmt.setString(2, reqUserInfo.getUserId());
-
+					pstmt.setDate(2, reqUserInfo.getBirthday());
+					pstmt.setString(3, reqUserInfo.getJob());
+					pstmt.setString(4, reqUserInfo.getUserId());
+					pstmt.setString(5, reqUserInfo.getPhone());
+					
 					result = pstmt.executeUpdate();
 				} catch (SQLException e) {
 					e.printStackTrace();

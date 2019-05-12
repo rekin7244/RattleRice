@@ -1,9 +1,6 @@
 package com.kh.rr.member.model.service;
 
-import static com.kh.rr.common.JDBCTemplate.close;
-import static com.kh.rr.common.JDBCTemplate.commit;
-import static com.kh.rr.common.JDBCTemplate.getConnection;
-import static com.kh.rr.common.JDBCTemplate.rollback;
+import static com.kh.rr.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -11,7 +8,6 @@ import java.util.HashMap;
 
 import com.kh.rr.member.model.dao.MemberDao;
 import com.kh.rr.member.model.vo.Member;
-import com.kh.rr.member.model.vo.UserInfo;
 
 public class MemberService {
 
@@ -110,6 +106,18 @@ public class MemberService {
 		
 		return list;
 	}
+
+	//아이디 중복 확인용 메소드
+			public int idCheck(String userId) {
+				Connection con = getConnection();
+				
+				int result = new MemberDao().idCheck(con, userId);
+				
+				close(con);
+				
+				
+				return result;
+			}
 
 	
 }

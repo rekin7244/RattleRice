@@ -44,7 +44,7 @@
 }
 
 .panel-login>.panel-heading a.active {
-	color: #029f5b;
+	color: #ffb100;
 	font-size: 18px;
 }
 
@@ -139,6 +139,9 @@
 .btn-primary, .btn-success {
 	width: 30%;
 }
+img{
+width: auto;
+}
 </style>
 <title>딸랑밥 로그인</title>
 </head>
@@ -158,11 +161,11 @@
 					<form id="login-form" action="<%= request.getContextPath() %>/loginMember.me" method="post" role="form">
 						<div class="form-group">
 							<input type="text" name="userId" id="userId" tabindex="1"
-								class="form-control" placeholder="Username" value="">
+								class="form-control" placeholder="ID" value="">
 						</div>
 						<div class="form-group">
 							<input type="password" name="userPwd" id="userPwd" tabindex="2"
-								class="form-control" placeholder="userPwd">
+								class="form-control" placeholder="PASSWORD">
 						</div>
 
 						<div class="form-group">

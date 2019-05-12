@@ -53,9 +53,8 @@
 	"https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
 body {
-	font-family: 'Poppins', sans-serif;
 	background: #fafafa;
-	overflow: hidden
+/* 	overflow: hidden */
 }
 
 /* 메뉴 */
@@ -190,8 +189,7 @@ a[data-toggle="collapse"] {
 }
 
 .profile {
-	display: inline-block;
-	border: 1px solid black;
+	float: left;
 }
 
 .form1, .form2 {
@@ -223,6 +221,31 @@ a[data-toggle="collapse"] {
 #inProfileImg {
 	object-fit: cover;
 	border-radius: 50%;
+}
+
+.form-group {
+	display: block;
+}
+
+#profileUpdateBtn {
+	margin-right: 50px;
+}
+
+#userUpdateBtn {
+	
+}
+
+.profile {
+	/* border: 1px solid red; */
+	
+}
+
+#userArea {
+	margin-left: 210px;
+	margin-right: 210px;
+}
+.form-control{
+width: 300px;
 }
 </style>
 </head>
@@ -298,10 +321,11 @@ a[data-toggle="collapse"] {
 			<div class="col-sm-2 sidenav"></div>
 			<div class="col-sm-5 form1">
 				<div class="well">
-					<p>프로필 설정</p>
+					<h2>프로필 설정</h2>
 					<br>
 					<form action="<%=request.getContextPath()%>/updatePro"
-						method="post" encType="multipart/form-data">
+						method="post" encType="multipart/form-data"
+						style="margin-left: 80px;">
 						<div style="display: table-cell;">
 							<!-- 이미지첨부-->
 							<div id="fileArea">
@@ -310,7 +334,8 @@ a[data-toggle="collapse"] {
 							</div>
 							&nbsp;&nbsp;&nbsp;
 							<!-- 이미지 -->
-							<div class="profile img" style="vertical-align: middle; border: 0px;"
+							<div class="profile img"
+								style="vertical-align: middle; border: 0px; margin-right: 50px; margin-top: 50px;"
 								id="profileImgArea">
 								<%
 									for (int i = 0; i < list.size(); i++) {
@@ -326,26 +351,27 @@ a[data-toggle="collapse"] {
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="profile">
 								<div class="form-group">
-									<label for="usr">닉네임</label> <input type="text"
-										class="form-control" id="usr">
+									<label>닉네임</label> <input type="text"
+										class="form-control" id="nickName">
 								</div>
 								<div class="form-group">
-									<label for="comment">상태 메세지</label>
+									<label>상태 메세지</label>
 									<textarea style="resize: none; width: 300px; height: 50px;"
-										class="form-control" id="comment"></textarea>
+										class="form-control" id="message"></textarea>
 								</div>
 								<div class="form-group">
-									<label for="usr">생일</label> <input type="text"
-										class="form-control" id="usr">
+									<label>생일</label> <input type="date"
+										class="form-control" id="birthday">
 								</div>
 								<div class="form-group">
-									<label for="usr">직업</label> <input type="text"
-										class="form-control" id="usr">
+									<label>직업</label> <input type="text"
+										class="form-control" id="job">
 								</div>
 
 							</div>
 						</div>
-						<button type="submit" class="btn btn-warning">수정</button>
+						<button type="submit" class="btn btn-warning"
+							id="profileUpdateBtn">수정</button>
 					</form>
 				</div>
 			</div>
@@ -353,38 +379,29 @@ a[data-toggle="collapse"] {
 			<div class="col-sm-5 form2">
 				<div class="well">
 					<div>
-						<p>개인정보 수정</p>
+						<h2>개인정보 수정</h2>
 						<br>
-						<div class="profile">
-							<div class="form-group">
-								<label>이메일 : </label>
-							</div>
-							<div class="form-group">
-								<label>비밀번호 : </label>
-							</div>
-							<div class="form-group">
-								<label>연락처 : </label>
-							</div>
-						</div>
 						<form>
 
-							<div class="profile">
+							<div class="profile" id="userArea">
 								<div class="form-group">
-									<label>이메일 : </label> <input type="email" class="form-input"
-										id="email">
+									<label>이메일</label> <input type="email" class="form-control"
+										id="usr">
 								</div>
 								<div class="form-group">
-									<label>비밀번호 : </label> <input type="password"
-										class="form-input" id="usr">
+									<label>비밀번호</label> <input type="password" class="form-control"
+										id="usr">
 								</div>
 								<div class="form-group">
-									<label>연락처 : </label> <input type="tel" class="form-input"
+									<label>연락처</label> <input type="tel" class="form-control"
 										id="usr">
 								</div>
 							</div>
-							<br>
-							<button type="submit" class="btn btn-warning">수정</button>
+							<button type="submit" class="btn btn-warning" id="userUpdateBtn">수정</button>
+
 						</form>
+
+
 					</div>
 				</div>
 			</div>
