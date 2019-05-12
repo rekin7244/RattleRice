@@ -70,7 +70,7 @@ public class UserInfoDao {
 				reqUi.setAccount(rset.getString("ACCOUNT"));
 				reqUi.setbCode(rset.getString("BANKCODE"));
 				reqUi.setHolder(rset.getString("HOLDER"));
-				reqUi.setPhone(rset.getInt("PHONE"));
+				reqUi.setPhone(rset.getString("PHONE"));
 			}
 			
 		} catch (SQLException e) {
@@ -84,26 +84,29 @@ public class UserInfoDao {
 	}
 
 	//UserInfo에 insert
-			public int insertUserInfo(Connection con, UserInfo reqUserInfo) {
-				PreparedStatement pstmt = null;
-				int result = 0;
+	public int insertUserInfo(Connection con, UserInfo reqUserInfo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
 
-				String query = prop.getProperty("insertUserInfo");
+		String query = prop.getProperty("insertUserInfo");
 
-				try {
-					pstmt = con.prepareStatement(query);
-					pstmt.setString(1, reqUserInfo.getGender());
-					pstmt.setString(2, reqUserInfo.getUserId());
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqUserInfo.getGender());
+			pstmt.setDate(2, reqUserInfo.getBirthday());
+			pstmt.setString(3, reqUserInfo.getJob());
+			pstmt.setString(4, reqUserInfo.getUserId());
+			pstmt.setString(5, reqUserInfo.getPhone());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 
-					result = pstmt.executeUpdate();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} finally {
-					close(pstmt);
-				}
-
-				return result;
-			}
+		return result;
+	}
 		
 	//사용자 정보 수정용 메소드
 	public int updateUserInfo(Connection con, UserInfo reqUi) {

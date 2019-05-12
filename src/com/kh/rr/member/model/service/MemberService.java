@@ -111,5 +111,17 @@ public class MemberService {
 		return list;
 	}
 
+	//아이디 중복 확인용 메소드
+	public int idCheck(String userId) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().idCheck(con, userId);
+		
+		close(con);
+		
+		
+		return result;
+	}
+
 	
 }
