@@ -91,27 +91,6 @@ public class MemberDao {
 		return result;
 	}
 	
-	//UserInfo에 insert
-		public int insertUserInfo(Connection con, UserInfo reqUserInfo) {
-			PreparedStatement pstmt = null;
-			int result = 0;
-
-			String query = prop.getProperty("insertUserInfo");
-
-			try {
-				pstmt = con.prepareStatement(query);
-				pstmt.setString(1, reqUserInfo.getGender());
-				pstmt.setString(2, reqUserInfo.getUserId());
-
-				result = pstmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(pstmt);
-			}
-
-			return result;
-		}
 
 	public int insertBusinessMember(Connection con, Member reqMember) {
 		PreparedStatement pstmt = null;

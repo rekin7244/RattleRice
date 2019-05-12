@@ -84,21 +84,7 @@ public class MemberService {
 		return result;
 	}
 	
-	//UserInfo에 insert
-		public int insertUserInfo(UserInfo reqUserInfo) {
-			Connection con = getConnection();
-
-			int result = new MemberDao().insertUserInfo(con, reqUserInfo);
-
-			if(result > 0) {
-				commit(con);
-			}else {
-				rollback(con);
-			}
-
-			return result;
-		}
-	
+		
 	public int insertBusinessMember(Member reqMember) {
 		Connection con = getConnection();
 

@@ -55,17 +55,21 @@ public class AttachmentDao {
 		return result;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectThumbnailList(Connection con) {
-		Statement stmt = null;
+	public ArrayList<HashMap<String, Object>> selectAttachmentlList(Connection con,String userId) {
+		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
 		ResultSet rset = null;
 
 		String query = prop.getProperty("selectAttachmentMap");
 
+		
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
 
 			list = new ArrayList<HashMap<String, Object>>();
 
@@ -86,12 +90,12 @@ public class AttachmentDao {
 
 				list.add(hmap);
 			}
-
+			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 
@@ -118,5 +122,25 @@ public class AttachmentDao {
 
 		return result;
 
+	}
+
+	public int firstInsertAttachment(Connection con, Attachment reqAttachment) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("firstInsertAttachment");
+
+		try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, reqAttachment.getUserId());
+
+				result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 }

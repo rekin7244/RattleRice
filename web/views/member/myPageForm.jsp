@@ -219,6 +219,11 @@ a[data-toggle="collapse"] {
 #profileImgArea {
 	cursor: pointer;
 }
+
+#inProfileImg {
+	object-fit: cover;
+	border-radius: 50%;
+}
 </style>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -277,7 +282,8 @@ a[data-toggle="collapse"] {
 				<p>
 					<b>메뉴</b>
 				</p>
-				<li><a href="myPageForm.jsp" class="active">마이페이지</a></li>
+				<li><a class="active" onclick="goProfile()"
+					style="cursor: pointer;">마이페이지</a></li>
 				<li><a href="myWriteForm.jsp">작성글 조회</a></li>
 				<li><a href="myPointForm.jsp">포인트</a></li>
 			</ul>
@@ -304,16 +310,18 @@ a[data-toggle="collapse"] {
 							</div>
 							&nbsp;&nbsp;&nbsp;
 							<!-- 이미지 -->
-							<div class="profile img" style="vertical-align: middle;"
+							<div class="profile img" style="vertical-align: middle; border: 0px;"
 								id="profileImgArea">
 								<%
-									HashMap<String, Object> hmap = list.get(0);
+									for (int i = 0; i < list.size(); i++) {
+										HashMap<String, Object> hmap = list.get(i);
 								%>
-								<input type="hidden" value="<%=hmap.get("userId")%>"> <img
-									id="inProfileImg"
+								<img id="inProfileImg"
 									src="/rr/profileImg_upload/<%=hmap.get("changeName")%>"
 									width="200px" height="200px">
-
+								<%
+									}
+								%>
 							</div>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="profile">
@@ -416,7 +424,11 @@ a[data-toggle="collapse"] {
 				}
 				reader.readAsDataURL(value.files[0]);
 			}
-		}
+		};
+
+		function goProfile() {
+			location.href = "/rr/selectPro";
+		};
 	</script>
 
 </body>

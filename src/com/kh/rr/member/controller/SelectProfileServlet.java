@@ -10,8 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.rr.member.model.service.AttachmentService;
+import com.kh.rr.member.model.vo.Member;
 
 @WebServlet("/selectPro")
 public class SelectProfileServlet extends HttpServlet {
@@ -22,7 +24,11 @@ public class SelectProfileServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<HashMap<String, Object>> list = new AttachmentService().selectAttachmentlList();
+		HttpSession session = request.getSession();
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		String userId = loginUser.getUserId();
+		
+		ArrayList<HashMap<String, Object>> list = new AttachmentService().selectAttachmentlList(userId);
 		
 		String page ="";
 		if(list != null) {
