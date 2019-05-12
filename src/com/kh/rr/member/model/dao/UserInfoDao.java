@@ -1,15 +1,19 @@
 package com.kh.rr.member.model.dao;
 
+import static com.kh.rr.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Properties;
 
 import com.kh.rr.member.model.vo.UserInfo;
-import static com.kh.rr.common.JDBCTemplate.*;
 
 public class UserInfoDao {
 	private Properties prop = new Properties();
@@ -23,6 +27,8 @@ public class UserInfoDao {
 			e.printStackTrace();
 		}
 	}
+	
+	//사용자 정보 조회용 메소드
 	public UserInfo userInfo(Connection con, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -34,10 +40,25 @@ public class UserInfoDao {
 			pstmt.setString(1, userId);
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
+			while(rset.next()) {
 				reqUi = new UserInfo();
 				reqUi.setGender(rset.getString("GENDER"));
 				reqUi.setBirthday(rset.getDate("BIRTHDAY"));
+				
+				//생일 정보에서 출생 년도 값 가져옴
+				SimpleDateFormat ch = new SimpleDateFormat("yyyy-MM-dd");
+				String bDay = ch.format(reqUi.getBirthday());
+				String bArr [] = bDay.split("-");
+				int bYear = Integer.parseInt(bArr[0]);
+				
+				//캘린더에서 현재 년도 값 가져옴
+				Calendar cal = Calendar.getInstance();
+				int sysyear = cal.get(Calendar.YEAR);
+				
+				//나이 설정
+				int age = sysyear - bYear + 1;
+				reqUi.setAge(age);
+				
 				reqUi.setJob(rset.getString("JOB"));
 				reqUi.setNickName(rset.getString("NICK_NAME"));
 				reqUi.setMsg(rset.getString("MESSAGE"));
@@ -46,8 +67,7 @@ public class UserInfoDao {
 				reqUi.setAccount(rset.getString("ACCOUNT"));
 				reqUi.setbCode(rset.getString("BANKCODE"));
 				reqUi.setHolder(rset.getString("HOLDER"));
-				reqUi.setFid(rset.getInt("FID"));
-				reqUi.setAge(rset.getInt("AGE"));
+				reqUi.setPhone(rset.getInt("PHONE"));
 			}
 			
 		} catch (SQLException e) {
@@ -59,6 +79,8 @@ public class UserInfoDao {
 		
 		return reqUi;
 	}
+	
+	//사용자 정보 수정용 메소드
 	public int updateUserInfo(Connection con, UserInfo reqUi) {
 		PreparedStatement pstmt = null;
 		int result = 0;

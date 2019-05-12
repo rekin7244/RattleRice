@@ -19,8 +19,10 @@ public class ChattingRoomService {
 		Connection con = getConnection();
 		int result = 0;
 		
+		//프리미엄 조건인 성별선택이 null이 아니라면 프리미엄 생성으로
 		if(reqCr.getsRatio() != null) {
 			result = new ChattingRoomDao().insertPremiumChattingRoom(con,reqCr);
+		//비어있으면 일반 생성으로
 		}else {
 			result = new ChattingRoomDao().insertChattingRoom(con, reqCr);
 		}

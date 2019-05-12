@@ -85,7 +85,7 @@ ul, body {
 	<div class="container">
 		<div id="header">
 			<ul class="nav navbar-nav mainbar">
-				<li class="" style="left: -3%;"><a href="main.jsp">
+				<li class="" style="left: -3%;"><a href="<%= request.getContextPath()%>/selectAll.cr">
 				<i class="fas fa-arrow-left"></i></a></li>
 				<li data-toggle="modal" data-target="#msearch" class="search"
 					style="right: 0%;"><a href="#msearch">

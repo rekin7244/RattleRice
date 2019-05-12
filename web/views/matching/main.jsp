@@ -15,24 +15,81 @@
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- 메뉴바 스타일 -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-<title>Insert title here</title>
+<title>딸랑밥!</title>
 <script>
+	//창크기 조절용 함수
 	$(function() {
 		$(window).resize(function() {
 			window.resizeTo(410, 600);
 		});
-		$(".cr-content").click(function(){
-			window.confirm("입장 하시겠습니까?");
+		//채팅방 입장용 함수
+		$(".cr-content-inner").click(function(){
+			var enter = window.confirm("입장 하시겠습니까?");
+			
+			if(enter){
+				location.href="<%= request.getContextPath()%>/views/matching/chatting.jsp";
+			}
 		})
 	});
+	
+	//프리미엄 채팅방을 만들지 안 만들지 선택하는 함수
+	function choice(){
+		var choice = window.confirm("프리미엄으로 하시겠습니까?");
+	
+		if(!choice){
+			console.log("거절");
+			location.href='<%=request.getContextPath()%>/selectAll.cr';
+		}
+	}
+	
+	//프리미엄 채팅방 모달 창 변경될 때 값을 저장해주는 함수
+	function premiumCondition(){
+		$location = $("#pLocation").val();
+		$time = $("#pTime").val().split('T');
+		$mPerson = $("#pMperson").val();
+		$rName = $("#pRname").val();
+		$pCategory = $("select[name=pCategory]").val();
+		
+		$("#allVal").val($location + "," + $time[0] + "," + $time[1] + "," +
+				$mPerson + "," + $rName + "," + $pCategory);
+		
+		console.log($location + "," + $time[0] + "," + $time[1] + "," +
+				$mPerson + "," + $rName + "," + $pCategory);
+	}
+	
+	//지도 api띄우는 함수 - 일반
+	var openWin;
+	function openChild(){
+		
+		window.name = "main";
+		
+		openWin = window.open('/rr/views/matching/map.jsp','childForm',
+					'top=50px, left=800px, height=500, width=400');
+		timer = setInterval(function(){
+			$("#location").val(openWin.$("#locationInfo").val());
+			$("#pLocation").val(openWin.$("#locationInfo").val());
+		}, 1000);
+	}
+	
+	//지도 api띄우는 함수 - 프리미엄
+	var openWin2;
+	function openChild2(){
+		
+		window.name = "main";
+		
+		openWin2 = window.open('/rr/views/matching/map.jsp','childForm',
+					'top=50px, left=800px, height=500, width=400');
+		timer = setInterval(function(){
+			$("#pLocation").val(openWin.$("#locationInfo").val());
+		}, 1000);
+	}
+	
 </script>
 <style>
 	.sexRatio {
@@ -52,22 +109,6 @@
 		cursor: pointer;
 	}
 </style>
-<script>
-	function premiumCondition(){
-		console.log("함수실행");
-		$location = $("#pLocation").val();
-		$time = $("#pTime").val().split('T');
-		$mPerson = $("#pMperson").val();
-		$rName = $("#pRname").val();
-		
-		$("#allVal").val($location + "," + $time[0] + "," + $time[1] + "," +
-				$mPerson + "," + $rName);
-		console.log($("#allVal").val());
-	}
-
-	
-	
-</script>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
@@ -93,7 +134,6 @@
 		<div class="modal fade" id="createChat" role="dialog"
 			data-backdrop="static">
 			<div class="modal-dialog modal-sm" data-backdrop="static">
-
 				<!-- Modal content-->
 				<div class="modal-content" data-backdrop="static">
 					<div class="modal-header" data-backdrop="static">
@@ -106,7 +146,7 @@
 						<div align="center" data-backdrop="static">
 							<button type="button" class="btn btn-default" style="color: red" data-dismiss="modal"
 							data-toggle="modal" data-target="#createChatp"
-							onclick="window.confirm('프리미엄으로 하시겠습니까?')">프리미엄</button>
+							onclick="choice();">프리미엄</button>
 							&nbsp;
 							<button type="button" class="btn btn-default" style="color: #4abeca" data-dismiss="modal"
 							data-toggle="modal" data-target="#createChatp1">일반</button>
@@ -119,21 +159,7 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		var openWin;
-		function openChild(){
-			
-			window.name = "main";
-			
-			openWin = window.open('/rr/views/matching/map.jsp','childForm',
-						'top=50px, left=800px, height=500, width=400');
-			timer = setInterval(function(){
-				$("#location").val(openWin.$("#locationInfo").val());
-				console.log("값을 가져옴");
-			}, 1000);
-		}
 	
-	</script>
 	<!-- 일반 방 생성  -->
 	<div class="container">
 		<!-- Modal -->
@@ -187,7 +213,6 @@
 		</div>
 	</div>
 
-
 	<!-- 프리미엄 방 생성 (조건1) -->
 	<div class="container">
 		<!-- Modal -->
@@ -200,6 +225,7 @@
 						<h4 class="modal-title">프리미엄방 생성</h4>
 					</div>
 					<div class="modal-body" data-backdrop="static">
+					<button onclick="openChild();">위치선택</button>
 						<form>
 							<div class="form-group">
 								<label for="pLocation">위치</label> <input type="text"
@@ -219,8 +245,8 @@
 									placeholder="ex) 역삼역 9시에 간장새우 드실분~">
 							</div>
 								<div class="form-group">
-								<label for="fcategory">메뉴</label> <select class="form-control"
-									id="fcategory" name="category">
+								<label for="pCategory">메뉴</label> <select class="form-control"
+									id="pCategory" name="pCategory">
 									<option value="10">한식</option>
 									<option value="20">중식</option>
 									<option value="30">일식</option>
@@ -300,8 +326,6 @@
 		<div class="modal fade" id="ksearch" role="dialog"
 			data-backdrop="static">
 			<div class="modal-dialog modal-sm" data-backdrop="static">
-
-				Modal content
 				<div class="modal-content" data-backdrop="static">
 					<div class="modal-header" data-backdrop="static">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -323,15 +347,11 @@
 		</div>
 	</div>
 
-
 	<!-- 조건 검색1 -->
 	<div class="container">
-		<!-- Modal -->
 		<div class="modal fade" id="msearch" role="dialog"
 			data-backdrop="static">
 			<div class="modal-dialog modal-sm" data-backdrop="static">
-
-				Modal content
 				<div class="modal-content" data-backdrop="static">
 					<div class="modal-header" data-backdrop="static">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -382,8 +402,6 @@
 		<div class="modal fade" id="msearch2" role="dialog"
 			data-backdrop="static">
 			<div class="modal-dialog modal-sm" data-backdrop="static">
-
-				Modal content
 				<div class="modal-content" data-backdrop="static">
 					<div class="modal-header" data-backdrop="static">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
