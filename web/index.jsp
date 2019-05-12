@@ -15,8 +15,20 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>딸랑밥</title>
-
 <script>
+	/* $(function(){
+		$.ajax({
+			url:"indexInfo.if",
+			data:{},
+			type:"get",
+			success:function(data){
+				
+			},
+			fail:function(data){
+				console.log("실패!");
+			}
+		});
+	}); */
    function fnMove(seq) {
       var offset = $("#div" + seq).offset();
       $('html, body').animate({
@@ -125,7 +137,7 @@ body::-webkit-scrollbar {
 				</ul>
 				<% if(loginUser != null) {%>
 					<ul class="nav navbar-nav navbar-right">
-					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold;" href="views/member/myPageForm.jsp"><%=loginUser.getUserId()%>님</a></li>
+					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold; cursor: pointer;" onclick="goProfile()"><%=loginUser.getUserId()%>님</a></li>
 					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold;" 
 						href="<%= request.getContextPath()%>/logout.me"><span
 							class="glyphicon glyphicon-log-in"></span> Logout</a></li>
@@ -469,6 +481,12 @@ body::-webkit-scrollbar {
 	<div class="footer">
 		<%@ include file="views/common/footer.jsp"%>
 	</div>
+	
+	<script>
+	function goProfile(){
+		location.href="/rr/selectPro";
+	}
+	</script>
 
 </body>
 </html>

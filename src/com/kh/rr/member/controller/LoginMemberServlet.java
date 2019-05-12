@@ -41,7 +41,9 @@ public class LoginMemberServlet extends HttpServlet {
 			if(loginUser.getUserId().equals("admin")) {
 				page=request.getContextPath()+"/views/admin/adminForm.jsp";
 			}else if(loginUser.getMemberType().equals("2")){
-				page=request.getContextPath()+"/views/business/reservationForm.jsp";
+				//page=request.getContextPath()+"/views/business/reservationForm.jsp";
+				CheckBusinessMan checkB = new CheckBusinessMan();
+				checkB.doGet(request, response);
 			}else {
 				page = "index.jsp";
 			}

@@ -1,6 +1,7 @@
 package com.kh.rr.member.model.dao;
 
-import static com.kh.rr.common.JDBCTemplate.close;
+
+import static com.kh.rr.common.JDBCTemplate.*;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,15 +12,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.rr.member.model.vo.Attachment;
 import com.kh.rr.member.model.vo.UserInfo;
 
 public class UserInfoDao {
 	private Properties prop = new Properties();
 	
 	public UserInfoDao() {
-		String fileName = UserInfoDao.class.getResource("/sql/member/member-query.properties").getPath();
+		String fileName = UserInfoDao.class.getResource("/sql/member/userInfo-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -79,7 +82,29 @@ public class UserInfoDao {
 		
 		return reqUi;
 	}
-	
+
+	//UserInfo에 insert
+			public int insertUserInfo(Connection con, UserInfo reqUserInfo) {
+				PreparedStatement pstmt = null;
+				int result = 0;
+
+				String query = prop.getProperty("insertUserInfo");
+
+				try {
+					pstmt = con.prepareStatement(query);
+					pstmt.setString(1, reqUserInfo.getGender());
+					pstmt.setString(2, reqUserInfo.getUserId());
+
+					result = pstmt.executeUpdate();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close(pstmt);
+				}
+
+				return result;
+			}
+		
 	//사용자 정보 수정용 메소드
 	public int updateUserInfo(Connection con, UserInfo reqUi) {
 		PreparedStatement pstmt = null;
@@ -101,6 +126,8 @@ public class UserInfoDao {
 		
 		return result;
 	}
+	
+	
 
 }
 

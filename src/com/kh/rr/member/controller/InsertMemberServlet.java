@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.rr.member.model.service.AttachmentService;
 import com.kh.rr.member.model.service.MemberService;
+import com.kh.rr.member.model.service.UserInfoService;
+import com.kh.rr.member.model.vo.Attachment;
 import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.member.model.vo.UserInfo;
 
@@ -52,11 +55,16 @@ public class InsertMemberServlet extends HttpServlet {
 		reqUserInfo.setGender(gender);
 		reqUserInfo.setUserId(userId);
 		
+		Attachment reqAttachment = new Attachment();
+		reqAttachment.setUserId(userId);
+		
+		
 		int result = new MemberService().insertMember(reqMember);
-		int result2 = new MemberService().insertUserInfo(reqUserInfo);
+		int result2 = new UserInfoService().insertUserInfo(reqUserInfo);
+		int result3 = new AttachmentService().insertAttachment(reqAttachment);
 		
 		String page = "";
-		if(result > 0 && result2 > 0) {
+		if(result > 0 && result2 > 0 && result3>0) {
 			page = "index.jsp";
 			response.sendRedirect(page);
 		}else {

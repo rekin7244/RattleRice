@@ -2,7 +2,7 @@ package com.kh.rr.member.model.vo;
 
 import java.sql.Date;
 
-public class UserInfo implements java.io.Serializable{
+public class UserInfo implements java.io.Serializable {
 	private String gender;
 	private Date birthday;
 	private int age;
@@ -15,7 +15,7 @@ public class UserInfo implements java.io.Serializable{
 	private String bCode;
 	private String holder;
 	private int phone;
-	
+
 	public UserInfo() {}
 
 	public UserInfo(String gender, Date birthday, int age, String job, String nickName, String msg, String grade,
@@ -32,6 +32,14 @@ public class UserInfo implements java.io.Serializable{
 		this.account = account;
 		this.bCode = bCode;
 		this.holder = holder;
+		this.phone = phone;
+	}
+
+	public int getPhone() {
+		return phone;
+	}
+
+	public void setPhone(int phone) {
 		this.phone = phone;
 	}
 
@@ -137,6 +145,4 @@ public class UserInfo implements java.io.Serializable{
 				+ nickName + ", msg=" + msg + ", grade=" + grade + ", userId=" + userId + ", account=" + account
 				+ ", bCode=" + bCode + ", holder=" + holder + ", phone=" + phone + "]";
 	}
-	
-	
 }

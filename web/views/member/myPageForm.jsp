@@ -219,6 +219,11 @@ a[data-toggle="collapse"] {
 #profileImgArea {
 	cursor: pointer;
 }
+
+#inProfileImg {
+	object-fit: cover;
+	border-radius: 50%;
+}
 </style>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -277,7 +282,8 @@ a[data-toggle="collapse"] {
 				<p>
 					<b>메뉴</b>
 				</p>
-				<li><a href="myPageForm.jsp" class="active">마이페이지</a></li>
+				<li><a class="active" onclick="goProfile()"
+					style="cursor: pointer;">마이페이지</a></li>
 				<li><a href="myWriteForm.jsp">작성글 조회</a></li>
 				<li><a href="myPointForm.jsp">포인트</a></li>
 			</ul>
@@ -294,8 +300,8 @@ a[data-toggle="collapse"] {
 				<div class="well">
 					<p>프로필 설정</p>
 					<br>
-					<form action="<%=request.getContextPath()%>/updateProfile"
-						method="post">
+					<form action="<%=request.getContextPath()%>/updatePro"
+						method="post" encType="multipart/form-data">
 						<div style="display: table-cell;">
 							<!-- 이미지첨부-->
 							<div id="fileArea">
@@ -304,17 +310,18 @@ a[data-toggle="collapse"] {
 							</div>
 							&nbsp;&nbsp;&nbsp;
 							<!-- 이미지 -->
-							<div class="profile img" style="vertical-align: middle;"
+							<div class="profile img" style="vertical-align: middle; border: 0px;"
 								id="profileImgArea">
-								<img id="inProfileImg" width="200px" height="200px"
-									src="<%=request.getContextPath()%>/images/defaultProfileImg.png">
-
-
-								<%-- <input type="hidden" value="<%=hmap.get("bid")%>"> <img
-									src="/jsp/thumbnail_upload/<%=hmap.get("changeName")%>"
-									width="200px" height="200px"> --%>
-
-
+								<%
+									for (int i = 0; i < list.size(); i++) {
+										HashMap<String, Object> hmap = list.get(i);
+								%>
+								<img id="inProfileImg"
+									src="/rr/profileImg_upload/<%=hmap.get("changeName")%>"
+									width="200px" height="200px">
+								<%
+									}
+								%>
 							</div>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="profile">
@@ -327,9 +334,18 @@ a[data-toggle="collapse"] {
 									<textarea style="resize: none; width: 300px; height: 50px;"
 										class="form-control" id="comment"></textarea>
 								</div>
+								<div class="form-group">
+									<label for="usr">생일</label> <input type="text"
+										class="form-control" id="usr">
+								</div>
+								<div class="form-group">
+									<label for="usr">직업</label> <input type="text"
+										class="form-control" id="usr">
+								</div>
+
 							</div>
 						</div>
-						<button type="button" class="btn btn-warning">수정</button>
+						<button type="submit" class="btn btn-warning">수정</button>
 					</form>
 				</div>
 			</div>
@@ -408,7 +424,11 @@ a[data-toggle="collapse"] {
 				}
 				reader.readAsDataURL(value.files[0]);
 			}
-		}
+		};
+
+		function goProfile() {
+			location.href = "/rr/selectPro";
+		};
 	</script>
 
 </body>
