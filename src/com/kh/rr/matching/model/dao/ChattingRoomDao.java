@@ -26,7 +26,8 @@ public class ChattingRoomDao {
 			e.printStackTrace();
 		}
 	}
-
+	
+	//전체 채팅방 목록 조회
 	public ArrayList<ChattingRoom> selectAll(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -67,6 +68,7 @@ public class ChattingRoomDao {
 		return list;
 	}
 
+	//일반 채팅방 생성 메소드
 	public int insertChattingRoom(Connection con, ChattingRoom reqCr) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -94,6 +96,7 @@ public class ChattingRoomDao {
 		return result;
 	}
 
+	//프리미엄 채팅방 생성 메소드
 	public int insertPremiumChattingRoom(Connection con, ChattingRoom reqCr) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -102,6 +105,19 @@ public class ChattingRoomDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqCr.getrTitle());
+			pstmt.setDate(2, reqCr.getpDate());
+			pstmt.setString(3, reqCr.getCategory());
+			pstmt.setString(4, reqCr.getpTime());
+			pstmt.setInt(5, reqCr.getmPerson());
+			pstmt.setString(6, reqCr.getLocation());
+			pstmt.setString(7, reqCr.getrKind());
+			pstmt.setString(8, reqCr.getsRatio());
+			pstmt.setString(9, reqCr.getJob());
+			pstmt.setInt(10, reqCr.getAge());
+			
+			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

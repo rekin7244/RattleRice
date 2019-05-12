@@ -7,21 +7,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- Sematic UI -->
-<script src="/rr/js/semantic.min.js"></script>
-<link rel="stylesheet" href="/rr/css/semantic.min.css">
 <!-- 부트스트랩 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- 메뉴바 스타일 -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-<title>Insert title here</title>
 <script>
 	$(function() {
 		$(window).resize(function() {
@@ -29,6 +23,12 @@
 		});
 	});
 </script>
+<title>Insert title here</title>
+<style>
+	.pay:hover {
+		cursor: pointer;
+	}
+</style>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
@@ -85,13 +85,13 @@
 
 		<div class="cash">
 			<div class="coin pay">
-				<a href="payment.jsp"> <label><i class="bell icon"
+				<a href="/rr/views/matching/payment.jsp"> <label><i class="bell icon"
 						style="color: gold"></i>보유 bell </label> <label><span
 						style="color: #4abeca;">10</span>벨</label>
 				</a>
 			</div>
 			<div class="point pay">
-				<a href="payment.jsp"> <label><i
+				<a href="/rr/views/matching/payment.jsp"> <label><i
 						class="money bill alternate icon" style="color: gold"></i>보유 bill
 				</label> <label><span style="color: #4abeca;">10000</span>빌</label>
 				</a>

@@ -28,7 +28,18 @@ public class InsertPremiumChattingRoomServlet extends HttpServlet {
 		String location = valArr[0];
 		Date pDate = Date.valueOf(valArr[1]);
 		String pTime = valArr[2];
-		String rTitle = valArr[3];
+		int mPerson = Integer.parseInt(valArr[3]);
+		String rTitle = valArr[4];
+		int cNum = Integer.parseInt(valArr[5]);
+		
+		//카테고리 처리
+		String category = ""; 
+		switch(cNum) { 
+			case 10: category = "한식"; break; 
+			case 20: category = "중식"; break; 
+			case 30: category = "일식"; break; 
+			case 40: category = "양식"; break; 
+		}
 		
 		int male = Integer.parseInt(request.getParameter("male"));
 		int female = Integer.parseInt(request.getParameter("female"));
@@ -36,26 +47,26 @@ public class InsertPremiumChattingRoomServlet extends HttpServlet {
 		String job = request.getParameter("job");
 		ChattingRoom reqCr = new ChattingRoom();
 		
-		
-		System.out.println(location);
-		System.out.println(pDate);
-		System.out.println(pTime);
-		System.out.println(rTitle);
-		System.out.println(male);
-		System.out.println(female);
-		System.out.println(age);
-		System.out.println(job);
-		
 		reqCr.setrTitle(rTitle);
 		reqCr.setpDate(pDate);
-		reqCr.setLocation(location);
+		reqCr.setCategory(category);
 		reqCr.setpTime(pTime);
+		reqCr.setmPerson(mPerson);
+		reqCr.setLocation(location);
+		reqCr.setrKind("프리미엄");
+		//성비는 남자성비/여자성비 형태로 삽입한다.
 		reqCr.setsRatio(male + " / " + female);
-		reqCr.setAge(age);
 		reqCr.setJob(job);
+		reqCr.setAge(age);
 		
 		int result = new ChattingRoomService().insertChattingRoom(reqCr);
 		
+		if(result > 0) {
+			response.sendRedirect("views/matching/chatting.jsp");
+		}else {
+			request.setAttribute("msg", "채팅방 생성 실패!");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

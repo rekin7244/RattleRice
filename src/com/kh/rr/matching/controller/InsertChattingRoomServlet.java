@@ -57,8 +57,6 @@ public class InsertChattingRoomServlet extends HttpServlet {
 			request.setAttribute("msg", "채팅방 생성 실패!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		
-	
 				
 	}
 
