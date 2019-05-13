@@ -46,6 +46,7 @@ public class InsertBusinessMemberServlet extends HttpServlet {
 		reqUserInfo.setJob(job);
 		reqUserInfo.setGender(gender);
 		reqUserInfo.setPhone(phone);
+		reqUserInfo.setGender("B");
 		
 		Attachment reqAttachment = new Attachment();
 		reqAttachment.setUserId(userId);
