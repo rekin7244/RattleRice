@@ -5,30 +5,38 @@ import java.sql.Date;
 public class Board implements java.io.Serializable{
 	private int bid;	//BID
 	private int fbid;	//FBID
-	private int nbid;	//BNID
+	private int nbid;	//NBID
+	private int rbid;	//RBID
 	private int refBid;	//REF_BID
 	private int type;	//type
 	private String writer;	//MEMBER와 조인 후 M_NAME
+	private String brand;	//STORE와 조인 후 BRAND
 	private String bType;	//BTYPE
 	private String bContent;//BCONTENT
-	private Date bDate;		//BDATE;
+	private String target;	//TARGET
+	private Date bDate;		//BDATE
 	private int bCount;		//BCOUNT
+	private int grade;		//GRADE
 	
 	public Board() {}
 
-	public Board(int bid, int fbid, int nbid, int refBid, int type, String writer, String bType, String bContent,
-			Date bDate, int bCount) {
+	public Board(int bid, int fbid, int nbid, int rbid, int refBid, int type, String writer, String brand, String bType,
+			String bContent, String target, Date bDate, int bCount, int grade) {
 		super();
 		this.bid = bid;
 		this.fbid = fbid;
 		this.nbid = nbid;
+		this.rbid = rbid;
 		this.refBid = refBid;
 		this.type = type;
 		this.writer = writer;
+		this.brand = brand;
 		this.bType = bType;
 		this.bContent = bContent;
+		this.target = target;
 		this.bDate = bDate;
 		this.bCount = bCount;
+		this.grade = grade;
 	}
 
 	public int getBid() {
@@ -55,6 +63,14 @@ public class Board implements java.io.Serializable{
 		this.nbid = nbid;
 	}
 
+	public int getRbid() {
+		return rbid;
+	}
+
+	public void setRbid(int rbid) {
+		this.rbid = rbid;
+	}
+
 	public int getRefBid() {
 		return refBid;
 	}
@@ -79,6 +95,14 @@ public class Board implements java.io.Serializable{
 		this.writer = writer;
 	}
 
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
 	public String getbType() {
 		return bType;
 	}
@@ -93,6 +117,14 @@ public class Board implements java.io.Serializable{
 
 	public void setbContent(String bContent) {
 		this.bContent = bContent;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
 	}
 
 	public Date getbDate() {
@@ -111,11 +143,20 @@ public class Board implements java.io.Serializable{
 		this.bCount = bCount;
 	}
 
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+
 	@Override
 	public String toString() {
-		return "Board [bid=" + bid + ", fbid=" + fbid + ", nbid=" + nbid + ", refBid=" + refBid + ", type=" + type
-				+ ", writer=" + writer + ", bType=" + bType + ", bContent=" + bContent + ", bDate=" + bDate
-				+ ", bCount=" + bCount + "]";
+		return "Board [bid=" + bid + ", fbid=" + fbid + ", nbid=" + nbid + ", rbid=" + rbid + ", refBid=" + refBid
+				+ ", type=" + type + ", writer=" + writer + ", brand=" + brand + ", bType=" + bType + ", bContent="
+				+ bContent + ", target=" + target + ", bDate=" + bDate + ", bCount=" + bCount + ", grade=" + grade
+				+ "]";
 	}
-	
+
 }
