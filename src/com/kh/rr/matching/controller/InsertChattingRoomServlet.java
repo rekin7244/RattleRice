@@ -52,6 +52,8 @@ public class InsertChattingRoomServlet extends HttpServlet {
 		
 		int result = new ChattingRoomService().insertChattingRoom(reqCr);
 		if(result > 0) {
+			int currval = new ChattingRoomService().getCurrval(reqCr);
+			request.getSession().setAttribute("rno", currval);
 			response.sendRedirect("views/matching/chatting.jsp");
 		}else {
 			request.setAttribute("msg", "채팅방 생성 실패!");

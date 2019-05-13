@@ -37,5 +37,15 @@ public class ChattingRoomService {
 		return result;
 	}
 
+	public int getCurrval(ChattingRoom reqCr) {
+		Connection con = getConnection();
+		int currval = new ChattingRoomDao().getCurrval(con, reqCr);
+		
+		return currval;
+	}
+
+
+
+
 	
 }
