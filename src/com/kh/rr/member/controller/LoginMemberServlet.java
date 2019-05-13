@@ -1,6 +1,8 @@
 package com.kh.rr.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.security.auth.login.LoginException;
 import javax.servlet.RequestDispatcher;
@@ -42,17 +44,23 @@ public class LoginMemberServlet extends HttpServlet {
 				page=request.getContextPath()+"/memberlist.ad";
 				/*page = request.getContextPath() + "/views/admin/adminForm.jsp";	*/
 			}else if(loginUser.getMemberType().equals("2")){
-				page=request.getContextPath()+"/views/business/reservationForm.jsp";
+				//page=request.getContextPath()+"/views/business/reservationForm.jsp";
 				//서블릿을 부름
-				//page=request.getContextPath() + "/checkBusiness.me" ;
-				//비즈니스서블릿 doGet메소드 부름
-				/*CheckBusinessMan checkB = new CheckBusinessMan();
-				checkB.doGet(request, response);*/
-				//page = "/views/business/reservationForm.jsp";
+				ArrayList<HashMap<String, Object>> list = new MemberService().logincheckBusiness(userId);
+				
+				if(list != null) {
+					page= "/views/business/businessFormUpdate.jsp";
+					request.setAttribute("loginUser", loginUser);
+					request.setAttribute("list", list);
+				}else {
+					page = "views/common/errorPage.jsp";
+				}
+				
 			}else {
 				page = "index.jsp";
 			}
-			response.sendRedirect(page);
+//			response.sendRedirect(page);
+			request.getRequestDispatcher(page).forward(request, response);
 		}else{
 
 			page="views/common/errorPage.jsp";

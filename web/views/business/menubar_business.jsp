@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.Member, java.util.*"%>
 <%
 	Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 %>
