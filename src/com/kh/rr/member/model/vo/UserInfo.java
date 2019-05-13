@@ -14,12 +14,12 @@ public class UserInfo implements java.io.Serializable {
 	private String account;
 	private String bCode;
 	private String holder;
-	private int phone;
+	private String phone;
 
 	public UserInfo() {}
 
 	public UserInfo(String gender, Date birthday, int age, String job, String nickName, String msg, String grade,
-			String userId, String account, String bCode, String holder, int phone) {
+			String userId, String account, String bCode, String holder, String phone) {
 		super();
 		this.gender = gender;
 		this.birthday = birthday;
@@ -35,11 +35,11 @@ public class UserInfo implements java.io.Serializable {
 		this.phone = phone;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -129,14 +129,6 @@ public class UserInfo implements java.io.Serializable {
 
 	public void setHolder(String holder) {
 		this.holder = holder;
-	}
-
-	public int getPhone() {
-		return phone;
-	}
-
-	public void setPhone(int phone) {
-		this.phone = phone;
 	}
 
 	@Override
