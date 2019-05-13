@@ -9,7 +9,7 @@ public class Member implements java.io.Serializable {
 	private String userName;
 	private String memberType;
 	private String status;
-	
+
 	public Member() {}
 
 	public Member(String userId, String userPwd, String userName, String memberType, String status) {

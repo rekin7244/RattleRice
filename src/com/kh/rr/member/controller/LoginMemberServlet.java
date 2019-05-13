@@ -39,11 +39,16 @@ public class LoginMemberServlet extends HttpServlet {
 			session.setAttribute("loginUser", loginUser);
 			
 			if(loginUser.getUserId().equals("admin")) {
-				page=request.getContextPath()+"/views/admin/adminForm.jsp";
+				page=request.getContextPath()+"/memberlist.ad";
+				/*page = request.getContextPath() + "/views/admin/adminForm.jsp";	*/
 			}else if(loginUser.getMemberType().equals("2")){
-				//page=request.getContextPath()+"/views/business/reservationForm.jsp";
-				CheckBusinessMan checkB = new CheckBusinessMan();
-				checkB.doGet(request, response);
+				page=request.getContextPath()+"/views/business/reservationForm.jsp";
+				//서블릿을 부름
+				//page=request.getContextPath() + "/checkBusiness.me" ;
+				//비즈니스서블릿 doGet메소드 부름
+				/*CheckBusinessMan checkB = new CheckBusinessMan();
+				checkB.doGet(request, response);*/
+				//page = "/views/business/reservationForm.jsp";
 			}else {
 				page = "index.jsp";
 			}
