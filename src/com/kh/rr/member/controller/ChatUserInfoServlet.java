@@ -13,10 +13,10 @@ import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.member.model.vo.UserInfo;
 
 @WebServlet("/selectInfo.ui")
-public class UserInfoServlet extends HttpServlet {
+public class ChatUserInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public UserInfoServlet() {
+    public ChatUserInfoServlet() {
         super();
     }
 

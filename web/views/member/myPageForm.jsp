@@ -237,7 +237,7 @@ a[data-toggle="collapse"] {
 }
 
 #userArea {
-	margin-left: 135px;
+	margin-left: 120px;
 	margin-right: 100px;
 }
 
@@ -256,6 +256,10 @@ input, textarea {
 
 .col-sm-5 {
 	width: auto;
+}
+
+#profileImgUpdateBtn {
+	background-color: lightgray;
 }
 </style>
 </head>
@@ -334,7 +338,7 @@ input, textarea {
 				<div class="well">
 					<h2>프로필 설정</h2>
 					<br>
-					<form action="<%=request.getContextPath()%>/updatePro"
+					<form action="<%=request.getContextPath()%>/updateProImg"
 						method="post" encType="multipart/form-data">
 						<div>
 							<!--  style="display: table-cell;" -->
@@ -363,24 +367,20 @@ input, textarea {
 
 						</div>
 						<button type="submit" class="btn btn-warning"
-							id="profileUpdateBtn">프로필 사진 변경</button>
+							id="profileImgUpdateBtn" disabled>프로필 사진 변경</button>
 					</form>
-					<div class="profile" style="margin-top: 30px;">
-						<!-- <div class="form-group"> -->
-						<label>닉네임</label> <input type="text" class="form-control"
-							name="nickName" id="nickName" value="<%=hmap.get("nickName")%>">
-						<!-- </div>
-								<div class="form-group"> -->
-						<label>상태 메세지</label>
-						<textarea style="resize: none; width: 300px; height: 50px;"
-							class="form-control" name="msg" id="msg"><%=hmap.get("msg")%></textarea>
-						<!-- </div> -->
-
-
-					</div>
-					<button type="submit" class="btn btn-warning" id="profileUpdateBtn">정보
-						수정</button>
-					<form action=""></form>
+					<form action="<%=request.getContextPath()%>/updatePro">
+						<div class="profile" style="margin-top: 30px;">
+							<label>닉네임</label> <input type="text" class="form-control"
+								name="nickName" id="nickName" value="<%=hmap.get("nickName")%>">
+							<label>상태 메세지</label>
+							<textarea style="resize: none; width: 300px; height: 50px;"
+								class="form-control" name="msg" id="msg"><%=hmap.get("msg")%></textarea>
+							<br>
+						</div>
+						<button type="submit" class="btn btn-warning"
+							id="profileUpdateBtn">정보 수정</button>
+					</form>
 				</div>
 			</div>
 
@@ -388,27 +388,33 @@ input, textarea {
 				<div class="well">
 					<h2>개인정보 수정</h2>
 					<br>
-					<form>
+					<form action="<%=request.getContextPath()%>/updateUser">
 
 						<div class="profile" id="userArea">
 							<div class="form-group">
-								<label>이메일</label> <input type="email" class="form-control"
-									value="이메일은 아직 입력 안받음...">
+								<label>이메일</label> <input type="text" class="form-control"
+									value="이메일은 아직 입력 안받음..." name="email">
 							</div>
 							<div class="form-group">
 								<label>연락처</label> <input type="tel" class="form-control"
-									value="0<%=hmap.get("phone")%>">
+									value="0<%=hmap.get("phone")%>" name="tel">
 							</div>
 							<div class="form-group">
 								<label>생일</label> <input type="date" class="form-control"
-									id="birthday" value="<%=hmap.get("birthday")%>">
+									id="birthday" value="<%=hmap.get("birthday")%>" name="birthday">
 							</div>
 							<div class="form-group">
-								<label>직업</label> <input type="text" class="form-control"
-									id="job" value="<%=hmap.get("job")%>">
+								<div id="jobArea">
+									<input type="text" id="jobText" name="jobText"
+										value="<%=hmap.get("job")%>">
+								</div>
+								<label>직업</label> <select class="form-control"
+									style="width: 160px; height: 33px; border-radius: 3px 3px 3px 3px; border: 1px solid lightgray; margin-left: 70px;"
+									id="job" name="job">
+								</select>
 							</div>
 							<div class="form-group">
-								<label>비밀번호</label> <input type="password" class="form-control">
+								<label>비밀번호 변경</label> <input type="password" class="form-control">
 							</div>
 							<div class="form-group">
 								<label>비밀번호 확인</label> <input type="password"
@@ -445,6 +451,7 @@ input, textarea {
 
 			$("#profileImgArea").click(function() {
 				$("#profileImg").click();
+
 			});
 
 		});
@@ -457,12 +464,32 @@ input, textarea {
 					$("#inProfileImg").attr("src", e.target.result);
 				}
 				reader.readAsDataURL(value.files[0]);
+				$("#profileImgUpdateBtn").removeAttr("disabled");
+				$(".btn-warning").css("background", "#f0ad4e");
 			}
 		};
 
 		function goProfile() {
 			location.href = "/rr/selectPro";
 		};
+
+		$(function() {
+			$("#jobArea").hide();
+			$.ajax({
+				url : "jobSelect",
+				type : "post",
+				success : function(data) {
+					$select = $("#job");
+
+					for (var i = 0; i < data.length; i++) {
+						var name = decodeURIComponent(data[i].job);
+						
+						var selected = (name == $("#jobText").val()) ? "selected" : "";
+						$select.append("<option value='"+data[i].job+"' "+selected+">"+ name + "</option>");
+					}
+				}
+			});
+		});
 	</script>
 
 </body>

@@ -37,10 +37,10 @@ public class UserInfoService {
 		return result;
 	}
 
-	public int updateUserInfo(UserInfo reqUi) {
+	public int ChatUpdateUserInfo(UserInfo reqUi) {
 		Connection con = getConnection();
 
-		int result = new UserInfoDao().updateUserInfo(con, reqUi);
+		int result = new UserInfoDao().ChatUpdateUserInfo(con, reqUi);
 
 		close(con);
 
@@ -53,10 +53,26 @@ public class UserInfoService {
 		return result;
 	}
 
-	public int updateProfile(Attachment att, UserInfo ui) {
+	public int updateProfile(UserInfo ui) {
 		Connection con = getConnection();
 		
 		int result = new UserInfoDao().updateProfile(con, ui);
+
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+
+		close(con);
+
+		return result;
+	}
+
+	public int updateUserInfo(UserInfo ui) {
+Connection con = getConnection();
+		
+		int result = new UserInfoDao().updateInfo(con, ui);
 
 		if (result > 0) {
 			commit(con);

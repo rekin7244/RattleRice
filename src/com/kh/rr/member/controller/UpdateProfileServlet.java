@@ -25,90 +25,35 @@ import com.oreilly.servlet.MultipartRequest;
 @WebServlet("/updatePro")
 public class UpdateProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public UpdateProfileServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UpdateProfileServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member) session.getAttribute("loginUser");
-		
+
 		String nickName = request.getParameter("nickName");
 		String msg = request.getParameter("msg");
-		
-		System.out.println("nickName : "+nickName);
-		System.out.println("msg : "+msg);
-		
-		if(ServletFileUpload.isMultipartContent(request)) {
-			//전송 파일 용량 제한 : 10Mbyte로 제한
-			int maxSize = 1024 * 1024 * 10;
-			
-			//웹 서버 컨테이너 경로 추출
-			String root = request.getSession().getServletContext().getRealPath("/");
-			
-			System.out.println("root : " + root);
-			
-			//파일 저장 경로 설정
-			String filePath = root + "profileImg_upload/";
-			
-			
-			MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
-			//저장한 파일(변경된)의 이름을 저장할 arrayList 생성
-			ArrayList<String> saveFiles = new ArrayList<String>();
-			//원본 파일 이름을 저장할 arrayList 생성
-			ArrayList<String> originFiles = new ArrayList<String>();
-			
-			Enumeration<String> files = multiRequest.getFileNames();
-			
-			while(files.hasMoreElements()) {
-				String name = files.nextElement();
-				
-				saveFiles.add(multiRequest.getFilesystemName(name));
-				originFiles.add(multiRequest.getOriginalFileName(name));
-				
-			}
-			
-			//Attachment 객체 생성
-			Attachment att = new Attachment();
-			att.setUserId(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getUserId()));
-			
-			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
-			for (int i = originFiles.size() - 1 ; i >= 0; i--) {
-				att.setFilePath(filePath);
-				att.setOriginName(originFiles.get(i));
-				att.setChangeName(saveFiles.get(i));
-				att.setType("profile");
-				
-				fileList.add(att);
-			}
-			
-			UserInfo ui = new UserInfo();
-			ui.setNickName(nickName);
-			ui.setMsg(msg);
-			ui.setUserId(loginUser.getUserId());
-			int result2 = new UserInfoService().updateProfile(att, ui);
-			
-			
-			int result1 = new AttachmentService().updateProfile(att, fileList);
-			
-			if(result1 > 0 && result2 >0) {
-				response.sendRedirect(request.getContextPath() + "/selectPro");
-			}else {
-				for (int i = 0; i < saveFiles.size(); i++) {
-					File failedFile = new File(filePath + saveFiles.get(i));
-					
-					//true false 리턴됨
-					System.out.println(failedFile.delete());
-				}
-				request.setAttribute("msg", "프로필 수정 실패!");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			}
+
+		UserInfo ui = new UserInfo();
+		ui.setNickName(nickName);
+		ui.setMsg(msg);
+		ui.setUserId(loginUser.getUserId());
+		int result = new UserInfoService().updateProfile(ui);
+
+		if (result > 0) {
+			response.sendRedirect(request.getContextPath() + "/selectPro");
+		} else {
+			request.setAttribute("msg", "프로필 수정 실패!");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
