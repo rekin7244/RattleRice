@@ -28,15 +28,9 @@
 		$(window).resize(function() {
 			window.resizeTo(410, 600);
 		});
-		//채팅방 입장용 함수
-		$(".cr-content-inner").click(function(){
-			var enter = window.confirm("입장 하시겠습니까?");
-			
-			if(enter){
-				location.href="<%= request.getContextPath()%>/views/matching/chatting.jsp";
-			}
-		})
+	
 	});
+	
 	
 	//프리미엄 채팅방을 만들지 안 만들지 선택하는 함수
 	function choice(){
@@ -115,15 +109,20 @@
 	<!--채팅방목록 -->
 	<div class="mainContent" align="center">
 			<div class="cr-content text">
-			<%for(ChattingRoom cr : list){ %>
-			<div class="cr-content-inner">
-				<div class="cr-content chatImg">
-					<img>
-				</div>
-				<div><%=cr.getrTitle() %></div>
-				<div>모집인원 <%=cr.getpPerson() %>/<%=cr.getmPerson() %></div>
-			</div>
-			<%} %>
+					<%for(ChattingRoom cr : list){ %>
+						<form action="<%= request.getContextPath()%>/selectOne.cr?rno=<%=cr.getRno() %>" method="post">
+							<div class="cr-content-inner">
+								
+								<div class="cr-content chatImg">
+									<img>
+								</div>
+									<div><%=cr.getrTitle() %></div>
+									<div>모집인원 <%=cr.getpPerson() %>/<%=cr.getmPerson() %></div>
+									<button type="submit" onclick="window.confirm('입장하시겠습니까?')">입장하기</button>
+							
+							</div>
+						</form>
+					<%} %>
 			</div>
 	</div>
 	<%@ include file="menubar.jsp"%>

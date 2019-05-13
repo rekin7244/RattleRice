@@ -53,9 +53,7 @@ public class ChattingRoomDao {
 				cr.setcDate(rset.getDate("CREATE_DATE"));
 				cr.setrKind(rset.getString("ROOM_KIND"));
 				cr.setrTitle(rset.getString("RTITLE"));
-				
 				list.add(cr);
-				
 			}
 			
 		} catch (SQLException e) {
@@ -125,6 +123,33 @@ public class ChattingRoomDao {
 		}
 		
 		return result;
+	}
+	
+	public int getCurrval(Connection con, ChattingRoom reqCr) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int currval = 0;
+		
+		
+		String query = prop.getProperty("getCurrval");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqCr.getrTitle());
+			pstmt.setDate(2, reqCr.getpDate());
+			pstmt.setString(3, reqCr.getCategory());
+			pstmt.setString(4, reqCr.getpTime());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				currval = rset.getInt("RNO");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return currval;
 	}
 
 }
