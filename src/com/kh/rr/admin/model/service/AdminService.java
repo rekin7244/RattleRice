@@ -9,18 +9,49 @@ import com.kh.rr.member.model.vo.Member;
 
 public class AdminService {
 
-	//È¸¿ø¸ñ·Ï Á¶È¸
+	//íšŒì› ì¡°íšŒ
 	public ArrayList<Member> memberlist() {
 
 		Connection con = getConnection();
 		
 		ArrayList<Member> list = new AdminDao().memberlist(con);
 		
-		close(con); 
-		
-		System.out.println("°ü¸®ÀÚ sevice : " + list);
+		close(con);
 		
 		return list;
 	}
+
+	//ì‚¬ì—…ì ì¡°íšŒ
+	public ArrayList<Member> bisinesslist() {
+		
+		Connection con = getConnection();
+		
+		ArrayList<Member> bisilist = new AdminDao().bisinesslist(con);
+		
+		close(con);
+		
+		
+		
+		return bisilist;
+	}
+
+	//ê²€ìƒ‰ì–´ë¡œ íšŒì› ì¡°íšŒ
+	public ArrayList<Member> bisinessSelect(String keyField, String keyword) {
+		
+		 Connection con = getConnection();
+		 
+		 ArrayList<Member> bisilist = new AdminDao().selectbisiness(con, keyField, keyword);
+		 
+		 close(con);
+		
+		 System.out.println("ì„œë¹„ìŠ¤ ì‹¤í–‰");
+		 
+		return bisilist;
+	}
+
+
+
+
+
 
 }

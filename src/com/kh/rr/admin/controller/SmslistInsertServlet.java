@@ -50,9 +50,11 @@ public class SmslistInsertServlet extends HttpServlet {
 		
 		System.out.println(text);
 		
+		String page = "";
 		JSONObject result = coolsms.send(set); // 보내기&전송결과받기
 		if ((Boolean) result.get("status") == true) {
 			// 메시지 보내기 성공 및 전송결과 출력
+			page="views/admin/adminForm.jsp";
 			System.out.println("성공");            
 			System.out.println(result.get("group_id")); // 그룹아이디
 			System.out.println(result.get("result_code")); // 결과코드
@@ -66,6 +68,9 @@ public class SmslistInsertServlet extends HttpServlet {
 			System.out.println(result.get("message")); // 에러메시지
 		}        
 	}    
+	
+	
+	
 		
 		
 	
