@@ -54,7 +54,7 @@
 
 body {
 	background: #fafafa;
-/* 	overflow: hidden */
+	/* 	overflow: hidden */
 }
 
 /* 메뉴 */
@@ -146,8 +146,8 @@ a[data-toggle="collapse"] {
 	color: white;
 }
 
-.content {
-	border: 1px solid black;
+.row {
+	width: 1530px;
 }
 
 .content h3 {
@@ -190,6 +190,8 @@ a[data-toggle="collapse"] {
 
 .profile {
 	float: left;
+	margin-left: 120px;
+	margin-right: 100px;
 }
 
 .form1, .form2 {
@@ -216,6 +218,9 @@ a[data-toggle="collapse"] {
 
 #profileImgArea {
 	cursor: pointer;
+	margin-right: 90px;
+	margin-bottom: 10px;
+	margin-left: 170px;
 }
 
 #inProfileImg {
@@ -227,25 +232,30 @@ a[data-toggle="collapse"] {
 	display: block;
 }
 
-#profileUpdateBtn {
-	margin-right: 50px;
-}
-
 #userUpdateBtn {
 	
 }
 
-.profile {
-	/* border: 1px solid red; */
-	
+#userArea {
+	margin-left: 135px;
+	margin-right: 100px;
 }
 
-#userArea {
-	margin-left: 210px;
-	margin-right: 210px;
+.form-control {
+	width: 300px;
 }
-.form-control{
-width: 300px;
+
+input, textarea {
+	text-align: center;
+}
+
+.well {
+	height: 630px;
+	width: 580px;
+}
+
+.col-sm-5 {
+	width: auto;
 }
 </style>
 </head>
@@ -318,15 +328,16 @@ width: 300px;
 
 	<div class="container-fluid text-center">
 		<div class="row content" style="border-bottom: 0px;">
-			<div class="col-sm-2 sidenav"></div>
+			<div class="col-sm-2 sidenav"
+				style="position: static; width: 280px; height: 200px;"></div>
 			<div class="col-sm-5 form1">
 				<div class="well">
 					<h2>프로필 설정</h2>
 					<br>
 					<form action="<%=request.getContextPath()%>/updatePro"
-						method="post" encType="multipart/form-data"
-						style="margin-left: 80px;">
-						<div style="display: table-cell;">
+						method="post" encType="multipart/form-data">
+						<div>
+							<!--  style="display: table-cell;" -->
 							<!-- 이미지첨부-->
 							<div id="fileArea">
 								<input type="file" id="profileImg" name="profileImg"
@@ -334,12 +345,12 @@ width: 300px;
 							</div>
 							&nbsp;&nbsp;&nbsp;
 							<!-- 이미지 -->
-							<div class="profile img"
-								style="vertical-align: middle; border: 0px; margin-right: 50px; margin-top: 50px;"
+							<div class="profile img" style="vertical-align: middle;"
 								id="profileImgArea">
 								<%
+									HashMap<String, Object> hmap = null;
 									for (int i = 0; i < list.size(); i++) {
-										HashMap<String, Object> hmap = list.get(i);
+										hmap = list.get(i);
 								%>
 								<img id="inProfileImg"
 									src="/rr/profileImg_upload/<%=hmap.get("changeName")%>"
@@ -349,60 +360,66 @@ width: 300px;
 								%>
 							</div>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<div class="profile">
-								<div class="form-group">
-									<label>닉네임</label> <input type="text"
-										class="form-control" id="nickName">
-								</div>
-								<div class="form-group">
-									<label>상태 메세지</label>
-									<textarea style="resize: none; width: 300px; height: 50px;"
-										class="form-control" id="message"></textarea>
-								</div>
-								<div class="form-group">
-									<label>생일</label> <input type="date"
-										class="form-control" id="birthday">
-								</div>
-								<div class="form-group">
-									<label>직업</label> <input type="text"
-										class="form-control" id="job">
-								</div>
 
-							</div>
 						</div>
 						<button type="submit" class="btn btn-warning"
-							id="profileUpdateBtn">수정</button>
+							id="profileUpdateBtn">프로필 사진 변경</button>
 					</form>
+					<div class="profile" style="margin-top: 30px;">
+						<!-- <div class="form-group"> -->
+						<label>닉네임</label> <input type="text" class="form-control"
+							name="nickName" id="nickName" value="<%=hmap.get("nickName")%>">
+						<!-- </div>
+								<div class="form-group"> -->
+						<label>상태 메세지</label>
+						<textarea style="resize: none; width: 300px; height: 50px;"
+							class="form-control" name="msg" id="msg"><%=hmap.get("msg")%></textarea>
+						<!-- </div> -->
+
+
+					</div>
+					<button type="submit" class="btn btn-warning" id="profileUpdateBtn">정보
+						수정</button>
+					<form action=""></form>
 				</div>
 			</div>
 
 			<div class="col-sm-5 form2">
 				<div class="well">
-					<div>
-						<h2>개인정보 수정</h2>
-						<br>
-						<form>
+					<h2>개인정보 수정</h2>
+					<br>
+					<form>
 
-							<div class="profile" id="userArea">
-								<div class="form-group">
-									<label>이메일</label> <input type="email" class="form-control"
-										id="usr">
-								</div>
-								<div class="form-group">
-									<label>비밀번호</label> <input type="password" class="form-control"
-										id="usr">
-								</div>
-								<div class="form-group">
-									<label>연락처</label> <input type="tel" class="form-control"
-										id="usr">
-								</div>
+						<div class="profile" id="userArea">
+							<div class="form-group">
+								<label>이메일</label> <input type="email" class="form-control"
+									value="이메일은 아직 입력 안받음...">
 							</div>
-							<button type="submit" class="btn btn-warning" id="userUpdateBtn">수정</button>
+							<div class="form-group">
+								<label>연락처</label> <input type="tel" class="form-control"
+									value="0<%=hmap.get("phone")%>">
+							</div>
+							<div class="form-group">
+								<label>생일</label> <input type="date" class="form-control"
+									id="birthday" value="<%=hmap.get("birthday")%>">
+							</div>
+							<div class="form-group">
+								<label>직업</label> <input type="text" class="form-control"
+									id="job" value="<%=hmap.get("job")%>">
+							</div>
+							<div class="form-group">
+								<label>비밀번호</label> <input type="password" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>비밀번호 확인</label> <input type="password"
+									class="form-control">
+							</div>
+						</div>
+						<button type="submit" class="btn btn-warning" id="userUpdateBtn">수정</button>
 
-						</form>
+					</form>
 
 
-					</div>
 				</div>
 			</div>
 		</div>

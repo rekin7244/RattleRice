@@ -129,6 +129,27 @@ public class UserInfoDao {
 		
 		return result;
 	}
+
+	public int updateProfile(Connection con, UserInfo ui) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateProfile");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, ui.getNickName());
+			pstmt.setString(2, ui.getMsg());
+			pstmt.setString(3, ui.getUserId());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 

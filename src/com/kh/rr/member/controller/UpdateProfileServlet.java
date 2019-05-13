@@ -10,13 +10,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.rr.common.MyFileRenamePolicy;
 import com.kh.rr.member.model.service.AttachmentService;
+import com.kh.rr.member.model.service.UserInfoService;
 import com.kh.rr.member.model.vo.Attachment;
 import com.kh.rr.member.model.vo.Member;
+import com.kh.rr.member.model.vo.UserInfo;
 import com.oreilly.servlet.MultipartRequest;
 
 @WebServlet("/updatePro")
@@ -28,6 +31,15 @@ public class UpdateProfileServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		
+		String nickName = request.getParameter("nickName");
+		String msg = request.getParameter("msg");
+		
+		System.out.println("nickName : "+nickName);
+		System.out.println("msg : "+msg);
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			//전송 파일 용량 제한 : 10Mbyte로 제한
 			int maxSize = 1024 * 1024 * 10;
@@ -72,9 +84,16 @@ public class UpdateProfileServlet extends HttpServlet {
 				fileList.add(att);
 			}
 			
-			int result = new AttachmentService().updateProfile(att, fileList);
+			UserInfo ui = new UserInfo();
+			ui.setNickName(nickName);
+			ui.setMsg(msg);
+			ui.setUserId(loginUser.getUserId());
+			int result2 = new UserInfoService().updateProfile(att, ui);
 			
-			if(result > 0) {
+			
+			int result1 = new AttachmentService().updateProfile(att, fileList);
+			
+			if(result1 > 0 && result2 >0) {
 				response.sendRedirect(request.getContextPath() + "/selectPro");
 			}else {
 				for (int i = 0; i < saveFiles.size(); i++) {
