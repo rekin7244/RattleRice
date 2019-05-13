@@ -40,7 +40,7 @@ public class CheckBusinessMan extends HttpServlet {
 		String page = "";
 		if(list != null) {
 			System.out.println("list : " + list);
-			page = "/views/business/reservationForm.jsp";
+			//page = "/views/business/businessFormUpdate.jsp";
 			//page = request.getContextPath()+"/views/business/reservationForm.jsp";
 			//request.setAttribute("list", list);
 			//response.sendRedirect(page);

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.*"%>
+<%
+ 		ArrayList<HashMap<String, Object>> list = 
+				(ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 
@@ -226,9 +230,13 @@ a.article, a.article:hover {
 						aria-label="Toggle navigation">
 						<i class="fas fa-align-justify"></i>
 					</button>
-
+	
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<h3 align="center">매장명</h3>
+					<%for(int i = 1; i < list.size(); i++){ 
+							HashMap<String, Object> hmap = list.get(i);
+					%>
+					<h3 align="center"><%= hmap.get("brand") %></h3>
+					<%} %>
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item"><a class="nav-link"
 								href="reservationForm.jsp">예약관리</a></li>
@@ -252,24 +260,30 @@ a.article, a.article:hover {
 				<div class="container col-sm-9" style="float:left; bottom:-150px;">
 					<table id="info" border="1">
 						<tbody align="center">
+				<%for(int i = 1; i < list.size(); i++){ 
+							HashMap<String, Object> hmap = list.get(i);
+				%>
 							<tr>
 								<td>hp :</td>
-								<td>02-1234-5555</td>
+								<td><%= hmap.get("contact") %></td>
 							</tr>
 							<tr>
 								<td>위치 :</td>
-								<td>서울시 강남구 역삼동</td>
+								<td><%= hmap.get("location") %></td>
 							</tr>
 							<tr>
-								<td>영업시간 :</td>
-								<td>평일00:00 ~ 00:00<br> 공휴일00:00 ~ 00:00
-								</td>
-
+								<td>오픈시간 : </td>
+								<td><%=hmap.get("opening_hore") %></td>
+							</tr>
+							<tr>					
+								<td>종료시간 : </td>			
+								<td><%=hmap.get("close_hore") %></td>
 							</tr>
 							<tr>
 								<td>매장소개 :</td>
-								<td>난너를 믿었던 만큰 난 너를 믿었기에</td>
+								<td><%= hmap.get("intro") %></td>
 							</tr>
+				<%} %>
 						</tbody>
 					</table>
 				</div>
@@ -280,20 +294,18 @@ a.article, a.article:hover {
 					<thead align="center">
 						<th align="center">메뉴</th>
 						<th>가격</th>
+						<th>원산지</th>
 					</thead>
 					<tbody align="center">
+					<% for(int i = 0; i < list.size(); i++){ 
+						HashMap<String, Object> hmap = list.get(i);
+					%> 
 						<tr>
-							<td>간장새우</td>
-							<td>10,000원</td>
+							<td><%=hmap.get("menu") %></td>
+							<td><%= hmap.get("price") %></td>
+							<td><%= hmap.get("origin") %>
 						</tr>
-						<tr>
-							<td>간장새우 정식</td>
-							<td>10,000원</td>
-						</tr>
-						<tr>
-							<td>간장새우 스페셜</td>
-							<td>10,000원</td>
-						</tr>
+						<%} %>
 
 					</tbody>
 				</table>
