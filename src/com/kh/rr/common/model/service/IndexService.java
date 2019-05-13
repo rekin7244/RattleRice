@@ -17,5 +17,37 @@ public class IndexService {
 		
 		return info;
 	}
+
+	public int updateSiteInfo(IndexInfo info) {
+		Connection con = getConnection();
+		
+		IndexInfo oldInfo = new IndexDao().selectIndexInfo(con);
+		
+		int result = new IndexDao().disableSiteInfo(con);
+		
+		if(result > 0) {
+			result = new IndexDao().updateSiteInfo(con,info,oldInfo);
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return result;
+	}
+
+	public int updateTerms(String terms) {
+		Connection con = getConnection();
+		
+		IndexInfo oldInfo = new IndexDao().selectIndexInfo(con);
+		
+		int result = new IndexDao().disableSiteInfo(con);
+		
+		if(result > 0) {
+			result = new IndexDao().updateTerms(con,terms,oldInfo);
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return result;
+	}
 	
 }

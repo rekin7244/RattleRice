@@ -16,25 +16,115 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>딸랑밥</title>
 <script>
-	/* $(function(){
+	$(function(){
+		//메인페이지 정보 불러오기
 		$.ajax({
 			url:"indexInfo.if",
 			data:{},
 			type:"get",
 			success:function(data){
-				
+				$("#siteIntroduction").text(data.sInfo);
+				$("#serviceIntroduction").text(data.sService);
+				$("#termsInfo").html(data.terms);
 			},
 			fail:function(data){
 				console.log("실패!");
 			}
 		});
-	}); */
-   function fnMove(seq) {
-      var offset = $("#div" + seq).offset();
-      $('html, body').animate({
-         scrollTop : offset.top
-      }, 800);
-   }
+		//FAQ게시판 조회 및 페이징
+		$.ajax({
+			url:"faqBoard.bo",
+			type:"get",
+			data:{currentPage:1},
+			success:function(data){
+				var list = data["list"];
+				var pi = data["pi"];
+				//console.log(pi);
+				
+				$tableBody = $("#faqTable tbody");
+				$tableBody.html('');
+				$.each(list, function(index, value){
+					var $tr = $("<tr>");
+					var $noTd = $("<td>").text(value.fbid);
+					var $typeTd = $("<td>").text(value.bType);
+					var $contentTd = $("<td>").text(value.bContent);
+					var $writerTd = $("<td>").text(value.writer);
+					var $countTd = $("<td>").text(value.bCount);
+					
+					$tr.append($noTd);
+					$tr.append($typeTd);
+					$tr.append($contentTd);
+					$tr.append($writerTd);
+					$tr.append($countTd);
+					$tableBody.append($tr);
+				});
+				
+				$paging = $("#faqPaging");
+				$paging.html('');
+				var $firstTd = $('<li><a onclick="faqPaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+				$paging.append($firstTd);
+				for (var i = 0; i < pi.maxPage; i++) {
+					$paging.append('<li><a onclick="faqPaging('+(i+1)+');">'+(i+1)+'</a></li>');
+				}
+				var $endTd = $('<li><a onclick="faqPaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+				$paging.append($endTd);
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+	});
+	
+	function faqPaging(currentPage){
+		//console.log(currentPage);
+		$.ajax({
+			url:"faqBoard.bo",
+			type:"get",
+			data:{currentPage:currentPage},
+			success:function(data){
+				var list = data["list"];
+				var pi = data["pi"];
+				
+				$tableBody = $("#faqTable tbody");
+				$tableBody.html('');
+				$.each(list, function(index, value){
+					var $tr = $("<tr>");
+					var $noTd = $("<td>").text(value.fbid);
+					var $typeTd = $("<td>").text(value.bType);
+					var $contentTd = $("<td>").text(value.bContent);
+					var $writerTd = $("<td>").text(value.writer);
+					var $countTd = $("<td>").text(value.bCount);
+					
+					$tr.append($noTd);
+					$tr.append($typeTd);
+					$tr.append($contentTd);
+					$tr.append($writerTd);
+					$tr.append($countTd);
+					$tableBody.append($tr);
+				});
+				
+				$paging = $("#faqPaging");
+				$paging.html('');
+				var $firstTd = $('<li><a onclick="faqPaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+				$paging.append($firstTd);
+				for (var i = 0; i < pi.maxPage; i++) {
+					$paging.append('<li><a onclick="faqPaging('+(i+1)+');">'+(i+1)+'</a></li>');
+				}
+				var $endTd = $('<li><a onclick="faqPaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+				$paging.append($endTd);
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+	}
+	
+	function fnMove(seq) {
+		var offset = $("#div" + seq).offset();
+		$('html, body').animate({
+			scrollTop : offset.top
+		}, 800);
+	}
 </script>
 <style>
 
@@ -71,6 +161,10 @@ img {
 	font-family: 'Megrim', cursive;
 	text-shadow: 0px 0px 10px #000, 0px 0px 10px #000, 0px 0px 10px #000,
 		0px 0px 10px #000, 0px 0px 10px #000;
+}
+
+#siteIntroDiv {
+	margin:0 auto;
 }
 
 .navbar-inverse {
@@ -196,12 +290,12 @@ body::-webkit-scrollbar {
 
 			<img src="images/section1.jpg" /> <br /> <br /> <br />
 			<hr>
-			<h4>개발자 소개</h4>
+			<h4>딸랑밥 소개</h4>
 			<div class="col-md-4">
-				<img src="images/section1-face.jpg" />
+				<img src="images/section1-face.jpg" height="300px"/>
 			</div>
-			<div class="col-md-8">
-				<p>아니더면, 만물은 충분히 꽃이 인간은 황금시대의 이것이다. 이상은 눈이 충분히 끓는다. 무엇이 때까지 대고,
+			<div id="siteIntroDiv" class="col-md-8">
+				<p id="siteIntroduction">아니더면, 만물은 충분히 꽃이 인간은 황금시대의 이것이다. 이상은 눈이 충분히 끓는다. 무엇이 때까지 대고,
 					같이, 이상을 이것이다. 그것은 희망의 그러므로 따뜻한 가슴에 같이, 지혜는 봄바람이다. 사랑의 커다란 끝까지 그들의
 					트고, 힘있다. 그들은 동산에는 뜨고, 속잎나고, 불어 무엇을 얼마나 봄바람이다. 굳세게 하는 관현악이며, 얼마나 이상
 					대고, 들어 것이다. 인생을 모래뿐일 소금이라 이상은 힘있다. 못할 노래하며 청춘의 이 있는 안고, 것이다. 하였으며,
@@ -224,7 +318,7 @@ body::-webkit-scrollbar {
 
 		<h1
 			style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">Service</h1>
-		<p style="text-align: center">위치기반 최신 지도 서비스 및 게시판 기능을 제공합니다.</p>
+		<p id="serviceIntroduction" style="text-align: center">위치기반 최신 지도 서비스 및 게시판 기능을 제공합니다.</p>
 		<div class="row content">
 
 
@@ -319,7 +413,7 @@ body::-webkit-scrollbar {
 									<h3>
 										<strong>개인정보 수집약관 동의</strong>
 									</h3>
-									<ul class="terms">
+									<ul id="termsInfo" class="terms" type="none">
 										<li>1. 개인정보 수집 및 이용에 관한 사항 (필수) 회사는 고객서비스 제공을 위해 귀하의
 											개인정보를 아래와 같이 수집하고자 합니다.</li>
 										<li>2. 수집하는 개인정보의 항목<br> <span class="pdL12">(가)
@@ -406,47 +500,21 @@ body::-webkit-scrollbar {
 
 				</form>
 				<br> <br>
-				<table style="width: 100%; text-align: center;"
+				<table id="faqTable" style="width: 100%; text-align: center;"
 					class="table table-striped table-bordered table-hover">
-					<tr class="info">
-						<th>번호</th>
-						<th>상담유형</th>
-						<th>질문</th>
-						<th>조회수</th>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-					</tr>
+					<thead>
+						<tr class="info">
+							<th>번호</th>
+							<th>상담유형</th>
+							<th>질문</th>
+							<th>작성자</th>
+							<th>조회수</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
 				</table>
 				<nav style="text-align: center;">
-					<ul class="pagination">
+					<ul id="faqPaging" class="pagination">
 						<li><a href="#" aria-label="Previous"> <span
 								aria-hidden="true">&laquo;</span>
 						</a></li>
@@ -455,9 +523,7 @@ body::-webkit-scrollbar {
 						<li><a href="#">3</a></li>
 						<li><a href="#">4</a></li>
 						<li><a href="#">5</a></li>
-						<li><a href="#" aria-label="Next"> <span
-								aria-hidden="true">&raquo;</span>
-						</a></li>
+						<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
 					</ul>
 				</nav>
 			</div>

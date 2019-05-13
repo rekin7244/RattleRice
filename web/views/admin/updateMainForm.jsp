@@ -17,15 +17,17 @@ td {
 }
 </style>
 <script>
-	function updateIndexDate(){
-		console.log("test");
-	}
-	window.onload=function(){
-		 window.focus(); // 현재 window 즉 익스플러러를 윈도우 최상단에 위치
-		window.moveTo(0,0); // 웹 페이지의 창 위치를 0,0 (왼쪽 최상단) 으로 고정
-		window.resizeTo(1280,800); // 웹페이지의 크기를 가로 1280 , 세로 800 으로 고정(확장 및 축소)
-		window.scrollTo(0,250); // 페이지 상단 광고를 바로 볼 수 있게 스크롤 위치를 조정
-	}
+	$(function(){
+		$.ajax({
+			url:"<%=request.getContextPath()%>/indexInfo.if",
+			type:"get",
+			success:function(data){
+				$("#contactTd").text(data.contact);
+				$("#introTd").text(data.sInfo);
+				$("#termsArea").html(data.terms);
+			}
+		});
+	});
 </script>
 </head>
 <body onresize="parent.resizeTo(1024,768)" onload="parent.resizeTo(1024,768)">
@@ -70,27 +72,35 @@ td {
 		</nav>
 		<!-- updateForm -->
 		<div class="outer">
-			<table class="table table-bordered">
-				<thead>
-					<tr align="center">
-						<th>사업체 정보</th>
-						<th>연락처</th>
-						<th>약관</th>
+			<form action="<%=request.getContextPath()%>/updateSiteInfo.if" method="get">
+				<table class="table table-bordered">
+					<thead>
+						<tr align="center">
+							<th>연락처</th>
+							<th>사업체 소개</th>
+							<th>수정</th>
+						</tr>
+					</thead>
+					<tr>
+						<td id="contactTd"></td>
+						<td id="introTd"></td>
+						<td></td>
 					</tr>
-				</thead>
-				<tr>
-					<td>딸랑밥</td>
-					<td>010-****-****</td>
-					<td><button id="updateTermsBtn">수정</button></td>
-				</tr>
-				<tr>
-					<td><input type="text" name="aTitle" /></td>
-					<td><input type="text" name="aContact" /></td>
-					<td><button onclick="updateIndexData();">수정</button></td>
-				</tr>
-			</table>
+					<tr>
+						<td><input type="text" name="aContact" /></td>
+						<td><input type="text" name="aIntro" /></td>
+						<td><button type="submit">수정</button></td>
+					</tr>
+				</table>
+			</form>
 		</div>
-		<div class="textArea"></div>
+		<div class="termsTextArea">
+			<form action="<%=request.getContextPath()%>/updateTerms.if" method="get">
+				<h2>약관 수정</h2>
+				<textarea name="termsArea" id="termsArea" cols="70" rows="10"></textarea>
+				<button type="submit">약관 수정</button>
+			</form>
+		</div>
 	</div>
 	<!-- content area end -->
 

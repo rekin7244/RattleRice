@@ -3,6 +3,7 @@ package com.kh.rr.common.model.dao;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -40,6 +41,7 @@ public class IndexDao {
 				info.setsInfo(rset.getString("SINFO"));
 				info.setsService(rset.getString("SSERVICE"));
 				info.setTerms(rset.getString("TERMS"));
+				info.setContact(rset.getString("CONTACT"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -49,6 +51,61 @@ public class IndexDao {
 		}
 		return info;
 	}
+
+	public int disableSiteInfo(Connection con) {
+		Statement stmt = null;
+		int result = 0;
+		String sql = prop.getProperty("disableSiteInfo");
+		
+		try {
+			stmt = con.createStatement();
+			result = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		return result;
+	}
 	
+	public int updateSiteInfo(Connection con, IndexInfo info, IndexInfo oldInfo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateSiteInfo");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, info.getsInfo());
+			pstmt.setString(2, oldInfo.getsService());
+			pstmt.setString(3, oldInfo.getTerms());
+			pstmt.setString(4, info.getContact());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateTerms(Connection con, String terms, IndexInfo oldInfo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateSiteInfo");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, oldInfo.getsInfo());
+			pstmt.setString(2, oldInfo.getsService());
+			pstmt.setString(3, terms);
+			pstmt.setString(4, oldInfo.getContact());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 }
