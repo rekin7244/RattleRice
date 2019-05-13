@@ -109,11 +109,11 @@ public class UserInfoDao {
 	}
 		
 	//사용자 정보 수정용 메소드
-	public int updateUserInfo(Connection con, UserInfo reqUi) {
+	public int ChatUpdateUserInfo(Connection con, UserInfo reqUi) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("updateUserInfo");
+		String query = prop.getProperty("chatUpdateUserInfo");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -141,6 +141,28 @@ public class UserInfoDao {
 			pstmt.setString(1, ui.getNickName());
 			pstmt.setString(2, ui.getMsg());
 			pstmt.setString(3, ui.getUserId());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateInfo(Connection con, UserInfo ui) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateUserInfo");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, ui.getPhone());
+			pstmt.setDate(2, ui.getBirthday());
+			pstmt.setString(3, ui.getJob());
+			pstmt.setString(4, ui.getUserId());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

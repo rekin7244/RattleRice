@@ -182,7 +182,8 @@ body {
 								</div>
 								<div class="form-group">
 									<label>생년월일 : </label> <input type="date" name="birthday"
-										id="birthday" class="form-control" style="width: 233px;" required>
+										id="birthday" class="form-control" style="width: 233px;"
+										required>
 								</div>
 								<div>
 									<label>성별 : </label>&nbsp;&nbsp;&nbsp;&nbsp; <input
@@ -193,9 +194,9 @@ body {
 								</div>
 								<br>
 								<div>
-									<label for="male">직종 : </label>&nbsp;&nbsp;&nbsp; <select
-										name="curjob" class="inputbox"
-										style="width: 233px; height: 30px; border-radius: 3px 3px 3px 3px; border: 1px solid lightgray;">
+									<label for="male">직종 : </label>&nbsp;&nbsp;&nbsp;<select class="form-control"
+									style="width: 233px; height: 30px; border-radius: 3px 3px 3px 3px; border: 1px solid lightgray;"
+									id="job" name="curjob">
 										<option value="무직">무직</option>
 										<option value="학생">학생</option>
 										<option value="IT">IT</option>
@@ -241,7 +242,6 @@ body {
 		</div>
 	</div>
 	<script>
-		
 		var idCheck = "0";
 		var pwdCheck = "0";
 
@@ -262,7 +262,7 @@ body {
 						} else {
 							alert("사용 가능합니다.");
 							idCheck = "1";
-							$("#userId").attr("readonly","readonly");
+							$("#userId").attr("readonly", "readonly");
 						}
 					},
 					error : function() {
@@ -279,27 +279,25 @@ body {
 				if (pwd1 != "" || pwd2 != "") {
 					if (pwd1 == pwd2) {
 						$("#userPwd2").css("border", "solid 2px lightgreen");
-						// $("#register-submit").removeAttr("disabled");
 						pwdCheck = "1";
 					} else {
 						$("#userPwd2").css("border", "solid 2px red");
-						//  $("#register-submit").attr("disabled", "disabled");
 						pwdCheck = "0";
 					}
 				}
 			});
 		});
-		
+
 		setInterval(function() {
 			console.log("실행");
 			console.log(idCheck);
 			console.log(pwdCheck);
-			if(idCheck == "1" && pwdCheck == "1"){
+			if (idCheck == "1" && pwdCheck == "1") {
 				$("#register-submit").removeAttr("disabled");
-			}else{
+			} else {
 				$("#register-submit").attr("disabled", "disabled");
 			}
-		},500);
+		}, 500);
 	</script>
 
 </body>
