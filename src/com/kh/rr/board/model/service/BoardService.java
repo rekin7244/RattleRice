@@ -31,7 +31,45 @@ public class BoardService {
 		
 		return list;
 	}
-	
-	
+
+	public int getNoticeListCount() {
+		Connection con = getConnection();
+		
+		int listCount = new BoardDao().getNoticeListCount(con);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> selectNoticeList(PageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectNoticeList(con,pi);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int getReviewListCount() {
+		Connection con = getConnection();
+		
+		int listCount = new BoardDao().getReviewListCount(con);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> selectReviewList(PageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectReviewList(con,pi);
+		
+		close(con);
+		
+		return list;
+	}
 	
 }

@@ -15,110 +15,12 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>딸랑밥</title>
+<style>
+th {
+	text-align:center;
+}
+</style>
 <script>
-	$(function(){
-		//메인페이지 정보 불러오기
-		$.ajax({
-			url:"indexInfo.if",
-			data:{},
-			type:"get",
-			success:function(data){
-				$("#siteIntroduction").text(data.sInfo);
-				$("#serviceIntroduction").text(data.sService);
-				$("#termsInfo").html(data.terms);
-			},
-			fail:function(data){
-				console.log("실패!");
-			}
-		});
-		//FAQ게시판 조회 및 페이징
-		$.ajax({
-			url:"faqBoard.bo",
-			type:"get",
-			data:{currentPage:1},
-			success:function(data){
-				var list = data["list"];
-				var pi = data["pi"];
-				//console.log(pi);
-				
-				$tableBody = $("#faqTable tbody");
-				$tableBody.html('');
-				$.each(list, function(index, value){
-					var $tr = $("<tr>");
-					var $noTd = $("<td>").text(value.fbid);
-					var $typeTd = $("<td>").text(value.bType);
-					var $contentTd = $("<td>").text(value.bContent);
-					var $writerTd = $("<td>").text(value.writer);
-					var $countTd = $("<td>").text(value.bCount);
-					
-					$tr.append($noTd);
-					$tr.append($typeTd);
-					$tr.append($contentTd);
-					$tr.append($writerTd);
-					$tr.append($countTd);
-					$tableBody.append($tr);
-				});
-				
-				$paging = $("#faqPaging");
-				$paging.html('');
-				var $firstTd = $('<li><a onclick="faqPaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
-				$paging.append($firstTd);
-				for (var i = 0; i < pi.maxPage; i++) {
-					$paging.append('<li><a onclick="faqPaging('+(i+1)+');">'+(i+1)+'</a></li>');
-				}
-				var $endTd = $('<li><a onclick="faqPaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
-				$paging.append($endTd);
-			},
-			error:function(){
-				console.log("실패!");
-			}
-		});
-	});
-	
-	function faqPaging(currentPage){
-		//console.log(currentPage);
-		$.ajax({
-			url:"faqBoard.bo",
-			type:"get",
-			data:{currentPage:currentPage},
-			success:function(data){
-				var list = data["list"];
-				var pi = data["pi"];
-				
-				$tableBody = $("#faqTable tbody");
-				$tableBody.html('');
-				$.each(list, function(index, value){
-					var $tr = $("<tr>");
-					var $noTd = $("<td>").text(value.fbid);
-					var $typeTd = $("<td>").text(value.bType);
-					var $contentTd = $("<td>").text(value.bContent);
-					var $writerTd = $("<td>").text(value.writer);
-					var $countTd = $("<td>").text(value.bCount);
-					
-					$tr.append($noTd);
-					$tr.append($typeTd);
-					$tr.append($contentTd);
-					$tr.append($writerTd);
-					$tr.append($countTd);
-					$tableBody.append($tr);
-				});
-				
-				$paging = $("#faqPaging");
-				$paging.html('');
-				var $firstTd = $('<li><a onclick="faqPaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
-				$paging.append($firstTd);
-				for (var i = 0; i < pi.maxPage; i++) {
-					$paging.append('<li><a onclick="faqPaging('+(i+1)+');">'+(i+1)+'</a></li>');
-				}
-				var $endTd = $('<li><a onclick="faqPaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
-				$paging.append($endTd);
-			},
-			error:function(){
-				console.log("실패!");
-			}
-		});
-	}
-	
 	function fnMove(seq) {
 		var offset = $("#div" + seq).offset();
 		$('html, body').animate({
@@ -226,8 +128,7 @@ body::-webkit-scrollbar {
 					<li><a onclick="fnMove('1')">About Us</a></li>
 					<li><a onclick="fnMove('2')">Service</a></li>
 					<li><a onclick="fnMove('3')">Contact</a></li>
-					<li><a onclick="fnMove('4')">FAQ</a></li>
-					
+					<li><a onclick="fnMove('4')">Board</a></li>
 				</ul>
 				<% if(loginUser != null) {%>
 					<ul class="nav navbar-nav navbar-right">
@@ -413,24 +314,7 @@ body::-webkit-scrollbar {
 									<h3>
 										<strong>개인정보 수집약관 동의</strong>
 									</h3>
-									<ul id="termsInfo" class="terms" type="none">
-										<li>1. 개인정보 수집 및 이용에 관한 사항 (필수) 회사는 고객서비스 제공을 위해 귀하의
-											개인정보를 아래와 같이 수집하고자 합니다.</li>
-										<li>2. 수집하는 개인정보의 항목<br> <span class="pdL12">(가)
-												이름, 연락처, 희망개설지역 <br>
-										</span> <span class="pdL12">(나) 서비스 이용과정이나 처리과정간 아래 정보들이 생성되어
-												수집될 수 있습니다. <br>
-										</span> <span class="pdL12">: 서비스 이용기록, 접속로그, 쿠키, 접속IP정보 </span>
-										</li>
-										<li>3. 수집 및 이용목적 – 상담진행을 위한 가맹지원 희망자의 개인정보 및 연락처 파악</li>
-										<li>4. 개인정보의 보유 및 이용기간 –원칙적으로 개인정보의 수집목적 또는 제공받은 목적이 달성 시
-											지체 없이 파기합니다.<br> <span class="pdL12">전자상거래 등에서의
-												소비자보호에 관한 법률에 따라 고객의 불만 또는 분쟁처리에 관한 기록은 6개월 간 보관됩니다. 
-										</li>
-										<li>* 서비스 제공을 위해 필요한 최소한의 개인정보이므로 동의를 해주셔야 서비스를 이용하실 수
-											있습니다. <br> * 개인정보의 수집 및 이용에 관한 사항에 동의하십니까?
-										</li>
-									</ul>
+									<ul id="termsInfo" class="terms" type="none"></ul>
 									<p>
 										<label><input type="checkbox" id="cb9" name="check"
 											value="Y"
@@ -460,13 +344,73 @@ body::-webkit-scrollbar {
 
 	<br>
 	<br>
-
-	<!-- section4 : FAQ  -->
+	
+	<!-- section4 : Notice  -->
 	<div class="container">
 
 
-		<h1
-			style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">FAQ</h1>
+		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">공지사항</h1>
+		<p align="center">공지사항을 읽어주세요</p>
+		<br>
+
+		<div class="container-fluid">
+			<div class="row content">
+				<form action="" method="get" class="form-horizontal">
+					<div class="form-group">
+						<label for="keyword" class="col-sm-2 control-label">제목 검색</label>
+						<div class="col-sm-9">
+							<input type="text" name="keyword" id="keyword"
+								placeholder="키워드를 입력하세요" class="form-control">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="keyword" class="col-sm-2 control-label">공지 유형</label>
+						<div class="col-sm-9">
+							<select class="form-control">
+								<option value="common">공통</option>
+								<option value="user">일반 유저</option>
+								<option value="buser">사업자</option>
+							</select>
+						</div>
+					</div>
+					<br>
+					<div class="pull-right">
+						<button type="submit" class="btn btn-primary" value="검색"
+							onclick="" style="width: 100%;">검색</button>
+					</div>
+					<br>
+
+				</form>
+				<br> <br>
+				<table id="noticeTable" style="width: 100%; text-align: center;"
+					class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr class="info">
+							<th>번호</th>
+							<th>공지대상</th>
+							<th>내용</th>
+							<th>작성자</th>
+							<th>조회수</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<nav style="text-align: center;">
+					<ul id="noticePaging" class="pagination"></ul>
+				</nav>
+			</div>
+		</div>
+
+	</div>
+	<br>
+	<br>
+	
+	<!-- section5 : FAQ  -->
+	<div class="container">
+
+
+		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">FAQ</h1>
 		<p align="center">자주 물어보시는 질문입니다</p>
 		<br>
 
@@ -514,21 +458,60 @@ body::-webkit-scrollbar {
 					<tbody></tbody>
 				</table>
 				<nav style="text-align: center;">
-					<ul id="faqPaging" class="pagination">
-						<li><a href="#" aria-label="Previous"> <span
-								aria-hidden="true">&laquo;</span>
-						</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
-					</ul>
+					<ul id="faqPaging" class="pagination"></ul>
 				</nav>
 			</div>
 		</div>
 
+	</div>
+	<br>
+	<br>
+	
+	<!-- section6 : Review  -->
+	<div class="container">
+
+
+		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">REVIEW</h1>
+		<p align="center">후기글들입니다</p>
+		<br>
+
+		<div class="container-fluid">
+			<div class="row content">
+				<form action="" method="get" class="form-horizontal">
+					<div class="form-group">
+						<label for="keyword" class="col-sm-2 control-label">가게명 검색</label>
+						<div class="col-sm-9">
+							<input type="text" name="keyword" id="keyword"
+								placeholder="가게명을 입력하세요" class="form-control">
+						</div>
+					</div>
+					<br>
+					<div class="pull-right">
+						<button type="submit" class="btn btn-primary" value="검색"
+							onclick="" style="width: 100%;">검색</button>
+					</div>
+					<br>
+
+				</form>
+				<br> <br>
+				<table id="reviewTable" style="width: 100%; text-align: center;"
+					class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr class="info">
+							<th>번호</th>
+							<th>가게명</th>
+							<th>후기내용</th>
+							<th>작성자</th>
+							<th>평점</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<nav style="text-align: center;">
+					<ul id="reviewPaging" class="pagination"></ul>
+				</nav>
+			</div>
+		</div>
 
 	</div>
 	<br>
@@ -551,6 +534,277 @@ body::-webkit-scrollbar {
 	<script>
 	function goProfile(){
 		location.href="/rr/selectPro";
+	}
+	$(function(){
+		//메인페이지 정보 불러오기
+		$.ajax({
+			url:"indexInfo.if",
+			data:{},
+			type:"get",
+			success:function(data){
+				$("#siteIntroduction").text(data.sInfo);
+				$("#serviceIntroduction").text(data.sService);
+				$("#termsInfo").html(data.terms);
+			},
+			fail:function(data){
+				console.log("실패!");
+			}
+		});
+		//공지사항 조회 및 페이징
+		$.ajax({
+			url:"noticeBoard.bo",
+			type:"get",
+			data:{currentPage:1},
+			success:function(data){
+				var list = data["list"];
+				var pi = data["pi"];
+				//console.log(pi);
+				
+				$tableBody = $("#noticeTable tbody");
+				$tableBody.html('');
+				$.each(list, function(index, value){
+					var $tr = $("<tr>");
+					var $noTd = $("<td>").text(value.nbid);
+					var $typeTd = $("<td>").text(value.target);
+					var $contentTd = $("<td>").text(value.bContent);
+					var $writerTd = $("<td>").text(value.writer);
+					var $countTd = $("<td>").text(value.bCount);
+					
+					$tr.append($noTd);
+					$tr.append($typeTd);
+					$tr.append($contentTd);
+					$tr.append($writerTd);
+					$tr.append($countTd);
+					$tableBody.append($tr);
+				});
+				
+				$paging = $("#noticePaging");
+				$paging.html('');
+				var $firstTd = $('<li><a onclick="noticePaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+				$paging.append($firstTd);
+				for (var i = 0; i < pi.maxPage; i++) {
+					$paging.append('<li><a onclick="noticePaging('+(i+1)+');">'+(i+1)+'</a></li>');
+				}
+				var $endTd = $('<li><a onclick="noticePaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+				$paging.append($endTd);
+			}
+		});
+		//FAQ게시판 조회 및 페이징
+		$.ajax({
+			url:"faqBoard.bo",
+			type:"get",
+			data:{currentPage:1},
+			success:function(data){
+				var list = data["list"];
+				var pi = data["pi"];
+				//console.log(pi);
+				
+				$tableBody = $("#faqTable tbody");
+				$tableBody.html('');
+				$.each(list, function(index, value){
+					var $tr = $("<tr>");
+					var $noTd = $("<td>").text(value.fbid);
+					var $typeTd = $("<td>").text(value.bType);
+					var $contentTd = $("<td>").text(value.bContent);
+					var $writerTd = $("<td>").text(value.writer);
+					var $countTd = $("<td>").text(value.bCount);
+					
+					$tr.append($noTd);
+					$tr.append($typeTd);
+					$tr.append($contentTd);
+					$tr.append($writerTd);
+					$tr.append($countTd);
+					$tableBody.append($tr);
+				});
+				
+				$paging = $("#faqPaging");
+				$paging.html('');
+				var $firstTd = $('<li><a onclick="faqPaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+				$paging.append($firstTd);
+				for (var i = 0; i < pi.maxPage; i++) {
+					$paging.append('<li><a onclick="faqPaging('+(i+1)+');">'+(i+1)+'</a></li>');
+				}
+				var $endTd = $('<li><a onclick="faqPaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+				$paging.append($endTd);
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+		//후기게시판 조회 및 페이징
+		$.ajax({
+			url:"reviewBoard.bo",
+			type:"get",
+			data:{currentPage:1},
+			success:function(data){
+				var list = data["list"];
+				var pi = data["pi"];
+				//console.log(pi);
+				
+				$tableBody = $("#reviewTable tbody");
+				$tableBody.html('');
+				$.each(list, function(index, value){
+					var $tr = $("<tr>");
+					var $noTd = $("<td>").text(value.rbid);
+					var $brandTd = $("<td>").text(value.brand);
+					var $contentTd = $("<td>").text(value.bContent);
+					var $writerTd = $("<td>").text(value.writer);
+					var $gradeTd = $("<td>").text(value.grade);
+					
+					$tr.append($noTd);
+					$tr.append($brandTd);
+					$tr.append($contentTd);
+					$tr.append($writerTd);
+					$tr.append($gradeTd);
+					$tableBody.append($tr);
+				});
+				
+				$paging = $("#reviewPaging");
+				$paging.html('');
+				var $firstTd = $('<li><a onclick="reviewPaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+				$paging.append($firstTd);
+				for (var i = 0; i < pi.maxPage; i++) {
+					$paging.append('<li><a onclick="reviewPaging('+(i+1)+');">'+(i+1)+'</a></li>');
+				}
+				var $endTd = $('<li><a onclick="reviewPaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+				$paging.append($endTd);
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+	});
+	
+	function noticePaging(currentPage){
+		//console.log(currentPage);
+		$.ajax({
+			url:"noticeBoard.bo",
+			type:"get",
+			data:{currentPage:currentPage},
+			success:function(data){
+				var list = data["list"];
+				var pi = data["pi"];
+				
+				$tableBody = $("#noticeTable tbody");
+				$tableBody.html('');
+				$.each(list, function(index, value){
+					var $tr = $("<tr>");
+					var $noTd = $("<td>").text(value.nbid);
+					var $typeTd = $("<td>").text(value.target);
+					var $contentTd = $("<td>").text(value.bContent);
+					var $writerTd = $("<td>").text(value.writer);
+					var $countTd = $("<td>").text(value.bCount);
+					
+					$tr.append($noTd);
+					$tr.append($typeTd);
+					$tr.append($contentTd);
+					$tr.append($writerTd);
+					$tr.append($countTd);
+					$tableBody.append($tr);
+				});
+				
+				$paging = $("#noticePaging");
+				$paging.html('');
+				var $firstTd = $('<li><a onclick="noticePaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+				$paging.append($firstTd);
+				for (var i = 0; i < pi.maxPage; i++) {
+					$paging.append('<li><a onclick="noticePaging('+(i+1)+');">'+(i+1)+'</a></li>');
+				}
+				var $endTd = $('<li><a onclick="noticePaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+				$paging.append($endTd);
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+	}
+	
+	function faqPaging(currentPage){
+		//console.log(currentPage);
+		$.ajax({
+			url:"faqBoard.bo",
+			type:"get",
+			data:{currentPage:currentPage},
+			success:function(data){
+				var list = data["list"];
+				var pi = data["pi"];
+				
+				$tableBody = $("#faqTable tbody");
+				$tableBody.html('');
+				$.each(list, function(index, value){
+					var $tr = $("<tr>");
+					var $noTd = $("<td>").text(value.fbid);
+					var $typeTd = $("<td>").text(value.bType);
+					var $contentTd = $("<td>").text(value.bContent);
+					var $writerTd = $("<td>").text(value.writer);
+					var $countTd = $("<td>").text(value.bCount);
+					
+					$tr.append($noTd);
+					$tr.append($typeTd);
+					$tr.append($contentTd);
+					$tr.append($writerTd);
+					$tr.append($countTd);
+					$tableBody.append($tr);
+				});
+				
+				$paging = $("#faqPaging");
+				$paging.html('');
+				var $firstTd = $('<li><a onclick="faqPaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+				$paging.append($firstTd);
+				for (var i = 0; i < pi.maxPage; i++) {
+					$paging.append('<li><a onclick="faqPaging('+(i+1)+');">'+(i+1)+'</a></li>');
+				}
+				var $endTd = $('<li><a onclick="faqPaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+				$paging.append($endTd);
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+	}
+	
+	function reviewPaging(currentPage){
+		//console.log(currentPage);
+		$.ajax({
+			url:"reviewBoard.bo",
+			type:"get",
+			data:{currentPage:currentPage},
+			success:function(data){
+				var list = data["list"];
+				var pi = data["pi"];
+				
+				$tableBody = $("#reviewTable tbody");
+				$tableBody.html('');
+				$.each(list, function(index, value){
+					var $tr = $("<tr>");
+					var $noTd = $("<td>").text(value.rbid);
+					var $brandTd = $("<td>").text(value.brand);
+					var $contentTd = $("<td>").text(value.bContent);
+					var $writerTd = $("<td>").text(value.writer);
+					var $gradeTd = $("<td>").text(value.grade);
+					
+					$tr.append($noTd);
+					$tr.append($brandTd);
+					$tr.append($contentTd);
+					$tr.append($writerTd);
+					$tr.append($gradeTd);
+					$tableBody.append($tr);
+				});
+				
+				$paging = $("#reviewPaging");
+				$paging.html('');
+				var $firstTd = $('<li><a onclick="reviewPaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+				$paging.append($firstTd);
+				for (var i = 0; i < pi.maxPage; i++) {
+					$paging.append('<li><a onclick="reviewPaging('+(i+1)+');">'+(i+1)+'</a></li>');
+				}
+				var $endTd = $('<li><a onclick="reviewPaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+				$paging.append($endTd);
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
 	}
 	</script>
 

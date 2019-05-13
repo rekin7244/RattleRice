@@ -16,16 +16,16 @@ import com.kh.rr.board.model.vo.Board;
 import com.kh.rr.common.model.vo.PageInfo;
 
 /**
- * Servlet implementation class FAQBoardSelectServlet
+ * Servlet implementation class NoticeBoardSelectServlet
  */
-@WebServlet("/faqBoard.bo")
-public class FAQBoardSelectServlet extends HttpServlet {
+@WebServlet("/noticeBoard.bo")
+public class NoticeBoardSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FAQBoardSelectServlet() {
+    public NoticeBoardSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,17 +45,18 @@ public class FAQBoardSelectServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		limit = 5;
-		int listCount = new BoardService().getFAQListCount();
+		int listCount = new BoardService().getNoticeListCount();
 		maxPage = (int)((double)listCount / limit + 0.9);
 		startPage = (currentPage - 1) * limit + 1;
 		endPage = startPage + limit - 1;
 		
 		PageInfo pi = new PageInfo(currentPage,limit,maxPage,startPage,endPage);
-		ArrayList<Board> list = new BoardService().selectFAQList(pi);
+		System.out.println(pi);
+		ArrayList<Board> list = new BoardService().selectNoticeList(pi);
+		//System.out.println(list);
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("list", list);
 		hmap.put("pi", pi);
-		//System.out.println(list);
 		if(list != null) {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");

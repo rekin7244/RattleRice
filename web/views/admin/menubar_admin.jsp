@@ -207,7 +207,7 @@ a.article, a.article:hover {
 
 			<ul class="list-unstyled components">
 				<p>
-					<b>___ 관리자 님 환영합니다.</b>
+					<b><%=loginUser.getUserName() %> 관리자 님 환영합니다.</b>
 				</p>
 				<li class="active"><a href="#homeSubmenu"
 					data-toggle="collapse" aria-expanded="false"
@@ -249,9 +249,9 @@ a.article, a.article:hover {
 		<script type="text/javascript">
 				$(document).ready(
 						function() {
-							$("#sidebar").mCustomScrollbar({
+							/* $("#sidebar").mCustomScrollbar({
 								theme : "minimal"
-							});
+							}); */
 
 							$('#sidebarCollapse').on(
 									'click',
