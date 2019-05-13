@@ -4,14 +4,16 @@ public class IndexInfo implements java.io.Serializable {
 	private String sInfo;		//SINFO (사이트 소개)
 	private String sService;	//SSERVICE (서비스 소개)
 	private String terms;		//TERMS	(소비자 약관)
+	private String contact;		//CONTACT (연락처)
 	
 	public IndexInfo() {}
 
-	public IndexInfo(String sInfo, String sService, String terms) {
+	public IndexInfo(String sInfo, String sService, String terms, String contact) {
 		super();
 		this.sInfo = sInfo;
 		this.sService = sService;
 		this.terms = terms;
+		this.contact = contact;
 	}
 
 	public String getsInfo() {
@@ -36,6 +38,14 @@ public class IndexInfo implements java.io.Serializable {
 
 	public void setTerms(String terms) {
 		this.terms = terms;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
 
 	@Override
