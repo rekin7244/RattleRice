@@ -34,49 +34,48 @@
 	border-radius: 10px;
 }
 
-.sms{
-	display:inline-block;
+.sms {
+	display: inline-block;
 }
 
-#smsinput>label{
-	background:lightgray;
-	width:100px;
-	text-align:center;
+#smsinput>label {
+	background: lightgray;
+	width: 100px;
+	text-align: center;
 }
 
-#phone{
-	margin-top:-100px;
-} 
-
-.smsform .sms-text{
-	margin-top:-500px;
-	margin-left:30px;
+#phone {
+	margin-top: -100px;
 }
 
-#smsinput{
-	width:500px;
-	margin-left:450px;
-	margin-top:-450px;
+.smsform .sms-text {
+	margin-top: -500px;
+	margin-left: 30px;
 }
 
-.smsform{
-	margin:100px;
+#smsinput {
+	width: 500px;
+	margin-left: 450px;
+	margin-top: -450px;
 }
 
-.smsform #btn button{
-	padding:40px;	
+.smsform {
+	margin: 100px;
 }
 
-#btn{
-	margin-top:30px;
-	margin-left:30px;
+.smsform #btn button {
+	padding: 40px;
 }
 
+#btn {
+	margin-top: 30px;
+	margin-left: 30px;
+}
 </style>
 </head>
 
 <body>
-	<%@ include file="menubar_admin.jsp" %>
+	<%@ include file="menubar_admin.jsp"%>
 	<!-- Page Content  -->
 	<div id="content">
 
@@ -106,48 +105,52 @@
 						<li class="nav-item"><a class="nav-link" href="community.jsp">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="calculate.jsp">정산</a></li>
 						<li class="nav-item active"><a class="nav-link" href="#">SMS</a></li>
-						<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
 
 					</ul>
 				</div>
 			</div>
 		</nav>
-		
-		<br><br>
-		
-		
-		<h3><b>문자 보내기</b></h3>
+
 		<br>
-				
-		<div class="smsform">
-			<form action="<%=request.getContextPath() %>/insertSms.ad" method="post">
-					<img id="phone" src="../../images/smartphone.png" width="320px" height="600px">
-						
-					<div class="sms-text">
-						<textarea autofocus cols="30" rows="10" name="content"></textarea>
-					</div>
-					
-					<div id="btn">
-						<button type="reset">재작성 헤ㅐㅆ습니다</button>
-						<button type="submit">보내기</button>
-					</div>		
-		 
-					<div id="smsinput">
-							<label>제목</label>
-							<input type="text" placeholder="필수 입력 값이 아닙니다."> <br>	
-							<label>회신번호</label>
-							<select>
-								<option>010-2993-3144</option>
-							</select><br>
-							<label>받는사람</label>
-							<input type="text" placeholder="전화번호('-'제외)"><button>추가</button><br>
-							<textarea cols="40" rows="10"></textarea>
-					</div> 
-						
+		<br>
+
+		<form action="<%=request.getContextPath() %>/smslistInsert.ad"
+			method="post">
+			<h3>
+				<b>문자 보내기</b>
+			</h3>
+			<br>
+
+			<div class="smsform">
+				<%-- <form action="<%=request.getContextPath() %>/smslistInsert.ad" method="post"> --%>
+				<img id="phone" src="../../images/smartphone.png" width="320px"
+					height="600px">
+
+				<div class="sms-text">
+					<textarea autofocus cols="30" rows="10" name="content"></textarea>
 				</div>
-		</form>
-			
+
+				<div id="btn">
+					<button type="reset">재작성</button>
+					<button type="submit">보내기</button>
+				</div>
+
+				<div id="smsinput">
+					<label>제목</label> <input type="text" placeholder="필수 입력 값이 아닙니다.">
+					<br> <label>회신번호</label> <select>
+						<option name="from">010-2993-3144</option>
+					</select><br> <label>받는사람</label> <input name="to" type="text"
+						placeholder="전화번호('-'제외)">
+					<button>추가</button>
+					<br>
+					<textarea cols="40" rows="10"></textarea>
+				</div>
+
+			</div>
 	</div>
 </body>
+</form>
 
 </html>

@@ -99,11 +99,11 @@ public class MemberService {
 		return result;
 	}
 
-	public ArrayList<HashMap<String, Object>> logincheckBusiness() {
+	public ArrayList<HashMap<String, Object>> logincheckBusiness(String userId) {
 		Connection con = getConnection();
 		
 		ArrayList<HashMap<String, Object>> list = 
-				new MemberDao().logincheckBusiness(con);
+				new MemberDao().logincheckBusiness(con, userId);
 		
 		close(con);
 		

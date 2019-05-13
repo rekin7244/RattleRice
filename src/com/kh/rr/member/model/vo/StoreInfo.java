@@ -10,9 +10,9 @@ public class StoreInfo {
 	private String intro; //간단한 소개
 	private String brand; //상호명
 	private String bId;	//사업자ID
-	private String sId;	//매장정보 코드
+	private int sId;	//매장정보 코드
 	private String status;
-	private String sCode; //매장코드
+	private int sCode; //매장코드
 	private String close_hore; //영업 종료 시간
 	
 	
@@ -20,7 +20,7 @@ public class StoreInfo {
 
 
 	public StoreInfo(String cotact, String location, String opening_hore, String intro, String brand, String bId,
-			String sId, String status, String sCode, String close_hore) {
+			int sId, String status, int sCode, String close_hore) {
 		super();
 		this.cotact = cotact;
 		this.location = location;
@@ -95,12 +95,12 @@ public class StoreInfo {
 	}
 
 
-	public String getsId() {
+	public int getsId() {
 		return sId;
 	}
 
 
-	public void setsId(String sId) {
+	public void setsId(int sId) {
 		this.sId = sId;
 	}
 
@@ -115,12 +115,12 @@ public class StoreInfo {
 	}
 
 
-	public String getsCode() {
+	public int getsCode() {
 		return sCode;
 	}
 
 
-	public void setsCode(String sCode) {
+	public void setsCode(int sCode) {
 		this.sCode = sCode;
 	}
 
@@ -142,5 +142,6 @@ public class StoreInfo {
 				+ sCode + ", close_hore=" + close_hore + "]";
 	}
 
-	
+
+		
 }

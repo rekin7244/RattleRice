@@ -1,27 +1,26 @@
 package com.kh.rr.admin.model.service;
-
-import com.kh.rr.admin.model.dao.AdminDao;
-import com.kh.rr.admin.model.vo.SMS;
 import static com.kh.rr.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+
+import com.kh.rr.admin.model.dao.AdminDao;
+import com.kh.rr.member.model.vo.Member;
 
 public class AdminService {
-	
-	public int insertSms(SMS newsms) {
+
+	//회원목록 조회
+	public ArrayList<Member> memberlist() {
+
 		Connection con = getConnection();
 		
-		int result = new AdminDao().insertSms(con, newsms);
+		ArrayList<Member> list = new AdminDao().memberlist(con);
 		
-		if(result>0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
+		close(con); 
 		
-		close(con);
+		System.out.println("관리자 sevice : " + list);
 		
-		return result;
+		return list;
 	}
 
 }

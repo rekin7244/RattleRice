@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.rr.member.model.vo.BusinessMan;
 import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.member.model.vo.StoreInfo;
+import com.kh.rr.member.model.vo.StoreMenuInfo;
 import com.kh.rr.member.model.vo.UserInfo;
 
 
@@ -115,43 +117,53 @@ public class MemberDao {
 		return result;
 	}
 
-	public ArrayList<HashMap<String, Object>> logincheckBusiness(Connection con) {
-		Statement stmt = null;
+	public ArrayList<HashMap<String, Object>> logincheckBusiness(Connection con, String userId) {
+		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
 		ResultSet rset = null;
+		//System.out.println("MemberDao µé¾î¿È");
+		
+		StoreInfo storeinfo = null;
+		StoreMenuInfo storeMenu = null;
+		BusinessMan businessman = null;
 		
 		String query = prop.getProperty("loginCheckBusiness");
 			
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
 			
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			System.out.println(query);
+		    System.out.println("Äõ¸®¹® ¼öÇà" + ", " + userId);
+		    rset = pstmt.executeQuery();
 			list = new ArrayList<HashMap<String, Object>>();
 			
 			while(rset.next()) {
+				//System.out.println("while¹® µÑ¾î¿È");
 				hmap = new HashMap<String, Object>();
 				//BusinessMan
-				hmap.put("bId", rset.getString("B_ID"));
+				//hmap.put("bId", rset.getString("B_ID"));
 				hmap.put("account", rset.getString("ACCOUNT"));
+				hmap.put("bCode", rset.getString("BCODE"));
 				hmap.put("bankcode",rset.getString("BANKCODE"));
 				hmap.put("holder", rset.getString("HOLDER"));
-				hmap.put("bCode", rset.getString("BCODE"));
 				//StoreInfo
 				hmap.put("contact", rset.getString("CONTACT"));
 				hmap.put("location", rset.getString("LOCATION"));
 				hmap.put("opening_hore", rset.getString("OPENING_HOUR"));
 				hmap.put("intro", rset.getString("INTRO"));
 				hmap.put("brand", rset.getString("BRAND"));
-				hmap.put("sId", rset.getString("S_ID"));
+				hmap.put("sId", rset.getInt("S_ID"));
 				hmap.put("status", rset.getString("STATUS"));
-				hmap.put("sCode", rset.getString("S_CODE"));
+				hmap.put("sCode", rset.getInt("S_CODE"));
 				hmap.put("close_hore", rset.getString("CLOSE_HOUR"));
 				//StoreMenuInfo
 				hmap.put("menu", rset.getString("MENU"));
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("origin",rset.getString("ORIGIN"));
-				hmap.put("mId",rset.getString("MID"));
+				hmap.put("mId",rset.getInt("MID"));
 				
 				list.add(hmap);
 			}
@@ -159,7 +171,7 @@ public class MemberDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		
