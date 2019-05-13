@@ -483,7 +483,7 @@ input, textarea {
 
 					for (var i = 0; i < data.length; i++) {
 						var name = decodeURIComponent(data[i].job);
-						console.log(name);
+						
 						var selected = (name == $("#jobText").val()) ? "selected" : "";
 						$select.append("<option value='"+data[i].job+"' "+selected+">"+ name + "</option>");
 					}
