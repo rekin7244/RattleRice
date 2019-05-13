@@ -12,38 +12,38 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.rr.admin.model.service.AdminService;
 import com.kh.rr.member.model.vo.Member;
 
-@WebServlet("/memberlist.ad")
-public class MemberlistServlet extends HttpServlet {
+
+@WebServlet("/bisinessSelect.ad")
+public class BisinessSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
- 
-    public MemberlistServlet() {
+
+    public BisinessSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String keyField = request.getParameter("keyField");
+		String keyword = request.getParameter("keyword");
 		
+		System.out.println(keyField);
+		System.out.println(keyword);
 		
-		ArrayList<Member> list = new AdminService().memberlist();
+		ArrayList<Member> bisilist = new AdminService().bisinessSelect(keyField, keyword);
 		
-		/*System.out.println("servlet : " + list);*/
+		/*System.out.println("서블릿실행");*/
 		
 		String page="";
 		
-		if(list != null) {
-			page="views/admin/adminForm.jsp";
-			request.setAttribute("list", list);
-			
-		}else {
-			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "실패");
+		if(bisilist != null) {
+			page="views/admin/bisinessmanForm.jsp";
+			request.setAttribute("bisilist", bisilist);
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
-		
-		
 	}
 
 	

@@ -43,7 +43,7 @@
 							href="<%=request.getContextPath() %>/memberlist.ad">회원관리</a></li>
 						<li class="nav-item"><a class="nav-link" href="community.jsp">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="calculate.jsp">정산</a></li>
-						<li class="nav-item"><a class="nav-link" href="sms.jsp">SMS</a></li>
+						<li class="nav-item"><a class="nav-link" href="views/admin/sms.jsp">SMS</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
 					</ul>

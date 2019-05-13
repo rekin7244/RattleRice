@@ -213,8 +213,8 @@ a.article, a.article:hover {
 					data-toggle="collapse" aria-expanded="false"
 					class="dropdown-toggle">회원관리</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
-						<li><a href="adminForm.jsp">회원 정보 조회</a></li>
-						<li><a href="bisinessmanForm.jsp">사업자 정보 조회</a></li>
+						<li><a href="<%=request.getContextPath()+"/memberlist.ad"%>">회원 정보 조회</a></li>
+						<li><a href="<%=request.getContextPath()+"/bisinesslist.ad"%>">사업자 정보 조회</a></li>
 						<li><a href="withdrawal.jsp">탈퇴 회원 조회</a></li>
 						<li><a href="payment.jsp">결제 내역 조회</a></li>
 					</ul></li>
@@ -239,7 +239,7 @@ a.article, a.article:hover {
 				<li><a href="#pageSubmenu3" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">SMS관리</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu3">
-						<li><a href="sms.jsp">SMS 발송</a></li>
+						<li><a href="views/admin/sms.jsp">SMS 발송</a></li>
 						<li><a href="#">내역 조회</a></li>
 					</ul></li>
 			</ul>
