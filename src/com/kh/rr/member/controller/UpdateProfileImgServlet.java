@@ -85,13 +85,6 @@ public class UpdateProfileImgServlet extends HttpServlet {
 				fileList.add(att);
 			}
 			
-		/*	UserInfo ui = new UserInfo();
-			ui.setNickName(nickName);
-			ui.setMsg(msg);
-			ui.setUserId(loginUser.getUserId());
-			int result2 = new UserInfoService().updateProfile(att, ui);*/
-			
-			
 			int result1 = new AttachmentService().updateProfile(att, fileList);
 			
 			if(result1 > 0) {

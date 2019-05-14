@@ -97,6 +97,8 @@ public class UserInfoDao {
 			pstmt.setString(3, reqUserInfo.getJob());
 			pstmt.setString(4, reqUserInfo.getUserId());
 			pstmt.setString(5, reqUserInfo.getPhone());
+			pstmt.setString(6, reqUserInfo.getEmail());
+			pstmt.setString(7, reqUserInfo.getMsg());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

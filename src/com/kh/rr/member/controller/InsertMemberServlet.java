@@ -36,6 +36,7 @@ public class InsertMemberServlet extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String job = request.getParameter("curjob");
 		String phone = request.getParameter("phone");
+		String email = request.getParameter("email");
 		
 		
 		java.util.Date utilDate = new java.util.Date();
@@ -61,6 +62,8 @@ public class InsertMemberServlet extends HttpServlet {
 		reqUserInfo.setJob(job);
 		reqUserInfo.setGender(gender);
 		reqUserInfo.setPhone(phone);
+		reqUserInfo.setEmail(email);
+		reqUserInfo.setMsg("반가워요!");
 
 		Attachment reqAttachment = new Attachment();
 		reqAttachment.setUserId(userId);
@@ -88,13 +91,8 @@ public class InsertMemberServlet extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

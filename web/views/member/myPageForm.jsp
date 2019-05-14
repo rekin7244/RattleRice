@@ -341,7 +341,6 @@ input, textarea {
 					<form action="<%=request.getContextPath()%>/updateProImg"
 						method="post" encType="multipart/form-data">
 						<div>
-							<!--  style="display: table-cell;" -->
 							<!-- 이미지첨부-->
 							<div id="fileArea">
 								<input type="file" id="profileImg" name="profileImg"
@@ -367,7 +366,7 @@ input, textarea {
 
 						</div>
 						<button type="submit" class="btn btn-warning"
-							id="profileImgUpdateBtn" disabled>프로필 사진 변경</button>
+							id="profileImgUpdateBtn" disabled onclick="updateAlert()"> 프로필 사진 변경</button>
 					</form>
 					<form action="<%=request.getContextPath()%>/updatePro">
 						<div class="profile" style="margin-top: 30px;">
@@ -379,7 +378,7 @@ input, textarea {
 							<br>
 						</div>
 						<button type="submit" class="btn btn-warning"
-							id="profileUpdateBtn">정보 수정</button>
+							id="profileUpdateBtn" onclick="updateAlert()">정보 수정</button>
 					</form>
 				</div>
 			</div>
@@ -393,7 +392,7 @@ input, textarea {
 						<div class="profile" id="userArea">
 							<div class="form-group">
 								<label>이메일</label> <input type="text" class="form-control"
-									value="이메일은 아직 입력 안받음..." name="email">
+									value="<%=hmap.get("email")%>" name="email">
 							</div>
 							<div class="form-group">
 								<label>연락처</label> <input type="tel" class="form-control"
@@ -414,14 +413,14 @@ input, textarea {
 								</select>
 							</div>
 							<div class="form-group">
-								<label>비밀번호 변경</label> <input type="password" class="form-control">
+								<label>비밀번호 변경</label> <input type="password" class="form-control" id="password" name="password">
 							</div>
 							<div class="form-group">
-								<label>비밀번호 확인</label> <input type="password"
-									class="form-control">
+								<label>비밀번호 확인</label> <input type="password" id="password2" name="password2"
+									class="form-control" >
 							</div>
 						</div>
-						<button type="submit" class="btn btn-warning" id="userUpdateBtn">수정</button>
+						<button type="submit" class="btn btn-warning" id="userUpdateBtn" onclick="updateAlert()" >수정</button>
 
 					</form>
 
@@ -490,6 +489,41 @@ input, textarea {
 				}
 			});
 		});
+		
+		function updateAlert() {
+			alert("수정이 완료되었습니다 ><");
+			
+		};
+		
+		/* var pwdCheck = "0";
+		
+		$(function() {
+			$("#password2").keyup(function() {
+				var pwd1 = $("#password").val();
+				var pwd2 = $("#password2").val();
+				if (pwd1 !="" && pwd2 != "") {
+					if (pwd1 == pwd2) {
+						$("#password2").css("border", "solid 2px lightgreen");
+						pwdCheck = "1";
+					} else {
+						$("#password2").css("border", "solid 2px red");
+						pwdCheck = "0";
+					}
+				}
+			});
+			
+			
+		});
+		
+		setInterval(function() {
+			console.log("실행");
+			console.log(pwdCheck); 
+			if (pwdCheck == "1") {
+				$("#userUpdateBtn").removeAttr("disabled");
+			} else {
+				$("#userUpdateBtn").attr("disabled", "disabled");
+			}
+		}, 500); */
 	</script>
 
 </body>
