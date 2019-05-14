@@ -12,7 +12,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>관리자 페이지</title>
-
 <!-- Bootstrap CSS CDN -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -50,8 +49,9 @@
 <!-- jQuery Custom Scroller CDN -->
 <!-- <script	src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script> -->
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<!-- chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <style>
 @import
 	"https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
@@ -214,39 +214,20 @@ a.article, a.article:hover {
 				</p>
 				<li class="active"><a href="#homeSubmenu"
 					data-toggle="collapse" aria-expanded="false"
-					class="dropdown-toggle">회원관리</a>
+					class="dropdown-toggle">회원 통계</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
-						<li><a href="<%=request.getContextPath() + "/memberlist.ad"%>">회원
-								정보 조회</a></li>
-						<li><a
-							href="<%=request.getContextPath() + "/bisinesslist.ad"%>">사업자
-								정보 조회</a></li>
-						<li><a href="withdrawal.jsp">탈퇴 회원 조회</a></li>
-						<li><a href="payment.jsp">결제 내역 조회</a></li>
+						<li><a href="statistics_member.jsp">회원 분석</a></li>
+						<li><a href="">시간대별 이용 조회</a></li>
+						<li><a href="">장소별 이용 조회</a></li>
+						<li><a href="">카테고리별 이용 조회</a></li>
+						<li><a href="">사업자 분석</a></li>
 					</ul></li>
 
 				<li><a href="#pageSubmenu" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle">커뮤니티 관리</a>
+					aria-expanded="false" class="dropdown-toggle">매출 통계</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
-						<li><a href="updateMainForm.jsp">메인페이지 관리</a></li>
-						<li><a href="community.jsp">공지사항</a></li>
-						<li><a href="FAQ.jsp">Q & A</a></li>
-						<li><a href="visit.jsp">후기게시판</a></li>
-					</ul></li>
-
-				<li><a href="#pageSubmenu2" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle">정산관리</a>
-					<ul class="collapse list-unstyled" id="pageSubmenu2">
-						<li><a href="calculate.jsp">취소 / 환불</a></li>
-						<li><a href="b_calculate.jsp">사업자 정산</a></li>
-						<li><a href="p.calculate.jsp">포인트정산</a></li>
-					</ul></li>
-
-				<li><a href="#pageSubmenu3" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle">SMS관리</a>
-					<ul class="collapse list-unstyled" id="pageSubmenu3">
-						<li><a href="views/admin/sms.jsp">SMS 발송</a></li>
-						<li><a href="#">내역 조회</a></li>
+						<li><a href="statistics_sales.jsp">포인트 매출 통계</a></li>
+						<li><a href="">코인 사용 통계</a></li>
 					</ul></li>
 			</ul>
 		</nav>

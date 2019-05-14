@@ -40,8 +40,9 @@ public class LoginMemberServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			
-			if(loginUser.getUserId().equals("admin")) {
-				page = request.getContextPath()+"/memberlist.ad";
+			if(loginUser.getMemberType().equals("3")) {
+				page = "memberlist.ad";
+				request.getRequestDispatcher(page).forward(request, response);
 				/*page = request.getContextPath() + "/views/admin/adminForm.jsp";	*/
 			}else if(loginUser.getMemberType().equals("2")){
 				//page=request.getContextPath()+"/views/business/reservationForm.jsp";
@@ -50,19 +51,17 @@ public class LoginMemberServlet extends HttpServlet {
 				
 				if(list != null) {
 					page= "/views/business/businessFormUpdate.jsp";
-					request.setAttribute("loginUser", loginUser);
+					//request.setAttribute("loginUser", loginUser);
 					request.setAttribute("list", list);
+					request.getRequestDispatcher(page).forward(request, response);
 				}else {
 					page = "views/common/errorPage.jsp";
 				}
-				
 			}else {
 				page = "index.jsp";
+				response.sendRedirect(page);
 			}
-//			response.sendRedirect(page);
-			request.getRequestDispatcher(page).forward(request, response);
 		}else{
-
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "로그인에러!");
 			try {

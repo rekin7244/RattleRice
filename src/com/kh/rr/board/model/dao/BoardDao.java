@@ -70,7 +70,7 @@ public class BoardDao {
 					b.setFbid(rset.getInt("FBID"));
 				}
 				b.setWriter(rset.getString("M_NAME"));
-				b.setType(rset.getInt("TYPE"));
+				b.setfCategory(rset.getString("F_CATEGORY"));
 				b.setbContent(rset.getString("BCONTENT"));
 				b.setbDate(rset.getDate("BDATE"));
 				b.setbCount(rset.getInt("BCOUNT"));
@@ -323,6 +323,82 @@ public class BoardDao {
 				b.setbContent(rset.getString("BCONTENT"));
 				b.setBrand(rset.getString("BRAND"));
 				b.setGrade(rset.getInt("GRADE"));
+				b.setbDate(rset.getDate("BDATE"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int getSearchFaqListCount(Connection con, String keyword, String condition) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = "";
+		if(condition.equals("")) {
+			sql = prop.getProperty("getSearchFaqListCountAll");
+		}else {
+			sql = prop.getProperty("getSearchFaqListCount");
+		}
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			if(!condition.equals("")) {
+				pstmt.setString(2, condition);				
+			}
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+
+	public ArrayList<Board> searchFaqList(Connection con, PageInfo pi, String keyword, String condition) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		String sql = "";
+		if(!condition.equals("")) {
+			sql = prop.getProperty("searchFaqList");
+		}else {
+			sql = prop.getProperty("searchFaqListAll");
+		}
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			if(!condition.equals("")) {
+				pstmt.setString(2, condition);
+				pstmt.setInt(3, pi.getStartPage());
+				pstmt.setInt(4, pi.getEndpage());
+			}else {
+				pstmt.setInt(2, pi.getStartPage());
+				pstmt.setInt(3, pi.getEndpage());
+			}
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBid(rset.getInt("BID"));
+				if(rset.getString("FBID")!=null) {
+					b.setFbid(rset.getInt("FBID"));
+				}
+				b.setWriter(rset.getString("M_NAME"));
+				b.setfCategory(rset.getString("F_CATEGORY"));
+				b.setbContent(rset.getString("BCONTENT"));
 				b.setbDate(rset.getDate("BDATE"));
 				b.setbCount(rset.getInt("BCOUNT"));
 				list.add(b);
