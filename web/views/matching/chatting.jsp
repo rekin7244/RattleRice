@@ -9,13 +9,6 @@
 
 <html>
 <head>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<link
-   href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
-   rel="stylesheet" id="bootstrap-css">
-<script
-   src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 <!-- 메뉴바 스타일 -->
 <link rel="stylesheet"
    href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
@@ -69,14 +62,14 @@ function send(msg) {
    
    if(msg == undefined){
       console.log("채팅");
-       textarea.value += "나 : " + inputMessage.value + "\n";
-      sendMsg = userId + ":" + inputMessage.value;
+      textarea.value += "나 : " + inputMessage.value + "\n";
+      sendMsg = rno + "-" + userId + "-" + inputMessage.value;
    }else{
       console.log("입장");
-      sendMsg = msg;
+      sendMsg = rno + ":" + msg;
    }
       //webSocket.send(userId + ":" + inputMessage.value);
-      webSocket.send(rno + ":" + sendMsg);
+      webSocket.send(sendMsg);
 }
       </script>
 </html>
