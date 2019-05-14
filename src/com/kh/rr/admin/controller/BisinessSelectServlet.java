@@ -34,7 +34,7 @@ public class BisinessSelectServlet extends HttpServlet {
 		
 		ArrayList<Member> bisilist = new AdminService().bisinessSelect(keyField, keyword);
 		
-		/*System.out.println("서블릿실행");*/
+		System.out.println("서블릿실행");
 		
 		String page="";
 		
