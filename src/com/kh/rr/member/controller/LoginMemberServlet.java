@@ -41,26 +41,13 @@ public class LoginMemberServlet extends HttpServlet {
 			session.setAttribute("loginUser", loginUser);
 			
 			if(loginUser.getUserId().equals("admin")) {
-				page = request.getContextPath()+"/memberlist.ad";
-				/*page = request.getContextPath() + "/views/admin/adminForm.jsp";	*/
+				response.sendRedirect(request.getContextPath()+"/memberlist.ad");
 			}else if(loginUser.getMemberType().equals("2")){
-				//page=request.getContextPath()+"/views/business/reservationForm.jsp";
-				//서블릿을 부름
-				ArrayList<HashMap<String, Object>> list = new MemberService().logincheckBusiness(userId);
-				
-				if(list != null) {
-					page= "/views/business/businessFormUpdate.jsp";
-					request.setAttribute("loginUser", loginUser);
-					request.setAttribute("list", list);
-				}else {
-					page = "views/common/errorPage.jsp";
-				}
-				
+				response.sendRedirect(request.getContextPath()+"/checkBusiness.me");
 			}else {
 				page = "index.jsp";
 			}
-//			response.sendRedirect(page);
-			request.getRequestDispatcher(page).forward(request, response);
+			
 		}else{
 
 			page="views/common/errorPage.jsp";
