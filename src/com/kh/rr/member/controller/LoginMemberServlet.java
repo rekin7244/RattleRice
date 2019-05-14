@@ -40,16 +40,15 @@ public class LoginMemberServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			
-			if(loginUser.getUserId().equals("admin")) {
+			if(loginUser.getMemberType().equals("3")) {
 				response.sendRedirect(request.getContextPath()+"/memberlist.ad");
 			}else if(loginUser.getMemberType().equals("2")){
 				response.sendRedirect(request.getContextPath()+"/checkBusiness.me");
 			}else {
 				page = "index.jsp";
+				response.sendRedirect(page);
 			}
-			
 		}else{
-
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "로그인에러!");
 			try {

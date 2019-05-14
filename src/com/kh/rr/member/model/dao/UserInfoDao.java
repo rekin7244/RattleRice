@@ -164,7 +164,8 @@ public class UserInfoDao {
 			pstmt.setString(1, ui.getPhone());
 			pstmt.setDate(2, ui.getBirthday());
 			pstmt.setString(3, ui.getJob());
-			pstmt.setString(4, ui.getUserId());
+			pstmt.setString(4, ui.getEmail());
+			pstmt.setString(5, ui.getUserId());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

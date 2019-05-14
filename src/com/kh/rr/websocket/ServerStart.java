@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,8 +18,9 @@ import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint("/serverStart")
 public class ServerStart {
-   private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
-   private static Map<String, Set> clientsMap = Collections.synchronizedMap(new HashMap<String, Set>());
+   private static Set<Session> clients = Collections.synchronizedSet(new LinkedHashSet<Session>());
+   private static Map<String, Set<Session>> clientsMap = Collections.synchronizedMap(new HashMap<String, Set<Session>>());
+//   private static Set<Session> temp = new HashSet<Session>();
    private String msg = "";
    @OnOpen
    public void onOpen(Session session) {
@@ -28,9 +30,29 @@ public class ServerStart {
       System.out.println("쿼리스트링" + msg);
 
       clients.add(session);
+      System.out.println("입장했을때 clients 목록" + clients);
       clientsMap.put(msg, clients);
-
-
+      
+      Iterator<Session> it = clients.iterator();
+      while(it.hasNext()) {
+    	  Session s = it.next();
+    	  if(s.equals(session)) {
+    		  System.out.println("마지막 세션 정보와 일치 할때" + s);
+			  
+    		  System.out.println("현재 맵의 길이"+clientsMap.get(msg).size());
+    		  Set<Session> temp = new HashSet<Session>();
+			  if(clientsMap.get(msg).size() > 1) {
+				  temp.add(s);
+				  temp.addAll(clientsMap.get(msg));
+				  
+				  clientsMap.put(msg,temp);
+			  }else {
+				  temp.add(s);
+			  }
+			  
+    	  }//
+    	  
+      }
 
    }
 
@@ -55,52 +77,26 @@ public class ServerStart {
          rno = srr[0];
          message = srr[1];
       }
-      
-      Set<String> keySet = clientsMap.keySet();
-      synchronized(clientsMap) {
-    	  
-    	  Iterator it = keySet.iterator();
-    	  
-    	  while(it.hasNext()) {
-    		  String key = (String) it.next();
-    		  Set value = clientsMap.get(key);
-    		  System.out.println(key + " : " + value);
-    	  }
-    	  
-      }
-      
-        Set<Session> set = clientsMap.get(this.msg);
-       
-        System.out.println("clientsMap 출력 : "+ clientsMap);
-        System.out.println("set : " + set);
-      
-//      for(Session client : clientsMap) {
-//    	  System.out.println("새로 만든 set의 사이즈 "+set.size());
-//    	  System.out.println("그냥 set을 출력하면 나오는 것 "+set);
-//      }
-//      
-//      Set set2 = clientsMap.keySet();
-//      Iterator iterator = set2.iterator();
-//      
-//      while(iterator.hasNext()) {
-//    	  String key = (String)iterator.next();
-//    	  System.out.println("클라이언트 해쉬 맵의 키" + key);
-//      }
-      
-      
+
       
       //하나의 일 처리를 수행하는동안 사용자의 변경이 일어나면 안된다.
       //즉 NullPointer를 방지하기 위해 동기화 처리를 해준다.
-      synchronized(set) {
-         for(Session client : set) {
-            if (!client.equals(session)) {
-               if(userId.equals("")) {
-                  client.getBasicRemote().sendText(message);
-               }else {
-                  client.getBasicRemote().sendText(userId + " : " + message);
-               }
-            }
-         }
+      synchronized(clientsMap) {
+    	  System.out.println("방 안의 사용자들 세션정보"+clientsMap.get(this.msg));
+    	  Set<Session> set = clientsMap.get(this.msg);
+    	  synchronized(set) {
+	    	  
+	         for(Session client : set) {
+	        	 System.out.println(rno+"rno를 키 값으로 하는 맵의 session 들"+clientsMap.get("rno=" + rno));
+	            if (!client.equals(session) && clientsMap.get("rno="+rno).contains(client)) {
+	               if(userId.equals("")) {
+	                  client.getBasicRemote().sendText(message);
+	               }else {
+	                  client.getBasicRemote().sendText(userId + " : " + message);
+	               }
+	            }
+	         }
+	      }
       }
    }
 
@@ -112,9 +108,7 @@ public class ServerStart {
 
    @OnClose
    public void onClose(Session session) {
-	   System.out.println("사용자가 채팅방을 나감");
       //지워주지 않으면 Set에 이미 나간 사용자가 남아있기 때문에 메세지 전송시 에러 난다.
-      clients.remove(session);
    }
 
 }

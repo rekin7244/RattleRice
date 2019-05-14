@@ -30,7 +30,6 @@ td {
 	});
 </script>
 </head>
-<body onresize="parent.resizeTo(1024,768)" onload="parent.resizeTo(1024,768)">
 	<%@ include file="menubar_admin.jsp"%>
 	<!-- nav -->
 	<div id="content">

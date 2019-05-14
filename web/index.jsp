@@ -425,17 +425,21 @@ body::-webkit-scrollbar {
 					<div class="form-group">
 						<label for="keyword" class="col-sm-2 control-label">상담 유형</label>
 						<div class="col-sm-9">
-							<select class="form-control">
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
+							<select class="form-control" id="faqCondition">
+								<option value="">전체</option>
+								<option value="회원">회원</option>
+								<option value="결제">결제</option>
+								<option value="환불">환불</option>
+								<option value="정책">정책</option>
+								<option value="약관">약관</option>
+								<option value="기타">기타</option>
 							</select>
 						</div>
 					</div>
 					<br>
 					<div class="pull-right">
 						<button type="submit" class="btn btn-primary" value="검색"
-							onclick="" style="width: 100%;">검색</button>
+							onclick="faqPaging(1)" style="width: 100%;">검색</button>
 					</div>
 					<br>
 				<br> <br>
@@ -595,7 +599,7 @@ body::-webkit-scrollbar {
 				$.each(list, function(index, value){
 					var $tr = $("<tr>");
 					var $noTd = $("<td>").text(value.fbid);
-					var $typeTd = $("<td>").text(value.bType);
+					var $typeTd = $("<td>").text(value.fCategory);
 					var $contentTd = $("<td>").text(value.bContent);
 					var $writerTd = $("<td>").text(value.writer);
 					var $countTd = $("<td>").text(value.bCount);
@@ -712,11 +716,12 @@ body::-webkit-scrollbar {
 	}
 	//faq 페이징 ajax
 	function faqPaging(currentPage){
-		//console.log(currentPage);
+		var keyword = $("#faqKeyword").val();
+		var condition = $("#faqCondition").val();
 		$.ajax({
-			url:"faqBoard.bo",
+			url:"searchFaqBoard.bo",
 			type:"get",
-			data:{currentPage:currentPage},
+			data:{currentPage:currentPage,keyword:keyword,condition:condition},
 			success:function(data){
 				var list = data["list"];
 				var pi = data["pi"];
@@ -726,7 +731,7 @@ body::-webkit-scrollbar {
 				$.each(list, function(index, value){
 					var $tr = $("<tr>");
 					var $noTd = $("<td>").text(value.fbid);
-					var $typeTd = $("<td>").text(value.bType);
+					var $typeTd = $("<td>").text(value.fCategory);
 					var $contentTd = $("<td>").text(value.bContent);
 					var $writerTd = $("<td>").text(value.writer);
 					var $countTd = $("<td>").text(value.bCount);
@@ -757,7 +762,6 @@ body::-webkit-scrollbar {
 	//후기게시판 페이징 및 검색 ajax
 	function reviewPaging(currentPage){
 		var keyword = $("#reviewKeyword").val();
-		//console.log(currentPage);
 		$.ajax({
 			url:"searchReviewBoard.bo",
 			type:"get",

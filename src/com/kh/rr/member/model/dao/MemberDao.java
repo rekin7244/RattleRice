@@ -122,7 +122,6 @@ public class MemberDao {
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
 		ResultSet rset = null;
-		//System.out.println("MemberDao µé¾î¿È");
 		
 		StoreInfo storeinfo = null;
 		StoreMenuInfo storeMenu = null;
@@ -135,13 +134,10 @@ public class MemberDao {
 			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, userId);
-			System.out.println(query);
-		    System.out.println("Äõ¸®¹® ¼öÇà" + ", " + userId);
 		    rset = pstmt.executeQuery();
 			list = new ArrayList<HashMap<String, Object>>();
 			
 			while(rset.next()) {
-				//System.out.println("while¹® µÑ¾î¿È");
 				hmap = new HashMap<String, Object>();
 				//BusinessMan
 				//hmap.put("bId", rset.getString("B_ID"));
@@ -202,6 +198,47 @@ public class MemberDao {
 			close(rset);
 		}
 
+		return result;
+	}
+
+	public int updatePwd(Connection con, Member member, String newUserPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, newUserPwd);
+			pstmt.setString(2, member.getUserId());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteMember(Connection con, Member loginUser) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, loginUser.getUserId());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 

@@ -54,6 +54,7 @@ public class UpdateUserInfoServlet extends HttpServlet {
 
 
 		UserInfo ui = new UserInfo();
+		ui.setEmail(email);
 		ui.setPhone(tel);
 		ui.setBirthday(birthday);
 		ui.setJob(job);

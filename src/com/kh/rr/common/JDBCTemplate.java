@@ -31,8 +31,6 @@ public class JDBCTemplate {
 			con = DriverManager.getConnection(url, user, password);
 
 			con.setAutoCommit(false);
-
-			System.out.println(con);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {

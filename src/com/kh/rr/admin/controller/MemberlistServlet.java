@@ -31,11 +31,9 @@ public class MemberlistServlet extends HttpServlet {
 		/*System.out.println("servlet : " + list);*/
 		
 		String page="";
-		
 		if(list != null) {
 			page="views/admin/adminForm.jsp";
 			request.setAttribute("list", list);
-			
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "실패");

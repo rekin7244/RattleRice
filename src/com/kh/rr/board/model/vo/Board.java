@@ -14,6 +14,7 @@ public class Board implements java.io.Serializable{
 	private String bType;	//BTYPE
 	private String bContent;//BCONTENT
 	private String target;	//TARGET
+	private String fCategory;	//F_CATEGORY FAQ 상담유형
 	private Date bDate;		//BDATE
 	private int bCount;		//BCOUNT
 	private int grade;		//GRADE
@@ -21,7 +22,7 @@ public class Board implements java.io.Serializable{
 	public Board() {}
 
 	public Board(int bid, int fbid, int nbid, int rbid, int refBid, int type, String writer, String brand, String bType,
-			String bContent, String target, Date bDate, int bCount, int grade) {
+			String bContent, String target, String fCategory, Date bDate, int bCount, int grade) {
 		super();
 		this.bid = bid;
 		this.fbid = fbid;
@@ -34,6 +35,7 @@ public class Board implements java.io.Serializable{
 		this.bType = bType;
 		this.bContent = bContent;
 		this.target = target;
+		this.fCategory = fCategory;
 		this.bDate = bDate;
 		this.bCount = bCount;
 		this.grade = grade;
@@ -127,6 +129,14 @@ public class Board implements java.io.Serializable{
 		this.target = target;
 	}
 
+	public String getfCategory() {
+		return fCategory;
+	}
+
+	public void setfCategory(String fCategory) {
+		this.fCategory = fCategory;
+	}
+
 	public Date getbDate() {
 		return bDate;
 	}
@@ -155,8 +165,9 @@ public class Board implements java.io.Serializable{
 	public String toString() {
 		return "Board [bid=" + bid + ", fbid=" + fbid + ", nbid=" + nbid + ", rbid=" + rbid + ", refBid=" + refBid
 				+ ", type=" + type + ", writer=" + writer + ", brand=" + brand + ", bType=" + bType + ", bContent="
-				+ bContent + ", target=" + target + ", bDate=" + bDate + ", bCount=" + bCount + ", grade=" + grade
-				+ "]";
+				+ bContent + ", target=" + target + ", fCategory=" + fCategory + ", bDate=" + bDate + ", bCount="
+				+ bCount + ", grade=" + grade + "]";
 	}
+
 
 }
