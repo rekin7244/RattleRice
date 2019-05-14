@@ -71,5 +71,45 @@ public class BoardService {
 		
 		return list;
 	}
+
+	public int getSearchNoticeListCount(String keyword, String condition) {
+		Connection con = getConnection();
+		
+		int listCount = new BoardDao().getSearchNoticeListCount(con, keyword, condition);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> searchNoticeList(PageInfo pi, String keyword, String condition) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().searchNoticeList(con,pi,keyword,condition);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int getSearchReviewListCount(String keyword) {
+		Connection con = getConnection();
+		
+		int listCount = new BoardDao().getSearchReviewListCount(con, keyword);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> searchReviewList(PageInfo pi, String keyword) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().searchReviewList(con,pi,keyword);
+		
+		close(con);
+		
+		return list;
+	}
 	
 }
