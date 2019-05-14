@@ -54,21 +54,22 @@
 		</nav>
 		<br> <br>
 
-		<form action="<%=request.getContextPath()%>/bisinessSelect.ad">
+		<%-- <form action="<%=request.getContextPath()%>/bisinessSelect.ad"> --%>
 			<select name="keyField" id="keyField">
 				<option value="0">정렬</option>
 				<option value="M_ID">아이디</option>
 				<option value="M_NAME">이름</option>
-			</select> <input type="text" placeholder="검색어 입력" name="keyword">
-			<button type="submit" onclick="search()">검색</button>
-		</form>
+			</select> 
+			<input type="text" placeholder="검색어 입력" id="keyword">
+			<button type="submit" id="keywordclick">검색</button>
+		<!-- </form> -->
 
 
-		<form id="bisinesslist"
+		<form
 			action="<%=request.getContextPath()%> /bisinesslist.ad"
 			method="post">
 
-			<table class="table table-bordered">
+			<table class="table table-bordered" id="bisinesslist">
 
 				<thead>
 					<tr style="background: lightgray" align="center">
@@ -87,12 +88,16 @@
 				</thead>
 
 <%-- <% System.out.println(bisilist); %> --%>
-				<%
-					if (bisilist != null) {
+	
+		
+	
+				<%if (bisilist != null) {%>
+					<% 
 						for (int i = 0; i < bisilist.size(); i++) {
 				%>
 
-				<tbody align="center">
+
+				<tbody id="bisinesslistFrom">
 					<tr>
 						<td><input type="checkbox" id="checkmember"></td>
 						<td>1</td>
@@ -110,6 +115,8 @@
 						</select> &nbsp; &nbsp;
 							<button>수정</button></td>
 				</tbody>
+				
+			
 				<%
 					}
 					} else {
@@ -120,7 +127,8 @@
 				<%
 					}
 				%>
-
+				
+</div>
 
 				<!-- 		 <tbody align="center">
 				<tr>
@@ -143,7 +151,61 @@
 			</tbody> -->
 			</table>
 		</form>
+		
+	
 
 </body>
+<script>
+	
+	$("#keywordclick").click(function(){
+		
+	
+		var blist = $("#bisinesslist");
+		var blisthead = $("#listhead");
+		/* console.log("실행"); */
+		$.ajax({
+			url:"bisinessSelect.ad",
+			type:"post",
+			success:function(data){
+				console.log("성공");
+				console.log(blist);
+				
+				$(blist).children('#bisinesslistFrom').remove();
+				
+				$(blist).append('<td>메롱</td>');
+				
+			
+				
+				
+				
+				
+				
+				
+	/* 			<tr style="background: lightgray" align="center">
+				<th><input type="checkbox" id="checkmember"></th>
+				<th>번호</th>
+				<th>아이디</th>
+				<!-- <th>비밀번호</th> -->
+				<th>사업자번호</th>
+				<th>상호명</th>
+				<th>사업자명</th>
+				<th>계좌</th>
+				<th>휴대폰번호</th>
+				<th>등급</th>
+			</tr> */
+				
+			},
+			error:function(){
+				colsole.log("실패");
+			}
+		})
+			
+		
+	
+		
+	})
+	
+	
+</script>
 
 </html>
