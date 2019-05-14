@@ -111,5 +111,25 @@ public class BoardService {
 		
 		return list;
 	}
+
+	public int getSearchFaqListCount(String keyword, String condition) {
+		Connection con = getConnection();
+		
+		int listCount = new BoardDao().getSearchFaqListCount(con, keyword, condition);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> searchFaqList(PageInfo pi, String keyword, String condition) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().searchFaqList(con,pi,keyword,condition);
+		
+		close(con);
+		
+		return list;
+	}
 	
 }
