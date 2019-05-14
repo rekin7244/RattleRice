@@ -1,13 +1,17 @@
 package com.kh.rr.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.rr.member.model.service.AttachmentService;
 import com.kh.rr.member.model.service.UserInfoService;
 import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.member.model.vo.UserInfo;
@@ -21,21 +25,22 @@ public class ChatUserInfoServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member reqMember = (Member)request.getSession().getAttribute("loginUser");
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
-		UserInfo reqUi = new UserInfoService().userInfo(reqMember.getUserId());
+		String userId = loginUser.getUserId();
 		
-		String page = "";
-		if(reqUi != null) {
+		ArrayList<HashMap<String, Object>> list = new AttachmentService().selectAttachmentlList(userId);
+		
+		String page ="";
+		if(list != null) {
 			page = "views/matching/mypage.jsp";
-			request.setAttribute("reqUi", reqUi);
-			
+			request.setAttribute("list", list);
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "개인정보 조회 실패!");
+			request.setAttribute("msg", "프로필 조회 실패!");
 		}
-		request.getRequestDispatcher(page).forward(request, response);
-		
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		view.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

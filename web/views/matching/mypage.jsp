@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.*,java.util.*"%>
 <% 
-	UserInfo reqUi = (UserInfo) request.getAttribute("reqUi");
+	Member loginUser = (Member) session.getAttribute("loginUser");
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	
+	HashMap<String, Object> hmap = null;
+	for (int i = 0; i < list.size(); i++) {
+		hmap = list.get(i);
+	}
 %>	
 <!DOCTYPE html>
 <html>
@@ -28,6 +34,10 @@
 	.pay:hover {
 		cursor: pointer;
 	}
+	.img {
+		width:155px;
+		margin:0 auto;
+	}
 </style>
 </head>
 <body>
@@ -36,25 +46,25 @@
 	<div class="content bar">
 
 		<div class="img" align="center">
-			<img src="<%=request.getContextPath() %>/images/profile.PNG"><br>
+			<img src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" style="width:100%; border-radius:6em;"><br>
 			<!-- 성별별로 아이콘 다르게 나옴 -->
-			<p>
-			<%if(reqUi.getGender().equals("M")){ %>
-				<i class="fas fa-mars" style="color:blue;"></i><%=reqUi.getNickName() %>
+		<%-- 	<p>
+			<%if(loginUser.getGender().equals("M")){ %>
+				<i class="fas fa-mars" style="color:blue;"></i><%=loginUser.getUserName() %>
 			<%}else{ %>
-				<i class="fas fa-venus" style="color:red;"></i><%=reqUi.getNickName() %>
+				<i class="fas fa-venus" style="color:red;"></i><%=loginUser.getUserName() %>
 			<%} %>
-			</p>
+			</p> --%>
 		</div>
 		<form action="<%= request.getContextPath()%>/update.ui" method="get">
-			<input type="hidden" name="nickName" value="<%= reqUi.getNickName()%>">
+			<input type="hidden" name="nickName" value="<%= hmap.get("nickName")%>">
 			<div class="info line">
 				<div class="title">
 					<label for="status">상태메세지</label>
 				</div>
 				<div class="contents">
 					<input type="text" class="form-control" id="status"
-						placeholder="상태메세지를 입력해주세요." name="msg" value="<%= reqUi.getMsg()%>">
+						placeholder="상태메세지를 입력해주세요." name="msg" value="<%= hmap.get("msg")%>">
 				</div>
 			</div>
 			<div class="job line">
@@ -62,7 +72,7 @@
 					<label for="job">직업</label>
 				</div>
 				<div class="contents" style="border: none;">
-					<input type="text" class="form-control" id="job" value="<%=reqUi.getJob() %>"
+					<input type="text" class="form-control" id="job" value="<%=hmap.get("job") %>"
 						readonly>
 				</div>
 			</div>
@@ -71,7 +81,7 @@
 					<label for="age">나이</label>
 				</div>
 				<div class="contents" style="border: none;">
-					<input type="text" class="form-control" id="age" value="<%=reqUi.getAge() %>"
+					<input type="text" class="form-control" id="age" value="<%=hmap.get("birthday") %>"
 						readonly>
 				</div>
 			</div>
