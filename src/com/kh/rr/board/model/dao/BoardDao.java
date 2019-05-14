@@ -198,6 +198,143 @@ public class BoardDao {
 		}
 		return list;
 	}
+
+	public int getSearchNoticeListCount(Connection con, String keyword, String condition) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = "";
+		if(condition.equals("")) {
+			sql = prop.getProperty("getSearchNoticeListCountAll");
+		}else {
+			sql = prop.getProperty("getSearchNoticeListCount");
+		}
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			if(!condition.equals("")) {
+				pstmt.setString(2, condition);				
+			}
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+
+	public ArrayList<Board> searchNoticeList(Connection con, PageInfo pi, String keyword, String condition) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		String sql = "";
+		if(!condition.equals("")) {
+			sql = prop.getProperty("searchNoticeList");
+		}else {
+			sql = prop.getProperty("searchNoticeListAll");
+		}
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			if(!condition.equals("")) {
+				pstmt.setString(2, condition);
+				pstmt.setInt(3, pi.getStartPage());
+				pstmt.setInt(4, pi.getEndpage());
+			}else {
+				pstmt.setInt(2, pi.getStartPage());
+				pstmt.setInt(3, pi.getEndpage());
+			}
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBid(rset.getInt("BID"));
+				if(rset.getString("NBID")!=null) {
+					b.setNbid(rset.getInt("NBID"));
+				}
+				b.setWriter(rset.getString("M_NAME"));
+				b.setTarget(rset.getString("TARGET"));
+				b.setbContent(rset.getString("BCONTENT"));
+				b.setRefBid(rset.getInt("REF_BID"));
+				b.setbDate(rset.getDate("BDATE"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int getSearchReviewListCount(Connection con, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = "";
+		sql = prop.getProperty("getSearchReviewListCount");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+
+	public ArrayList<Board> searchReviewList(Connection con, PageInfo pi, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		String sql = prop.getProperty("searchReviewList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			pstmt.setInt(2, pi.getStartPage());
+			pstmt.setInt(3, pi.getEndpage());
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBid(rset.getInt("BID"));
+				if(rset.getString("RBID")!=null) {
+					b.setRbid(rset.getInt("RBID"));
+				}
+				b.setWriter(rset.getString("M_NAME"));
+				b.setbContent(rset.getString("BCONTENT"));
+				b.setBrand(rset.getString("BRAND"));
+				b.setGrade(rset.getInt("GRADE"));
+				b.setbDate(rset.getDate("BDATE"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 	
 }

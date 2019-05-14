@@ -355,11 +355,10 @@ body::-webkit-scrollbar {
 
 		<div class="container-fluid">
 			<div class="row content">
-				<form action="" method="get" class="form-horizontal">
 					<div class="form-group">
 						<label for="keyword" class="col-sm-2 control-label">제목 검색</label>
 						<div class="col-sm-9">
-							<input type="text" name="keyword" id="keyword"
+							<input type="text" name="keyword" id="noticeKeyword"
 								placeholder="키워드를 입력하세요" class="form-control">
 						</div>
 					</div>
@@ -367,21 +366,20 @@ body::-webkit-scrollbar {
 					<div class="form-group">
 						<label for="keyword" class="col-sm-2 control-label">공지 유형</label>
 						<div class="col-sm-9">
-							<select class="form-control">
-								<option value="common">공통</option>
-								<option value="user">일반 유저</option>
-								<option value="buser">사업자</option>
+							<select class="form-control" id="noticeCondition">
+								<option value="">전체</option>
+								<option value="공통">공통</option>
+								<option value="일반 유저">일반 유저</option>
+								<option value="사업자">사업자</option>
 							</select>
 						</div>
 					</div>
 					<br>
 					<div class="pull-right">
-						<button type="submit" class="btn btn-primary" value="검색"
-							onclick="" style="width: 100%;">검색</button>
+						<button class="btn btn-primary" value="검색"
+							onclick="noticePaging(1);" style="width: 100%;">검색</button>
 					</div>
 					<br>
-
-				</form>
 				<br> <br>
 				<table id="noticeTable" style="width: 100%; text-align: center;"
 					class="table table-striped table-bordered table-hover">
@@ -416,11 +414,10 @@ body::-webkit-scrollbar {
 
 		<div class="container-fluid">
 			<div class="row content">
-				<form action="" method="get" class="form-horizontal">
 					<div class="form-group">
 						<label for="keyword" class="col-sm-2 control-label">제목 검색</label>
 						<div class="col-sm-9">
-							<input type="text" name="keyword" id="keyword"
+							<input type="text" id="faqKeyword"
 								placeholder="키워드를 입력하세요" class="form-control">
 						</div>
 					</div>
@@ -441,8 +438,6 @@ body::-webkit-scrollbar {
 							onclick="" style="width: 100%;">검색</button>
 					</div>
 					<br>
-
-				</form>
 				<br> <br>
 				<table id="faqTable" style="width: 100%; text-align: center;"
 					class="table table-striped table-bordered table-hover">
@@ -477,22 +472,18 @@ body::-webkit-scrollbar {
 
 		<div class="container-fluid">
 			<div class="row content">
-				<form action="" method="get" class="form-horizontal">
 					<div class="form-group">
 						<label for="keyword" class="col-sm-2 control-label">가게명 검색</label>
 						<div class="col-sm-9">
-							<input type="text" name="keyword" id="keyword"
+							<input type="text" id="reviewKeyword"
 								placeholder="가게명을 입력하세요" class="form-control">
 						</div>
 					</div>
-					<br>
 					<div class="pull-right">
 						<button type="submit" class="btn btn-primary" value="검색"
-							onclick="" style="width: 100%;">검색</button>
+							onclick="reviewPaging(1);" style="width: 100%;">검색</button>
 					</div>
 					<br>
-
-				</form>
 				<br> <br>
 				<table id="reviewTable" style="width: 100%; text-align: center;"
 					class="table table-striped table-bordered table-hover">
@@ -674,13 +665,14 @@ body::-webkit-scrollbar {
 			}
 		});
 	});
-	
+	//공지사항 페이징 및 검색 ajax
 	function noticePaging(currentPage){
-		//console.log(currentPage);
+		var keyword = $("#noticeKeyword").val();
+		var condition = $("#noticeCondition").val();
 		$.ajax({
-			url:"noticeBoard.bo",
+			url:"searchNoticeBoard.bo",
 			type:"get",
-			data:{currentPage:currentPage},
+			data:{currentPage:currentPage,keyword:keyword,condition:condition},
 			success:function(data){
 				var list = data["list"];
 				var pi = data["pi"];
@@ -718,7 +710,7 @@ body::-webkit-scrollbar {
 			}
 		});
 	}
-	
+	//faq 페이징 ajax
 	function faqPaging(currentPage){
 		//console.log(currentPage);
 		$.ajax({
@@ -762,13 +754,14 @@ body::-webkit-scrollbar {
 			}
 		});
 	}
-	
+	//후기게시판 페이징 및 검색 ajax
 	function reviewPaging(currentPage){
+		var keyword = $("#reviewKeyword").val();
 		//console.log(currentPage);
 		$.ajax({
-			url:"reviewBoard.bo",
+			url:"searchReviewBoard.bo",
 			type:"get",
-			data:{currentPage:currentPage},
+			data:{currentPage:currentPage,keyword:keyword},
 			success:function(data){
 				var list = data["list"];
 				var pi = data["pi"];
@@ -806,6 +799,51 @@ body::-webkit-scrollbar {
 			}
 		});
 	}
+	/* //공지사항 검색 ajax
+	function searchNotice(){
+		var keyword = $("#noticekeyword").val();
+		var condition = $("#noticeCondition").val();
+		$.ajax({
+			url:"searchNoticeBoard.bo",
+			type:"get",
+			data:{currentPage:1,keyword:keyword,condition:condition},
+			success:function(data){
+				var list = data["list"];
+				var pi = data["pi"];
+				
+				$tableBody = $("#noticeTable tbody");
+				$tableBody.html('');
+				$.each(list, function(index, value){
+					var $tr = $("<tr>");
+					var $noTd = $("<td>").text(value.nbid);
+					var $typeTd = $("<td>").text(value.target);
+					var $contentTd = $("<td>").text(value.bContent);
+					var $writerTd = $("<td>").text(value.writer);
+					var $countTd = $("<td>").text(value.bCount);
+					
+					$tr.append($noTd);
+					$tr.append($typeTd);
+					$tr.append($contentTd);
+					$tr.append($writerTd);
+					$tr.append($countTd);
+					$tableBody.append($tr);
+				});
+				
+				$paging = $("#noticePaging");
+				$paging.html('');
+				var $firstTd = $('<li><a onclick="noticePaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+				$paging.append($firstTd);
+				for (var i = 0; i < pi.maxPage; i++) {
+					$paging.append('<li><a onclick="noticePaging('+(i+1)+');">'+(i+1)+'</a></li>');
+				}
+				var $endTd = $('<li><a onclick="noticePaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+				$paging.append($endTd);
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+	} */
 	</script>
 
 </body>
