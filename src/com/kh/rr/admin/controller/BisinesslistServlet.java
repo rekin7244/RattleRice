@@ -27,7 +27,7 @@ public class BisinesslistServlet extends HttpServlet {
 
 		ArrayList<Member> bisilist = new AdminService().bisinesslist();
 			
-		System.out.println("사업자 servlet : " + bisilist);
+		/*System.out.println("사업자 servlet : " + bisilist);*/
 		
 		String page = "";
 		
