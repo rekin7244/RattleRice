@@ -160,8 +160,9 @@
 	text-align: center;
 	display: inline-block;
 }
-.selectImg{
-width: auto;
+
+.selectImg {
+	width: auto;
 }
 </style>
 <title>딸랑밥 회원가입</title>
@@ -197,17 +198,13 @@ width: auto;
 						<br>
 
 						<div class="form-group">
-
-
 							<input type="button" name="login-submit" id="login-submit"
 								tabindex="4" class="form-control btn btn-warning" value="일반회원"
-								onclick="window.open('views/member/memberJoinForm.jsp','', 'left=500,top=0, height=580, width=450')"> 
+								onclick="window.open('views/member/memberJoinForm.jsp','', 'left=500,top=0, height=580, width=450')">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="button" name="login-submit" id="login-submit"
 								tabindex="4" class="form-control btn btn-warning" value="사업자 회원"
 								onclick="window.open('views/member/businessMemberJoinForm.jsp','', 'left=500,top=0, height=730, width=450')">
-
-
 						</div>
 
 					</form>

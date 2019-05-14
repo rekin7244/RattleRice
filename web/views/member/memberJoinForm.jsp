@@ -143,7 +143,7 @@ body {
 	height: 35px;
 }
 
-#userPwd, #userPwd2, #userName, #birthday {
+#userPwd, #userPwd2, #userName, #birthday, #email {
 	height: 35px;
 }
 </style>
@@ -194,9 +194,10 @@ body {
 								</div>
 								<br>
 								<div>
-									<label for="male">직종 : </label>&nbsp;&nbsp;&nbsp;<select class="form-control"
-									style="width: 233px; height: 30px; border-radius: 3px 3px 3px 3px; border: 1px solid lightgray;"
-									id="job" name="curjob">
+									<label for="male">직종 : </label>&nbsp;&nbsp;&nbsp;<select
+										class="form-control"
+										style="width: 233px; height: 32px; border-radius: 3px 3px 3px 3px; border: 1px solid lightgray;"
+										id="job" name="curjob">
 										<option value="무직">무직</option>
 										<option value="학생">학생</option>
 										<option value="IT">IT</option>
@@ -223,6 +224,10 @@ body {
 								<div class="form-group">
 									<input type="tel" name="phone" id="phone" class="form-control"
 										placeholder="휴대폰번호" required>
+								</div>
+								<div class="form-group">
+									<input type="email" name="email" id="email"
+										class="form-control" placeholder="이메일" required>
 									<button type="button" class="btn btn-primary"
 										style="background: white; color: gray;">SMS인증</button>
 								</div>
@@ -273,6 +278,20 @@ body {
 		});
 
 		$(function() {
+			$("#userPwd").keyup(function() {
+				var pwd1 = $("#userPwd").val();
+				var pwd2 = $("#userPwd2").val();
+				if (pwd1 != "" || pwd2 != "") {
+					if (pwd1 == pwd2) {
+						$("#userPwd2").css("border", "solid 2px lightgreen");
+						pwdCheck = "1";
+					} else {
+						$("#userPwd2").css("border", "solid 2px red");
+						pwdCheck = "0";
+					}
+				}
+			});
+			
 			$("#userPwd2").keyup(function() {
 				var pwd1 = $("#userPwd").val();
 				var pwd2 = $("#userPwd2").val();
@@ -289,9 +308,9 @@ body {
 		});
 
 		setInterval(function() {
-			console.log("실행");
+			/* console.log("실행");
 			console.log(idCheck);
-			console.log(pwdCheck);
+			console.log(pwdCheck); */
 			if (idCheck == "1" && pwdCheck == "1") {
 				$("#register-submit").removeAttr("disabled");
 			} else {

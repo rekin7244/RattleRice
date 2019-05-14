@@ -87,12 +87,12 @@ public class AttachmentDao {
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
 				hmap.put("filePath", rset.getString("FILE_PATH"));
 				hmap.put("uploadDate", rset.getDate("UPLOAD_DATE"));
+				hmap.put("email", rset.getString("EMAIL"));
 
 				list.add(hmap);
 			}
 			
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		} finally {
 			close(pstmt);

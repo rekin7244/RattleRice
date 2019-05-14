@@ -15,11 +15,13 @@ public class UserInfo implements java.io.Serializable {
 	private String bCode;
 	private String holder;
 	private String phone;
+	private String email;
 
-	public UserInfo() {}
+	public UserInfo() {
+	}
 
 	public UserInfo(String gender, Date birthday, int age, String job, String nickName, String msg, String grade,
-			String userId, String account, String bCode, String holder, String phone) {
+			String userId, String account, String bCode, String holder, String phone, String email) {
 		super();
 		this.gender = gender;
 		this.birthday = birthday;
@@ -33,6 +35,15 @@ public class UserInfo implements java.io.Serializable {
 		this.bCode = bCode;
 		this.holder = holder;
 		this.phone = phone;
+		this.email = email;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPhone() {
@@ -135,6 +146,6 @@ public class UserInfo implements java.io.Serializable {
 	public String toString() {
 		return "UserInfo [gender=" + gender + ", birthday=" + birthday + ", age=" + age + ", job=" + job + ", nickName="
 				+ nickName + ", msg=" + msg + ", grade=" + grade + ", userId=" + userId + ", account=" + account
-				+ ", bCode=" + bCode + ", holder=" + holder + ", phone=" + phone + "]";
+				+ ", bCode=" + bCode + ", holder=" + holder + ", phone=" + phone + ", email=" + email+ "]";
 	}
 }
