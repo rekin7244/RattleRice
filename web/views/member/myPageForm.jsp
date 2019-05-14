@@ -336,7 +336,7 @@ input, textarea {
 				style="position: static; width: 280px; height: 200px;"></div>
 			<div class="col-sm-5 form1">
 				<div class="well">
-					<h2>프로필 설정</h2>
+					<h2>프로필</h2>
 					<br>
 					<form action="<%=request.getContextPath()%>/updateProImg"
 						method="post" encType="multipart/form-data">
@@ -378,14 +378,14 @@ input, textarea {
 							<br>
 						</div>
 						<button type="submit" class="btn btn-warning"
-							id="profileUpdateBtn" onclick="updateAlert()">정보 수정</button>
+							id="profileUpdateBtn" onclick="updateAlert()">프로필 수정</button>
 					</form>
 				</div>
 			</div>
 
 			<div class="col-sm-5 form2">
 				<div class="well">
-					<h2>개인정보 수정</h2>
+					<h2>개인정보</h2>
 					<br>
 					<form action="<%=request.getContextPath()%>/updateUser">
 
@@ -412,17 +412,16 @@ input, textarea {
 									id="job" name="job">
 								</select>
 							</div>
-							<div class="form-group">
-								<label>비밀번호 변경</label> <input type="password" class="form-control" id="password" name="password">
-							</div>
-							<div class="form-group">
-								<label>비밀번호 확인</label> <input type="password" id="password2" name="password2"
-									class="form-control" >
-							</div>
 						</div>
-						<button type="submit" class="btn btn-warning" id="userUpdateBtn" onclick="updateAlert()" >수정</button>
+						<button type="submit" class="btn btn-warning" id="userUpdateBtn"
+							onclick="updateAlert()">개인정보 수정</button>
 
 					</form>
+					<br><br><br>
+					<button type="button" class="btn btn-danger" 
+						onclick="window.open('views/member/memberPwdUpdateForm.jsp','', 'left=500,top=0, height=300, width=450')">비밀번호 변경</button> &nbsp;&nbsp;
+						<button type="button" class="btn btn-danger" 
+						onclick="window.open('views/member/memberDeleteForm.jsp','', 'left=500,top=0, height=250, width=450')">탈퇴</button>
 
 
 				</div>
@@ -469,7 +468,7 @@ input, textarea {
 		};
 
 		function goProfile() {
-			location.href = "/rr/selectPro";
+			location.href = "/<%=request.getContextPath()%>/selectPro";
 		};
 
 		$(function() {
@@ -492,38 +491,9 @@ input, textarea {
 		
 		function updateAlert() {
 			alert("수정이 완료되었습니다 ><");
-			
 		};
 		
-		/* var pwdCheck = "0";
 		
-		$(function() {
-			$("#password2").keyup(function() {
-				var pwd1 = $("#password").val();
-				var pwd2 = $("#password2").val();
-				if (pwd1 !="" && pwd2 != "") {
-					if (pwd1 == pwd2) {
-						$("#password2").css("border", "solid 2px lightgreen");
-						pwdCheck = "1";
-					} else {
-						$("#password2").css("border", "solid 2px red");
-						pwdCheck = "0";
-					}
-				}
-			});
-			
-			
-		});
-		
-		setInterval(function() {
-			console.log("실행");
-			console.log(pwdCheck); 
-			if (pwdCheck == "1") {
-				$("#userUpdateBtn").removeAttr("disabled");
-			} else {
-				$("#userUpdateBtn").attr("disabled", "disabled");
-			}
-		}, 500); */
 	</script>
 
 </body>
