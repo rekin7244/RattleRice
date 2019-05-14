@@ -3,6 +3,7 @@
 <% 
 		ArrayList<HashMap<String, Object>> list = 
 			(ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+		System.out.println(list);
 %>
 <!DOCTYPE html>
 <html>
@@ -256,12 +257,12 @@ padding-bottom: 30px;
 
 
 			<div class="container col-sm-9">
-				<div class="buttonPadding">
+				<!-- div class="buttonPadding">
 					<ul id="topMenu">
 						<li class="li2"><button type="submit" style="float: right;">적용</button></li>
 						<li class="li2"><button style="float: right;">미리보기</button>
 					</ul>
-				</div>
+				</div> -->
 				<br>
 				<div class="container col-sm-9"
 					style="border: 0.5px solid lightgray;  height: 90%; float: left; width: 33%; padding:10px; 
@@ -269,9 +270,11 @@ padding-bottom: 30px;
 					<h4 align="center">매장정보</h4>
 					<br> <br>
 					<form action="<%=request.getContextPath() %>/businessInfoUpdate.b" method="post">
+					<button type="submit">적용하기</button>
 						<table align="center"
 							style="min-width: 500px; border-collapse: separate; border-spacing: 0 10px;">
-							<%for(int i = 1; i < list.size(); i++){ 
+							<% if(list != null){
+							for(int i = 1; i < list.size(); i++){ 
 							HashMap<String, Object> hmap = list.get(i);
 							%>
 							<tr>
@@ -283,7 +286,7 @@ padding-bottom: 30px;
 								<td><input type="text" name="address" value='<%=hmap.get("location") %>'></td>
 							</tr>
 							<tr>
-								<td><label>영업시간(평일) : </label></td>
+								<td><label>영업시간 : </label></td>
 								<td><input type="time" name="openTime1" value='<%=hmap.get("opening_hore") %>'></td>
 								<td><input type="time" name="closeTime1" value='<%=hmap.get("close_hore") %>'></td>
 							</tr>
@@ -293,18 +296,41 @@ padding-bottom: 30px;
 								<td><input type="text" name="introducer" value='<%=hmap.get("intro") %>'
 									style="width: 175px; height: 80px;"></td>
 							</tr>
+							<%  }  
+							  }	else{					
+							%>
+							<tr>
+								<td><label>hp : </label></td>
+								<td><input type="tel" name="phone"></td>
+							</tr>
+							<tr>
+								<td><label>위치 : </label></td>
+								<td><input type="text" name="address"></td>
+							</tr>
+							<tr>
+								<td><label>영업시간 : </label></td>
+								<td><input type="time" name="openTime1"></td>
+								<td><input type="time" name="closeTime1"></td>
+							</tr>
+							
+							<tr>
+								<td><label>간단한 소개 : </label></td>
+								<td><input type="text" name="introducer"
+									style="width: 175px; height: 80px;"></td>
+							</tr>
 							<%} %>
 						</table>
 					</form>
 				</div>
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray;  height: 90%; 
-					float: left; width: 33%; padding:10px; overflow-x: auto;">
+					style="border: 0.5px solid lightgray;  height: 90%; float: left; width: 33%; padding:10px; 
+					overflow-x: auto; overflow-y:auto;">
 					<h4 align="center">메뉴</h4>
-					<br> <br>
+					<br><br>
 					<button id="menuAdd">+</button>
+					<button>적용하기</button>
 					<form action="#" method="post">
-						<table class="table table-bordered" style="min-width: 500px;">
+						<table class="table table-bordered" id="menuTable" style="min-width: 500px;">
 							<thead>
 								<tr style="background: lightgray">
 									<th align="center">메뉴명</th>
@@ -316,7 +342,7 @@ padding-bottom: 30px;
 							<% for(int i = 0; i < list.size(); i++){ 
 								HashMap<String, Object> hmap = list.get(i);
 							%> 
-								<tr id="menuInfoAdd">
+								<tr>
 									<td><input type="text" name="menu" value='<%= hmap.get("menu")%>'></td>
 									<td><input type="number" name="menuPrice" value='<%= hmap.get("price")%>'></td>
 									<td><input type="text" name="origin" value='<%=hmap.get("origin") %>'></td>
@@ -331,22 +357,19 @@ padding-bottom: 30px;
 				var ctn = 0;
 				
 					$("#menuAdd").click(function(){
+						console.log("function동작");
 						ctn++;
-						$("menuInfoAdd").append(
-							
-						 '<tr>
-									<td><input type="text" name="menu" value='<%= hmap.get("menu")%>'></td>
-									<td><input type="number" name="menuPrice" value='<%= hmap.get("price")%>'></td>
-									<td><input type="text" name="origin" value='<%=hmap.get("origin") %>'></td>
-						</tr>'
-						
-						).remove();
+						$("#menuTable > tbody:last").append(
+								"<tr><td>" + '<input type="text" name="menu">' + "</td>"
+								+ "<td>" + '<input type="number" name="menuPrice">' + "</td>"
+								+ "<td>" + '<input type="text" name="origin">' + "</td></tr>");
 					});
 				</script>
 				<div class="container col-sm-9"
 					style="border: 0.5px solid lightgray; height: 90%;float: left; width: 33%; padding:10px;">
 					<form action="#" method="post">
 						<h4 align="center">사진첨부</h4>
+						<button>적용하기</button>
 						<div
 							style="border: 0.5px solid lightgray; margin 0 auto; height: 65%;">
 							<h4>
