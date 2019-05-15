@@ -3,6 +3,7 @@
 	import="com.kh.rr.member.model.vo.Member, java.util.*"%>
 <%
 	ArrayList<Member> bisilist = (ArrayList<Member>) request.getAttribute("bisilist");
+	ArrayList<Member> bisiSelect = (ArrayList<Member>) request.getAttribute("bisiSelect");
 %>
 <!DOCTYPE html>
 <html>
@@ -54,19 +55,17 @@
 		</nav>
 		<br> <br>
 
-		<%-- <form action="<%=request.getContextPath()%>/bisinessSelect.ad"> --%>
+		<form action="<%=request.getContextPath()%>/bisinessSelect.ad">
 			<select name="keyField" id="keyField">
 				<option value="0">정렬</option>
 				<option value="M_ID">아이디</option>
 				<option value="M_NAME">이름</option>
-			</select> 
-			<input type="text" placeholder="검색어 입력" id="keyword">
+			</select> <input type="text" placeholder="검색어 입력" id="keyword" name="keyword">
 			<button type="submit" id="keywordclick">검색</button>
-		<!-- </form> -->
+		</form>
 
 
-		<form
-			action="<%=request.getContextPath()%> /bisinesslist.ad"
+		<form action="<%=request.getContextPath()%> /bisinesslist.ad"
 			method="post">
 
 			<table class="table table-bordered" id="bisinesslist">
@@ -87,13 +86,15 @@
 
 				</thead>
 
-<%-- <% System.out.println(bisilist); %> --%>
-	
-		
-	
-				<%if (bisilist != null) {%>
-					<% 
-						for (int i = 0; i < bisilist.size(); i++) {
+				<%-- <% System.out.println(bisilist); %> --%>
+
+
+
+				<%
+					if (bisilist != null) {
+				%>
+				<%
+					for (int i = 0; i < bisilist.size(); i++) {
 				%>
 
 
@@ -115,8 +116,8 @@
 						</select> &nbsp; &nbsp;
 							<button>수정</button></td>
 				</tbody>
-				
-			
+
+
 				<%
 					}
 					} else {
@@ -127,10 +128,10 @@
 				<%
 					}
 				%>
-				
-</div>
+			
+	</div>
 
-				<!-- 		 <tbody align="center">
+	<!-- 		 <tbody align="center">
 				<tr>
 					<td><input type="checkbox" id="checkmember"></td>
 					<td>1</td>
@@ -149,63 +150,68 @@
 						<button>수정</button></td>
 
 			</tbody> -->
-			</table>
-		</form>
-		
-	
-
+	</table>
+	</form>
 </body>
 <script>
-	
-	$("#keywordclick").click(function(){
-		
-	
-		var blist = $("#bisinesslist");
-		var blisthead = $("#listhead");
-		/* console.log("실행"); */
-		$.ajax({
-			url:"bisinessSelect.ad",
-			type:"post",
-			success:function(data){
-				console.log("성공");
-				console.log(blist);
-				
-				$(blist).children('#bisinesslistFrom').remove();
-				
-				$(blist).append('<td>메롱</td>');
-				
-			
-				
-				
-				
-				
-				
-				
-	/* 			<tr style="background: lightgray" align="center">
-				<th><input type="checkbox" id="checkmember"></th>
-				<th>번호</th>
-				<th>아이디</th>
-				<!-- <th>비밀번호</th> -->
-				<th>사업자번호</th>
-				<th>상호명</th>
-				<th>사업자명</th>
-				<th>계좌</th>
-				<th>휴대폰번호</th>
-				<th>등급</th>
-			</tr> */
-				
-			},
-			error:function(){
-				colsole.log("실패");
-			}
-		})
-			
-		
-	
-		
-	})
-	
-	
+	$("#keywordclick")
+			.click(
+					function() {
+
+						var blist = $("#bisinesslist");
+						var blisthead = $("#listhead");
+
+						/* console.log("실행"); */
+						$
+								.ajax({
+									url : "bisinessSelect.ad",
+									type : "get",
+									success : function(data) {
+
+										$(blist).children('#bisinesslistFrom')
+												.remove();
+
+										for ( var key in data) {
+											/* $(blist).append('<td><input type="checkbox" id="checkmember"></td>'); */
+											$(blist).append('<tr>');
+											$(blist)
+													.append(
+															'<td><input type="checkbox" id="checkmember"></td>');
+											$(blist).append('<td>1</td>');
+											$(blist).append('<td></td>');
+											$(blist)
+													.append(
+															'<td>123-456789-123456</td>');
+											$(blist).append('<td>홍콩반점</td>');
+											$(blist).append('<td>값불러와야함</td>');
+											$(blist)
+													.append(
+															'<td><button>상세보기</button></td>');
+											$(blist).append(
+													'<td>010-1111-1111</td>');
+											$(blist)
+													.append(
+															'<td><select><option>level1</option></select></select> &nbsp; &nbsp;<button>수정</button></td>');
+											$(blist).append('</tr>');
+										}
+
+										/* $(blist).append('<td><input type="checkbox" id="checkmember"></td>');
+										$(blist).append('<td>1</td>');
+										$(blist).append('<td></td>');
+										$(blist).append('<td>123-456789-123456</td>');
+										$(blist).append('<td>홍콩반점</td>');
+										$(blist).append('<td>값불러와야함</td>');
+										$(blist).append('<td><button>상세보기</button></td>');
+										$(blist).append('<td>010-1111-1111</td>');
+										$(blist).append('<td><select><option>level1</option></select></select> &nbsp; &nbsp;<button>수정</button></td>'); */
+
+									},
+									error : function() {
+										colsole.log("실패");
+									}
+								})
+
+					})
 </script>
 
 </html>
