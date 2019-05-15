@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.Member"%>
+	pageEncoding="UTF-8"
+	import="com.kh.rr.member.model.vo.Member ,java.util.*"%>
 
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -31,9 +33,10 @@
 
 .contact-form {
 	margin: 0 auto;
-	padding: 10px;
+	padding-right: 10px;
 	text-align: center;
 	background: yellowgreen;
+	text-align: center;
 }
 
 .fixed {
@@ -50,9 +53,8 @@
 	"https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
 body {
-	font-family: 'Poppins', sans-serif;
 	background: #fafafa;
-	overflow: hidden
+	/* 	overflow: hidden */
 }
 
 /* 메뉴 */
@@ -62,7 +64,6 @@ p {
 	font-size: 1.1em;
 	font-weight: 300;
 	line-height: 1.7em;
-	color: #999;
 }
 
 /* sidebar menu*/
@@ -73,11 +74,8 @@ a, a:hover, a:focus {
 }
 
 #sidebar {
-	width: 250px;
-	position: fixed;
 	top: 0;
 	left: 0;
-	height: 100vh;
 	z-index: 999;
 	color: black;
 	transition: all 0.3s;
@@ -85,12 +83,9 @@ a, a:hover, a:focus {
 
 /* page표시 */
 #sidebar .sidebar-header {
-	padding: 70px;
+	
 }
 
-#sidebar ul.components {
-	padding: 20px 0;
-}
 
 #sidebar ul p {
 	color: black;
@@ -116,7 +111,6 @@ a[data-toggle="collapse"] {
 #content {
 	width: calc(100% - 250px);
 	padding: 40px;
-	min-height: 100vh;
 	transition: all 0.3s;
 	position: absolute;
 	top: 10;
@@ -126,7 +120,6 @@ a[data-toggle="collapse"] {
 
 #jb-header {
 	text-align: center;
-	border-bottom: 1px solid black;
 }
 
 #jb-header h1 {
@@ -144,10 +137,157 @@ a[data-toggle="collapse"] {
 	background: gray;
 	color: white;
 }
-.container-fluid{
-padding: 0;
+
+.row {
+	/* width: 1530px; */
+	
+}
+
+.content h3 {
+	margin-top: 0;
+	margin-bottom: 20px;
+}
+
+.in-content {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+#div1 {
+	width: 45%;
+	height: 250px;
+	display: inline-block;
+}
+
+#div2 {
+	width: 45%;
+	height: 250px;
+	display: inline-block;
+}
+
+#div3 {
+	width: 49%;
+	display: inline-block;
+}
+
+#div4 {
+	width: 49%;
+	display: inline-block;
+}
+
+.container-fluid {
+	padding: 0;
+}
+
+.profile {
+	
+}
+
+.form1, .form2 {
+	margin-top: 30px;
+}
+
+.form1 {
+	padding-left: 30px;
+}
+
+.form2 {
+	padding-right: 30px;
+}
+
+.img {
+	
+}
+
+.form-input {
+	width: auto;
+	display: inline-block;
+}
+
+#profileImgArea {
+	cursor: pointer;
+}
+
+#inProfileImg {
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.form-group {
+	display: block;
+}
+
+#userUpdateBtn {
+	
+}
+
+#userArea {
+	margin-left: 120px;
+	margin-right: 100px;
+}
+
+.form-control {
+	width: 50%;
+}
+
+input, textarea {
+	text-align: center;
+}
+
+.well {
+	
+}
+
+.col-sm-5 {
+	width: auto;
+}
+
+#profileImgUpdateBtn {
+	background-color: lightgray;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 450px;
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+	padding-top: 20px;
+	background-color: #f1f1f1;
+	height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
+tr>th, tr>td {
+width: 30%;
 }
 </style>
+
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 	<div id="div0" class="container-fluid"></div>
@@ -193,56 +333,139 @@ padding: 0;
 	<br>
 	<br>
 	<br>
-	<div id="jb-header">
-		<h1>포인트</h1>
+	<div class="row">
+		<%@ include file="myPageMenubar.jsp"%>
 	</div>
-	<div class="wrapper">
 
-		<!-- Sidebar  -->
-		<nav id="sidebar">
-			<div class="sidebar-header"></div>
-			<ul class="list-unstyled components">
-				<p>
-					<b>메뉴</b>
-				</p>
-				<li><a href="myPageForm.jsp">마이페이지</a></li>
-				<li><a href="myWriteForm.jsp">작성글 조회</a></li>
-				<li><a href="myPointForm.jsp" class="active">포인트</a></li>
-			</ul>
-		</nav>
-	</div>
-	
-	<!-- Page Content  -->
-	<div id="content">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container-fluid">
-				<div id="jb-content">
-					<h2>Content</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu
-						laoreet. Proin gravida velit dictum dui consequat malesuada.
-						Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam
-						vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.
-						Mauris id odio pretium, sollicitudin sapien eget, adipiscing
-						risus.</p>
+
+
+	<div class="container-fluid text-center">
+		<div class="row content" style="border-bottom: 0px;">
+			<div class="col-sm-12 form1 well">
+				<div class="">
+					<h2>보유 포인트 : 15600원</h2>
+					<div class="container">
+							<br> <input class="form-control" id="myInput" type="text"
+								placeholder="검색할 키워드를 입력하세요">
+						<br>
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th>날짜</th>
+									<th>금액</th>
+									<th>상태</th>
+									<th>잔액</th>
+								</tr>
+							</thead>
+							<tbody id="myTable">
+								<tr>
+									<td>2019년 05월 10일</td>
+									<td>5400원</td>
+									<td>결제</td>
+									<td>15600원</td>
+								</tr>
+								<tr>
+									<td>2019년 05월 05일</td>
+									<td>10000원</td>
+									<td>충전</td>
+									<td>21000원</td>
+								</tr>
+								<tr>
+									<td>2019년 04월 11일</td>
+									<td>9000원</td>
+									<td>결제</td>
+									<td>11000원</td>
+								</tr>
+								<tr>
+									<td>2019년 04월 11일</td>
+									<td>20000원</td>
+									<td>충전</td>
+									<td>20000원</td>
+								</tr>
+								<tr>
+									<td>2019년 03월 6일</td>
+									<td>10000원</td>
+									<td>환불</td>
+									<td>0원</td>
+								</tr>
+								<tr>
+									<td>2019년 03월 6일</td>
+									<td>10000원</td>
+									<td>충전</td>
+									<td>10000원</td>
+								</tr>
+								<tr>
+									<td>2019년 03월 6일</td>
+									<td>10000원</td>
+									<td>충전</td>
+									<td>10000원</td>
+								</tr>
+								<tr>
+									<td>2019년 03월 6일</td>
+									<td>10000원</td>
+									<td>충전</td>
+									<td>10000원</td>
+								</tr>
+								<tr>
+									<td>2019년 03월 6일</td>
+									<td>10000원</td>
+									<td>충전</td>
+									<td>10000원</td>
+								</tr>
+								<tr>
+									<td>2019년 03월 6일</td>
+									<td>10000원</td>
+									<td>충전</td>
+									<td>10000원</td>
+								</tr>
+								<tr>
+									<td>2019년 03월 6일</td>
+									<td>10000원</td>
+									<td>충전</td>
+									<td>10000원</td>
+								</tr>
+								<tr>
+									<td>2019년 03월 6일</td>
+									<td>10000원</td>
+									<td>충전</td>
+									<td>10000원</td>
+								</tr>
+								<tr>
+									<td>2019년 03월 6일</td>
+									<td>10000원</td>
+									<td>충전</td>
+									<td>10000원</td>
+								</tr>
+								<tr>
+									<td>2019년 03월 6일</td>
+									<td>10000원</td>
+									<td>충전</td>
+									<td>10000원</td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+					</div>
 				</div>
 			</div>
-		</nav>
+		</div>
 	</div>
-	
-	<!-- 채팅접속 아이콘 -->
-	<%
-		if (loginUser != null) {
-	%>
-	<div class="fixed">
-		<a
-			onclick="window.open('<%=request.getContextPath()%>/selectAll.ma', '', 'top=50px, left=800px, height=500, width=400')">
-			<i class="far fa-comment"></i>
-		</a>
-	</div>
-	<%
-		}
-	%>
+
+	<script>
+
+
+
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+
+</script>
 
 </body>
 </html>

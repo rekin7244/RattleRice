@@ -74,11 +74,8 @@ a, a:hover, a:focus {
 }
 
 #sidebar {
-	width: 250px;
-	position: fixed;
 	top: 0;
 	left: 0;
-	height: 100vh;
 	z-index: 999;
 	color: black;
 	transition: all 0.3s;
@@ -86,11 +83,7 @@ a, a:hover, a:focus {
 
 /* page표시 */
 #sidebar .sidebar-header {
-	padding: 70px;
-}
-
-#sidebar ul.components {
-	padding: 20px 0;
+	
 }
 
 #sidebar ul p {
@@ -117,7 +110,6 @@ a[data-toggle="collapse"] {
 #content {
 	width: calc(100% - 250px);
 	padding: 40px;
-	min-height: 100vh;
 	transition: all 0.3s;
 	position: absolute;
 	top: 10;
@@ -127,7 +119,6 @@ a[data-toggle="collapse"] {
 
 #jb-header {
 	text-align: center;
-	border-bottom: 1px solid black;
 }
 
 #jb-header h1 {
@@ -190,9 +181,7 @@ a[data-toggle="collapse"] {
 }
 
 .profile {
-	float: left;
-	margin-left: 120px;
-	margin-right: 100px;
+
 }
 
 .form1, .form2 {
@@ -208,8 +197,7 @@ a[data-toggle="collapse"] {
 }
 
 .img {
-	width: 200px;
-	height: 200px;
+
 }
 
 .form-input {
@@ -219,9 +207,7 @@ a[data-toggle="collapse"] {
 
 #profileImgArea {
 	cursor: pointer;
-	margin-right: 90px;
-	margin-bottom: 10px;
-	margin-left: 170px;
+	
 }
 
 #inProfileImg {
@@ -243,7 +229,7 @@ a[data-toggle="collapse"] {
 }
 
 .form-control {
-	width: 300px;
+	width: 50%;
 }
 
 input, textarea {
@@ -251,8 +237,7 @@ input, textarea {
 }
 
 .well {
-	height: 630px;
-	width: 580px;
+
 }
 
 .col-sm-5 {
@@ -262,7 +247,44 @@ input, textarea {
 #profileImgUpdateBtn {
 	background-color: lightgray;
 }
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 450px;
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+	padding-top: 20px;
+	background-color: #f1f1f1;
+	height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
 </style>
+
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 	<div id="div0" class="container-fluid"></div>
@@ -308,37 +330,20 @@ input, textarea {
 	<br>
 	<br>
 	<br>
-	<div id="jb-header">
-		<h1>마이페이지</h1>
-	</div>
-	<div class="wrapper">
+	<div class="row">
 
-		<!-- Sidebar  -->
-		<nav id="sidebar">
-			<div class="sidebar-header"></div>
-			<ul class="list-unstyled components">
-				<p>
-					<b>메뉴</b>
-				</p>
-				<li><a class="active" onclick="goProfile()"
-					style="cursor: pointer;">마이페이지</a></li>
-				<li><a href="myWriteForm.jsp">작성글 조회</a></li>
-				<li><a href="myPointForm.jsp">포인트</a></li>
-			</ul>
-		</nav>
+		<%@ include file="myPageMenubar.jsp"%>
 	</div>
-
 
 
 
 	<div class="container-fluid text-center">
 		<div class="row content" style="border-bottom: 0px;">
-			<div class="col-sm-2 sidenav"
-				style="position: static; width: 280px; height: 200px;"></div>
-			<div class="col-sm-5 form1">
-				<div class="well">
+			<div class="col-sm-6 form1 well">
+				<div class="">
 					<h2>프로필</h2>
 					<br>
+					<div>
 					<form action="<%=request.getContextPath()%>/updateProImg"
 						method="post" encType="multipart/form-data">
 						<div>
@@ -349,8 +354,7 @@ input, textarea {
 							</div>
 							&nbsp;&nbsp;&nbsp;
 							<!-- 이미지 -->
-							<div class="profile img" style="vertical-align: middle;"
-								id="profileImgArea">
+							<div class="profile img" id="profileImgArea">
 								<%
 									HashMap<String, Object> hmap = null;
 									for (int i = 0; i < list.size(); i++) {
@@ -370,10 +374,13 @@ input, textarea {
 							id="profileImgUpdateBtn" disabled onclick="updateAlert()">
 							프로필 사진 변경</button>
 					</form>
+					</div>
+					
+					<div>
 					<form action="<%=request.getContextPath()%>/updatePro">
 						<div class="profile" style="margin-top: 30px;">
 							<label>닉네임</label> <input type="text" class="form-control"
-								name="nickName" id="nickName" value="<%=hmap.get("nickName")%>">
+								name="nickName" id="nickName" value="<%=hmap.get("nickName")%>"><br>
 							<label>상태 메세지</label>
 							<textarea style="resize: none; width: 300px; height: 50px;"
 								class="form-control" name="msg" id="msg"><%=hmap.get("msg")%></textarea>
@@ -382,11 +389,12 @@ input, textarea {
 						<button type="submit" class="btn btn-warning"
 							id="profileUpdateBtn" onclick="updateAlert()">프로필 수정</button>
 					</form>
+					</div>
 				</div>
 			</div>
 
-			<div class="col-sm-5 form2">
-				<div class="well">
+			<div class="col-sm-6 form2 well">
+				<div class="">
 					<h2>개인정보</h2>
 					<br>
 					<form action="<%=request.getContextPath()%>/updateUser">
@@ -436,7 +444,7 @@ input, textarea {
 			<!-- Modal content-->
 		</div>
 	</div>
-	
+
 	<div class="modal fade" id="deleteMemberModal" role="dialog">
 		<div class="modal-dialog">
 			<%@include file="memberDeleteForm.jsp"%>
@@ -444,19 +452,6 @@ input, textarea {
 		</div>
 	</div>
 
-	<!-- 채팅접속 아이콘 -->
-	<%
-		if (loginUser != null) {
-	%>
-	<div class="fixed">
-		<a
-			onclick="window.open('<%=request.getContextPath()%>/selectAll.ma', '', 'top=50px, left=800px, height=500, width=400')">
-			<i class="far fa-comment"></i>
-		</a>
-	</div>
-	<%
-		}
-	%>
 
 	<script>
 		$(function() {
@@ -498,7 +493,8 @@ input, textarea {
 							for (var i = 0; i < data.length; i++) {
 								var name = decodeURIComponent(data[i].job);
 
-								var selected = (name == $("#jobText").val()) ? "selected": "";
+								var selected = (name == $("#jobText").val()) ? "selected"
+										: "";
 								$select
 										.append("<option value='"+data[i].job+"' "+selected+">"
 												+ name + "</option>");
