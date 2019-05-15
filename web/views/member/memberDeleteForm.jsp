@@ -21,7 +21,6 @@ body {
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
 	-moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
 	box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
-	margin: auto;
 	width: 400px;
 }
 

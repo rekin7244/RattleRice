@@ -146,4 +146,14 @@ public class MemberService {
 		return result;
 	}
 
+	public ArrayList<HashMap<String, Object>> BusinessUpdateForm(String userId) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String, Object>> list = new MemberDao().BusinessUpdateForm(con, userId);
+
+		close(con);
+
+		return list;
+	}
+
 }

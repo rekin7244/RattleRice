@@ -32,7 +32,7 @@ public class BusinessInfoUpdate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("매장정보 업데이트 수정 서블릿 들어옹");
+		System.out.println("매장정보 업데이트 수정 서블릿 들어옹");
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member) session.getAttribute("loginUser");
