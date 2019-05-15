@@ -45,19 +45,18 @@ public class LoginMemberServlet extends HttpServlet {
 				request.getRequestDispatcher(page).forward(request, response);
 				/*page = request.getContextPath() + "/views/admin/adminForm.jsp";	*/
 			}else if(loginUser.getMemberType().equals("2")){
-				/*page = "/checkBusiness.me";
-				request.getRequestDispatcher(page).forward(request, response);*/
-					
+				page = "/checkBusiness.me";
+				request.getRequestDispatcher(page).forward(request, response);
 				
-				ArrayList<HashMap<String, Object>> list = new MemberService().logincheckBusiness(userId);
+				/*ArrayList<HashMap<String, Object>> list = new MemberService().logincheckBusiness(userId);
 				if(list != null) {
-					page= "/views/business/businessFormShop.jsp";
+					page= "/checkBusiness.me";
 					//request.setAttribute("loginUser", loginUser);
 					request.setAttribute("list", list);
 					request.getRequestDispatcher(page).forward(request, response);
 				}else {
 					page = "views/common/errorPage.jsp";
-				}
+				}*/
 				
 			}else {
 				page = "index.jsp";

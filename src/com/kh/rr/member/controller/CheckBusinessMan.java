@@ -38,26 +38,22 @@ public class CheckBusinessMan extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member) session.getAttribute("loginUser");
-		//String userId = request.getParameter("userId");
-		String userId = request.getParameter(loginUser.getUserId());
-		System.out.println(userId);
-		ArrayList<HashMap<String, Object>> list = new MemberService().logincheckBusiness(userId);
+		System.out.println(loginUser.getUserId());
+		ArrayList<HashMap<String, Object>> list = new MemberService().logincheckBusiness(loginUser.getUserId());
 
 		
 		System.out.println("리턴값 가지고 사업자 서블릿 되돌아옴");
 		String page = "";
 		if(list != null) {
 			System.out.println("list : " + list);
-			page = "/views/business/businessFormUpdate.jsp";
+			page = "/views/business/businessFormShop.jsp";
 			request.setAttribute("list", list);
 			
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "사업자 페이지 조회실패");
 		}
-		//request.getRequestDispatcher(page).forward(request, response);
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		response.sendRedirect(page);
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 		
 
