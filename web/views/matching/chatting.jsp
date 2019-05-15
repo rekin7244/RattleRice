@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+
 	pageEncoding="UTF-8"
 	import="com.kh.rr.member.model.vo.*, java.net.*, java.util.*, javax.websocket.Session, java.text.*"%>
 <%
 	InetAddress Address = InetAddress.getLocalHost();
 	Member m = (Member) (request.getSession().getAttribute("loginUser"));
 	int rno = (int) session.getAttribute("rno");
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -29,9 +31,9 @@
 <script>
 //창크기 조절용 함수
 $(function() {
-	$(window).resize(function() {
-		window.resizeTo(410, 600);
-	});
+   $(window).resize(function() {
+      window.resizeTo(410, 600);
+   });
 
 });
 </script>
@@ -41,19 +43,21 @@ body::-webkit-scrollbar {
 }
 
 #container {
-	height: 410px;
+   height: 410px;
 }
 
 #messageWindow::-webkit-scrollbar {
+
 	display: none;
 }
 
 #messageWindow {
-	height: 90%;
-	overflow-y: scroll;
+   height: 90%;
+   overflow-y: scroll;
 }
 
 #chatForm {
+
 	position: fixed;
 	width: 100%;
 	height: 15%;
@@ -75,10 +79,11 @@ body::-webkit-scrollbar {
 }
 
 .msgLine {
-	margin: 15px;
+   margin: 15px;
 }
 
 .smsgBox {
+
 	background: #4dd3b96b /* #d8f0e3 */;
 	padding: 0px 8px;
 	border-radius: 8px;
@@ -106,6 +111,7 @@ body::-webkit-scrollbar {
 }
 
 .me {
+
 	text-align: right;
 	font-size: 10px;
 	color: white;
@@ -113,6 +119,7 @@ body::-webkit-scrollbar {
 }
 
 #stime {
+
 	text-align: right;
 	font-size: 9px;
 	color: lightgray;
@@ -128,15 +135,52 @@ body::-webkit-scrollbar {
 </style>
 </head>
 <body>
-	<%@ include file="header.jsp"%>
-	<div id="container" style="margin-top: 50px;">
-		<div id="messageWindow" style="height: 410px; background: white"></div>
-		<div id="chatForm">
-			<input type="text" id="inputMessage" class="form-control"
-				maxlength="100"> <input type="submit" id="send"
-				class="btn btn-default" value="전송" onclick="send()">
+
+   <%@ include file="header.jsp"%>
+   <div id="container" style="margin-top:50px;">
+      <div id="messageWindow" style="height: 410px; background: white"></div>
+      <div id="chatForm">
+         <input type="text" id="inputMessage" class="form-control" >
+         <input type="submit" id="send" class="btn btn-default" value="전송" onclick="send()">
+      </div>
+   </div>
+   
+   
+   
+   <!-- 채팅방 내 기능을 담당하는 모달 컨텐츠 -->
+   <div class="container">
+		<!-- Modal -->
+		<div class="modal fade" id="chatSub" role="dialog"
+			data-backdrop="static">
+			<div class="modal-dialog modal-sm" data-backdrop="static" style="margin:0;">
+				<!-- Modal content-->
+				<div class="modal-content" data-backdrop="static" style="height: 513px;width: 202px;margin-left: auto;">
+					<div class="modal-header" data-backdrop="static">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">대화 상대</h4>
+					</div>
+					<div class="modal-body" data-backdrop="static">
+						<p style="font-size: 0.8em; text-align: center;">채팅방을
+							생성하시겠습니까?</p>
+						<div align="center" data-backdrop="static">
+							<button type="button" class="btn btn-default" style="color: red" data-dismiss="modal"
+							data-toggle="modal" data-target="#createChatp"
+							onclick="choice();">프리미엄</button>
+							&nbsp;
+							<button type="button" class="btn btn-default" style="color: #4abeca" data-dismiss="modal"
+							data-toggle="modal" data-target="#createChatp1">일반</button>
+						</div>
+						<br>
+						<p style="color: #3498db; text-align: center;">※프리미엄 방 생성시
+							1코인이 소비됩니다.</p>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
+   
+   
 </body>
 
 <script>
@@ -191,6 +235,7 @@ webSocket.onclose = function(event) {
 	};
 	
 function onMessage(event) {
+
 	var msg = event.data;
 	var str2 = "-";
 	
@@ -211,9 +256,11 @@ function onMessage(event) {
 function onOpen(event) {
    	var userId = "<%=m.getUserName()%>";
    	$("#messageWindow").append("<br><p id='cp'>" + userId + "님이 채팅방에 참여하셨습니다.</p>");
+
     var str = userId + "님이 채팅방에 참여하셨습니다.";
     send(str);
 }
+
 function onError(event) {
   alert(event.data);
 }
@@ -223,6 +270,7 @@ function onClose(event){
 	$("#messageWindow").append("<br><p id='cp'>" + userId + "님이 채팅방을 나가셨습니다.</p>");
 }
 function send(msg) {   
+
 	var sendMsg = '';
 	var userId = "<%=m.getUserName()%>";
 	var rno =<%=rno%>;

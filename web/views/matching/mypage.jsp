@@ -31,6 +31,9 @@
 </script>
 <title>Insert title here</title>
 <style>
+	body::-webkit-scrollbar { 
+	    display: none; 
+	}
 	.pay:hover {
 		cursor: pointer;
 	}

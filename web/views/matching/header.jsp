@@ -84,16 +84,34 @@ ul, body {
 	style="padding: 3px 0">
 	<div class="container">
 		<div id="header">
-			<ul class="nav navbar-nav mainbar">
-				<li class="" style="left: -3%;"><a href="<%= request.getContextPath()%>/selectAll.cr">
-				<i class="fas fa-arrow-left"></i></a></li>
-				<li data-toggle="modal" data-target="#msearch" class="search"
-					style="right: 0%;"><a href="#msearch">
-					<i class="fas fa-bars"></i></a></li>
-				<li data-toggle="modal" data-target="#ksearch" class="search"
-					style="right: 13%;"><a href="#ksearch">
-					<i class="fas fa-search"></i></a></li>
-			</ul>
+		<!-- 채팅방에 입장했을때 : rno는 방번호 입니다 -->
+			<%if(request.getParameter("rno") != null) { %>
+				<ul class="nav navbar-nav mainbar">
+					<li class="" style="left: -3%;"><a href="<%= request.getContextPath()%>/selectAll.cr"
+					style="padding: 0;margin-top: 9px;">
+					<i class="fas fa-sign-out-alt" style="font-size:1.8em;"></i></a></li>
+					<li data-toggle="modal" data-target="#chatSub" class="search"
+						style="right: 0%;"><a href="#chatSub">
+						<i class="fas fa-bars"></i></a></li>
+				</ul>
+			<%}else if(request.getParameter("info") != null){ %>
+				<!-- 채팅방이 아닌 나머지 경우 -->
+				<ul class="nav navbar-nav mainbar">
+					<li class="" style="left: -3%;"><a href="<%= request.getContextPath()%>/selectAll.cr">
+					<i class="fas fa-arrow-left"></i></a></li>
+				</ul>
+			<%}else{ %>
+				<ul class="nav navbar-nav mainbar">
+					<li class="" style="left: -3%;"><a href="<%= request.getContextPath()%>/selectAll.cr">
+					<i class="fas fa-arrow-left"></i></a></li>
+					<li data-toggle="modal" data-target="#msearch" class="search"
+						style="right: 0%;"><a href="#msearch">
+						<i class="fas fa-bars"></i></a></li>
+					<li data-toggle="modal" data-target="#ksearch" class="search"
+						style="right: 13%;"><a href="#ksearch">
+						<i class="fas fa-search"></i></a></li>
+				</ul>
+			<%} %>
 		</div>
 	</div>
 </nav>
