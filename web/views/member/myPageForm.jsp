@@ -147,7 +147,8 @@ a[data-toggle="collapse"] {
 }
 
 .row {
-	width: 1530px;
+	/* width: 1530px; */
+	
 }
 
 .content h3 {
@@ -366,7 +367,8 @@ input, textarea {
 
 						</div>
 						<button type="submit" class="btn btn-warning"
-							id="profileImgUpdateBtn" disabled onclick="updateAlert()"> 프로필 사진 변경</button>
+							id="profileImgUpdateBtn" disabled onclick="updateAlert()">
+							프로필 사진 변경</button>
 					</form>
 					<form action="<%=request.getContextPath()%>/updatePro">
 						<div class="profile" style="margin-top: 30px;">
@@ -417,15 +419,28 @@ input, textarea {
 							onclick="updateAlert()">개인정보 수정</button>
 
 					</form>
-					<br><br><br>
-					<button type="button" class="btn btn-danger" 
-						onclick="window.open('views/member/memberPwdUpdateForm.jsp','', 'left=500,top=0, height=300, width=450')">비밀번호 변경</button> &nbsp;&nbsp;
-						<button type="button" class="btn btn-danger" 
-						onclick="window.open('views/member/memberDeleteForm.jsp','', 'left=500,top=0, height=250, width=450')">탈퇴</button>
+					<br> <br> <br>
 
-
+					<button type="button" class="btn btn-danger" data-toggle="modal"
+						data-target="#pwdUpdateModal">비밀번호 변경</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-danger" data-toggle="modal"
+						data-target="#deleteMemberModal">탈퇴</button>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="pwdUpdateModal" role="dialog">
+		<div class="modal-dialog">
+			<%@include file="memberPwdUpdateForm.jsp"%>
+			<!-- Modal content-->
+		</div>
+	</div>
+	
+	<div class="modal fade" id="deleteMemberModal" role="dialog">
+		<div class="modal-dialog">
+			<%@include file="memberDeleteForm.jsp"%>
+			<!-- Modal content-->
 		</div>
 	</div>
 
@@ -468,32 +483,39 @@ input, textarea {
 		};
 
 		function goProfile() {
-			location.href = "/<%=request.getContextPath()%>/selectPro";
+			location.href = "/rr/selectPro";
 		};
 
 		$(function() {
 			$("#jobArea").hide();
-			$.ajax({
-				url : "jobSelect",
-				type : "post",
-				success : function(data) {
-					$select = $("#job");
+			$
+					.ajax({
+						url : "jobSelect",
+						type : "post",
+						success : function(data) {
+							$select = $("#job");
 
-					for (var i = 0; i < data.length; i++) {
-						var name = decodeURIComponent(data[i].job);
-						
-						var selected = (name == $("#jobText").val()) ? "selected" : "";
-						$select.append("<option value='"+data[i].job+"' "+selected+">"+ name + "</option>");
-					}
-				}
-			});
+							for (var i = 0; i < data.length; i++) {
+								var name = decodeURIComponent(data[i].job);
+
+								var selected = (name == $("#jobText").val()) ? "selected": "";
+								$select
+										.append("<option value='"+data[i].job+"' "+selected+">"
+												+ name + "</option>");
+							}
+						}
+					});
 		});
-		
+
 		function updateAlert() {
 			alert("수정이 완료되었습니다 ><");
 		};
-		
-		
+
+		/* function memberDelete() {
+			var deletePop = window.open('views/member/memberDeleteForm.jsp',
+					'', 'left=500,top=0, height=250, width=450');
+			console.log(deletePop);
+		} */
 	</script>
 
 </body>
