@@ -219,9 +219,9 @@ a.article, a.article:hover {
 				<li><a href="#pageSubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">매장관리</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
-						<li><a href="businessFormShop.jsp">매장 정보</a></li>
-						<li><a href="businessFormUpdate.jsp">매장 정보 수정</a></li>
-						<li><a href="businessFormSales.jsp">통계</a></li>
+						<li><a href="<%=request.getContextPath()%>/views/business/businessFormShop.jsp">매장 정보</a></li>
+						<li><a href="<%=request.getContextPath()%>/businessInfoUpdate.b">매장 정보 수정</a></li>
+						<li><a href="<%=request.getContextPath()%>/views/business/businessFormSales.jsp">통계</a></li>
 					</ul></li>
 				</ul>
 		</nav>

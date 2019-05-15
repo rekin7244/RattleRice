@@ -274,7 +274,7 @@ padding-bottom: 30px;
 						<table align="center"
 							style="min-width: 500px; border-collapse: separate; border-spacing: 0 10px;">
 							<% if(list != null){
-							for(int i = 1; i < list.size(); i++){ 
+							for(int i = 0; i < list.size() - 1; i++){ 
 							HashMap<String, Object> hmap = list.get(i);
 							%>
 							<tr>
@@ -329,7 +329,7 @@ padding-bottom: 30px;
 					<br><br>
 					<button id="menuAdd">+</button>
 					<button>적용하기</button>
-					<form action="#" method="post">
+					<form action="menuInfoUpdate.b" method="post">
 						<table class="table table-bordered" id="menuTable" style="min-width: 500px;">
 							<thead>
 								<tr style="background: lightgray">
@@ -351,6 +351,13 @@ padding-bottom: 30px;
 							</tbody>
 						</table>
 					</form>
+					<br>
+					<hr>
+					<br>
+					<from action="">
+					
+					
+					</from>
 				</div>
 				<script>
 					
