@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.rr.matching.model.vo.ChattingRoom;
+import com.kh.rr.member.model.vo.Member;
 
 public class ChattingRoomDao {
 	private Properties prop = new Properties();
@@ -150,6 +151,51 @@ public class ChattingRoomDao {
 		}
 		
 		return currval;
+	}
+	
+	//채팅방 입장시 RoomRecord 테이블에 정보 삽입 하는 메소드
+	public int insertRoomRecord(Connection con, Member loginUser, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertRoomRecord");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			pstmt.setString(2, "일반");
+			pstmt.setString(3, loginUser.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	//방장이 채팅방 생성시 RoomRecord 테이블에 정보 삽입하는 메소드
+	public int insertMasterRoomRecord(Connection con, Member loginUser, int currval) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertMasterRoomRecord");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, currval);
+			pstmt.setString(2, "방장");
+			pstmt.setString(3, loginUser.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
 
 }

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import com.kh.rr.matching.model.dao.ChattingRoomDao;
 import com.kh.rr.matching.model.vo.ChattingRoom;
+import com.kh.rr.member.model.vo.Member;
+
 import static com.kh.rr.common.JDBCTemplate.*;
 public class ChattingRoomService {
 
@@ -33,6 +35,7 @@ public class ChattingRoomService {
 			rollback(con);
 		}
 			
+		close(con);
 		
 		return result;
 	}
@@ -41,7 +44,40 @@ public class ChattingRoomService {
 		Connection con = getConnection();
 		int currval = new ChattingRoomDao().getCurrval(con, reqCr);
 		
+		close(con);
+		
 		return currval;
+	}
+	
+	//채팅방 입장시 RoomRecord 테이블에 정보 삽입 하는 메소드
+	public int insertRoomRecord(Member loginUser, int rno) {
+		Connection con = getConnection();
+		int result = new ChattingRoomDao().insertRoomRecord(con, loginUser, rno);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int insertMasterRoomRecord(Member loginUser, int currval) {
+		Connection con = getConnection();
+		int result = new ChattingRoomDao().insertMasterRoomRecord(con, loginUser, currval);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}
 
 
