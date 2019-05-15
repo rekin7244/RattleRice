@@ -31,8 +31,8 @@ public class BisinessSelectServlet extends HttpServlet {
 		String keyword = request.getParameter("keyword");
 		
 		System.out.println(keyField);
-		System.out.println(keyword);
-		
+		System.out.println(keyword) ;
+		 
 		ArrayList<Member> bisiSelect = new AdminService().bisinessSelect(keyField, keyword);
 		
 		System.out.println("서블릿실행");
