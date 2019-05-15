@@ -29,6 +29,7 @@ public class AdminDao {
 		}
 	}
 
+	//회원목록 조회
 	public ArrayList<Member> memberlist(Connection con) {
 
 		PreparedStatement pstmt = null;
@@ -67,6 +68,7 @@ public class AdminDao {
 		return memberlist;
 	}
 
+	//사업자 정보조회
 	public ArrayList<Member> bisinesslist(Connection con) {
 
 		PreparedStatement pstmt = null;
@@ -108,7 +110,7 @@ public class AdminDao {
 	}
 
 
-
+	//검색어로 조회
 	public ArrayList<Member> selectbisiness(Connection con, String keyField, String keyword) {
 
 		PreparedStatement pstmt = null;
@@ -117,18 +119,20 @@ public class AdminDao {
 		ArrayList<Member> bisilist = null;
 
 		String query = prop.getProperty("selectbisiness"); 
-		System.out.println(keyword);
-		if(keyword != null) {
+		
+		/*if(keyword != null) {
 			query += " AND " +  keyField.trim()+" LIKE '%" + keyword.trim() + "%' ";
 			//trim 문자열 공백제거
-		}
+		}*/
 
 		try {
 			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, keyField);
+			pstmt.setString(2, keyword);
 			rset = pstmt.executeQuery();
 			bisilist = new ArrayList<Member>();
 
-
+			System.out.println("query: " + query);
 			while(rset.next()) {
 				Member blist = new Member();
 
@@ -140,7 +144,7 @@ public class AdminDao {
 								
 				bisilist.add(blist);
 				
-				System.out.println("query 1: " + query);
+			
 
 			}
 		}catch (SQLException e) {

@@ -30,24 +30,31 @@ public class BisinessSelectServlet extends HttpServlet {
 		String keyField = request.getParameter("keyField");
 		String keyword = request.getParameter("keyword");
 		
-		System.out.println(keyField);
-		System.out.println(keyword) ;
+		/*System.out.println(keyField);
+		System.out.println("검색어 : " +keyword) ;*/
 		 
 		ArrayList<Member> bisiSelect = new AdminService().bisinessSelect(keyField, keyword);
 		
 		System.out.println("서블릿실행");
+
+	/*	String page="";
+		if(bisiSelect != null) {
+			page="views/admin/bisinessmanForm.jsp";
+			request.setAttribute("bisiSelect", bisiSelect);
+			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			new Gson().toJson(bisiSelect, response.getWriter());
+			
+		}*/
+		request.setAttribute("bisiSelect", bisiSelect);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(bisiSelect, response.getWriter());
 		
-	/*	String page="";
-		if(bisiSelect != null) {
-			page="views/admin/bisinessmanForm.jsp";
-			request.setAttribute("bisiSelect", bisiSelect);
-		}
-		
-		request.getRequestDispatcher(page).forward(request, response);*/
+		/*request.getRequestDispatcher(page).forward(request, response);*/
+	
 	}
 
 	
