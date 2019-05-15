@@ -35,15 +35,8 @@ public class DeleteMemberServlet extends HttpServlet {
 			int result = new MemberService().deleteMember(loginUser);
 
 			if (result > 0) {
-				response.setContentType("text/html; charset=euc-kr"); // 한글이 인코딩
-				PrintWriter out = response.getWriter(); // 선언
-				
-				String str = "";
-				str = "<script language='javascript'>";
-				str += "alert(\"회원 탈퇴 완료\");";
-				str += "self.close();"; // 창닫기
-				str += "</script>";
-				out.print(str);
+				request.getSession().invalidate();
+				response.sendRedirect("index.jsp");
 				
 			} else {
 				response.setContentType("text/html; charset=euc-kr");
@@ -52,7 +45,7 @@ public class DeleteMemberServlet extends HttpServlet {
 				String str = "";
 				str = "<script language='javascript'>";
 				str += "alert(\"탈퇴 실패\");";
-				str += "self.close();"; 
+				str += "history.go(-1);"; 
 				str += "</script>";
 				out.print(str);
 			}
@@ -63,7 +56,7 @@ public class DeleteMemberServlet extends HttpServlet {
 			String str = "";
 			str = "<script language='javascript'>";
 			str += "alert(\"비밀번호를 다시 확인하세요\");";
-			str += "self.close();"; 
+			str += "history.go(-1);"; 
 			str += "</script>";
 			out.print(str);
 		}

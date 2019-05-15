@@ -4,11 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <style>
@@ -151,7 +147,7 @@ body {
 </head>
 <body>
 	<div class="container">
-		<h2>회원탈퇴</h2>
+
 		<div class="row insertForm">
 			<div class="panel panel-join">
 				<div class="panel-body">
@@ -160,7 +156,7 @@ body {
 							<form id="join-form"
 								action="<%=request.getContextPath()%>/deleteMember.me"
 								method="post" role="form" style="display: block;">
-
+								<h2>회원탈퇴</h2>
 								<div class="form-group">
 									<input type="password" name="nowUserPwd" id="nowUserPwd"
 										class="form-control" placeholder="비밀번호 확인" required>
@@ -179,7 +175,5 @@ body {
 			</div>
 		</div>
 	</div>
-	
-
 </body>
 </html>

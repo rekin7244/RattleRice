@@ -62,7 +62,6 @@ public class AttachmentDao {
 		ResultSet rset = null;
 
 		String query = prop.getProperty("selectAttachmentMap");
-
 		
 		try {
 			pstmt = con.prepareStatement(query);
