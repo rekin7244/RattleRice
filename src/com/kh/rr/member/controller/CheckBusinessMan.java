@@ -10,8 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.rr.member.model.service.MemberService;
+import com.kh.rr.member.model.vo.Member;
 
 /**
  * Servlet implementation class CheckBusinessMan
@@ -33,17 +35,21 @@ public class CheckBusinessMan extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("사업자 로그인체크 서블릿 들어옴");
-		String userId = request.getParameter("userId");
+		
+		HttpSession session = request.getSession();
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		//String userId = request.getParameter("userId");
+		String userId = request.getParameter(loginUser.getUserId());
+		System.out.println(userId);
 		ArrayList<HashMap<String, Object>> list = new MemberService().logincheckBusiness(userId);
 		
 		System.out.println("리턴값 가지고 사업자 서블릿 되돌아옴");
 		String page = "";
 		if(list != null) {
 			System.out.println("list : " + list);
-			//page = "/views/business/businessFormUpdate.jsp";
-			//page = request.getContextPath()+"/views/business/reservationForm.jsp";
-			//request.setAttribute("list", list);
-			//response.sendRedirect(page);
+			page = "/views/business/businessFormUpdate.jsp";
+			request.setAttribute("list", list);
+			
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "사업자 페이지 조회실패");

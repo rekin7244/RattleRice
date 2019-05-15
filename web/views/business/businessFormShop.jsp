@@ -232,7 +232,7 @@ a.article, a.article:hover {
 					</button>
 	
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<%for(int i = 1; i < list.size(); i++){ 
+					<%for(int i = 0; i < list.size() -1; i++){ 
 							HashMap<String, Object> hmap = list.get(i);
 					%>
 					<h3 align="center"><%= hmap.get("brand") %></h3>
