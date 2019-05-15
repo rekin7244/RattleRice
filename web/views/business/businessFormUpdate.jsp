@@ -3,7 +3,7 @@
 <% 
 		ArrayList<HashMap<String, Object>> list = 
 			(ArrayList<HashMap<String, Object>>) request.getAttribute("list");
-		System.out.println(list);
+		System.out.println("FormUpdate : " + list);
 %>
 <!DOCTYPE html>
 <html>

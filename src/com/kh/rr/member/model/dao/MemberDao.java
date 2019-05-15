@@ -242,6 +242,63 @@ public class MemberDao {
 		return result;
 	}
 
+	public ArrayList<HashMap<String, Object>> BusinessUpdateForm(Connection con, String userId) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		StoreInfo storeinfo = null;
+		StoreMenuInfo storeMenu = null;
+		BusinessMan businessman = null;
+		
+		String query = prop.getProperty("loginCheckBusiness");
+			
+		try {
+			
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+		    rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				//BusinessMan
+				//hmap.put("bId", rset.getString("B_ID"));
+				hmap.put("account", rset.getString("ACCOUNT"));
+				hmap.put("bCode", rset.getString("BCODE"));
+				hmap.put("bankcode",rset.getString("BANKCODE"));
+				hmap.put("holder", rset.getString("HOLDER"));
+				//StoreInfo
+				hmap.put("contact", rset.getString("CONTACT"));
+				hmap.put("location", rset.getString("LOCATION"));
+				hmap.put("opening_hore", rset.getString("OPENING_HOUR"));
+				hmap.put("intro", rset.getString("INTRO"));
+				hmap.put("brand", rset.getString("BRAND"));
+				hmap.put("sId", rset.getInt("S_ID"));
+				hmap.put("status", rset.getString("STATUS"));
+				hmap.put("sCode", rset.getInt("S_CODE"));
+				hmap.put("close_hore", rset.getString("CLOSE_HOUR"));
+				//StoreMenuInfo
+				hmap.put("menu", rset.getString("MENU"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("origin",rset.getString("ORIGIN"));
+				hmap.put("mId",rset.getInt("MID"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
 
 
 
