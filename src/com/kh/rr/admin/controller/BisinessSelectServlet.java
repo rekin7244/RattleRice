@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.rr.admin.model.service.AdminService;
 import com.kh.rr.member.model.vo.Member;
 
@@ -32,18 +33,21 @@ public class BisinessSelectServlet extends HttpServlet {
 		System.out.println(keyField);
 		System.out.println(keyword);
 		
-		ArrayList<Member> bisilist = new AdminService().bisinessSelect(keyField, keyword);
+		ArrayList<Member> bisiSelect = new AdminService().bisinessSelect(keyField, keyword);
 		
 		System.out.println("서블릿실행");
 		
-		String page="";
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(bisiSelect, response.getWriter());
 		
-		if(bisilist != null) {
+	/*	String page="";
+		if(bisiSelect != null) {
 			page="views/admin/bisinessmanForm.jsp";
-			request.setAttribute("bisilist", bisilist);
+			request.setAttribute("bisiSelect", bisiSelect);
 		}
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		request.getRequestDispatcher(page).forward(request, response);*/
 	}
 
 	

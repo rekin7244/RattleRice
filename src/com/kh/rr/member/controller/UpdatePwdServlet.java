@@ -43,7 +43,7 @@ public class UpdatePwdServlet extends HttpServlet {
 				String str = "";
 				str = "<script language='javascript'>";
 				str += "alert(\"비밀번호 변경 완료!\");";
-				str += "self.close();"; // 창닫기
+				str += "history.go(-1);"; // 창닫기
 				str += "</script>";
 				out.print(str);
 			} else {
@@ -63,8 +63,7 @@ public class UpdatePwdServlet extends HttpServlet {
 			String str = "";
 			str = "<script language='javascript'>";
 			str += "alert(\"비밀번호를 다시 확인하세요\");";
-			str += "alert(\"비밀번호를 다시 확인하세요\");";
-			str += "self.close();"; // 창닫기
+			str += "history.go(-1);"; // 창닫기
 			str += "</script>";
 			out.print(str);
 		}

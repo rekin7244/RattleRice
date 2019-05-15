@@ -29,26 +29,34 @@ $(function() {
 });
 </script>
 <style>
-
-#container {
-	width: 408px;
-	height: 410px;
-	background: #fffcfc;
+body::-webkit-scrollbar { 
+    display: none; 
 }
 
-#chatView {
+#container {
+	height: 410px;
+}
+
+#messageWindow::-webkit-scrollbar {
+	display: none; 
+}
+
+#messageWindow {
 	height: 90%;
 	overflow-y: scroll;
 }
 
 #chatForm {
-	margin-top:9px;
-	height: 10%;
+	position:fixed;
+	width: 100%;
+	height: 15%;
 	text-align: center;
+	background: #4dd3b957;
 }
 
 #inputMessage {
 	display:inline-block;
+	margin-top:9px;
 	width: 77%;
 	height: 40px;
 }
@@ -63,18 +71,28 @@ $(function() {
 	margin: 15px;
 }
 
-.msgBox {
-	background: #4dd3b96b;
+.smsgBox {
+	background: #4dd3b96b /* #d8f0e3 */;
 	padding: 0px 8px;
 	border-radius: 8px;
 	width:45%;
 	margin-left:auto;
 	margin-right:8px;
 }
+
+.rmsgBox {
+	background: #ddddddc7;
+	padding: 0px 8px;
+	border-radius: 8px;
+	width:45%;
+	margin-left:8px;
+	margin-right:auto;
+}
+
 #cp{
 	text-align:center;
 }
-#me {
+.me {
 	text-align:right;
 	font-size:10px;
 	color:white;
@@ -86,23 +104,33 @@ $(function() {
 	color:lightgray;
 	margin-right:9px;
 }
+
+#rtime {
+	text-align:left;
+	font-size:9px;
+	color:lightgray;
+	margin-left:9px;
+}
 </style>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
 	<div id="container" style="margin-top:50px;">
-		<div id="messageWindow" style="height: 410px;"></div>
+		<div id="messageWindow" style="height: 410px; background: white"></div>
 		<div id="chatForm">
-			<input type="text" id="inputMessage" class="form-control">
+			<form>
+			<input type="text" id="inputMessage" class="form-control" required>
 			<input type="submit" id="send" class="btn btn-default" value="전송" onclick="send()">
+			</form>
 		</div>
 	</div>
 </body>
 
 <script>
     var textarea = document.getElementById("messageWindow");
-    var webSocket = new WebSocket("ws://<%=Address.getHostAddress()%>:8001" + '<%=request.getContextPath()%>/serverStart?rno=<%=rno%>');
+    var webSocket = new WebSocket("ws://<%=Address.getHostAddress()%>:8001" + '<%=request.getContextPath()%>/serverStart<%-- ?rno=<%=rno%> --%>');
     var inputMessage = document.getElementById('inputMessage');
+    
 webSocket.onerror = function(event) {
   onError(event)
 };
@@ -113,11 +141,23 @@ webSocket.onmessage = function(event) {
   onMessage(event)
 };
 function onMessage(event) {
-    textarea.value += event.data + "\n";
+	var msg = event.data;
+	var str2 = "-";
+	
+	if(msg.includes(str2) == true){
+		var srr = msg.split("-");
+		var userId = srr[1];
+		var message = srr[2];
+		$("#messageWindow").append("<div><div class='rmsgBox'>" + message + "<br><p class='me'>" + userId + "</p></div><p id='rtime'>2019.05.14 08:36</p></div>");
+	}else{
+		var srr = msg.split(":");
+		var message = srr[1];
+		$("#messageWindow").append("<br><p id='cp'>" + message + "</p>");
+	}
 }
 function onOpen(event) {
    	var userId = "<%= m.getUserName() %>";
-   	$("#messageWindow").html("<br><p id='cp'>" + userId + "님이 채팅방에 참여하셨습니다.</p>");
+   	$("#messageWindow").append("<br><p id='cp'>" + userId + "님이 채팅방에 참여하셨습니다.</p>");
     var str = userId + "님이 채팅방에 참여하셨습니다.";
     send(str);
 }
@@ -133,7 +173,7 @@ function send(msg) {
    
    if(msg == undefined){
       console.log("채팅");
-      $("#messageWindow").append("<div><div class='msgBox'>" + inputMessage.value + "<br><p id='me'>나</p></div><p id='stime'>2019.05.14 08:36</p></div>");
+      $("#messageWindow").append("<div><div class='smsgBox'>" + inputMessage.value + "<br><p class='me'>나</p></div><p id='stime'>2019.05.14 08:36</p></div>");
       sendMsg = rno + "-" + userId + "-" + inputMessage.value;
    }else{
       console.log("입장");
@@ -141,6 +181,9 @@ function send(msg) {
    }
       //webSocket.send(userId + ":" + inputMessage.value);
       webSocket.send(sendMsg);
+      
+      textarea.scrollTop = textarea.scrollHeight;
+		$("#inputMessage").val('');
 }
       </script>
 </html>

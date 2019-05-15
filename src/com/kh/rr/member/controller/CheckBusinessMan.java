@@ -42,6 +42,7 @@ public class CheckBusinessMan extends HttpServlet {
 		String userId = request.getParameter(loginUser.getUserId());
 		System.out.println(userId);
 		ArrayList<HashMap<String, Object>> list = new MemberService().logincheckBusiness(userId);
+
 		
 		System.out.println("리턴값 가지고 사업자 서블릿 되돌아옴");
 		String page = "";
@@ -56,7 +57,7 @@ public class CheckBusinessMan extends HttpServlet {
 		}
 		//request.getRequestDispatcher(page).forward(request, response);
 		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
+		response.sendRedirect(page);
 	}
 		
 

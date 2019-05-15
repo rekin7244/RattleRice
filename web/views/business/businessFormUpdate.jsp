@@ -270,7 +270,7 @@ padding-bottom: 30px;
 					<h4 align="center">매장정보</h4>
 					<br> <br>
 					<form action="<%=request.getContextPath() %>/businessInfoUpdate.b" method="post">
-					<button type="submit">적용하기</button>
+					<button type="submit" id="submitBtn1">적용하기</button>
 						<table align="center"
 							style="min-width: 500px; border-collapse: separate; border-spacing: 0 10px;">
 							<% if(list != null){
@@ -370,6 +370,10 @@ padding-bottom: 30px;
 								"<tr><td>" + '<input type="text" name="menu">' + "</td>"
 								+ "<td>" + '<input type="number" name="menuPrice">' + "</td>"
 								+ "<td>" + '<input type="text" name="origin">' + "</td></tr>");
+					});
+					
+					$("#submitBtn1").click(function(){
+						alert("매장정보가 수정되었습니다");
 					});
 				</script>
 				<div class="container col-sm-9"
