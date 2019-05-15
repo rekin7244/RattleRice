@@ -117,16 +117,17 @@ public class AdminDao {
 		ArrayList<Member> bisilist = null;
 
 		String query = prop.getProperty("selectbisiness"); 
+		System.out.println(keyword);
+		if(keyword != null) {
+			query += " AND " +  keyField.trim()+" LIKE '%" + keyword.trim() + "%' ";
+			//trim 문자열 공백제거
+		}
 
 		try {
 			pstmt = con.prepareStatement(query);
 			rset = pstmt.executeQuery();
 			bisilist = new ArrayList<Member>();
 
-			if(keyword != null) {
-				query += " AND " +  keyField.trim()+" LIKE '%" + keyword.trim() + "%' ";
-				//trim 문자열 공백제거
-			}
 
 			while(rset.next()) {
 				Member blist = new Member();
@@ -139,7 +140,7 @@ public class AdminDao {
 								
 				bisilist.add(blist);
 				
-				System.out.println("query : " + query);
+				System.out.println("query 1: " + query);
 
 			}
 		}catch (SQLException e) {
