@@ -239,6 +239,7 @@ function onMessage(event) {
 
 	var msg = event.data;
 	var str2 = "-";
+	var str3 = ":";
 	
 	if(msg.includes(str2) == true){
 		var rtime = new Date().format('yyyy.MM.dd a/p hh:mm');
@@ -246,10 +247,14 @@ function onMessage(event) {
 		var userId = srr[1];
 		var message = srr[2];
 		$("#messageWindow").append("<div><div class='rmsgBox'>" + message + "<br><p class='me'>" + userId + "</p></div><p class='ct' id='rtime'>" + rtime + "</p></div>");
-	}else{
+	}else if(msg.includes(str3) == true){
 		var srr = msg.split(":");
 		var message = srr[1];
 		$("#messageWindow").append("<p id='cp'>" + message + "</p>");
+	}else {
+		var message = msg;
+		var userId = "<%=m.getUserName()%>";
+		$("#messageWindow").append("<br><p id='cp'>" + userId + message + "</p>");
 	}
 	
 	textarea.scrollTop = textarea.scrollHeight;
@@ -266,12 +271,11 @@ function onError(event) {
   alert(event.data);
 }
 function onClose(event){
-	console.log("onclose 메소드 동작");
-	var msg = event.data;
+
 	var userId = "<%=m.getUserName()%>";
-	console.log(msg);
-	console.log(userId);
-	$("#messageWindow").append("<br><p id='cp'>" + userId + "님이 채팅방을 나가셨습니다.</p>");
+	var str = userId + "님이 채팅방을 나가셨습니다.";
+	send(str);
+
 }
 function send(msg) {   
 

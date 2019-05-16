@@ -23,7 +23,7 @@ public class InsertMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public InsertMemberServlet() {
-		super();
+		super(); 
 
 	}
 

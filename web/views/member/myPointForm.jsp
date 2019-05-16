@@ -284,7 +284,7 @@ footer {
 	}
 }
 tr>th, tr>td {
-width: 30%;
+width: 25%;
 }
 </style>
 
@@ -345,16 +345,21 @@ width: 30%;
 				<div class="">
 					<h2>보유 포인트 : 15600원</h2>
 					<div class="container">
-							<br> <input class="form-control" id="myInput" type="text"
-								placeholder="검색할 키워드를 입력하세요">
+						<br>
+						<!-- <input class="form-control" id="myInput" type="text"
+								placeholder="검색할 키워드를 입력하세요"> -->
 						<br>
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>날짜</th>
-									<th>금액</th>
-									<th>상태</th>
-									<th>잔액</th>
+									<th>날짜 <input class="form-control" id="myInput1"
+										type="text" placeholder="날짜 검색"></th>
+									<th>금액<input class="form-control" id="myInput2" type="text"
+										placeholder="금액 검색"></th>
+									<th>상태<input class="form-control" id="myInput3" type="text"
+										placeholder="상태 검색"></th>
+									<th>잔액<input class="form-control" id="myInput4" type="text"
+										placeholder="잔액 검색"></th>
 								</tr>
 							</thead>
 							<tbody id="myTable">
@@ -453,17 +458,14 @@ width: 30%;
 
 	<script>
 
-
-
 $(document).ready(function(){
-  $("#myInput").on("keyup", function() {
+  $("#myInput1").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#myTable tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
 });
-
 
 </script>
 

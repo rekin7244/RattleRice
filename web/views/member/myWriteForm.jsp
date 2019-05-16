@@ -340,11 +340,8 @@ footer {
 		<div class="row content" style="border-bottom: 0px;">
 			<div class="col-sm-12 form1 well">
 				<div class="">
-					<h2>작성글</h2>
+					<h2>내가 작성한 글</h2><br>
 					<div class="container">
-						<h2>Filterable Table</h2>
-						<p>Type something in the input field to search the table for
-							first names, last names or emails:</p>
 						<input class="form-control" id="myInput" type="text"
 							placeholder="Search.."> <br>
 						<table class="table table-bordered table-striped">
@@ -383,9 +380,6 @@ footer {
 				</div>
 			</div>
 		</div>
-
-  
-  <p>Note that we start the search in tbody, to prevent filtering the table headers.</p>
 </div>
 
 <script>

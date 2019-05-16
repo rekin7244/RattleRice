@@ -58,4 +58,37 @@ public class AttachmentService {
 		return list;
 	}
 
+	public int BusinessShopImg(Attachment att, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		int result = 0, result1 =0;
+		
+		result = new AttachmentDao().businessShopImg(con, fileList);
+		
+		if(result >0) {
+			result1 = new AttachmentDao().businessinsertAttachment(con,fileList);
+			
+			if(result1 > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+		close(con);
+		
+		return result1;
+	}
+
+	public int insertAttachmentBusiness(Attachment reqAttachment) {
+		Connection con = getConnection();
+
+		int result = new AttachmentDao().firstInsertAttachmentBusiness(con, reqAttachment);
+
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		return result;
+	}
+
 }
