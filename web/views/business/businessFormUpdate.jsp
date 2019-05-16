@@ -4,6 +4,7 @@
 		ArrayList<HashMap<String, Object>> list = 
 			(ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 		System.out.println("FormUpdate : " + list);
+		
 %>
 <!DOCTYPE html>
 <html>
@@ -383,27 +384,33 @@ padding-bottom: 30px;
 					
 						<h4 align="center">사진첨부</h4>
 						
-						<button type="submit">적용하기</button>
+						<button type="submit" id="storeImgUpdate">적용하기</button>
 						
 						<div id="contentImgArea1"
 							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
-							
-								<img id="contentImg1" width="120" height="100">
-							
+								<%
+									HashMap<String, Object> hmap = null;
+									for (int i = 1; i < list.size(); i++) {
+										hmap = list.get(i);
+								%>
+								<img id="contentImg1" src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" width="120" height="100">
+								
 						</div>
 						
 						<div id="contentImgArea2"
 							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
-							
-								<img id="contentImg2" width="120" height="100">
-							
+								
+								<img id="contentImg2" src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" width="120" height="100">
+								
 						</div>
 						
 						<div id="contentImgArea3"
 							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
-							
-								<img id="contentImg3" width="120" height="100">
-							
+								
+								<img id="contentImg3" src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" width="120" height="100">
+								<%
+									}
+								%>
 						</div>
 						
 						<div id="fileArea">
@@ -454,6 +461,7 @@ padding-bottom: 30px;
 				}
 			}
 			reader.readAsDataURL(value.files[0]);
+			$("#").removeAttr("disabled");
 		}
 	}
 	
