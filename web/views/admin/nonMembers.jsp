@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	import="com.kh.rr.member.model.vo.Member, java.util.*"%>
+<%
+	ArrayList<Member> blist = (ArrayList<Member>)request.getAttribute("blist");
+%>
 <!DOCTYPE html>
 <html>
 
@@ -51,6 +55,9 @@
 		</select> <input type="text">
 		<button>검색</button>
 		<table class="table table-bordered">
+		
+		<form id="NonMemberlist"
+			action="<%= request.getContextPath() %>/nonMember.ad" method="post">
 
 			<thead>
 				<tr style="background: lightgray" align="center">
@@ -68,14 +75,19 @@
 					<th>상태</th>
 				</tr>
 			</thead>
+			
+			<% System.out.println(blist); %>
+			<% if(blist != null){
+			   			for (int i = 0; i<blist.size(); i++){ 
+			   			%>
 
 			<tbody align="center">
 				<tr>
 					<th><input type="checkbox" id="checkmember"></th>
 					<td>1</td>
-					<td>user02</td>
-					<td>1234</td>
-					<td>김짐빔</td>
+					<td><%= blist.get(i).getUserId() %></td>
+					<td><%= blist.get(i).getUserPwd() %></td>
+					<td><%= blist.get(i).getUserName() %></td>
 					<td>20</td>
 					<td>남</td>
 					<td>010-2222-1111</td>
@@ -84,6 +96,14 @@
 					<td>서비스 불만</td>
 					<td><button>확인</button></td>
 				</tr>
+				<% }
+			}else{
+			   			%>
+			   			<tr>
+					<td colspan="12" align="center">저장된 값이 없습니다.</td>
+				</tr>
+				<%} %>
+			   		<tr>
 			
 			</tbody>
 		</table>

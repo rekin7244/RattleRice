@@ -20,6 +20,20 @@ public class AdminService {
 		
 		return list;
 	}
+	
+	//탈퇴회원 조회
+	public ArrayList<Member> NonMemberlist() {
+
+		Connection con = getConnection();
+		
+		ArrayList<Member> blist = new AdminDao().Nonmemberlist(con);
+		
+		System.out.println("dao : " + blist);
+		
+		close(con);
+		
+		return blist;
+	}
 
 	//사업자 조회
 	public ArrayList<Member> bisinesslist() {
