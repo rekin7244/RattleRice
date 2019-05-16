@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.board.model.vo.Board"%>
-<%
-	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
-%>
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -10,6 +8,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
 
 <title>커뮤니티 관리</title>
 <style>
@@ -40,6 +39,15 @@
 #update{
 	
 	padding:10px;
+}
+
+#insert{
+	width : 1000px;
+	margin-left:-200px;
+}
+
+#insertbtn{
+	margin-left:700px;
 }
 
 
@@ -88,64 +96,60 @@
 		</nav>
 		
 	<br><br>
-	
-	    
+
 		<div class="page-wrapper">
 			<div class="container-fluid">
 				<div class="col-lg-8">
 					<!--게시판 넓이 -->
  	
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-body">
-					<button id="update"
-					onclick = "location.href='views/admin/communityInsert.jsp'">글 등록</button>
-						
-					<form action="<%=request.getContextPath()%>/communitylist.ad" method="post">
-						<!-- 공지사항 리스트  -->
-						<table class="table table-hover">
-						
-							<thead>
-								<tr>
-									<th>글번호</th>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>작성일</th>
-									<th>조회수</th>
-								</tr>
-							</thead>
-							
-							 <% for(int i = 0; i<list.size(); i++){ %>
-							<tr>
-								<td>1</td>
-								<td>제목</td>
-								<td><%=list.get(i).getWriter() %></td>
-								<td><%=list.get(i).getbDate() %></td>
-								<td>0</td>
-							</tr>
-							<% } %> 
+				
+				<!-- 게시판 -->
+				
+				<div class="container">
+					<div class="row">
+						<form><!-- 액션 넣을곳 -->
+							<table class="table table-striped" id="insert"
+								style="text-align:center; border:1px solid #dddddd">
+								<thead>
+									<tr>
+									<th colspan="2" style="background-color:#eeeeee;
+									text-align:center;">
+									글 쓰기 양식</th>
+									</tr>
+								</thead>
 								
-
-							
-							<!-- <tbody>
-								<tr>
-									<td>1</td>
-									<td>공지사항 테스트</td>
-									<td>관리자</td>
-									<td>2018-03-01 19:31</td>
-									<td>196</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>딸랑밥 이용방법</td>
-									<td>관리자</td>
-									<td>2019-04-29 12:10</td>
-									<td>56</td>
-								</tr>
-							</tbody> -->
-						</table>
+								<tbody>
+									<tr>
+										<td>
+									<!-- 	<select>
+											<option>약관</option>
+											<option>정책</option>
+											<option>결제</option>
+											<option>환불</option>
+											<option>회원</option>
+											<option>기타</option>
+										</select> -->
+										<input type="text" class="form-control" placeholder="글 제목" name="title"
+												maxlength="50"></td>
+									</tr>
+									
+									<tr>
+										<td><textarea class="form-control" placeholder="글 내용" name="content" 
+												maxlength="2048" style="height:350px;"></textarea></td>
+									</tr>
+									
+												
+								</tbody>
+							</table>
+								
+							<input type="submit" class="btn btn-primary pull-right" value="글쓰기" id="insertbtn"/>
+						</form>
 					</div>
 				</div>
+				
+	
+				
 			</div>
 		</div>
 	</div>
