@@ -200,11 +200,11 @@
 						<div class="form-group">
 							<input type="button" name="login-submit" id="login-submit"
 								tabindex="4" class="form-control btn btn-warning" value="일반회원"
-								onclick="window.open('views/member/memberJoinForm.jsp','', 'left=500,top=0, height=580, width=450')">
+								onclick="login()">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="button" name="login-submit" id="login-submit"
 								tabindex="4" class="form-control btn btn-warning" value="사업자 회원"
-								onclick="window.open('views/member/businessMemberJoinForm.jsp','', 'left=500,top=0, height=730, width=450')">
+								onclick="bLogin()">
 						</div>
 
 					</form>
@@ -212,5 +212,32 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	
+
+	function login() {
+		cw=450;
+		ch=580;
+		sw=screen.availWidth;
+		sh=screen.availHeight;
+		px=(sw-cw)/2;
+		py=(sh-ch)/2;
+
+		window.open('views/member/memberJoinForm.jsp', '', 'status=no, height='+ch+', width='+cw+', left='+ px + ', top=10');
+	}
+	
+	function bLogin() {
+		cw=450;
+		ch=730;
+		sw=screen.availWidth;
+		sh=screen.availHeight;
+		px=(sw-cw)/2;
+		py=(sh-ch)/2;
+
+		window.open('views/member/businessMemberJoinForm.jsp', '', 'status=no, height='+ch+', width='+cw+', left='+ px + ', top=10');
+	}
+	
+	</script>
+	
 </body>
 </html>

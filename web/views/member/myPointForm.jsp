@@ -19,6 +19,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <title>딸랑밥</title>
 <style>
@@ -85,7 +87,6 @@ a, a:hover, a:focus {
 #sidebar .sidebar-header {
 	
 }
-
 
 #sidebar ul p {
 	color: black;
@@ -228,10 +229,11 @@ a[data-toggle="collapse"] {
 	margin-right: 100px;
 }
 
-.form-control {
-	width: 50%;
+width
+:
+ 
+50%;
 }
-
 input, textarea {
 	text-align: center;
 }
@@ -283,8 +285,9 @@ footer {
 		height: auto;
 	}
 }
+
 tr>th, tr>td {
-width: 25%;
+	width: 25%;
 }
 </style>
 
@@ -312,7 +315,7 @@ width: 25%;
 				%>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a
-						style="font-family: 'Megrim', cursive; font-weight: bold;"><%=loginUser.getUserId()%>님</a></li>
+						style="font-family: 'Megrim', cursive; font-weight: bold;"><%=loginUser.getUserName()%>님</a></li>
 					<li><a
 						style="font-family: 'Megrim', cursive; font-weight: bold;"
 						href="<%=request.getContextPath()%>/logout.me"><span
@@ -342,24 +345,36 @@ width: 25%;
 	<div class="container-fluid text-center">
 		<div class="row content" style="border-bottom: 0px;">
 			<div class="col-sm-12 form1 well">
-				<div class="">
-					<h2>보유 포인트 : 15600원</h2>
+				<div>
+					<div>
+						<h2>보유 포인트 : 15600p</h2>
+						<select id="pointSelect">
+							<option value="2000">2,000p</option>
+							<option value="5000">5,000p</option>
+							<option value="10000">10,000p</option>
+							<option value="15000">15,000p</option>
+							<option value="20000">20,000p</option>
+							<option value="25000">25,000p</option>
+							<option value="30000">30,000p</option>
+						</select>
+						<button type="button" class="btn btn-warning"
+							onclick="pointCharge()">포인트 충전</button>
+					</div>
+
+
 					<div class="container">
-						<br>
-						<!-- <input class="form-control" id="myInput" type="text"
-								placeholder="검색할 키워드를 입력하세요"> -->
 						<br>
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th>날짜 <input class="form-control" id="myInput1"
 										type="text" placeholder="날짜 검색"></th>
-									<th>금액<input class="form-control" id="myInput2" type="text"
-										placeholder="금액 검색"></th>
-									<th>상태<input class="form-control" id="myInput3" type="text"
-										placeholder="상태 검색"></th>
-									<th>잔액<input class="form-control" id="myInput4" type="text"
-										placeholder="잔액 검색"></th>
+									<th>금액<input class="form-control" id="myInput2"
+										type="text" placeholder="금액 검색"></th>
+									<th>상태<input class="form-control" id="myInput3"
+										type="text" placeholder="상태 검색"></th>
+									<th>잔액<input class="form-control" id="myInput4"
+										type="text" placeholder="잔액 검색"></th>
 								</tr>
 							</thead>
 							<tbody id="myTable">
@@ -455,19 +470,54 @@ width: 25%;
 			</div>
 		</div>
 	</div>
+	<div class="userInfo">
+		<a id="a1"><%=loginUser.getUserName()%></a>
+	</div>
 
 	<script>
-
-$(document).ready(function(){
-  $("#myInput1").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-
-</script>
+		
+	$(function() {
+		console.log();
+	});
+		$(document).ready(function(){
+		  $("#myInput1").on("keyup", function() {
+		    var value = $(this).val().toLowerCase();
+		    
+		    $("#myTable tr").filter(function() {
+		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		    });
+		  });
+		});
+	
+		function pointCharge() {
+			IMP.init('imp06499175'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			IMP.request_pay({
+				pg : 'inicis', // version 1.1.0부터 지원.
+				pay_method : 'card',
+				merchant_uid : 'merchant_' + new Date().getTime(), //결제 방식
+				name : '딸랑밥 Point 충전',//주문명 이름
+				amount : $("#pointSelect option:selected").val(),//금액
+				buyer_email : 'iamport@siot.do',//결제자 email
+				buyer_name : '구매자이름',//결제자 이름
+				buyer_tel : '010-1234-5678',//결제자 번호
+				buyer_addr : '서울특별시 강남구 삼성동',//결제자 주소
+				buyer_postcode : '123-456',//결제자 우편번호
+				m_redirect_url : 'http://127.0.0.1:8001/rr/views/member/myPointForm.jsp'
+			}, function(rsp) {
+				if (rsp.success) {
+					var msg = '결제가 완료되었습니다.';
+					msg += '고유ID : ' + rsp.imp_uid;
+					msg += '상점 거래ID : ' + rsp.merchant_uid;
+					msg += '결제 금액 : ' + rsp.paid_amount;
+					msg += '카드 승인번호 : ' + rsp.apply_num;
+				} else {
+					var msg = '결제에 실패하였습니다.';
+					msg += '에러내용 : ' + rsp.error_msg;
+				}
+				alert(msg);
+			});
+		};
+	</script>
 
 </body>
 </html>
