@@ -229,7 +229,7 @@ a.article, a.article:hover {
 					aria-expanded="false" class="dropdown-toggle">커뮤니티 관리</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
 						<li><a href="updateMainForm.jsp">메인페이지 관리</a></li>
-						<li><a href="community.jsp">공지사항</a></li>
+						<li><a href="<%=request.getContextPath() + "/communitylist.ad"%>">공지사항</a></li>
 						<li><a href="FAQ.jsp">Q & A</a></li>
 						<li><a href="visit.jsp">후기게시판</a></li>
 					</ul></li>
