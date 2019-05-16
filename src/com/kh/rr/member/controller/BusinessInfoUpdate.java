@@ -58,7 +58,8 @@ public class BusinessInfoUpdate extends HttpServlet {
 		String page = "";
 		
 		if(result > 0) {
-			page="views/business/businessFormShop.jsp";
+			page="/checkBusiness.me";
+			request.getRequestDispatcher(page).forward(request, response);
 		}else {
 			request.setAttribute("msg", "매장정보수정 실패");
 			request.getRequestDispatcher("views/common/error.jsp");
