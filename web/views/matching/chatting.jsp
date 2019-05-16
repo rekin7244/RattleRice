@@ -231,7 +231,8 @@ webSocket.onmessage = function(event) {
   onMessage(event)
 };
 webSocket.onclose = function(event) {
-	  onClose(event)
+	console.log("onclose at the top");  
+	onClose(event)
 	};
 	
 function onMessage(event) {
@@ -270,9 +271,11 @@ function onError(event) {
   alert(event.data);
 }
 function onClose(event){
+
 	var userId = "<%=m.getUserName()%>";
 	var str = userId + "님이 채팅방을 나가셨습니다.";
 	send(str);
+
 }
 function send(msg) {   
 

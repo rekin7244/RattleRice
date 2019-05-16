@@ -131,6 +131,7 @@ public class ServerStart {
 		//데이터를 전달하는 과정에서 에러가 발생할 경우 동작하는 메소드
 		e.printStackTrace();
 	}
+
 	
 	@OnClose
 	public void onClose(Session session) {
@@ -147,6 +148,7 @@ public class ServerStart {
 				}
 			}
 		}
+
 		
 		//지워주지 않으면 Set에 이미 나간 사용자가 남아있기 때문에 메세지 전송시 에러 난다.
 		clients.remove(session);
