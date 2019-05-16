@@ -31,7 +31,6 @@
 	
 	});
 	
-	
 	//프리미엄 채팅방을 만들지 안 만들지 선택하는 함수
 	function choice(){
 		var choice = window.confirm("프리미엄으로 하시겠습니까?");
@@ -86,6 +85,9 @@
 	
 </script>
 <style>
+	body::-webkit-scrollbar {
+		display: none;
+	}
 	.sexRatio {
 		display: inline-block;
 	}

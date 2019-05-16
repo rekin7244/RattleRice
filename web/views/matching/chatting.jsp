@@ -101,9 +101,18 @@ body::-webkit-scrollbar {
 	margin-right: auto;
 }
 
-#cp {
+#cs {
 	padding: 4px;
 	border: 5px dotted #fef5cbf2;
+	text-align: center;
+	text-shadow: 1px 0.8px #999;
+	font-size: small;
+	color: #9999993d;
+}
+
+#cc {
+	padding: 4px;
+	border: 5px dotted #e4e4e4;
 	text-align: center;
 	text-shadow: 1px 0.8px #999;
 	font-size: small;
@@ -160,20 +169,14 @@ body::-webkit-scrollbar {
 						<h4 class="modal-title">대화 상대</h4>
 					</div>
 					<div class="modal-body" data-backdrop="static">
+
 						<p style="font-size: 0.8em; text-align: center;">채팅방을
 							생성하시겠습니까?</p>
 							<p><%=m.getUserId() %></p>
 						<div align="center" data-backdrop="static">
-							<button type="button" class="btn btn-default" style="color: red" data-dismiss="modal"
-							data-toggle="modal" data-target="#createChatp"
-							onclick="choice();">프리미엄</button>
-							&nbsp;
-							<button type="button" class="btn btn-default" style="color: #4abeca" data-dismiss="modal"
-							data-toggle="modal" data-target="#createChatp1">일반</button>
+							
 						</div>
-						<br>
-						<p style="color: #3498db; text-align: center;">※프리미엄 방 생성시
-							1코인이 소비됩니다.</p>
+						
 					</div>
 				</div>
 			</div>
@@ -231,8 +234,7 @@ webSocket.onopen = function(event) {
 webSocket.onmessage = function(event) {
   onMessage(event)
 };
-webSocket.onclose = function(event) {
-	console.log("onclose at the top");  
+webSocket.onclose = function(event) {  
 	onClose(event)
 	};
 	
@@ -251,18 +253,17 @@ function onMessage(event) {
 	}else if(msg.includes(str3) == true){
 		var srr = msg.split(":");
 		var message = srr[1];
-		$("#messageWindow").append("<p id='cp'>" + message + "</p>");
-	}else {
+		$("#messageWindow").append("<p id='cs'>" + message + "</p>");
+	}else{
 		var message = msg;
-		var userId = "<%=m.getUserName()%>";
-		$("#messageWindow").append("<br><p id='cp'>" + userId + message + "</p>");
+		$("#messageWindow").append("<br><p id='cc'>" + message + "</p>");
 	}
 	
 	textarea.scrollTop = textarea.scrollHeight;
 }
 function onOpen(event) {
    	var userId = "<%=m.getUserName()%>";
-   	$("#messageWindow").append("<br><p id='cp'>" + userId + "님이 채팅방에 참여하셨습니다.</p>");
+   	$("#messageWindow").append("<br><p id='cs'>" + userId + "님이 채팅방에 참여하셨습니다.</p>");
 
     var str = userId + "님이 채팅방에 참여하셨습니다.";
     send(str);
@@ -271,11 +272,8 @@ function onOpen(event) {
 function onError(event) {
   alert(event.data);
 }
-function onClose(event){
 
-	var userId = "<%=m.getUserName()%>";
-	var str = userId + "님이 채팅방을 나가셨습니다.";
-	send(str);
+function onClose(event){
 
 }
 function send(msg) {   
