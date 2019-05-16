@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.rr.admin.model.dao.AdminDao;
+import com.kh.rr.board.model.vo.Board;
 import com.kh.rr.member.model.vo.Member;
 
 public class AdminService {
@@ -58,14 +59,22 @@ public class AdminService {
 		 
 		 close(con);
 		
-		 System.out.println("서비스 실행");
+		/* System.out.println("서비스 실행");*/
 		 
 		return bisilist;
 	}
 
+	public ArrayList<Board> communitylist() {
 
-
-
-
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new AdminDao().communitylist(con);
+		
+		close(con);
+		
+		System.out.println("서비스실행 : " + list);
+		
+		return list;
+	}
 
 }

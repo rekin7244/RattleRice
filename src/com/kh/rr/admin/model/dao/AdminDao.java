@@ -8,9 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.rr.board.model.vo.Board;
 import com.kh.rr.member.model.vo.Member;
 
 public class AdminDao {
@@ -187,6 +189,9 @@ public class AdminDao {
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset); 
 		}
 
 
@@ -194,5 +199,57 @@ public class AdminDao {
 		return bisilist;
 	}
 
+	//공지사항 리스트 조회
+	public ArrayList<Board> communitylist(Connection con) {
+		
+		ArrayList<Board> list = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("communitylist");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			System.out.println(query);
+			list = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				
+				Board clist = new Board();
+				clist.setBid(rset.getInt("BID"));
+				clist.setFbid(rset.getInt("FBID"));
+				clist.setNbid(rset.getInt("NBID"));
+				clist.setRbid(rset.getInt("RBID"));
+				clist.setRefBid(rset.getInt("REF_BID"));
+				//M_ID
+				clist.setbType(rset.getString("BTYPE"));
+				clist.setbDate(rset.getDate("BDATE"));
+				clist.setType(rset.getInt("TYPE"));
+				clist.setbContent(rset.getString("BCONTENT"));
+				clist.setTarget(rset.getString("TARGET"));
+				//S_ID
+				clist.setGrade(rset.getInt("GRADE"));
+				clist.setbCount(rset.getInt("BCOUNT"));
+				//S_COD
+				clist.setfCategory(rset.getString("F_CATEGORY"));
+				//STATUS
+				
+				list.add(clist);
+				
+				System.out.println(list);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return list;
+	}
 
 }
