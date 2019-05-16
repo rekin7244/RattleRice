@@ -6,7 +6,12 @@
 	InetAddress Address = InetAddress.getLocalHost();
 	Member m = (Member) (request.getSession().getAttribute("loginUser"));
 	int rno = (int) session.getAttribute("rno");
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 
+	HashMap<String, Object> hmap = null;
+	for (int i = 0; i < list.size(); i++) {
+		hmap = list.get(i);
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -57,7 +62,6 @@ body::-webkit-scrollbar {
 }
 
 #chatForm {
-
 	position: fixed;
 	width: 100%;
 	height: 15%;
@@ -128,7 +132,6 @@ body::-webkit-scrollbar {
 }
 
 #stime {
-
 	text-align: right;
 	font-size: 9px;
 	color: lightgray;
@@ -140,6 +143,20 @@ body::-webkit-scrollbar {
 	font-size: 9px;
 	color: lightgray;
 	margin-left: 9px;
+}
+#myProfile{
+    padding-bottom: 13px;
+    border-bottom: 1.5px dashed #1abc9c85;
+}
+
+.profileImg {
+    width: 50px;
+    margin-right: 13px;
+    display: inline-block;
+}
+
+.profileName {
+	display: inline-block;
 }
 </style>
 </head>
@@ -153,9 +170,7 @@ body::-webkit-scrollbar {
          <input type="submit" id="send" class="btn btn-default" value="전송" onclick="send()">
       </div>
    </div>
-   
-   
-   
+      
    <!-- 채팅방 내 기능을 담당하는 모달 컨텐츠 -->
    <div class="container">
 		<!-- Modal -->
@@ -169,14 +184,14 @@ body::-webkit-scrollbar {
 						<h4 class="modal-title">대화 상대</h4>
 					</div>
 					<div class="modal-body" data-backdrop="static">
-
-						<p style="font-size: 0.8em; text-align: center;">채팅방을
-							생성하시겠습니까?</p>
-							<p><%=m.getUserId() %></p>
-						<div align="center" data-backdrop="static">
-							
+						<div class="chatPerson">
+						<div id="myProfile">
+						<div class="profileImg" id="mImg">
+							<img src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" style="width:100%; border-radius:6em;">
 						</div>
-						
+						<div class="profileName" id="mName"><p><%=m.getUserName() %>(나)</p></div>
+						</div>
+						</div>
 					</div>
 				</div>
 			</div>
