@@ -49,6 +49,13 @@
 			window.resizeTo(410, 600);
 		});
 	});
+	
+	//환불 신청 서블릿 호출 함수
+	function transaction(){
+		$point = $("input[name=point]").val();
+		console.log($point);
+		location.href="<%=request.getContextPath()%>/insert.tr";
+	};
 </script>
 </head>
 <body>
@@ -95,18 +102,20 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">Refund</h4>
 					</div>
+					<form>
 					<div class="modal-body" data-backdrop="static">
 						<p>환급 금액을 입력해주세요.</p>
 						<input type="text" class="form-control" id="ks"
-							placeholder="3000빌 이상부터 환급가능합니다."> <br> <label><i
+							placeholder="3000빌 이상부터 환급가능합니다." name="point"> <br> <label><i
 							class="money bill alternate icon" style="color: gold"></i>보유 bill
 						</label> <label><span style="color: #4abeca;">10000</span>빌</label>
 					</div>
 					<div class="modal-footer" data-backdrop="static">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							aria-label="Close">취소</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">환급</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="transaction();">환급</button>
 					</div>
+					</form>
 				</div>
 
 			</div>

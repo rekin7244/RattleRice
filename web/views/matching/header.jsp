@@ -87,9 +87,6 @@ ul, body {
 		<!-- 채팅방에 입장했을때 : rno는 방번호 입니다 -->
 			<%if(request.getParameter("rno") != null) { %>
 				<ul class="nav navbar-nav mainbar">
-					<%-- <li class="" style="left: -3%;"><a href="<%= request.getContextPath()%>/selectAll.cr"
-					style="padding: 0;margin-top: 9px;">
-					<i class="fas fa-sign-out-alt" style="font-size:1.8em;"></i></a></li> --%>
 					<li class="" style="left: -3%;"><a href="<%= request.getContextPath()%>/leave.cr"
 					style="padding: 0;margin-top: 9px;">
 					<i class="fas fa-sign-out-alt" style="font-size:1.8em;"></i></a></li>
@@ -105,8 +102,6 @@ ul, body {
 				</ul>
 			<%}else{ %>
 				<ul class="nav navbar-nav mainbar">
-					<li class="" style="left: -3%;"><a href="<%= request.getContextPath()%>/selectAll.cr">
-					<i class="fas fa-arrow-left"></i></a></li>
 					<li data-toggle="modal" data-target="#msearch" class="search"
 						style="right: 0%;"><a href="#msearch">
 						<i class="fas fa-bars"></i></a></li>
