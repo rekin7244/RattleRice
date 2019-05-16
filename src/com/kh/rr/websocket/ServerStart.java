@@ -34,8 +34,8 @@ public class ServerStart {
 
       clients.add(session);
 
-      /*System.out.println("입장했을때 clients 목록" + clients);
-      clientsMap.put(msg, clients);
+      System.out.println("입장했을때 clients 목록" + clients);
+      /* clientsMap.put(msg, clients);
 
       Iterator<Session> it = clients.iterator();
       while(it.hasNext()) {
