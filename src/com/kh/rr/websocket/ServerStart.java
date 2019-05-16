@@ -131,23 +131,22 @@ public class ServerStart {
 		//데이터를 전달하는 과정에서 에러가 발생할 경우 동작하는 메소드
 		e.printStackTrace();
 	}
-
-	//private String closemsg = "님이 채팅방을 나가셨습니다.";
 	
 	@OnClose
 	public void onClose(Session session) {
-		/*synchronized(clients) {
+		synchronized(clients) {
 			for(Session client : clients) {
 				if (!client.equals(session)) {
-					try {
-						client.getBasicRemote().sendText(closemsg);
-						
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+						try {
+							client.getBasicRemote().sendText("님이 채팅방을 나가셨습니다.");
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
 				}
 			}
-		}*/
+		}
 		
 		//지워주지 않으면 Set에 이미 나간 사용자가 남아있기 때문에 메세지 전송시 에러 난다.
 		clients.remove(session);
