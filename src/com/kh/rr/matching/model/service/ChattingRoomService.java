@@ -79,6 +79,14 @@ public class ChattingRoomService {
 		
 		return result;
 	}
+	
+	//사용자가 채팅방을 나갔을 때 일반사용자인지 방장인지 확인하는 메소드
+	public Member checkUserType(Member loginUser, int rno) {
+		Connection con = getConnection();
+		Member checkUser = new ChattingRoomDao().checkUserType(con, loginUser, rno);
+		
+		return checkUser;
+	}
 
 
 

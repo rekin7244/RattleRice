@@ -198,6 +198,27 @@ public class ChattingRoomDao {
 		return result;
 	}
 
+	public Member checkUserType(Connection con, Member loginUser, int rno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("checkUserType");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return null;
+	}
+
 }
 
 
