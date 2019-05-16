@@ -85,7 +85,59 @@ public class ChattingRoomService {
 		Connection con = getConnection();
 		Member checkUser = new ChattingRoomDao().checkUserType(con, loginUser, rno);
 		
+		close(con);
+		
 		return checkUser;
+	}
+
+	//방장이 채팅방을 나갔을 때 그 방을 없애는 메소드
+	public int deleteChattingRoom(int rno) {
+		Connection con = getConnection();
+		int result = new ChattingRoomDao().deleteChattingRoom(con, rno);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	//방장이 채팅방을 나갔을 때 그 방과 관련된 룸 레코드를 전부 없애는 메소드
+	public int deleteAllRoomRecord(int rno) {
+		Connection con = getConnection();
+		
+		int result = new ChattingRoomDao().deleteAllRoomRecord(con, rno);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+	
+	
+	//일반 사용자가 채팅방을 나갔을 때 사용자와 관련된 룸레코드 전부 없애는 메소드
+	public int deleteRoomRecord(Member loginUser, int rno) {
+		Connection con = getConnection();
+		int result = new ChattingRoomDao().deleteRoomRecord(con, loginUser, rno);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}
 
 

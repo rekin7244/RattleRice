@@ -27,11 +27,13 @@ public class SelectOneChattingRoomServlet extends HttpServlet {
 		
 		int result = new ChattingRoomService().insertRoomRecord(loginUser, rno);
 		
-		System.out.println(rno);
+		if(result > 0) {
+			request.getSession().setAttribute("rno", rno);
+			request.getRequestDispatcher("views/matching/chatting.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 		
-		
-		request.getSession().setAttribute("rno", rno);
-		request.getRequestDispatcher("views/matching/chatting.jsp").forward(request, response);
 		
 	}
 

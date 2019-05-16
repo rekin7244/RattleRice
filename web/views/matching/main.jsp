@@ -109,7 +109,10 @@
 	<!--채팅방목록 -->
 	<div class="mainContent" align="center">
 			<div class="cr-content text">
-					<%for(ChattingRoom cr : list){ %>
+					<%
+					
+				if(list != null) {
+					for(ChattingRoom cr : list){ %>
 						<form action="<%= request.getContextPath()%>/selectOne.cr?rno=<%=cr.getRno() %>" method="post">
 							<div class="cr-content-inner">
 								
@@ -122,7 +125,9 @@
 							
 							</div>
 						</form>
-					<%} %>
+					<%} 
+					
+					}%>
 			</div>
 	</div>
 	<%@ include file="menubar.jsp"%>

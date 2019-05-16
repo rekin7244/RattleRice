@@ -162,6 +162,7 @@ body::-webkit-scrollbar {
 					<div class="modal-body" data-backdrop="static">
 						<p style="font-size: 0.8em; text-align: center;">채팅방을
 							생성하시겠습니까?</p>
+							<p><%=m.getUserId() %></p>
 						<div align="center" data-backdrop="static">
 							<button type="button" class="btn btn-default" style="color: red" data-dismiss="modal"
 							data-toggle="modal" data-target="#createChatp"
