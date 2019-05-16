@@ -68,6 +68,45 @@ public class AdminDao {
 		return memberlist;
 	}
 
+	
+	//탈퇴 회원목록 조회
+		public ArrayList<Member> Nonmemberlist(Connection con) {
+
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+
+			ArrayList<Member> Nonmemberlist = null;
+
+			String query = prop.getProperty("Nonmemberlist");
+			try {		
+				pstmt=con.prepareStatement(query);
+				rset = pstmt.executeQuery();
+				Nonmemberlist = new ArrayList<Member>();
+
+				while(rset.next()) {
+
+					Member bmlist = new Member();
+
+					bmlist.setUserId(rset.getString("M_ID"));
+					bmlist.setUserPwd(rset.getString("M_PWD"));
+					bmlist.setUserName(rset.getString("M_NAME"));
+					bmlist.setMemberType(rset.getString("M_TYPE"));
+					bmlist.setStatus(rset.getString("M_STATUS"));
+
+					Nonmemberlist.add(bmlist);
+
+					/*System.out.println("관리자 dao : " + mlist );*/
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+
+
+			return Nonmemberlist;
+		}
 	//사업자 정보조회
 	public ArrayList<Member> bisinesslist(Connection con) {
 
@@ -120,15 +159,14 @@ public class AdminDao {
 
 		String query = prop.getProperty("selectbisiness"); 
 		
-		/*if(keyword != null) {
+		if(keyword != null) {
 			query += " AND " +  keyField.trim()+" LIKE '%" + keyword.trim() + "%' ";
 			//trim 문자열 공백제거
-		}*/
+		}
 
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, keyField);
-			pstmt.setString(2, keyword);
+
 			rset = pstmt.executeQuery();
 			bisilist = new ArrayList<Member>();
 

@@ -158,22 +158,27 @@
 	$("#keywordclick")
 			.click(
 					function() {
-						//var keyword
-						//var keyfield
+						
+					
+						var keyField = $("#keyField").val();	
+						var keyword = $("#keyword").val();	
 						var blist = $("#bisinesslist");
-					
-					
-						/* console.log("실행"); */
+						
+						var search = {keyField:keyField, keyword:keyword};
+						console.log(search);
+						
 						$.ajax({
 									url : "bisinessSelect.ad",
-									//data : key,val
+									data:search,
+									type:"get",
 									success : function(data) {
 
+										console.log(data);
 										$(blist).children('#bisinesslistFrom')
 												.remove(); 
 										
-										console.log(data);
-										
+						
+
 										for(var key in data){
 									 	var user = data[key];
 									 	console.log(user.userId);

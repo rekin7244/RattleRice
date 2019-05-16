@@ -221,7 +221,7 @@ a.article, a.article:hover {
 						<li><a
 							href="<%=request.getContextPath() + "/bisinesslist.ad"%>">사업자
 								정보 조회</a></li>
-						<li><a href="withdrawal.jsp">탈퇴 회원 조회</a></li>
+						<li><a href="<%=request.getContextPath() + "/nonMember.ad"%>">탈퇴 회원 조회</a></li>
 						<li><a href="payment.jsp">결제 내역 조회</a></li>
 					</ul></li>
 
