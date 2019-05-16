@@ -188,14 +188,6 @@ a[data-toggle="collapse"] {
 	margin-top: 30px;
 }
 
-.form1 {
-	padding-left: 30px;
-}
-
-.form2 {
-	padding-right: 30px;
-}
-
 .img {
 
 }
@@ -229,16 +221,13 @@ a[data-toggle="collapse"] {
 }
 
 .form-control {
-	width: 50%;
+	width: 20%;
 }
 
 input, textarea {
 	text-align: center;
 }
 
-.well {
-
-}
 
 .col-sm-5 {
 	width: auto;
@@ -309,7 +298,7 @@ footer {
 				%>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a
-						style="font-family: 'Megrim', cursive; font-weight: bold;"><%=loginUser.getUserId()%>님</a></li>
+						style="font-family: 'Megrim', cursive; font-weight: bold;"><%=loginUser.getUserName()%>님</a></li>
 					<li><a
 						style="font-family: 'Megrim', cursive; font-weight: bold;"
 						href="<%=request.getContextPath()%>/logout.me"><span
@@ -342,7 +331,6 @@ footer {
 			<div class="col-sm-6 form1 well">
 				<div class="">
 					<h2>프로필</h2>
-					<br>
 					<div>
 					<form action="<%=request.getContextPath()%>/updateProImg"
 						method="post" encType="multipart/form-data">
@@ -379,10 +367,10 @@ footer {
 					<div>
 					<form action="<%=request.getContextPath()%>/updatePro">
 						<div class="profile" style="margin-top: 30px;">
-							<label>닉네임</label> <input type="text" class="form-control"
-								name="nickName" id="nickName" value="<%=hmap.get("nickName")%>"><br>
-							<label>상태 메세지</label>
-							<textarea style="resize: none; width: 300px; height: 50px;"
+							<label>닉네임</label> <br><input type="text" class="form-control" 
+								name="nickName" id="nickName" value="<%=hmap.get("nickName")%>"><br><br>
+							<label>상태 메세지</label><br>
+							<textarea style="resize: none; width: 60%; height: 50px;"
 								class="form-control" name="msg" id="msg"><%=hmap.get("msg")%></textarea>
 							<br>
 						</div>
@@ -401,15 +389,15 @@ footer {
 
 						<div class="profile" id="userArea">
 							<div class="form-group">
-								<label>이메일</label> <input type="text" class="form-control"
+								<label>이메일</label><br> <input type="text" class="form-control"
 									value="<%=hmap.get("email")%>" name="email">
 							</div>
 							<div class="form-group">
-								<label>연락처</label> <input type="tel" class="form-control"
+								<label>연락처</label><br> <input type="tel" class="form-control"
 									value="0<%=hmap.get("phone")%>" name="tel">
 							</div>
 							<div class="form-group">
-								<label>생일</label> <input type="date" class="form-control"
+								<label>생일</label><br> <input type="date" class="form-control"
 									id="birthday" value="<%=hmap.get("birthday")%>" name="birthday">
 							</div>
 							<div class="form-group">
@@ -417,8 +405,8 @@ footer {
 									<input type="text" id="jobText" name="jobText"
 										value="<%=hmap.get("job")%>">
 								</div>
-								<label>직업</label> <select class="form-control"
-									style="width: 160px; height: 33px; border-radius: 3px 3px 3px 3px; border: 1px solid lightgray; margin-left: 70px;"
+								<label>직업</label><br> <select class="form-control"
+									style="width: 160px; height: 33px; border-radius: 3px 3px 3px 3px; border: 1px solid lightgray;"
 									id="job" name="job">
 								</select>
 							</div>
@@ -483,35 +471,23 @@ footer {
 
 		$(function() {
 			$("#jobArea").hide();
-			$
-					.ajax({
-						url : "jobSelect",
-						type : "post",
-						success : function(data) {
-							$select = $("#job");
-
-							for (var i = 0; i < data.length; i++) {
-								var name = decodeURIComponent(data[i].job);
-
-								var selected = (name == $("#jobText").val()) ? "selected"
-										: "";
-								$select
-										.append("<option value='"+data[i].job+"' "+selected+">"
-												+ name + "</option>");
-							}
-						}
-					});
+			$.ajax({
+				url : "jobSelect",
+				type : "post",
+				success : function(data) {
+					$select = $("#job");
+					for (var i = 0; i < data.length; i++) {
+						var name = decodeURIComponent(data[i].job);
+						var selected = (name == $("#jobText").val()) ? "selected": "";
+						$select.append("<option value='"+data[i].job+"' "+selected+">"+ name + "</option>");
+					}
+				}
+			});
 		});
 
 		function updateAlert() {
 			alert("수정이 완료되었습니다 ><");
 		};
-
-		/* function memberDelete() {
-			var deletePop = window.open('views/member/memberDeleteForm.jsp',
-					'', 'left=500,top=0, height=250, width=450');
-			console.log(deletePop);
-		} */
 	</script>
 
 </body>

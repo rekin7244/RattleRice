@@ -308,9 +308,6 @@ body {
 		});
 
 		setInterval(function() {
-			/* console.log("실행");
-			console.log(idCheck);
-			console.log(pwdCheck); */
 			if (idCheck == "1" && pwdCheck == "1") {
 				$("#register-submit").removeAttr("disabled");
 			} else {

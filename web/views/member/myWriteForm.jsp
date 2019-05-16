@@ -236,9 +236,6 @@ input, textarea {
 	text-align: center;
 }
 
-.well {
-	
-}
 
 .col-sm-5 {
 	width: auto;
@@ -309,7 +306,7 @@ footer {
 				%>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a
-						style="font-family: 'Megrim', cursive; font-weight: bold;"><%=loginUser.getUserId()%>님</a></li>
+						style="font-family: 'Megrim', cursive; font-weight: bold;"><%=loginUser.getUserName()%>님</a></li>
 					<li><a
 						style="font-family: 'Megrim', cursive; font-weight: bold;"
 						href="<%=request.getContextPath()%>/logout.me"><span
