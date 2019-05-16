@@ -162,7 +162,7 @@ public class ChattingRoomDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, rno);
-			pstmt.setString(2, "일반");
+			pstmt.setString(2, "USER");
 			pstmt.setString(3, loginUser.getUserId());
 			
 			result = pstmt.executeUpdate();
@@ -184,7 +184,7 @@ public class ChattingRoomDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, currval);
-			pstmt.setString(2, "방장");
+			pstmt.setString(2, "MASTER");
 			pstmt.setString(3, loginUser.getUserId());
 			
 			result = pstmt.executeUpdate();
@@ -201,11 +201,22 @@ public class ChattingRoomDao {
 	public Member checkUserType(Connection con, Member loginUser, int rno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		Member checkUser = null;
 		String query = prop.getProperty("checkUserType");
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, loginUser.getUserId());
+			pstmt.setInt(2, rno);
 			
+			rset = pstmt.executeQuery();
+			
+			checkUser = new Member();
+			if(rset.next()) {
+				checkUser.setUserId(rset.getString("M_ID"));
+				checkUser.setUserName(rset.getString("M_NAME"));
+				checkUser.setStatus(rset.getString("M_STATUS"));
+			}
 			
 			
 		} catch (SQLException e) {
@@ -216,7 +227,75 @@ public class ChattingRoomDao {
 		}
 		
 		
-		return null;
+		return checkUser;
+	}
+
+	//방장이 나갔을때 그 방을 없애는 메소드
+	public int deleteChattingRoom(Connection con, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteChattingRoom");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	//방장이 채팅방을 나갔을때 관련된 룸레코드를 전부 없애는 메소드
+	public int deleteAllRoomRecord(Connection con, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteAllRoomRecord");
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	//일반 사용자가 채팅방을 나갔을 때 사용자와 관련된 룸레코드 전부 없애는 메소드
+	public int deleteRoomRecord(Connection con, Member loginUser, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteRoomRecord");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			pstmt.setString(2, loginUser.getUserId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
 
 }

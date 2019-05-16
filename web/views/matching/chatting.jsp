@@ -169,7 +169,10 @@ body::-webkit-scrollbar {
 						<h4 class="modal-title">대화 상대</h4>
 					</div>
 					<div class="modal-body" data-backdrop="static">
-						
+
+						<p style="font-size: 0.8em; text-align: center;">채팅방을
+							생성하시겠습니까?</p>
+							<p><%=m.getUserId() %></p>
 						<div align="center" data-backdrop="static">
 							
 						</div>

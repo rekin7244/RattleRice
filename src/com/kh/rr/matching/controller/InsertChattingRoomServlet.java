@@ -66,7 +66,7 @@ public class InsertChattingRoomServlet extends HttpServlet {
 				if(result2 > 0) {
 					
 					request.getSession().setAttribute("rno", currval);
-					response.sendRedirect("views/matching/chatting.jsp");
+					response.sendRedirect(request.getContextPath()+"/selectOne.cr?rno="+currval);
 				}
 				
 			
