@@ -265,7 +265,7 @@ padding-bottom: 30px;
 				</div> -->
 				<br>
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray;  height: 90%; float: left; width: 33%; padding:10px; 
+					style="border: 0.5px solid lightgray;  height: 400px; float: left; width: 33%; padding:10px; 
 					overflow-x: auto;">
 					<h4 align="center">매장정보</h4>
 					<br> <br>
@@ -323,7 +323,7 @@ padding-bottom: 30px;
 					</form>
 				</div>
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray;  height: 90%; float: left; width: 33%; padding:10px; 
+					style="border: 0.5px solid lightgray;  height: 400px; float: left; width: 33%; padding:10px; 
 					overflow-x: auto; overflow-y:auto;">
 					<h4 align="center">메뉴</h4>
 					<br><br>
@@ -377,17 +377,46 @@ padding-bottom: 30px;
 					});
 				</script>
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray; height: 90%;float: left; width: 33%; padding:10px;">
-					<form action="#" method="post">
+					style="border: 0.5px solid lightgray; height: 400px;float: left; width: 33%; padding:10px;">
+					<form action="<%= request.getContextPath() %>/businessinsert.tn" method="post"
+							encType="multipart/form-data">
+					
 						<h4 align="center">사진첨부</h4>
-						<button>적용하기</button>
-						<div
-							style="border: 0.5px solid lightgray; margin 0 auto; height: 65%;">
-							<h4>
-								<a href="#">사진첨부링크</a>
-							</h4>
+						
+						<button type="submit">적용하기</button>
+						
+						<div id="contentImgArea1"
+							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
+							
+								<img id="contentImg1" width="120" height="100">
+							
 						</div>
+						
+						<div id="contentImgArea2"
+							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
+							
+								<img id="contentImg2" width="120" height="100">
+							
+						</div>
+						
+						<div id="contentImgArea3"
+							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
+							
+								<img id="contentImg3" width="120" height="100">
+							
+						</div>
+						
+						<div id="fileArea">
+						
+							<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)">
+							<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)">
+							<input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this,3)">
+							
+						
+						</div>
+						
 					</form>
+					
 				</div>
 
 			</div>
@@ -395,6 +424,40 @@ padding-bottom: 30px;
 
 
 	</div>
+	<script>
+	$(function(){
+		$("#fileArea").hide();
+		
+		$("#contentImgArea1").click(function(){
+			console.log("#contentImgArea1");
+			$("#thumbnailImg1").click();
+		});
+		$("#contentImgArea2").click(function(){
+			$("#thumbnailImg2").click();
+		});
+		$("#contentImgArea3").click(function(){
+			$("#thumbnailImg3").click();
+		});
+	});
+	
+	function loadImg(value, num){
+		if(value.files && value.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				switch(num){
+				case 1 : $("#contentImg1").attr("scr", e.target.result);
+					break;
+				case 2 : $("#contentImg2").attr("scr", e.target.result);
+					break;
+				case 3 : $("#contentImg3").attr("scr", e.target.result);
+					break;
+				}
+			}
+			reader.readAsDataURL(value.files[0]);
+		}
+	}
+	
+	</script>
 
 
 	<!-- jQuery CDN - Slim version (=without AJAX) -->

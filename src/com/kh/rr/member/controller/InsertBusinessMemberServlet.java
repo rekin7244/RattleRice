@@ -53,7 +53,7 @@ public class InsertBusinessMemberServlet extends HttpServlet {
 		
 		int result = new MemberService().insertBusinessMember(reqMember);
 		int result2 = new UserInfoService().insertUserInfo(reqUserInfo);
-		int result3 = new AttachmentService().insertAttachment(reqAttachment);
+		int result3 = new AttachmentService().insertAttachmentBusiness(reqAttachment);
 		
 		String page = "";
 		if(result > 0 && result2 > 0 && result3 > 0) {

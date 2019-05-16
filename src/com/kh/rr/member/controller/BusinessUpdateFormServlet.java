@@ -45,7 +45,7 @@ public class BusinessUpdateFormServlet extends HttpServlet {
 		String page = "";
 		if(list != null) {
 			System.out.println("list : " + list);
-			page = "/checkBusiness.me";
+			page = "views/business/businessFormUpdate.jsp";
 			request.setAttribute("list", list);
 			
 		}else {
