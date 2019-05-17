@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import com.kh.rr.member.model.dao.AttachmentDao;
 import com.kh.rr.member.model.vo.Attachment;
+import com.kh.rr.member.model.vo.Member;
 
 public class AttachmentService {
 
@@ -50,7 +51,7 @@ public class AttachmentService {
 
 	public ArrayList<HashMap<String, Object>> selectAttachmentlList(String userId) {
 		Connection con = getConnection();
-		
+
 		ArrayList<HashMap<String, Object>> list = new AttachmentDao().selectAttachmentlList(con,userId);
 
 		close(con);
@@ -61,12 +62,12 @@ public class AttachmentService {
 	public int BusinessShopImg(Attachment att, ArrayList<Attachment> fileList) {
 		Connection con = getConnection();
 		int result = 0, result1 =0;
-		
+
 		result = new AttachmentDao().updateStatusAttachment(con, fileList);
-		
+
 		if(result >0) {
 			result1 = new AttachmentDao().insertAttachment(con,fileList);
-			
+
 			if(result1 > 0) {
 				commit(con);
 			}else {
@@ -74,7 +75,7 @@ public class AttachmentService {
 			}
 		}
 		close(con);
-		
+
 		return result1;
 	}
 
@@ -89,6 +90,17 @@ public class AttachmentService {
 			rollback(con);
 		}
 		return result;
+	}
+
+	//체팅방에 있는 사용자 정보를 불러오는 메소드
+	public ArrayList<HashMap<String, Object>> selectAttachmentlList(ArrayList<Member> list) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String, Object>> userList = new AttachmentDao().selectAttachmentlList(con, list);
+
+		close(con);
+
+		return userList;
 	}
 
 }
