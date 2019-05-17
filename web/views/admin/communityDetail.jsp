@@ -108,50 +108,46 @@
 				
 				<!-- 게시판 -->
 				
-				<div class="container">
-					<div class="row">
-						<form action="<%=request.getContextPath()%>/communityInsert.ad" method="post">
-							<table class="table table-striped" id="insert"
-								style="text-align:center; border:1px solid #dddddd">
-								<thead>
-									<tr>
-										<th colspan="2" style="background-color:#eeeeee;
-										text-align:center;">
-										글 쓰기 양식</th>
-									</tr>
-								</thead>
-								
-								<tbody>
-									<tr>
-										<td>
-											<select name="target">
-												<option>공통</option>
-												<option>사업자</option>
-												<option>일반 유저</option> 
-										</select> 
-										에게 보여주기
-										</td>
-										
-									</tr>
-									<tr>
-										<td>
-										<input type="text" class="form-control" placeholder="글 제목" name="title"
-												maxlength="50"></td>
-									</tr>
-									
-									<tr>
-										<td><textarea class="form-control" placeholder="글 내용" name="content" 
-												maxlength="2048" style="height:350px;"></textarea></td>
-									</tr>
-									
-												
-								</tbody>
-							</table>
-								
-							<input type="submit" class="btn btn-primary pull-right" value="글쓰기" id="insertbtn"/>
-						</form>
-					</div>
-				</div>
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr><!-- BOARD TITLE -->
+				<td colspan="2" align="center"><h2>JSP_BOARD VIEW</h2></td>
+			</tr>
+			
+			<tr height="40"><!-- BOARD CONTENTS -->
+				<th>SUBJECT</th>
+				<td>test</td>
+			</tr>
+			
+			<tr height="200">
+				<th>CONTENT</th>
+				<td valign="top" style="border: 1px solid #000">test</td>
+			</tr>
+			
+			<tr height="40">
+				<th>첨부파일</th>
+				<td>
+				<%-- <%if(!(board.getFile_name() == null)){ %>
+					<a href="/board/download.jsp?filename=<%=board.getFile_name()%>"><%=board.getFile_name() %></a>
+				<%} %> --%>
+				</td>
+			</tr>
+			
+			<tr><!-- BOARD BUTTONS -->
+				<td colspan="5" align="right">
+					<%-- <a href="./BoardReplyAction.do?num=<%=board.getNum() %>">[REPLY]</a>&nbsp;&nbsp;
+					<a href="./BoardModify.do?num=<%=board.getNum() %>">[EDIT]</a>&nbsp;&nbsp;
+					<a href="./BoardDelete.do?num=<%=board.getNum() %>">[DELETE]</a>&nbsp;&nbsp; --%>
+					<a href="./BoardList.do">[LIST]</a>
+				</td>
+			</tr>
+		</table>
+
+
+				
+				
+				
+				
+				
 				
 	
 				
