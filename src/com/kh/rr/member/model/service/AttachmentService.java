@@ -62,10 +62,10 @@ public class AttachmentService {
 		Connection con = getConnection();
 		int result = 0, result1 =0;
 		
-		result = new AttachmentDao().businessShopImg(con, fileList);
+		result = new AttachmentDao().updateStatusAttachment(con, fileList);
 		
 		if(result >0) {
-			result1 = new AttachmentDao().businessinsertAttachment(con,fileList);
+			result1 = new AttachmentDao().insertAttachment(con,fileList);
 			
 			if(result1 > 0) {
 				commit(con);
