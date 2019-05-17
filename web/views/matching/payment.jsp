@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.transaction.model.vo.*"%>
+<%
+	ArrayList<Transaction> list = (ArrayList<Transaction>) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,6 +45,30 @@
 	margin-top : 12px;
 }
 
+.transactionList-inner{
+	border-bottom: 1px solid skyblue;
+	padding: 10px 15px; 
+}
+
+.date {
+	color: gray;
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+
+.context > div {
+	display: inline-block;
+}
+.title {
+	font-weight: normal;
+	font-size: 16px;
+}
+.price {
+    font-size: 16px;
+	color: skyblue;
+	float: right;
+}
+
 </style>
 <script>
 	$(function() {
@@ -59,25 +86,51 @@
 			<li class="active"><a data-toggle="tab" href="#bellTab">벨</a></li>
 			<li style="color: #4abeca;"><a data-toggle="tab" href="#billTab">빌</a></li>
 		</ul>
-		<br>
 
 	</div>
 
 	<div class="tab-content">
-		<div id="bellTab" class="tab-pane fade in active">
-			<div class="container-fluid payTab">
-				<label><i class="bell icon" style="color: gold"></i>보유 bell
-				</label> <label><span style="color: #4abeca;">10</span>벨</label>
-			</div>
-		</div>
+	
 
-		<div id="billTab" class="tab-pane fade">
+		<div id="billTab" class="tab-pane fade in active">
+			<div class="container-fluid transactionList">
+				<%for(Transaction tr : list){ %>
+					<%if(tr.getType().equals("RE")) {%>
+					<div class="transactionList-inner blue">
+						<div class="date">
+							<%=tr.gettDate() %>
+						</div>
+						<div class="context">
+							<div class="title">
+								포인트 환불
+							</div>
+							<div class="price">
+								<%=tr.gettPrice() %> Point
+							</div>
+						</div>
+					</div>
+					<%}else{ %>
+					
+					<%} %>
+					
+				<%} %>
+			</div>
+		
+		
 			<div class="container-fluid payTab">
 				<label><i class="money bill alternate icon"
 					style="color: gold"></i>보유 bill </label> <label><span
 					style="color: #4abeca;">10000</span>빌</label>
 				<button type="button" class="btn btn-default paybtn"
 					data-toggle="modal" data-target="#refund" >환급신청</button>
+			</div>
+		</div>
+		
+		
+			<div id="bellTab" class="tab-pane fade">
+			<div class="container-fluid payTab">
+				<label><i class="bell icon" style="color: gold"></i>보유 bell
+				</label> <label><span style="color: #4abeca;">10</span>벨</label>
 			</div>
 		</div>
 	</div>
