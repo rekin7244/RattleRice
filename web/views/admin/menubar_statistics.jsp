@@ -216,7 +216,7 @@ a.article, a.article:hover {
 					data-toggle="collapse" aria-expanded="false"
 					class="dropdown-toggle">회원 통계</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
-						<li><a href="statistics_member.jsp">회원 분석</a></li>
+						<li><a href="/views/admin/statistics_member.jsp">회원 분석</a></li>
 						<li><a href="">시간대별 이용 조회</a></li>
 						<li><a href="">장소별 이용 조회</a></li>
 						<li><a href="">카테고리별 이용 조회</a></li>
@@ -226,7 +226,7 @@ a.article, a.article:hover {
 				<li><a href="#pageSubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">매출 통계</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
-						<li><a href="statistics_sales.jsp">포인트 매출 통계</a></li>
+						<li><a href="/views/admin/statistics_sales.jsp">포인트 매출 통계</a></li>
 						<li><a href="">코인 사용 통계</a></li>
 					</ul></li>
 			</ul>
