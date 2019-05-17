@@ -24,6 +24,9 @@
 
 <title>딸랑밥</title>
 <style>
+body::-webkit-scrollbar { 
+    display: none; 
+}
 .navbar-inverse {
 	background: #F4AC8A;
 	border: none;
@@ -287,7 +290,7 @@ footer {
 }
 
 tr>th, tr>td {
-	width: 25%;
+	width: 10%;
 }
 </style>
 
@@ -373,8 +376,11 @@ tr>th, tr>td {
 										type="text" placeholder="금액 검색"></th>
 									<th>상태<input class="form-control" id="myInput3"
 										type="text" placeholder="상태 검색"></th>
-									<th>잔액<input class="form-control" id="myInput4"
+									<th>분류<input class="form-control" id="myInput4"
+										type="text" placeholder="분류 검색"></th>
+									<th>잔액<input class="form-control" id="myInput5"
 										type="text" placeholder="잔액 검색"></th>
+
 								</tr>
 							</thead>
 							<tbody id="myTable">
@@ -382,85 +388,58 @@ tr>th, tr>td {
 									<td>2019년 05월 10일</td>
 									<td>5400원</td>
 									<td>결제</td>
+									<td>포인트</td>
 									<td>15600원</td>
+
 								</tr>
 								<tr>
 									<td>2019년 05월 05일</td>
 									<td>10000원</td>
 									<td>충전</td>
+									<td>포인트</td>
 									<td>21000원</td>
 								</tr>
 								<tr>
 									<td>2019년 04월 11일</td>
 									<td>9000원</td>
 									<td>결제</td>
+									<td>포인트</td>
 									<td>11000원</td>
 								</tr>
 								<tr>
 									<td>2019년 04월 11일</td>
 									<td>20000원</td>
 									<td>충전</td>
+									<td>포인트</td>
 									<td>20000원</td>
 								</tr>
 								<tr>
 									<td>2019년 03월 6일</td>
 									<td>10000원</td>
 									<td>환불</td>
+									<td>포인트</td>
 									<td>0원</td>
 								</tr>
 								<tr>
-									<td>2019년 03월 6일</td>
+									<td>2019년 03월 5일</td>
 									<td>10000원</td>
 									<td>충전</td>
+									<td>포인트</td>
 									<td>10000원</td>
 								</tr>
 								<tr>
-									<td>2019년 03월 6일</td>
-									<td>10000원</td>
-									<td>충전</td>
-									<td>10000원</td>
+									<td>2019년 03월 1일</td>
+									<td>2000원</td>
+									<td>구매</td>
+									<td>BELL</td>
+									<td>0원</td>
 								</tr>
 								<tr>
-									<td>2019년 03월 6일</td>
-									<td>10000원</td>
+									<td>2019년 02월 20일</td>
+									<td>2000원</td>
 									<td>충전</td>
-									<td>10000원</td>
-								</tr>
-								<tr>
-									<td>2019년 03월 6일</td>
-									<td>10000원</td>
-									<td>충전</td>
-									<td>10000원</td>
-								</tr>
-								<tr>
-									<td>2019년 03월 6일</td>
-									<td>10000원</td>
-									<td>충전</td>
-									<td>10000원</td>
-								</tr>
-								<tr>
-									<td>2019년 03월 6일</td>
-									<td>10000원</td>
-									<td>충전</td>
-									<td>10000원</td>
-								</tr>
-								<tr>
-									<td>2019년 03월 6일</td>
-									<td>10000원</td>
-									<td>충전</td>
-									<td>10000원</td>
-								</tr>
-								<tr>
-									<td>2019년 03월 6일</td>
-									<td>10000원</td>
-									<td>충전</td>
-									<td>10000원</td>
-								</tr>
-								<tr>
-									<td>2019년 03월 6일</td>
-									<td>10000원</td>
-									<td>충전</td>
-									<td>10000원</td>
+									<td>포인트</td>
+									<td>2000원</td>
 								</tr>
 							</tbody>
 						</table>
@@ -476,6 +455,7 @@ tr>th, tr>td {
 		<input value="<%=loginUser.getPhone()%>" id="pointUserPhone">
 		<input value="<%=loginUser.getUserId()%>" id="pointUserId">
 	</div>
+
 
 	<script>
 		
@@ -502,7 +482,7 @@ tr>th, tr>td {
 			var userId = $("#pointUserId").val();
 			var selectAmount =$("#pointSelect option:selected").val();
 			
-			IMP.init('imp06499175'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			/* IMP.init('imp06499175'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 			IMP.request_pay({
 				pg : 'inicis', // version 1.1.0부터 지원.
 				pay_method : 'card',
@@ -521,28 +501,30 @@ tr>th, tr>td {
 					msg += '고유ID : ' + rsp.imp_uid;
 					msg += '상점 거래ID : ' + rsp.merchant_uid;
 					msg += '결제 금액 : ' + rsp.paid_amount;
-					msg += '카드 승인번호 : ' + rsp.apply_num;
+					msg += '카드 승인번호 : ' + rsp.apply_num; */
 					
 					// 거래금액 / 거래자 ID
 					$.ajax({
-						url:"pointCharge",
+						url:"<%=request.getContextPath()%>/pointCharge",
 						data: {amount:selectAmount, userId:userId},
 						type:"post",
-						success:function(data){
+						success:function(){
 							console.log("ajax성공!");
+							alert("테스트 결제 성공");
 						},
 						error:function(data){
 							console.log("ajax실패!");
+							alert("테스트 결제 실패");
 						}
 					});
 					
 					
-				} else {
+				/* } else {
 					var msg = '결제에 실패하였습니다.';
 					msg += '에러내용 : ' + rsp.error_msg;
 				}
 				alert(msg);
-			});
+			}); */
 		};
 	</script>
 
