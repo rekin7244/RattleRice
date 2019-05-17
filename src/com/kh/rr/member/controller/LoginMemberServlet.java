@@ -44,7 +44,7 @@ public class LoginMemberServlet extends HttpServlet {
 				page = "memberlist.ad";
 				request.getRequestDispatcher(page).forward(request, response);
 			}else if(loginUser.getMemberType().equals("2")){
-				page = "/checkBusiness.me";
+				page = "checkBusiness.me";
 				request.getRequestDispatcher(page).forward(request, response);
 				
 			}else {

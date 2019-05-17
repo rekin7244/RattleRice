@@ -233,7 +233,7 @@ a.article, a.article:hover {
 					</button>
 	
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<%for(int i = 0; i < list.size() -1; i++){ 
+					<%for(int i = 0; i < list.size(); i++){ 
 							HashMap<String, Object> hmap = list.get(i);
 					%>
 					<h3 align="center"><%= hmap.get("brand") %></h3>
@@ -253,22 +253,28 @@ a.article, a.article:hover {
 
 			<div class="container col-sm-9">
 				<div style="border: 0.5px solid lightgray; width: 70%; height: 50%;" id="imgArea">
-					<img src="../../images/joyShrimp.jpg" width="80%" height="50%" id="imgtag">
-
-				</div>
+				<%
+					for (int i = 0; i < list.size(); i++) {
+						HashMap<String, Object> hmap = list.get(i);
+				%>
+				<img src="profileImg_upload/<%=hmap.get("changeName")%>" width="80%" height="50%" id="imgtag">
+				<%
+					}
+				%>
+			</div>
 
 			
 				<div class="container col-sm-9" style="float:left; bottom:-150px;">
 					<table id="info" border="1">
 						<tbody align="center">
-				<%for(int i = 0; i < list.size(); i++){ 
-							HashMap<String, Object> hmap = list.get(i);
-				%>
-							<tr>
-								<td>hp :</td>
-								<td><%= hmap.get("contact") %></td>
-							</tr>
-							<tr>
+						<%
+							HashMap<String, Object> hmap = list.get(0);
+						%>
+						<tr>
+							<td>hp :</td>
+							<td><%= hmap.get("contact") %></td>
+						</tr>
+						<tr>
 								<td>위치 :</td>
 								<td><%= hmap.get("location") %></td>
 							</tr>
@@ -284,7 +290,7 @@ a.article, a.article:hover {
 								<td>매장소개 :</td>
 								<td><%= hmap.get("intro") %></td>
 							</tr>
-				<%} %>
+				
 						</tbody>
 					</table>
 				</div>
@@ -299,12 +305,12 @@ a.article, a.article:hover {
 					</thead>
 					<tbody align="center">
 					<% for(int i = 0; i < list.size(); i++){ 
-						HashMap<String, Object> hmap = list.get(i);
+						HashMap<String, Object> hmap1 = list.get(i);
 					%> 
 						<tr>
-							<td><%=hmap.get("menu") %></td>
-							<td><%= hmap.get("price") %></td>
-							<td><%= hmap.get("origin") %>
+							<td><%=hmap1.get("menu") %></td>
+							<td><%= hmap1.get("price") %></td>
+							<td><%= hmap1.get("origin") %>
 						</tr>
 						<%} %>
 

@@ -14,7 +14,8 @@ import com.kh.rr.member.model.service.MemberService;
 import com.kh.rr.member.model.service.UserInfoService;
 import com.kh.rr.member.model.vo.Attachment;
 import com.kh.rr.member.model.vo.Member;
-import com.kh.rr.member.model.vo.UserInfo;
+import com.kh.rr.member.model.vo.StoreInfo;
+import com.kh.rr.member.model.vo.StoreMenuInfo;
 
 @WebServlet("/insertBMember.me")
 public class InsertBusinessMemberServlet extends HttpServlet {
@@ -28,13 +29,35 @@ public class InsertBusinessMemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-		String userName = "사업자";
+		String userName = "";
 		String memberType = request.getParameter("memberType");
 		String gender = request.getParameter("gender");
-		String job = request.getParameter("curjob");
-		String phone = request.getParameter("phone");
+		//String job = request.getParameter("curjob");
+		String phone = "번호를 입력해주세요";
+		String location = "주소를 입력해주세요";
+		String openhore = "00:00";
+		String closehore = "00:00";
+		String intro = "소개글을 작성해주세요";
+		String menu = "메뉴정보를 입력해주세오";
+		int price = 0;
+		String origin = "원산지를 입력하시오";
 		
-		//service 호출
+		Member member = new Member();
+		member.setPhone(phone);
+		
+		StoreInfo storeInfo = new StoreInfo();
+		storeInfo.setLocation(location);
+		storeInfo.setOpening_hore(openhore);
+		storeInfo.setClose_hore(closehore);
+		storeInfo.setIntro(intro);
+		
+		StoreMenuInfo storeMenuInfo = new StoreMenuInfo();
+		storeMenuInfo.setMenu(menu);
+		storeMenuInfo.setPrice(price);
+		storeMenuInfo.setOrigin(origin);
+		
+		
+		/*//service 호출
 		Member reqMember = new Member();
 		reqMember.setUserId(userId);
 		reqMember.setUserPwd(userPwd);
@@ -46,12 +69,13 @@ public class InsertBusinessMemberServlet extends HttpServlet {
 		reqUserInfo.setJob(job);
 		reqUserInfo.setGender(gender);
 		reqUserInfo.setPhone(phone);
-		reqUserInfo.setGender("B");
+		reqUserInfo.setGender("B");*/
+		
 		
 		Attachment reqAttachment = new Attachment();
 		reqAttachment.setUserId(userId);
 		
-		int result = new MemberService().insertBusinessMember(reqMember);
+		int result1 = new MemberService().insertBusinessMember(member);
 		int result2 = new UserInfoService().insertUserInfo(reqUserInfo);
 		int result3 = new AttachmentService().insertAttachmentBusiness(reqAttachment);
 		
