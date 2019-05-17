@@ -92,7 +92,7 @@ ul, body {
 					<i class="fas fa-sign-out-alt" style="font-size:1.8em;"></i></a></li>
 					<li data-toggle="modal" data-target="#chatSub" class="search"
 						style="right: 0%;"><a href="#chatSub">
-						<i class="fas fa-bars"></i></a></li>
+						<i class="fas fa-bars" id="chatP"></i></a></li>
 				</ul>
 			<%}else if(request.getParameter("info") != null){ %>
 				<!-- 채팅방이 아닌 나머지 경우 -->

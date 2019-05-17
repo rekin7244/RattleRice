@@ -320,4 +320,37 @@ function send(msg) {
 		$("#inputMessage").val(' ');
 	}
 </script>
+
+<!-- 채팅방 내부 기능 -->
+<script>
+$(function(){
+
+$("#chatP").click(function(){
+	$.ajax({
+		url:"test9.do",
+		type:"get",
+		success:function(data){
+			//console.log(data);
+			$tableBody = $("#userInfoTable tbody");
+			
+			$tableBody.html('');
+			
+			$.each(data, function(index, value){
+				var $tr = $("<tr>");
+				var $noTd = $("<td>").text(value.userNo);
+				var $nameTd = $("<td>").text(decodeURIComponent(value.userName));
+				var $nationTd = $("<td>").text(decodeURIComponent(value.userNation));
+				
+				$tr.append($noTd);
+				$tr.append($nameTd);
+				$tr.append($nationTd);
+				$tableBody.append($tr);
+			});
+		}
+			
+	});
+});
+
+});
+</script>
 </html>
