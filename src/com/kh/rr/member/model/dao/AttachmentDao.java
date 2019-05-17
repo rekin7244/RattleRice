@@ -143,53 +143,10 @@ public class AttachmentDao {
 		return result;
 	}
 
-	//비즈니스 사진 삽입 메소드
-	public int businessShopImg(Connection con, ArrayList<Attachment> fileList) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-
-		String query = prop.getProperty("updateStatusAttachment");
-
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, fileList.get(0).getUserId());
-
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-
-		return result;
-	}
 	
 	
-	public int businessinsertAttachment(Connection con, ArrayList<Attachment> fileList) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-
-		String query = prop.getProperty("insertAttachment");
-
-		try {
-			for (int i = 0; i < fileList.size(); i++) {
-				pstmt = con.prepareStatement(query);
-				pstmt.setString(1, fileList.get(i).getFilePath());
-				pstmt.setString(2, fileList.get(i).getOriginName());
-				pstmt.setString(3, fileList.get(i).getChangeName());
-				pstmt.setString(4, fileList.get(i).getType());
-				pstmt.setString(5, fileList.get(i).getUserId());
-
-				result = pstmt.executeUpdate();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-
-		return result;
-	}
+	
+	
 
 	public int firstInsertAttachmentBusiness(Connection con, Attachment reqAttachment) {
 		PreparedStatement pstmt = null;

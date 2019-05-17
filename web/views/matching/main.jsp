@@ -31,7 +31,6 @@
 	
 	});
 	
-	
 	//프리미엄 채팅방을 만들지 안 만들지 선택하는 함수
 	function choice(){
 		var choice = window.confirm("프리미엄으로 하시겠습니까?");
@@ -86,6 +85,9 @@
 	
 </script>
 <style>
+	body::-webkit-scrollbar {
+		display: none;
+	}
 	.sexRatio {
 		display: inline-block;
 	}
@@ -94,35 +96,79 @@
 		margin-bottom: 14.6%;
 	}
 	.cr-content-inner {
+		padding: 10px 0;
 		border-top: 1px solid black;
 	}
 	.cr-content-inner:last-child {
 		border-bottom: 1px solid black;
 	}
-	.cr-content-inner:hover {
-		cursor: pointer;
+	.chatImg img {
+		width: 80px; 
+		height:80px; 
+		border-radius:4em;
+	}
+	.cr-contents {
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.chatImg {
+		width:24%;	
+	}
+	.chatInfo {
+		width: 43%;
+	}
+	.chatInfo #title {
+		font-size: 15px;
+		font-weight: bold;		
+	}
+	.cr-content-inner .btn {
 	}
 </style>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
 	<!--채팅방목록 -->
+	<script>
+		$(function(){
+			$("#ks").on("keyup", function(){
+				console.log("도대체 key up 이 뭐야?")
+				var value= $(this).val().toLowerCase();
+				$(".cr-content").filter(function(){
+					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)					
+				});
+			});
+		})
+	</script>
 	<div class="mainContent" align="center">
-			<div class="cr-content text">
-					<%for(ChattingRoom cr : list){ %>
+			<div class="cr-content text" style="width: 100%;">
+				<%if(list != null) {
+					for(ChattingRoom cr : list){ %>
 						<form action="<%= request.getContextPath()%>/selectOne.cr?rno=<%=cr.getRno() %>" method="post">
 							<div class="cr-content-inner">
-								
-								<div class="cr-content chatImg">
-									<img>
+								<div class="cr-contents chatImg">
+									<%if(cr.getCategory().equals("중식")){ %>
+										<img src="<%= request.getContextPath()%>/images/chineesefood.png">
+									<%}else if(cr.getCategory().equals("한식")){ %>
+										<img src="<%= request.getContextPath()%>/images/koreanfood.png">
+									<%}else if(cr.getCategory().equals("일식")){ %>
+										<img src="<%= request.getContextPath()%>/images/japanesefood2.jpg">
+									<%}else{ %>
+										<img src="<%= request.getContextPath()%>/images/pasta.jpg">
+									<%} %>
 								</div>
-									<div><%=cr.getrTitle() %></div>
-									<div>모집인원 <%=cr.getpPerson() %>/<%=cr.getmPerson() %></div>
-									<button type="submit" onclick="window.confirm('입장하시겠습니까?')">입장하기</button>
-							
+								<div class="cr-contents chatInfo">
+									<p id="title"><%=cr.getrTitle() %></p>
+									<p id="person">모집인원 <%=cr.getpPerson() %>/<%=cr.getmPerson() %></p>
+									
+								</div>
+								<div class="cr-contents btn">
+									<button class="btn btn-warning" type="submit" onclick="window.confirm('입장하시겠습니까?')">입장하기</button>
+								</div>
 							</div>
 						</form>
-					<%} %>
+					<%} 
+					
+					}%>
 			</div>
 	</div>
 	<%@ include file="menubar.jsp"%>
@@ -337,8 +383,8 @@
 					</div>
 					<div class="modal-footer" data-backdrop="static">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
-							aria-label="Close">취소</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">검색</button>
+							aria-label="Close" onclick="location.reload();">취소</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" >검색</button>
 					</div>
 				</div>
 

@@ -1,3 +1,4 @@
+
 package com.kh.rr.websocket;
 
 import java.io.IOException;
@@ -33,8 +34,8 @@ public class ServerStart {
 
       clients.add(session);
 
-      /*System.out.println("입장했을때 clients 목록" + clients);
-      clientsMap.put(msg, clients);
+      System.out.println("입장했을때 clients 목록" + clients);
+      /* clientsMap.put(msg, clients);
 
       Iterator<Session> it = clients.iterator();
       while(it.hasNext()) {
@@ -148,7 +149,7 @@ public class ServerStart {
 				}
 			}
 		}
-
+		//-> 나가기는 client를 저장할 Map을 만들어서 대화명을 저장한뒤 key값으로 불러온다...
 		
 		//지워주지 않으면 Set에 이미 나간 사용자가 남아있기 때문에 메세지 전송시 에러 난다.
 		clients.remove(session);

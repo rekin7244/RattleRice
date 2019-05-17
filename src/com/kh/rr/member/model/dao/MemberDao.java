@@ -8,16 +8,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.rr.member.model.vo.Attachment;
 import com.kh.rr.member.model.vo.BusinessMan;
 import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.member.model.vo.StoreInfo;
 import com.kh.rr.member.model.vo.StoreMenuInfo;
-import com.kh.rr.member.model.vo.UserInfo;
 
 
 public class MemberDao {
@@ -128,6 +127,7 @@ public class MemberDao {
 		StoreInfo storeinfo = null;
 		StoreMenuInfo storeMenu = null;
 		BusinessMan businessman = null;
+		Attachment attachment = null;
 		
 		String query = prop.getProperty("loginCheckBusiness");
 			
@@ -162,6 +162,13 @@ public class MemberDao {
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("origin",rset.getString("ORIGIN"));
 				hmap.put("mId",rset.getInt("MID"));
+				//attachment
+				hmap.put("fid", rset.getInt("FID"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("originName",rset.getString("ORIGIN_NAME"));
+				hmap.put("changeName",rset.getString("CHANGE_NAME"));
+				hmap.put("status",rset.getString("STATUS"));
+				hmap.put("type",rset.getString("TYPE"));
 				
 				list.add(hmap);
 			}
@@ -253,6 +260,7 @@ public class MemberDao {
 		StoreInfo storeinfo = null;
 		StoreMenuInfo storeMenu = null;
 		BusinessMan businessman = null;
+		Attachment attachment = null;
 		
 		String query = prop.getProperty("loginCheckBusiness");
 			
@@ -287,6 +295,14 @@ public class MemberDao {
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("origin",rset.getString("ORIGIN"));
 				hmap.put("mId",rset.getInt("MID"));
+				
+				//attachment
+				hmap.put("fid", rset.getInt("FID"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("originName",rset.getString("ORIGIN_NAME"));
+				hmap.put("changeName",rset.getString("CHANGE_NAME"));
+				hmap.put("status",rset.getString("STATUS"));
+				hmap.put("type",rset.getString("TYPE"));
 				
 				list.add(hmap);
 			}

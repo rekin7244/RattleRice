@@ -91,6 +91,7 @@ public class BusinessInsertImg extends HttpServlet {
 		
 		if(result > 0) {
 			System.out.println("이미지 업로드 성공");
+			
 		}else {
 			
 		}
