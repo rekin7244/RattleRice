@@ -49,13 +49,6 @@
 			window.resizeTo(410, 600);
 		});
 	});
-	
-	//환불 신청 서블릿 호출 함수
-	function transaction(){
-		$point = $("input[name=point]").val();
-		console.log($point);
-		location.href="<%=request.getContextPath()%>/insert.tr";
-	};
 </script>
 </head>
 <body>
@@ -102,7 +95,7 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">Refund</h4>
 					</div>
-					<form>
+					<form action="<%=request.getContextPath()%>/insert.tr" method="get">
 					<div class="modal-body" data-backdrop="static">
 						<p>환급 금액을 입력해주세요.</p>
 						<input type="text" class="form-control" id="ks"
@@ -113,7 +106,7 @@
 					<div class="modal-footer" data-backdrop="static">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							aria-label="Close">취소</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="transaction();">환급</button>
+						<button type="submit" class="btn btn-default">환급</button>
 					</div>
 					</form>
 				</div>
