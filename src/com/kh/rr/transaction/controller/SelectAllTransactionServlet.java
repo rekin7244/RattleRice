@@ -1,39 +1,40 @@
 package com.kh.rr.transaction.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.kh.rr.member.model.service.AttachmentService;
 import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.transaction.model.service.TransactionService;
+import com.kh.rr.transaction.model.vo.Transaction;
 
-@WebServlet("/insert.tr")
-public class InsertTransactionServlet extends HttpServlet {
+@WebServlet("/selectAll.tr")
+public class SelectAllTransactionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public InsertTransactionServlet() {
+    public SelectAllTransactionServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<Transaction> list = new TransactionService().selectAllTransaction();
 		
-		HttpSession session = request.getSession();
-		Member loginUser = (Member) session.getAttribute("loginUser");
-		int point = Integer.parseInt(request.getParameter("point"));
-		int result = new TransactionService().insertTransaction(point, loginUser);
-		
-		if(result > 0) {
-			response.sendRedirect(request.getContextPath()+"/selectAll.tr");
+		String page = "";
+		if(list != null) {
+			request.setAttribute("list", list);
+			page = "views/matching/payment.jsp";
 		}else {
-			request.getRequestDispatcher("views/common/errorPage.jsp")
-				.forward(request, response);
+			page = "views/common/errorPage.jsp";
 		}
-		
+		request.getRequestDispatcher(page).forward(request, response);
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

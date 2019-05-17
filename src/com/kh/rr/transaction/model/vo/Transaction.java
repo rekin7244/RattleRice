@@ -7,16 +7,18 @@ public class Transaction {
 	private Date tDate;
 	private int tPrice;
 	private String type;
+	private String unit;
 	private String userId;
 	
 	public Transaction() {}
 
-	public Transaction(int tId, Date tDate, int tPrice, String type, String userId) {
+	public Transaction(int tId, Date tDate, int tPrice, String type, String unit, String userId) {
 		super();
 		this.tId = tId;
 		this.tDate = tDate;
 		this.tPrice = tPrice;
 		this.type = type;
+		this.unit = unit;
 		this.userId = userId;
 	}
 
@@ -52,6 +54,14 @@ public class Transaction {
 		this.type = type;
 	}
 
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -62,10 +72,9 @@ public class Transaction {
 
 	@Override
 	public String toString() {
-		return "Transaction [tId=" + tId + ", tDate=" + tDate + ", tPrice=" + tPrice + ", type=" + type + ", userId="
-				+ userId + "]";
+		return "Transaction [tId=" + tId + ", tDate=" + tDate + ", tPrice=" + tPrice + ", type=" + type + ", unit="
+				+ unit + ", userId=" + userId + "]";
 	}
-	
-	
+
 	
 }
