@@ -9,6 +9,7 @@ public class Board implements java.io.Serializable{
 	private int rbid;	//RBID
 	private int refBid;	//REF_BID
 	private int type;	//type
+	private String title;
 	private String writer;	//MEMBER와 조인 후 M_NAME
 	private String brand;	//STORE와 조인 후 BRAND
 	private String bType;	//BTYPE
@@ -112,6 +113,16 @@ public class Board implements java.io.Serializable{
 	public void setbType(String bType) {
 		this.bType = bType;
 	}
+	
+	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public String getbContent() {
 		return bContent;
@@ -164,7 +175,7 @@ public class Board implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "Board [bid=" + bid + ", fbid=" + fbid + ", nbid=" + nbid + ", rbid=" + rbid + ", refBid=" + refBid
-				+ ", type=" + type + ", writer=" + writer + ", brand=" + brand + ", bType=" + bType + ", bContent="
+				+ ", type=" + type + ", title=" + title + ", writer=" + writer + ", brand=" + brand + ", bType=" + bType + ", bContent="
 				+ bContent + ", target=" + target + ", fCategory=" + fCategory + ", bDate=" + bDate + ", bCount="
 				+ bCount + ", grade=" + grade + "]";
 	}

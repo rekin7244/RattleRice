@@ -40,6 +40,35 @@ $(function() {
       window.resizeTo(410, 600);
    });
 
+   $("#chatP").click(function(){
+	   var rno = $("input[name=rno]").val();
+	   console.log("chatp 선택됌");
+		$.ajax({
+			url:"<%=request.getContextPath()%>/chatPerson.cr",
+			data:{rno:rno},
+			type:"get",
+			success:function(data){
+				//console.log(data);
+				$tableBody = $("#userInfoTable tbody");
+				
+				$tableBody.html('');
+				
+				$.each(data, function(index, value){
+					var $tr = $("<tr>");
+					var $noTd = $("<td>").text(value.userNo);
+					var $nameTd = $("<td>").text(decodeURIComponent(value.userName));
+					var $nationTd = $("<td>").text(decodeURIComponent(value.userNation));
+					
+					$tr.append($noTd);
+					$tr.append($nameTd);
+					$tr.append($nationTd);
+					$tableBody.append($tr);
+				});
+			}
+				
+		});
+	});
+
 });
 </script>
 <style>
@@ -167,6 +196,7 @@ body::-webkit-scrollbar {
       <div id="messageWindow" style="height: 410px; background: white"></div>
       <div id="chatForm">
          <input type="text" id="inputMessage" class="form-control" >
+   		 <input type="hidden" value="<%= rno%>" name="rno"> 
          <input type="submit" id="send" class="btn btn-default" value="전송" onclick="send()">
       </div>
    </div>
@@ -185,12 +215,12 @@ body::-webkit-scrollbar {
 					</div>
 					<div class="modal-body" data-backdrop="static">
 						<div class="chatPerson">
-						<div id="myProfile">
+						<%-- <div id="myProfile">
 						<div class="profileImg" id="mImg">
 							<img src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" style="width:100%; border-radius:6em;">
 						</div>
 						<div class="profileName" id="mName"><p><%=m.getUserName() %>(나)</p></div>
-						</div>
+						</div> --%>
 						</div>
 					</div>
 				</div>
@@ -319,38 +349,5 @@ function send(msg) {
 		textarea.scrollTop = textarea.scrollHeight;
 		$("#inputMessage").val(' ');
 	}
-</script>
-
-<!-- 채팅방 내부 기능 -->
-<script>
-$(function(){
-
-$("#chatP").click(function(){
-	$.ajax({
-		url:"test9.do",
-		type:"get",
-		success:function(data){
-			//console.log(data);
-			$tableBody = $("#userInfoTable tbody");
-			
-			$tableBody.html('');
-			
-			$.each(data, function(index, value){
-				var $tr = $("<tr>");
-				var $noTd = $("<td>").text(value.userNo);
-				var $nameTd = $("<td>").text(decodeURIComponent(value.userName));
-				var $nationTd = $("<td>").text(decodeURIComponent(value.userNation));
-				
-				$tr.append($noTd);
-				$tr.append($nameTd);
-				$tr.append($nationTd);
-				$tableBody.append($tr);
-			});
-		}
-			
-	});
-});
-
-});
 </script>
 </html>

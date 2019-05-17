@@ -44,10 +44,13 @@ public class LoginMemberServlet extends HttpServlet {
 				page = "memberlist.ad";
 				request.getRequestDispatcher(page).forward(request, response);
 			}else if(loginUser.getMemberType().equals("2")){
-				page = "/checkBusiness.me";
+				page = "checkBusiness.me";
 				request.getRequestDispatcher(page).forward(request, response);
 				
 			}else {
+				System.out.println(loginUser.getEmail());
+				System.out.println(loginUser.getPhone());
+
 				page = "index.jsp";
 				response.sendRedirect(page);
 			}

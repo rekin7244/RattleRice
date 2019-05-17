@@ -5,14 +5,18 @@ import static com.kh.rr.common.JDBCTemplate.getConnection;
 import static com.kh.rr.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
+import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.transaction.model.dao.TransactionDao;
+import com.kh.rr.transaction.model.vo.Transaction;
 public class TransactionService {
 
-	public int insertTransaction(String point) {
+	//환불신청 내역 추가하는 메소드
+	public int insertTransaction(int point, Member loginUser) {
 		Connection con = getConnection();
 		
-		int result = new TransactionDao().insertTransaction(con, point);
+		int result = new TransactionDao().insertTransaction(con, point, loginUser);
 		
 		if(result > 0) {
 			commit(con);
@@ -21,6 +25,15 @@ public class TransactionService {
 		}
 		
 		return result;
+	}
+
+	//모든 트랜잭션 정보 불러와서 채팅방 마이페이지에 뿌려주는 메소드
+	public ArrayList<Transaction> selectAllTransaction() {
+		Connection con = getConnection();
+		
+		ArrayList<Transaction> list = new TransactionDao().selectAllTransaction(con);
+		
+		return list;
 	}
 	
 }

@@ -225,6 +225,7 @@ public class AdminDao {
 				clist.setRefBid(rset.getInt("REF_BID"));
 				clist.setWriter(rset.getString("M_ID"));
 				clist.setbType(rset.getString("BTYPE"));
+				clist.setTitle(rset.getString("TITLE"));
 				clist.setbDate(rset.getDate("BDATE"));
 				clist.setType(rset.getInt("TYPE"));
 				clist.setbContent(rset.getString("BCONTENT"));
@@ -250,6 +251,71 @@ public class AdminDao {
 		
 		
 		return list;
+	}
+
+	public int insertCommunity(Connection con, Board community) {
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertCommunity");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, community.getTitle());
+			pstmt.setString(2, community.getbContent());
+			pstmt.setString(3, community.getTarget());
+			
+			result = pstmt.executeUpdate();
+			
+			System.out.println(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		 
+		
+		return result;
+	}
+
+	public Board selectOne(Connection con, int num) {
+
+		Board community = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				community = new Board();
+				community.setTitle(rset.getString("TITLE"));
+				community.setbContent(rset.getString("CONTENT"));
+				community.setWriter(rset.getString("M_ID"));
+				community.setbCount(rset.getInt("BCOUNT"));
+				community.setbDate(rset.getDate("BDATE"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return community;
+	}
+
+	public int updateCount(Connection con, int bid) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

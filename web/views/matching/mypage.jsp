@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.*,java.util.*"%>
+	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.*,java.util.*,com.kh.rr.transaction.model.vo.*"%>
 <% 
 	Member loginUser = (Member) session.getAttribute("loginUser");
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	ArrayList<Transaction> trList = (ArrayList<Transaction>)request.getAttribute("trList");
 	
 	HashMap<String, Object> hmap = null;
 	for (int i = 0; i < list.size(); i++) {
@@ -26,6 +27,10 @@
 	$(function() {
 		$(window).resize(function() {
 			window.resizeTo(410, 600);
+		});
+		
+		$(".cash").click(function(){
+			location.href="<%= request.getContextPath()%>/selectAll.tr"
 		});
 	});
 </script>
@@ -98,16 +103,16 @@
 
 		<div class="cash">
 			<div class="coin pay">
-				<a href="/rr/views/matching/payment.jsp"> <label><i class="bell icon"
+				<label><i class="bell icon"
 						style="color: gold"></i>보유 bell </label> <label><span
 						style="color: #4abeca;">10</span>벨</label>
-				</a>
+				
 			</div>
 			<div class="point pay">
-				<a href="/rr/views/matching/payment.jsp"> <label><i
+				<label><i
 						class="money bill alternate icon" style="color: gold"></i>보유 bill
 				</label> <label><span style="color: #4abeca;">10000</span>빌</label>
-				</a>
+				
 			</div>
 		</div>
 

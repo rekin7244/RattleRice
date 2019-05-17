@@ -15,16 +15,16 @@ import com.kh.rr.member.model.service.MemberService;
 import com.kh.rr.member.model.vo.Member;
 
 /**
- * Servlet implementation class BusinessUpdateFormServlet
+ * Servlet implementation class BusinessSalesFromServlet
  */
-@WebServlet("/businessUpdateForm.b")
-public class BusinessUpdateFormServlet extends HttpServlet {
+@WebServlet("/businessSales.s")
+public class BusinessSalesFromServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BusinessUpdateFormServlet() {
+    public BusinessSalesFromServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,29 +33,24 @@ public class BusinessUpdateFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("사업자 업데이트Form 서블릿 들어옴");
+		System.out.println("사업자 통계 서블릿");
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member) session.getAttribute("loginUser");
-		System.out.println(loginUser.getUserId());
-		ArrayList<HashMap<String, Object>> list = new MemberService().BusinessUpdateForm(loginUser.getUserId());
-
+		ArrayList<HashMap<String, Object>> list = new MemberService().logincheckBusiness(loginUser.getUserId());
 		
-		System.out.println("리턴값 가지고 사업자 업데이트Form 서블릿 들어옴");
+		System.out.println("리턴값 가지고 사업자 통계 서블릿 되돌아옴");
 		String page = "";
 		if(list != null) {
-			System.out.println("list : " + list);
-			page = "views/business/businessFormUpdate.jsp";
+			page="/views/business/businessFormSales.jsp";
 			request.setAttribute("list", list);
-			
-			
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "사업자 페이지 조회실패");
 		}
-		request.getRequestDispatcher(page).forward(request, response);
+			request.getRequestDispatcher(page).forward(request, response);
+					
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

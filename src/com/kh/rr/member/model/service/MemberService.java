@@ -149,7 +149,7 @@ public class MemberService {
 	public ArrayList<HashMap<String, Object>> BusinessUpdateForm(String userId) {
 		Connection con = getConnection();
 
-		ArrayList<HashMap<String, Object>> list = new MemberDao().BusinessUpdateForm(con, userId);
+		ArrayList<HashMap<String, Object>> list = new MemberDao().logincheckBusiness(con, userId);
 
 		close(con);
 
