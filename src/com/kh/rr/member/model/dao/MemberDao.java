@@ -57,6 +57,8 @@ public class MemberDao {
 				loginUser.setUserName(rset.getString("M_NAME"));
 				loginUser.setMemberType(rset.getString("M_TYPE"));
 				loginUser.setStatus(rset.getString("M_STATUS"));
+				loginUser.setEmail(rset.getString("EMAIL"));
+				loginUser.setPhone(rset.getString("PHONE"));
 				
 			}
 			
@@ -297,6 +299,27 @@ public class MemberDao {
 		}
 		
 		return list;
+	}
+
+	public int pointCharge(Connection con, String amount, String userId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("pointCharge");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, amount);
+			pstmt.setString(2, userId);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 
