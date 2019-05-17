@@ -156,4 +156,19 @@ public class MemberService {
 		return list;
 	}
 
+	public int pointCharge(String amount, String userId) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().pointCharge(con, amount, userId);
+
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+
+		return result;
+
+	}
+
 }
