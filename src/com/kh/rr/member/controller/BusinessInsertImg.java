@@ -88,12 +88,16 @@ public class BusinessInsertImg extends HttpServlet {
 		}
 		
 		int result = new AttachmentService().BusinessShopImg(att, fileList);
-		
+			String page ="";
 		if(result > 0) {
 			System.out.println("이미지 업로드 성공");
+			System.out.println("fileList : " + fileList);
+			page = "views/business/businessFormUpdate.jps";
+			request.getRequestDispatcher(page).forward(request, response);
 			
 		}else {
-			
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "사업자 페이지 조회실패");
 		}
 			
 			

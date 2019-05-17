@@ -38,18 +38,18 @@ public class CheckBusinessMan extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member) session.getAttribute("loginUser");
-		System.out.println(loginUser.getUserId());
+		System.out.println("사업자 로그인 체크 : " + loginUser.getUserId());
 		ArrayList<HashMap<String, Object>> list = new MemberService().logincheckBusiness(loginUser.getUserId());
 
 		
 		System.out.println("리턴값 가지고 사업자 서블릿 되돌아옴");
 		String page = "";
 		if(list != null) {
-			System.out.println("list : " + list);
+			//System.out.println("list : " + list);
 			page = "/views/business/businessFormShop.jsp";
 			request.setAttribute("list", list);
 			
-		}else {
+		}else{
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "사업자 페이지 조회실패");
 		}

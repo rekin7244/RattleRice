@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.*"%>
 <% 
 		ArrayList<HashMap<String, Object>> list = 
 			(ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 		System.out.println("FormUpdate : " + list);
+		
+		/* ArrayList<Attachment> fileList = (ArrayList<Attachment>) request.getAttribute("fileList");
+		System.out.println("fileList : " + fileList); */
 		
 %>
 <!DOCTYPE html>
@@ -290,8 +293,8 @@ padding-bottom: 30px;
 							</tr>
 							<tr>
 								<td><label>영업시간 : </label></td>
-								<td><input type="time" name="openTime1" value='<%=hmap.get("opening_hore") %>'></td>
-								<td><input type="time" name="closeTime1" value='<%=hmap.get("close_hore") %>'></td>
+								<td><input type="time" name="openTime1" value='<%=hmap.get("opening_hore") %>'>
+								  <input type="time" id="closeTime" name="closeTime1" value='<%=hmap.get("close_hore") %>'></td>
 							</tr>
 							
 							<tr>
@@ -395,16 +398,18 @@ padding-bottom: 30px;
 						
 						<div id="contentImgArea1"
 							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
-								<%
-									HashMap<String, Object> hmap = null;
+								 <%
+								 HashMap<String, Object> hamp = null;
 									for (int i = 0; i < list.size(); i++) {
-										hmap = list.get(i);
+										hamp = list.get(i);
 								%>
-								<img id="contentImg1" src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" width="120" height="100">
-								
+								<img id="contentImg1" src="/rr/profileImg_upload/<%=hamp.get("changeName")%>" width="120" height="100">
+								<%
+									}
+								%> 
 						</div>
 						
-						<div id="contentImgArea2"
+						<%-- <div id="contentImgArea2"
 							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
 								
 								<img id="contentImg2" src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" width="120" height="100">
@@ -415,10 +420,8 @@ padding-bottom: 30px;
 							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
 								
 								<img id="contentImg3" src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" width="120" height="100">
-								<%
-									}
-								%>
-						</div>
+								
+						</div> --%>
 						
 						<div id="fileArea">
 						
@@ -435,12 +438,10 @@ padding-bottom: 30px;
 
 			</div>
 		</div>
-
-
 	</div>
 	<script>
 	$(function(){
-		$("#fileArea").hide();
+		/* $("#fileArea").hide(); */
 		
 		$("#contentImgArea1").click(function(){
 			console.log("#contentImgArea1");

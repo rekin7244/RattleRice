@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%
+		ArrayList<HashMap<String, Object>> list = 
+		(ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+		System.out.println("FormSales : " + list);
+
+%>
 <!DOCTYPE html>
 <html>
 
@@ -236,7 +243,16 @@ a.article, a.article:hover {
 			<div class="col-md-8">
 				<p style="font-weight:bold">매출분석</p>
 				<ul id="topMenu" style="list-style:none; diplay:flex;">
-					<li>test(사업장명)</li>
+				<%
+					if(list != null){
+						HashMap<String, Object> hmap = null;	
+						hmap = list.get(0);
+				%>
+					<li><h2><%=hmap.get("brand")  %></h2></li>
+					
+				<%
+					}
+				%>
 					<li><label>기준년월 : <input type="date"></label>
 					<li><button>검색하기</button></li>
 					<li class="li2"><button>엑셀다운로드</button></li>
