@@ -261,7 +261,7 @@ a.article, a.article:hover {
 				<div class="container col-sm-9" style="float:left; bottom:-150px;">
 					<table id="info" border="1">
 						<tbody align="center">
-				<%for(int i = 0; i < list.size() - 1; i++){ 
+				<%for(int i = 0; i < list.size(); i++){ 
 							HashMap<String, Object> hmap = list.get(i);
 				%>
 							<tr>

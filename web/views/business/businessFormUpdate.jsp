@@ -275,8 +275,10 @@ padding-bottom: 30px;
 						<table align="center"
 							style="min-width: 500px; border-collapse: separate; border-spacing: 0 10px;">
 							<% if(list != null){
-							for(int i = 0; i < list.size() - 1; i++){ 
-							HashMap<String, Object> hmap = list.get(i);
+								HashMap<String, Object> hmap=null;
+							for(int i = 0; i < list.size(); i++){ 
+								hmap = list.get(0);
+							}
 							%>
 							<tr>
 								<td><label>hp : </label></td>
@@ -297,7 +299,7 @@ padding-bottom: 30px;
 								<td><input type="text" name="introducer" value='<%=hmap.get("intro") %>'
 									style="width: 175px; height: 80px;"></td>
 							</tr>
-							<%  }  
+							<%  
 							  }	else{					
 							%>
 							<tr>
@@ -319,7 +321,9 @@ padding-bottom: 30px;
 								<td><input type="text" name="introducer"
 									style="width: 175px; height: 80px;"></td>
 							</tr>
+							
 							<%} %>
+							
 						</table>
 					</form>
 				</div>
@@ -340,7 +344,8 @@ padding-bottom: 30px;
 								</tr>
 							</thead>
 							<tbody>
-							<% for(int i = 0; i < list.size(); i++){ 
+							<% 
+							for(int i = 0; i < list.size(); i++){ 
 								HashMap<String, Object> hmap = list.get(i);
 							%> 
 								<tr>
@@ -377,6 +382,8 @@ padding-bottom: 30px;
 						alert("매장정보가 수정되었습니다");
 					});
 				</script>
+				
+				
 				<div class="container col-sm-9"
 					style="border: 0.5px solid lightgray; height: 400px;float: left; width: 33%; padding:10px;">
 					<form action="<%= request.getContextPath() %>/businessinsert.tn" method="post"
@@ -390,7 +397,7 @@ padding-bottom: 30px;
 							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
 								<%
 									HashMap<String, Object> hmap = null;
-									for (int i = 1; i < list.size(); i++) {
+									for (int i = 0; i < list.size(); i++) {
 										hmap = list.get(i);
 								%>
 								<img id="contentImg1" src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" width="120" height="100">
@@ -452,16 +459,19 @@ padding-bottom: 30px;
 			var reader = new FileReader();
 			reader.onload = function(e){
 				switch(num){
-				case 1 : $("#contentImg1").attr("scr", e.target.result);
+				case 1 : $("#contentImg1").removeAttr("src");
+						$("#contentImg1").attr("scr", e.target.result);
 					break;
-				case 2 : $("#contentImg2").attr("scr", e.target.result);
+				case 2 : $("#contentImg2").removeAttr("src");
+						$("#contentImg2").attr("scr", e.target.result);
 					break;
-				case 3 : $("#contentImg3").attr("scr", e.target.result);
+				case 3 : $("#contentImg3").removeAttr("src");
+						$("#contentImg3").attr("scr", e.target.result);
 					break;
 				}
 			}
 			reader.readAsDataURL(value.files[0]);
-			$("#").removeAttr("disabled");
+			//$("#").removeAttr("disabled");
 		}
 	}
 	
