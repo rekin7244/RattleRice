@@ -803,6 +803,7 @@ body::-webkit-scrollbar {
 			}
 		});
 	}
+	
 	/* //공지사항 검색 ajax
 	function searchNotice(){
 		var keyword = $("#noticekeyword").val();

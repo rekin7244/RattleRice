@@ -140,6 +140,17 @@ public class ChattingRoomService {
 		return result;
 	}
 
+	//채팅방에 있는 사용자 정보 불러오는 메소드
+	public ArrayList<Member> getUserList(int rno) {
+		Connection con = getConnection();
+		
+		ArrayList<Member> list = new ChattingRoomDao().getUserList(con, rno);
+		
+		close(con);
+		
+		return list;
+	}
+
 
 
 

@@ -298,6 +298,42 @@ public class ChattingRoomDao {
 		return result;
 	}
 
+	//채팅방에 있는 사용자 정보 불러오는 메소드
+	public ArrayList<Member> getUserList(Connection con, int rno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = null;
+		
+		String query = prop.getProperty("getUserList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Member>();
+			while(rset.next()) {
+				Member m = new Member();
+				m.setUserId(rset.getString("M_ID"));
+				m.setUserName(rset.getString("M_NAME"));
+				m.setStatus(rset.getString("M_STATUS"));
+				
+				list.add(m);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
 }
 
 
