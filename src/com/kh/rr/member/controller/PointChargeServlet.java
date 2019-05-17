@@ -23,7 +23,7 @@ public class PointChargeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public PointChargeServlet() {
-		super(); 
+		super();
 
 	}
 
@@ -34,9 +34,10 @@ public class PointChargeServlet extends HttpServlet {
 
 		int result = new MemberService().pointCharge(amount, userId);
 
-		if (result > 0 ) {
+		if (result > 0) {
 			System.out.println("포인트 충전 성공");
-		} else {System.out.println("포인트 충전 실패");
+		} else {
+			System.out.println("포인트 충전 실패");
 		}
 
 	}

@@ -48,6 +48,9 @@ public class LoginMemberServlet extends HttpServlet {
 				request.getRequestDispatcher(page).forward(request, response);
 				
 			}else {
+				System.out.println(loginUser.getEmail());
+				System.out.println(loginUser.getPhone());
+
 				page = "index.jsp";
 				response.sendRedirect(page);
 			}

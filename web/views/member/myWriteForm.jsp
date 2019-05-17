@@ -22,6 +22,9 @@
 
 <title>딸랑밥</title>
 <style>
+body::-webkit-scrollbar { 
+    display: none; 
+}
 .navbar-inverse {
 	background: #F4AC8A;
 	border: none;
