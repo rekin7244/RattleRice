@@ -117,11 +117,11 @@
 							
 							 <% for(int i = 0; i<list.size(); i++){ %>
 							<tr>
-								<td>1</td>
+								<td><%=list.get(i).getNbid() %></td>
 								<td>제목</td>
 								<td><%=list.get(i).getWriter() %></td>
 								<td><%=list.get(i).getbDate() %></td>
-								<td>0</td>
+								<td><%=list.get(i).getbCount() %></td>
 							</tr>
 							<% } %> 
 								

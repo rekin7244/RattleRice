@@ -206,7 +206,7 @@ public class AdminDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String query = prop.getProperty("communitylist");
+		String query = prop.getProperty("communitylist"); 
 		
 		try {
 			stmt = con.createStatement();
@@ -223,7 +223,7 @@ public class AdminDao {
 				clist.setNbid(rset.getInt("NBID"));
 				clist.setRbid(rset.getInt("RBID"));
 				clist.setRefBid(rset.getInt("REF_BID"));
-				//M_ID
+				clist.setWriter(rset.getString("M_ID"));
 				clist.setbType(rset.getString("BTYPE"));
 				clist.setbDate(rset.getDate("BDATE"));
 				clist.setType(rset.getInt("TYPE"));
