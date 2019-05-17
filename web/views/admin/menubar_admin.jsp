@@ -37,6 +37,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	crossorigin="anonymous"></script>
+
 <!-- Popper.JS -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
@@ -222,30 +223,30 @@ a.article, a.article:hover {
 							href="<%=request.getContextPath() + "/bisinesslist.ad"%>">사업자
 								정보 조회</a></li>
 						<li><a href="<%=request.getContextPath() + "/nonMember.ad"%>">탈퇴 회원 조회</a></li>
-						<li><a href="payment.jsp">결제 내역 조회</a></li>
+						<li><a href="<%=request.getContextPath() %>/views/admin/payment.jsp">결제 내역 조회</a></li>
 					</ul></li>
 
 				<li><a href="#pageSubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">커뮤니티 관리</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
-						<li><a href="updateMainForm.jsp">메인페이지 관리</a></li>
+						<li><a href="<%=request.getContextPath() %>/views/admin/updateMainForm.jsp">메인페이지 관리</a></li>
 						<li><a href="<%=request.getContextPath() + "/communitylist.ad"%>">공지사항</a></li>
-						<li><a href="FAQ.jsp">Q & A</a></li>
-						<li><a href="visit.jsp">후기게시판</a></li>
+						<li><a href="<%=request.getContextPath() %>/views/admin/FAQ.jsp">Q & A</a></li>
+						<li><a href="<%=request.getContextPath() %>/views/admin/visit.jsp">후기게시판</a></li>
 					</ul></li>
 
 				<li><a href="#pageSubmenu2" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">정산관리</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu2">
-						<li><a href="calculate.jsp">취소 / 환불</a></li>
-						<li><a href="b_calculate.jsp">사업자 정산</a></li>
-						<li><a href="p.calculate.jsp">포인트정산</a></li>
+						<li><a href="<%=request.getContextPath() %>/views/admin/calculate.jsp">취소 / 환불</a></li>
+						<li><a href="<%=request.getContextPath() %>/views/admin/b_calculate.jsp">사업자 정산</a></li>
+						<li><a href="<%=request.getContextPath() %>/views/admin/p.calculate.jsp">포인트정산</a></li>
 					</ul></li>
 
 				<li><a href="#pageSubmenu3" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">SMS관리</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu3">
-						<li><a href="views/admin/sms.jsp">SMS 발송</a></li>
+						<li><a href="<%=request.getContextPath() %>/views/admin/sms.jsp">SMS 발송</a></li>
 						<li><a href="#">내역 조회</a></li>
 					</ul></li>
 			</ul>

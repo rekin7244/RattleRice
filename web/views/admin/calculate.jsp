@@ -15,8 +15,9 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
 	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
 	crossorigin="anonymous">
+
 <!-- Our Custom CSS -->
-<link rel="stylesheet" href="style2.css">
+<!-- <link rel="stylesheet" href="style2.css"> -->
 <!-- Scrollbar Custom CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
@@ -31,6 +32,11 @@
 	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
 	crossorigin="anonymous"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<!-- 은행권 공동 오픈플랫폼 : 오픈 API -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/settlement/constants.js"></script><!-- 상수 js -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/settlement/common.js"></script><!-- 사용자정의 js -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/ext_lib/bootstrap-3.3.6-dist/js/modal.js"></script>
 <style>
 @import
 	"https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
@@ -199,21 +205,25 @@ a.article, a.article:hover {
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="nav navbar-nav ml-auto">
-						<li class="nav-item active"><a class="nav-link" href="adminForm.jsp">회원관리</a></li>
-						<li class="nav-item"><a class="nav-link" href="community.jsp">커뮤니티</a></li>
-						<li class="nav-item"><a class="nav-link" href="calculate.jsp">정산</a></li>
-						<li class="nav-item"><a class="nav-link" href="sms.jsp">SMS</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="/views/admin/adminForm.jsp">회원관리</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
+							href="/views/admin/community.jsp">커뮤니티</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/views/admin/calculate.jsp">정산</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/views/admin/sms.jsp">SMS</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
 					</ul>
 				</div>
 			</div>
 
 		</nav>
-	
-	
-	<br><br> 
-		<select>
+
+
+		<br>
+		<br> <select>
 			<option>정렬</option>
 		</select> <input type="text">
 		<button>검색</button>
@@ -245,10 +255,52 @@ a.article, a.article:hover {
 					<td>20,000</td>
 					<td>국민카드</td>
 					<td>취소요청</td>
-					<td><button>확인</button>&nbsp;<button>취소</button></td>
+					<td><button onclick="settlement()">확인</button>&nbsp;
+						<button>취소</button></td>
 				</tr>
-				</tbody>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		var svrOpts = {
+			test : {
+				name : '테스트서버',
+				bs_style : 'primary',
+				base_web_uri : 'https://twww.open-platform.or.kr',
+				base_api_uri : 'https://testapi.open-platform.or.kr',
+				redirect_uri : 'http://localhost:8001/views/admin/callback.html',
+				client_id : 'l7xx93ba6a582b784910857c584b77578cee',
+				client_secret : '79a1e5e8035747339d11816da73c0e93',
+				client_info : 'test whatever you want'
+			}
+		};
 
+		function settlement() {
+			if(isEmptyElem('token')){
+				showMsg('Access Token을 먼저 획득해 주십시오.');
+				return;
+			}
+			
+			$.ajax({
+				url: getSvrProps('base_api_uri') + '/transfer/deposit2',
+				type: 'post',
+				headers: {
+					'Authorization': ('Bearer ' + $('#token').val())
+				},
+				data: js($.extend({}, getFormParamObj('depositFrm'), {
+					req_list: reqList
+				}))
+			})
+			.done(function(data, textStatus, jqXHR){
+				if(isGatewayException(data)){ return; } // ajax 응답이 Gateway Exception일 경우 이후 처리를 종료한다.		
+				
+				// UI에 결과값 바인딩
+				$('#resultTextArea').val(js(data));
+			});
+		}
+		
+			
+	</script>
 </body>
 
 </html>
