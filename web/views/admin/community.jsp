@@ -12,6 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>커뮤니티 관리</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
 /* ---------------------------------------------------
     CONTENT STYLE
@@ -101,11 +102,11 @@
 					<button id="update"
 					onclick = "location.href='views/admin/communityInsert.jsp'">글 등록</button>
 						
-					<form action="<%=request.getContextPath()%>/communitylist.ad" method="post">
+					<%-- <form action="<%=request.getContextPath()%>/communitylist.ad" method="post"> --%>
 						<!-- 공지사항 리스트  -->
-						<table class="table table-hover">
+						<table class="table table-hover" id="listArea">
 						
-							<thead>
+							
 								<tr>
 									<th>글번호</th>
 									<th>제목</th>
@@ -113,18 +114,19 @@
 									<th>작성일</th>
 									<th>조회수</th>
 								</tr>
-							</thead>
+							
+							
 							
 							 <% for(int i = 0; i<list.size(); i++){ %>
 							<tr>
 								<td><%=list.get(i).getNbid() %></td>
-								<td>제목</td>
+								<td><%=list.get(i).getTitle() %></td>
 								<td><%=list.get(i).getWriter() %></td>
 								<td><%=list.get(i).getbDate() %></td>
 								<td><%=list.get(i).getbCount() %></td>
 							</tr>
 							<% } %> 
-								
+							<!-- 	</form> -->
 
 							
 							<!-- <tbody>
@@ -149,7 +151,19 @@
 			</div>
 		</div>
 	</div>
-
+<script>
+	$(function(){
+		$("#listArea td").click(function(){
+			 var num = $(this).parent().children().eq(0).text();
+			
+			console.log(num);
+			
+			location.href = "<%=request.getContextPath()%>/selectOne.no?num="+num;
+			
+			
+		})
+	})
+</script>
 
 </body>
 

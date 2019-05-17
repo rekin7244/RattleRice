@@ -1,5 +1,8 @@
 package com.kh.rr.admin.model.service;
-import static com.kh.rr.common.JDBCTemplate.*;
+import static com.kh.rr.common.JDBCTemplate.close;
+import static com.kh.rr.common.JDBCTemplate.commit;
+import static com.kh.rr.common.JDBCTemplate.getConnection;
+import static com.kh.rr.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -75,6 +78,44 @@ public class AdminService {
 		System.out.println("서비스실행 : " + list);
 		
 		return list;
+	}
+
+	public int insertCommunity(Board community) {
+
+		Connection con = getConnection();
+		
+		int result = new AdminDao().insertCommunity(con, community);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public Board selectOne(int num) {
+
+		Connection con = getConnection();
+		
+		Board community = new AdminDao().selectOne(con, num);
+		
+		if(community != null) {
+			int result = new AdminDao().updateCount(con, community.getBid());
+			
+			if(result>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+		
+		close(con);
+		
+		return community;
 	}
 
 }
