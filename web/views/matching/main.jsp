@@ -250,8 +250,8 @@
 							<button type="submit" class="btn btn-default" style="float:right">생성</button>
 						</form>
 					</div>
-					<div class="modal-footer" data-backdrop="static">
-					</div>
+					<!-- <div class="modal-footer" data-backdrop="static">
+					</div> -->
 				</div>
 
 			</div>
@@ -304,8 +304,8 @@
 								data-toggle="modal" data-target="#createChatp2" onclick="premiumCondition();">다음</button>
 						</form>
 					</div>
-					<div class="modal-footer" data-backdrop="static">
-					</div>
+					<!-- <div class="modal-footer" data-backdrop="static">
+					</div> -->
 				</div>
 
 			</div>
