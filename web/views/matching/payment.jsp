@@ -2,6 +2,12 @@
 	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.transaction.model.vo.*"%>
 <%
 	ArrayList<Transaction> list = (ArrayList<Transaction>) request.getAttribute("list");
+	ArrayList<HashMap<String, Object>> list2 = (ArrayList<HashMap<String, Object>>) request.getAttribute("list2");
+	
+	HashMap<String, Object> hmap = null;
+	for (int i = 0; i < list2.size(); i++) {
+		hmap = list2.get(i);
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -84,7 +90,7 @@
 	<div class="container bar">
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#bellTab">벨</a></li>
-			<li style="color: #4abeca;"><a data-toggle="tab" href="#billTab">빌</a></li>
+			<li style="color: #4abeca;"><a data-toggle="tab" href="#billTab">포인트</a></li>
 		</ul>
 
 	</div>
@@ -119,8 +125,8 @@
 		
 			<div class="container-fluid payTab">
 				<label><i class="money bill alternate icon"
-					style="color: gold"></i>보유 bill </label> <label><span
-					style="color: #4abeca;">10000</span>빌</label>
+					style="color: gold"></i>보유 point </label> <label><span
+					style="color: #4abeca;"><%=hmap.get("point") %></span></label>
 				<button type="button" class="btn btn-default paybtn"
 					data-toggle="modal" data-target="#refund" >환급신청</button>
 			</div>
@@ -130,7 +136,7 @@
 			<div id="bellTab" class="tab-pane fade">
 			<div class="container-fluid payTab">
 				<label><i class="bell icon" style="color: gold"></i>보유 bell
-				</label> <label><span style="color: #4abeca;">10</span>벨</label>
+				</label> <label><span style="color: #4abeca;"><%=hmap.get("bell") %></span>벨</label>
 			</div>
 		</div>
 	</div>
@@ -153,8 +159,8 @@
 						<p>환급 금액을 입력해주세요.</p>
 						<input type="text" class="form-control" id="ks"
 							placeholder="3000빌 이상부터 환급가능합니다." name="point"> <br> <label><i
-							class="money bill alternate icon" style="color: gold"></i>보유 bill
-						</label> <label><span style="color: #4abeca;">10000</span>빌</label>
+							class="money bill alternate icon" style="color: gold"></i>보유 Point
+						</label> <label><span style="color: #4abeca;"><%=hmap.get("point") %></span></label>
 					</div>
 					<div class="modal-footer" data-backdrop="static">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
