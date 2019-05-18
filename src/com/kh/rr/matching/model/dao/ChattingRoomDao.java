@@ -5,11 +5,13 @@ import static com.kh.rr.common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.rr.matching.model.vo.ChattingRoom;
@@ -320,7 +322,6 @@ public class ChattingRoomDao {
 				m.setStatus(rset.getString("M_STATUS"));
 				
 				list.add(m);
-				
 			}
 			
 		} catch (SQLException e) {
@@ -329,7 +330,106 @@ public class ChattingRoomDao {
 			close(pstmt);
 			close(rset);
 		}
+		return list;
+	}
+
+	//채팅방 조건검색 메소드
+	public ArrayList<ChattingRoom> searchChattingRoom(Connection con, HashMap<String, Object> searchMap) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ChattingRoom> list = null;
 		
+		String query = "SELECT * FROM CHATTINGROOM WHERE STATUS ='Y'";
+		
+		try {
+			
+			//넘어온 값에 따라서 동적으로 쿼리 생성
+			if(!searchMap.get("location").equals("0")) {
+				query += " AND LOCATION LIKE '%'||?||'%'";
+			}
+			
+			if(searchMap.get("date") != null) {
+				System.out.println(searchMap.get("date"));
+				query += " AND PDATE =?";
+			}
+			
+			if(!searchMap.get("time").equals("undefined")) {
+				query += " AND PTIME LIKE '%'||?||'%'";
+			}
+			
+			if(!searchMap.get("member").equals("0")) {
+				query += " AND MAX_PERSON =?";
+			}
+			
+			if(!searchMap.get("category").equals("0")) {
+				query += " AND CATEGORY IS ?";
+			}
+			if(!searchMap.get("age").equals("0")) {
+				query += " AND AGE IS ?";
+			}
+			
+			if(!searchMap.get("job").equals("0")) {
+				query += " AND JOB IS ?";
+			}
+			
+			pstmt = con.prepareStatement(query);
+			
+			//분기에따라 달라질 pstmt값을 위한 변수 count
+			int count = 1;
+			if(!searchMap.get("location").equals("0")) {
+				pstmt.setString(count, (String)searchMap.get("location"));
+				++count;
+			}
+			if(searchMap.get("date") != null) {
+				pstmt.setDate(count, java.sql.Date.valueOf((String) searchMap.get("date")));
+				++count;
+			}
+			
+			if(!searchMap.get("time").equals("undefined")) {
+				pstmt.setString(count, (String) searchMap.get("time"));
+				++count;
+			}
+			
+			if(!searchMap.get("member").equals("0")) {
+				pstmt.setInt(count, Integer.parseInt((String) searchMap.get("member")));
+				++count;
+			}
+			
+			if(!searchMap.get("category").equals("0")) {
+				pstmt.setString(count, (String) searchMap.get("category"));
+			}
+			if(!searchMap.get("age").equals("0")) {
+				pstmt.setInt(count, Integer.parseInt((String) searchMap.get("age")));
+				++count;
+			}
+			
+			if(!searchMap.get("job").equals("0")) {
+				pstmt.setString(count, (String) searchMap.get("job"));
+			}
+		
+			list = new ArrayList<ChattingRoom>();
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				ChattingRoom cr = new ChattingRoom();
+				cr.setRno(rset.getInt("RNO"));
+				cr.setpDate(rset.getDate("PDATE"));
+				cr.setCategory(rset.getString("CATEGORY"));
+				cr.setpTime(rset.getString("PTIME"));
+				cr.setmPerson(rset.getInt("MAX_PERSON"));
+				cr.setpPerson(rset.getInt("P_PERSON"));
+				cr.setLocation(rset.getString("LOCATION"));
+				cr.setdTime(rset.getString("DTIME"));
+				cr.setStatus(rset.getString("STATUS"));
+				cr.setcDate(rset.getDate("CREATE_DATE"));
+				cr.setrKind(rset.getString("ROOM_KIND"));
+				cr.setrTitle(rset.getString("RTITLE"));
+				list.add(cr);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return list;
 	}
