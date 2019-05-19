@@ -456,6 +456,7 @@ tr>th, tr>td {
 		<input value="<%=loginUser.getUserId()%>" id="pointUserId">
 	</div>
 
+
 	<script>
 		
 	$(function() {

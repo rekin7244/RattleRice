@@ -51,7 +51,7 @@ public class AttachmentService {
 
 	public ArrayList<HashMap<String, Object>> selectAttachmentlList(String userId) {
 		Connection con = getConnection();
-		
+
 		ArrayList<HashMap<String, Object>> list = new AttachmentDao().selectAttachmentlList(con,userId);
 
 		close(con);
@@ -92,7 +92,7 @@ public class AttachmentService {
 		return result;
 	}
 
-	//Ã¼ÆÃ¹æ¿¡ ÀÖ´Â »ç¿ëÀÚ Á¤º¸¸¦ ºÒ·¯¿À´Â ¸Ş¼Òµå
+	//ì²´íŒ…ë°©ì— ìˆëŠ” ì‚¬ìš©ì ì •ë³´ë¥¼ ë¶ˆëŸ¬ì˜¤ëŠ” ë©”ì†Œë“œ
 	public ArrayList<HashMap<String, Object>> selectAttachmentlList(ArrayList<Member> list) {
 		Connection con = getConnection();
 

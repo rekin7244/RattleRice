@@ -1,6 +1,6 @@
 package com.kh.rr.transaction.model.service;
 
-import static com.kh.rr.common.JDBCTemplate.commit;
+import static com.kh.rr.common.JDBCTemplate.*;
 import static com.kh.rr.common.JDBCTemplate.getConnection;
 import static com.kh.rr.common.JDBCTemplate.rollback;
 
@@ -34,6 +34,16 @@ public class TransactionService {
 		ArrayList<Transaction> list = new TransactionDao().selectAllTransaction(con);
 		
 		return list;
+	}
+	//가장 최근 transaction 불러오는 메소드
+	public Transaction selectLatestTransaction() {
+		Connection con = getConnection();
+		
+		Transaction reqTr = new TransactionDao().selectLatestTransaction(con);
+		
+		close(con);
+		
+		return reqTr;
 	}
 	
 }

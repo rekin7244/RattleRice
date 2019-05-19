@@ -61,6 +61,7 @@ public class MemberDao {
 				
 			}
 			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -162,13 +163,15 @@ public class MemberDao {
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("origin",rset.getString("ORIGIN"));
 				hmap.put("mId",rset.getInt("MID"));
-				//attachment
+				
+				//Attachment
 				hmap.put("fid", rset.getInt("FID"));
 				hmap.put("filePath", rset.getString("FILE_PATH"));
 				hmap.put("originName",rset.getString("ORIGIN_NAME"));
 				hmap.put("changeName",rset.getString("CHANGE_NAME"));
 				hmap.put("status",rset.getString("STATUS"));
 				hmap.put("type",rset.getString("TYPE"));
+		
 				
 				list.add(hmap);
 			}
@@ -295,8 +298,7 @@ public class MemberDao {
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("origin",rset.getString("ORIGIN"));
 				hmap.put("mId",rset.getInt("MID"));
-				
-				//attachment
+				//
 				hmap.put("fid", rset.getInt("FID"));
 				hmap.put("filePath", rset.getString("FILE_PATH"));
 				hmap.put("originName",rset.getString("ORIGIN_NAME"));
