@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.rr.matching.model.service.ChattingRoomService;
 import com.kh.rr.matching.model.vo.ChattingRoom;
+import com.kh.rr.member.model.vo.Member;
 
 @WebServlet("/insert.pcr")
 public class InsertPremiumChattingRoomServlet extends HttpServlet {
@@ -21,6 +23,8 @@ public class InsertPremiumChattingRoomServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Member loginUser = (Member) session.getAttribute("loginUser");
 		//묶여서 가져온 값들을 쪼개서 값 생성
 		String allVal = request.getParameter("allVal");
 		String valArr[] = allVal.split(",");
@@ -60,9 +64,11 @@ public class InsertPremiumChattingRoomServlet extends HttpServlet {
 		reqCr.setAge(age);
 		
 		int result = new ChattingRoomService().insertChattingRoom(reqCr);
-		
-		if(result > 0) {
-			response.sendRedirect("views/matching/chatting.jsp");
+		int currval = new ChattingRoomService().getCurrval(reqCr);
+		int result2 = new ChattingRoomService().insertMasterRoomRecord(loginUser, currval);
+		if(result > 0 && result2 > 0) {
+			request.getSession().setAttribute("rno", currval);
+			response.sendRedirect(request.getContextPath()+"/selectOne.cr?rno="+currval);
 		}else {
 			request.setAttribute("msg", "채팅방 생성 실패!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

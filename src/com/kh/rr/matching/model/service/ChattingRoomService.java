@@ -2,6 +2,7 @@ package com.kh.rr.matching.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.rr.matching.model.dao.ChattingRoomDao;
 import com.kh.rr.matching.model.vo.ChattingRoom;
@@ -150,7 +151,17 @@ public class ChattingRoomService {
 		
 		return list;
 	}
-
+	//채팅방 조건검색 메소드
+	public ArrayList<ChattingRoom> searchChattingRoom(HashMap<String, Object> searchMap) {
+		Connection con = getConnection();
+		
+		ArrayList<ChattingRoom> reqList = new ChattingRoomDao().searchChattingRoom(con, searchMap);
+		
+		close(con);
+		
+		return reqList;
+		
+	}
 
 
 

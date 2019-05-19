@@ -32,149 +32,18 @@
 	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
 	crossorigin="anonymous"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <!-- 은행권 공동 오픈플랫폼 : 오픈 API -->
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/settlement/constants.js"></script><!-- 상수 js -->
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/settlement/common.js"></script><!-- 사용자정의 js -->
-<script type="text/javascript" src="<%=request.getContextPath() %>/ext_lib/bootstrap-3.3.6-dist/js/modal.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/settlement/constants.js"></script>
+<!-- 상수 js -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/settlement/common.js"></script>
+<!-- 사용자정의 js -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/ext_lib/bootstrap-3.3.6-dist/js/modal.js"></script>
 <style>
-@import
-	"https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
-/* contents영역 */
-body {
-	font-family: 'Poppins', sans-serif;
-	background: #fafafa;
-}
-
-/* 환영메세지 */
-p {
-	text-align: center;
-	font-family: 'Poppins', sans-serif;
-	font-size: 1.1em;
-	font-weight: 300;
-	line-height: 1.7em;
-	color: #999;
-}
-
-/* sidebar menu*/
-a, a:hover, a:focus {
-	color: inherit;
-	text-decoration: none;
-	transition: all 0.3s;
-}
-
-/* .wrapper {
-	display: flex;
-	width: 100%;
-} */
-#sidebar {
-	width: 250px;
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100vh;
-	z-index: 999;
-	background: #7386D5;
-	color: #fff;
-	transition: all 0.3s;
-}
-
-#sidebar.active {
-	margin-left: -250px;
-}
-
-/* page표시 */
-#sidebar .sidebar-header {
-	text-align: right;
-	padding: 20px;
-	background: #aaaaaa;
-}
-
-#sidebar ul.components {
-	padding: 20px 0;
-	border-bottom: 1px solid #47748b;
-}
-
-#sidebar ul p {
-	color: #fff;
-	padding: 10px;
-}
-
-#sidebar ul li a {
-	padding: 10px;
-	font-size: 1.1em;
-	display: block;
-}
-
-#sidebar ul li a:hover {
-	color: black;
-	background: #fff;
-}
-
-#sidebar ul li.active>a, a[aria-expanded="true"] {
-	color: #fff;
-	background: #6d7fcc;
-}
-
-a[data-toggle="collapse"] {
-	position: relative;
-}
-
-.dropdown-toggle::after {
-	display: block;
-	position: absolute;
-	top: 50%;
-	right: 20px;
-	transform: translateY(-50%);
-}
-
-ul ul a {
-	font-size: 0.9em !important;
-	padding-left: 30px !important;
-	background: #739BE1;
-}
-
-ul.CTAs {
-	padding: 20px;
-}
-
-ul.CTAs a {
-	text-align: center;
-	font-size: 0.9em !important;
-	display: block;
-	border-radius: 5px;
-	margin-bottom: 5px;
-}
-
-a.article, a.article:hover {
-	background: #6d7fcc !important;
-	color: #fff !important;
-}
-
-/* ---------------------------------------------------
-    CONTENT STYLE
------------------------------------------------------ */
-#content {
-	width: calc(100% - 250px);
-	padding: 40px;
-	min-height: 100vh;
-	transition: all 0.3s;
-	position: absolute;
-	top: 10;
-	right: 0;
-}
-
-#content.active {
-	width: 100%;
-}
-
-#mainbar {
-	background-color: lightgreen;
-	font-size: 1.5em;
-	padding: 5px;
-	border-radius: 10px;
-}
 </style>
 </head>
 
@@ -222,8 +91,7 @@ a.article, a.article:hover {
 		</nav>
 
 
-		<br>
-		<br> <select>
+		<br> <br> <select>
 			<option>정렬</option>
 		</select> <input type="text">
 		<button>검색</button>
@@ -262,44 +130,9 @@ a.article, a.article:hover {
 		</table>
 	</div>
 	<script>
-		var svrOpts = {
-			test : {
-				name : '테스트서버',
-				bs_style : 'primary',
-				base_web_uri : 'https://twww.open-platform.or.kr',
-				base_api_uri : 'https://testapi.open-platform.or.kr',
-				redirect_uri : 'http://localhost:8001/views/admin/callback.html',
-				client_id : 'l7xx93ba6a582b784910857c584b77578cee',
-				client_secret : '79a1e5e8035747339d11816da73c0e93',
-				client_info : 'test whatever you want'
-			}
-		};
-
-		function settlement() {
-			if(isEmptyElem('token')){
-				showMsg('Access Token을 먼저 획득해 주십시오.');
-				return;
-			}
-			
-			$.ajax({
-				url: getSvrProps('base_api_uri') + '/transfer/deposit2',
-				type: 'post',
-				headers: {
-					'Authorization': ('Bearer ' + $('#token').val())
-				},
-				data: js($.extend({}, getFormParamObj('depositFrm'), {
-					req_list: reqList
-				}))
-			})
-			.done(function(data, textStatus, jqXHR){
-				if(isGatewayException(data)){ return; } // ajax 응답이 Gateway Exception일 경우 이후 처리를 종료한다.		
-				
-				// UI에 결과값 바인딩
-				$('#resultTextArea').val(js(data));
-			});
+		function settlement(){
+			location.href="<%=request.getContextPath()%>/settlement.st";
 		}
-		
-			
 	</script>
 </body>
 

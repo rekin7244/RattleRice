@@ -3,7 +3,7 @@
 <%
 	ArrayList<ChattingRoom> list = 
 		(ArrayList<ChattingRoom>) request.getAttribute("list"); 
-	String location = (String)request.getAttribute("location");
+	/* String location = (String)request.getAttribute("location"); */
 %>	
 	
 <!DOCTYPE html>
@@ -28,6 +28,17 @@
 		$(window).resize(function() {
 			window.resizeTo(410, 600);
 		});
+		
+		//프리미엄 채팅방 색깔 바꿔주는 함수
+		$(".cr-content-inner").each(function(){
+			if($(this).children(".roomKind").val() == '프리미엄'){
+				$(this).css("background","yellowgreen");
+			};
+			
+		})
+		
+		//조건 검색 날짜 기본 값 설정 함수
+		$("#searchTime").val('0001-01-01T17:56');
 	
 	});
 	
@@ -97,9 +108,6 @@
 	}
 	.cr-content-inner {
 		padding: 10px 0;
-		border-top: 1px solid black;
-	}
-	.cr-content-inner:last-child {
 		border-bottom: 1px solid black;
 	}
 	.chatImg img {
@@ -131,7 +139,6 @@
 	<script>
 		$(function(){
 			$("#ks").on("keyup", function(){
-				console.log("도대체 key up 이 뭐야?")
 				var value= $(this).val().toLowerCase();
 				$(".cr-content").filter(function(){
 					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)					
@@ -145,6 +152,7 @@
 					for(ChattingRoom cr : list){ %>
 						<form action="<%= request.getContextPath()%>/selectOne.cr?rno=<%=cr.getRno() %>" method="post">
 							<div class="cr-content-inner">
+								<input type="hidden" value="<%= cr.getrKind()%>" class="roomKind"> 
 								<div class="cr-contents chatImg">
 									<%if(cr.getCategory().equals("중식")){ %>
 										<img src="<%= request.getContextPath()%>/images/chineesefood.png">
@@ -392,6 +400,22 @@
 		</div>
 	</div>
 
+<script>
+//조건 검색 모달 변경 시 값들을 전달해주는 함수
+function searchCondition(){
+
+	$searchLocation = $("#searchLocation").val();
+	$searchTime = $("#searchTime").val().split("T");
+	$searchMember = $("#searchMember").val();
+	$searchCategory = $("#searchCategory").val();
+	
+	$("#searchHidden").val($searchLocation + "," + $searchTime[0] + "," + $searchTime[1] + "," +
+			$searchMember + "," + $searchCategory);
+	console.log($("#searchHidden").val());
+	
+	
+}
+</script>
 	<!-- 조건 검색1 -->
 	<div class="container">
 		<div class="modal fade" id="msearch" role="dialog"
@@ -406,25 +430,27 @@
 						<form>
 							<div class="form-group">
 								<label for="area">지역</label> <select class="form-control"
-									id="area">
-									<option>서울</option>
-									<option>경기</option>
+									id="searchLocation">
+									<option value="0">선택해주세요</option>
+									<option value="서울">서울</option>
+									<option value="경기">경기</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="time">시간</label> <input type="datetime-local"
-									class="form-control" id="time">
+								<label for="time">시간</label> <input type="date"
+									class="form-control" id="searchTime">
 							</div>
 							<div class="form-group">
 								<label for="membercount">인원수</label> <input type="number"
-									class="form-control" id="membercount" min="2">
+									class="form-control" id="searchMember" value="0">
 							</div>
 							<div class="form-group">
 								<label for="fcategory">메뉴</label> <select class="form-control"
-									id="fcategory">
-									<option>한식</option>
-									<option>중식</option>
-									<option>일식</option>
+									id="searchCategory">
+									<option value="0">선택해주세요</option>
+									<option value="한식">한식</option>
+									<option value="중식">중식</option>
+									<option value="일식">일식</option>
 								</select>
 							</div>
 						</form>
@@ -432,7 +458,7 @@
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal" aria-label="Close">취소</button>
 							<button type="button" class="btn btn-default"
-								data-dismiss="modal" data-toggle="modal" data-target="#msearch2">다음</button>
+								data-dismiss="modal" data-toggle="modal" data-target="#msearch2" onclick="searchCondition();">다음</button>
 						</div>
 					</div>
 				</div>
@@ -453,35 +479,59 @@
 						<h4 class="modal-title">Filtering</h4>
 					</div>
 					<div class="modal-body" data-backdrop="static">
-						<form>
+						<form action="<%=request.getContextPath()%>/search.cr" method="post">
 							<label>성별</label>
 							<div class="radio">
-								<label><input type="radio" name="optradio" checked>남<i
+								<label><input type="radio" name="optradio" value="M">남<i
 									class="mars icon" style="color: blue"></i></label> &nbsp; &nbsp; &nbsp;
 								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label><input
-									type="radio" name="optradio">여<i class="venus icon"
+									type="radio" name="optradio" value="F">여<i class="venus icon"
 									style="color: red"></i></label>
 							</div>
 							<div class="form-group">
 								<label for="age">나이</label> <select class="form-control"
-									id="age">
-									<option>20대</option>
-									<option>30대</option>
-									<option>40대</option>
-									<option>50대</option>
+									id="age" name="searchAge">
+									<option value="0">선택해주세요</option>
+									<option value="20">20대</option>
+									<option value="30">30대</option>
+									<option value="40">40대</option>
+									<option value="50">50대</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="jobname">직업</label> <input type="text"
-									class="form-control" id="jobname">
+								<label for="jobname">직업</label> 
+								<select class="form-control" id="jobName" name="jobName">
+										<option value="0">선택해주세요</option>
+										<option value="무직">무직</option>
+										<option value="학생">학생</option>
+										<option value="IT">IT</option>
+										<option value="언론">언론</option>
+										<option value="공무원">공무원</option>
+										<option value="군인">군인</option>
+										<option value="서비스업">서비스업</option>
+										<option value="교육">교육</option>
+										<option value="금융/증권/보험업">금융/증권/보험업</option>
+										<option value="유통업">유통업</option>
+										<option value="예술">예술</option>
+										<option value="의료">의료</option>
+										<option value="법률">법률</option>
+										<option value="건설업">건설업</option>
+										<option value="제조업">제조업</option>
+										<option value="부동산업">부동산업</option>
+										<option value="운송업">운송업</option>
+										<option value="농/수/임/광산업">농/수/임/광산업</option>
+										<option value="가사">가사</option>
+										<option value="기타">기타</option>
+								</select>
+									
 							</div>
+							<input type="hidden" id="searchHidden" name="searchHidden">
+							<button type="button" class="btn btn-default" data-dismiss="modal"
+								data-toggle="modal" data-target="#msearch">이전</button>
+							<button type="submit" class="btn btn-default">검색</button>
 						</form>
 					</div>
-					<div class="modal-footer" data-backdrop="static">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							data-toggle="modal" data-target="#msearch">이전</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">검색</button>
-					</div>
+					
 				</div>
 
 			</div>

@@ -85,4 +85,34 @@ public class TransactionDao {
 		return list;
 	}
 
+	//가장 최근 transaction 불러오는 메소드
+	public Transaction selectLatestTransaction(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		Transaction reqTr = new Transaction();
+		String query = prop.getProperty("selectLatestTransaction");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+
+			if(rset.next()) {
+				reqTr.settId(rset.getInt("TId"));
+				reqTr.settDate(rset.getDate("TDATE"));
+				reqTr.settPrice(rset.getInt("TPRICE"));
+				reqTr.setType(rset.getString("TYPE"));
+				reqTr.setUnit(rset.getString("UNIT"));
+				reqTr.setUserId(rset.getString("M_ID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return reqTr;
+	}
+
 }
