@@ -27,10 +27,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- 메뉴바 스타일 -->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-	crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
@@ -42,33 +39,78 @@ $(function() {
 
    $("#chatP").click(function(){
 	   var rno = $("input[name=rno]").val();
-	   console.log("chatp 선택됌");
+	   console.log("chatp 선택");
+	   
 		$.ajax({
 			url:"<%=request.getContextPath()%>/chatPerson.cr",
 			data:{rno:rno},
 			type:"get",
 			success:function(data){
-				//console.log(data);
-				$tableBody = $("#userInfoTable tbody");
+				console.log(data);
+				var myId = "<%=m.getUserId()%>";
 				
-				$tableBody.html('');
+				$chatPersonDiv = $(".chatPerson");
 				
-				$.each(data, function(index, value){
-					var $tr = $("<tr>");
-					var $noTd = $("<td>").text(value.userNo);
-					var $nameTd = $("<td>").text(decodeURIComponent(value.userName));
-					var $nationTd = $("<td>").text(decodeURIComponent(value.userNation));
+				for (var key in data) {
+					console.log(data[key].type);
 					
-					$tr.append($noTd);
-					$tr.append($nameTd);
-					$tr.append($nationTd);
-					$tableBody.append($tr);
+					if(data[key].type == "USER"){
+						var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
+						var $imgDiv = $("<div class='profileImg' data-toggle='modal' data-target='#userProfile'>");
+						var $nameDiv = $("<div class='profileName'>");
+						
+						$imgDiv.append("<img src='/rr/profileImg_upload/"+ data[key].changeName +"' style='width:100%; border-radius:6em;'>");
+						
+						if(myId === data[key].userId){
+							$nameDiv.append("<p>" + data[key].nickName + "(나)</p>");						
+						}else{
+							$nameDiv.append("<p>" + data[key].nickName + "</p>");	
+						}
+
+						$div.append($imgDiv);
+						$div.append($nameDiv);
+
+						$chatPersonDiv.append($div);
+					
+						
+					}else{
+						var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
+						var $imgDiv = $("<div class='profileImg' data-toggle='modal' data-target='#userProfile'>");
+						var $nameDiv = $("<div class='profileName'>");
+						var $kickDiv = $("<div style='float: right; margin-top: 8px;'>");
+						
+						$imgDiv.append("<img src='/rr/profileImg_upload/"+ data[key].changeName +"' style='width:100%; border-radius:6em;'>");
+						
+						if(myId === data[key].userId){
+							$nameDiv.append("<p>" + data[key].nickName + "(나)</p>");						
+						}else{
+							$nameDiv.append("<p>" + data[key].nickName + "</p>");	
+							$kickDiv.append("<button type='button' class='btn btn-danger kickBtn' >강퇴</button>");
+						}
+											
+						$div.append($imgDiv);
+						$div.append($nameDiv);
+						$div.append($kickDiv);
+						
+						$chatPersonDiv.append($div);
+
+						$("#deadLineI").append("<i class='fas fa-stopwatch' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>");
+						
+					}
+					
+					
+				}
+				
+				$(".close").click(function(){
+					$(".divArea").remove();
+					$(".fa-stopwatch").remove();
+					console.log("지운다.")
 				});
+				
 			}
 				
 		});
 	});
-
 });
 </script>
 <style>
@@ -173,10 +215,6 @@ body::-webkit-scrollbar {
 	color: lightgray;
 	margin-left: 9px;
 }
-#myProfile{
-    padding-bottom: 13px;
-    border-bottom: 1.5px dashed #1abc9c85;
-}
 
 .profileImg {
     width: 50px;
@@ -187,6 +225,39 @@ body::-webkit-scrollbar {
 .profileName {
 	display: inline-block;
 }
+
+.chatPerson {
+	height: 250px;
+	padding: 15px;
+	overflow: auto;
+}
+
+.chatPerson::-webkit-scrollbar {
+	display: none;
+}
+
+.deadLine, .evaluation {
+    padding: 15px;
+}
+
+.blank {
+	padding: 5px;
+    background: #eee9;
+}
+
+.ev {
+    width: 47%;
+    background: #1abc9ccc;
+    border: white;
+    color: white;
+}
+
+.kickBtn {
+    font-size: small;
+    text-align: center;
+    padding: 5px;
+}
+
 </style>
 </head>
 <body>
@@ -196,7 +267,7 @@ body::-webkit-scrollbar {
       <div id="messageWindow" style="height: 410px; background: white"></div>
       <div id="chatForm">
          <input type="text" id="inputMessage" class="form-control" >
-   		 <input type="hidden" value="<%= rno%>" name="rno"> 
+   		 <input type="hidden" value="<%= rno%>" name="rno">
          <input type="submit" id="send" class="btn btn-default" value="전송" onclick="send()">
       </div>
    </div>
@@ -213,22 +284,138 @@ body::-webkit-scrollbar {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">대화 상대</h4>
 					</div>
-					<div class="modal-body" data-backdrop="static">
+					<div class="modal-body" data-backdrop="static" style="padding: 0;">
+						<%-- 대화상대 띄우기 --%>
 						<div class="chatPerson">
-						<%-- <div id="myProfile">
-						<div class="profileImg" id="mImg">
-							<img src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" style="width:100%; border-radius:6em;">
+						
 						</div>
-						<div class="profileName" id="mName"><p><%=m.getUserName() %>(나)</p></div>
-						</div> --%>
+						
+						<div class="blank"></div>
+						
+						<%-- 마감시간 설정 --%>
+						<div class="deadLine">
+							<div id="deadLineT" style=" display: inline-block; ">
+								<h4>마감시간</h4>
+							</div>
+							<div id="deadLineI" style=" display: inline-block; margin-left: 10%; ">
+								<!-- <i class="fas fa-stopwatch" style="font-size: 22px; color: #1abc9ccc;"></i> -->
+							</div>
 						</div>
+						
+						<div class="blank"></div>
+						
+						<%-- 사용자/식당 평가하기 --%>
+						<div class="evaluation">
+							<h4>평가</h4>
+							<button type="button" class="btn btn-default ev" data-toggle="modal" data-target="#userEv">사용자</button>
+							<button type="button" class="btn btn-default ev" data-toggle="modal" data-target="#BusEv">식당</button>
+						</div>
+						
 					</div>
 				</div>
 			</div>
 
 		</div>
 	</div>
+	
+	<!-- 사용자 프로필 확인하는 모달 컨텐츠 -->
+   <div class="container">
+		<!-- Modal -->
+		<div class="modal fade" id="userProfile" role="dialog"
+			data-backdrop="static">
+			<div class="modal-dialog modal-sm" data-backdrop="static">
+				<!-- Modal content-->
+				<div class="modal-content" data-backdrop="static" style=' height: 500px; '>
+					<div class="modal-header" data-backdrop="static">
+						<h4 class="modal-title" style=' text-align:center '>프로필</h4>
+					</div>
+					<div class="modal-body" data-backdrop="static" style="padding: 0; height: 375px;">
+															
+					</div>
+					<div class="modal-footer" data-backdrop="static">
+						<button type="button" class="btn btn-default" data-dismiss="modal" >확인</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
    
+   <!-- 마감시간 설정하는 모달 컨텐츠 -->
+   <div class="container">
+		<!-- Modal -->
+		<div class="modal fade" id="deadLine" role="dialog"
+			data-backdrop="static">
+			<div class="modal-dialog modal-sm" data-backdrop="static">
+				<!-- Modal content-->
+				<div class="modal-content" data-backdrop="static" style=' width: 80%; margin: 10% 10%; '>
+					<div class="modal-header" data-backdrop="static">
+						<h4 class="modal-title" style=' text-align:center '>마감시간 설정</h4>
+					</div>
+					<div class="modal-body" data-backdrop="static" style="padding: 0;">
+						<input type="time" class="form-control" id="dt" name="deadT" style="width: 80%; margin: 30px; text-align: center;">										
+					</div>
+					<div class="modal-footer" data-backdrop="static">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							aria-label="Close">취소</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" >확인</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	<!-- 사용자 평가 모달 컨텐츠 -->
+   <div class="container">
+		<!-- Modal -->
+		<div class="modal fade" id="userEv" role="dialog"
+			data-backdrop="static">
+			<div class="modal-dialog modal-sm" data-backdrop="static">
+				<!-- Modal content-->
+				<div class="modal-content" data-backdrop="static" style=' width: 80%; margin: 10% 10%; '>
+					<div class="modal-header" data-backdrop="static">
+						<h4 class="modal-title" style=' text-align:center '>사용자 평가</h4>
+					</div>
+					<div class="modal-body" data-backdrop="static" style="padding: 0;">
+						<input type="time" class="form-control" id="dt" name="deadT" style="width: 80%; margin: 30px; text-align: center;">										
+					</div>
+					<div class="modal-footer" data-backdrop="static">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							aria-label="Close">취소</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" >평가</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	<!-- 식당 평가 모달 컨텐츠 -->
+   <div class="container">
+		<!-- Modal -->
+		<div class="modal fade" id="BusEv" role="dialog"
+			data-backdrop="static">
+			<div class="modal-dialog modal-sm" data-backdrop="static">
+				<!-- Modal content-->
+				<div class="modal-content" data-backdrop="static" style=' width: 80%; margin: 10% 10%; '>
+					<div class="modal-header" data-backdrop="static">
+						<h4 class="modal-title" style=' text-align:center '>식당 평가</h4>
+					</div>
+					<div class="modal-body" data-backdrop="static" style="padding: 0;">
+						<input type="time" class="form-control" id="dt" name="deadT" style="width: 80%; margin: 30px; text-align: center;">										
+					</div>
+					<div class="modal-footer" data-backdrop="static">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							aria-label="Close">취소</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" >평가</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
    
 </body>
 

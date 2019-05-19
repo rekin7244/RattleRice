@@ -88,9 +88,7 @@ public class AttachmentDao {
 				hmap.put("filePath", rset.getString("FILE_PATH"));
 				hmap.put("uploadDate", rset.getDate("UPLOAD_DATE"));
 				hmap.put("email", rset.getString("EMAIL"));
-				hmap.put("point", rset.getInt("POINT"));
-				hmap.put("bell", rset.getInt("BELL"));
-				
+
 				list.add(hmap);
 			}
 			
@@ -178,7 +176,7 @@ public class AttachmentDao {
 		HashMap<String, Object> hmap = null;
 		ResultSet rset = null;
 
-		String query = prop.getProperty("selectAttachmentMap");
+		String query = prop.getProperty("selectAttachmentMapList");
 		
 		try {
 			userList = new ArrayList<HashMap<String, Object>>();
@@ -207,6 +205,7 @@ public class AttachmentDao {
 					hmap.put("filePath", rset.getString("FILE_PATH"));
 					hmap.put("uploadDate", rset.getDate("UPLOAD_DATE"));
 					hmap.put("email", rset.getString("EMAIL"));
+					hmap.put("type", rset.getString("TYPE"));
 					System.out.println(i+"번쨰 - "+hmap);
 					userList.add(hmap);
 				}

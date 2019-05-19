@@ -3,12 +3,10 @@ package com.kh.rr.websocket;
 
 import java.io.IOException;
 
+
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
 
 import javax.websocket.OnClose;
