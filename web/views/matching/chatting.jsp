@@ -5,13 +5,14 @@
 <%
 	InetAddress Address = InetAddress.getLocalHost();
 	Member m = (Member) (request.getSession().getAttribute("loginUser"));
-	int rno = (int) session.getAttribute("rno");
-	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	//int rno = (int) session.getAttribute("rno");
+	int rno = (int) request.getAttribute("rno");
+	/* ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 
 	HashMap<String, Object> hmap = null;
 	for (int i = 0; i < list.size(); i++) {
 		hmap = list.get(i);
-	}
+	} */
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -114,6 +115,82 @@ $(function() {
 });
 </script>
 <style>
+#menu i {
+	font-size: 1.7em;
+	color: white;
+}
+
+#header i {
+	font-size: 1.5em;
+	color: white;
+}
+
+#header .search {
+	float: right;
+	position: absolute;
+}
+
+.navbar-nav {
+	margin: 0;
+}
+
+.mainbar>li {
+	display: inline-block;
+	width: 24%;
+	text-align: center;
+}
+
+.navbar {
+	background: #1ABC9C;
+}
+/* 마이페이지 css */
+ul, body {
+	margin: 0 !important;
+}
+
+.cash>div>a {
+	text-decoration: none;
+	color: black;
+}
+
+.img i {
+	font-size: 1.3em;
+	margin-left: 0.3em;
+}
+
+.content {
+	padding: 15px;
+	margin-bottom: 14%;
+	margin-top: 15%;
+}
+
+.content .line>div {
+	display: inline-block;
+	margin-top: 20px;
+}
+
+.line {
+	margin: 0 5%;
+}
+
+.pay {
+	margin: 0 5%;
+}
+
+.title {
+	width: 30%;
+	font-weight: bold;
+}
+
+.line .contents {
+	border: none;
+	width: 67%;
+}
+
+.img .icon {
+	font-size: 1.5em;
+	color: red;
+}
 body::-webkit-scrollbar {
 	display: none;
 }
@@ -261,8 +338,39 @@ body::-webkit-scrollbar {
 </style>
 </head>
 <body>
-
-   <%@ include file="header.jsp"%>
+<nav class="navbar navbar-default navbar-fixed-top" style="padding: 3px 0">
+	<div class="container">
+		<div id="header">
+		<!-- 채팅방에 입장했을때 : rno는 방번호 입니다 -->
+			<%if(request.getParameter("rno") != null) { %>
+				<ul class="nav navbar-nav mainbar">
+					<li class="" style="left: -3%;"><div onclick="leaveRoom();">
+					<a style="padding: 0;margin-top: 9px;">
+					<i class="fas fa-sign-out-alt" style="font-size:1.8em;"></i></a>
+					</div></li>
+					<li id="chatP" data-toggle="modal" data-target="#chatSub" class="search"
+						style="right: 0%;"><a href="#chatSub">
+						<i class="fas fa-bars"></i></a></li>
+				</ul>
+			<%}else if(request.getParameter("info") != null){ %>
+				<!-- 채팅방이 아닌 나머지 경우 -->
+				<ul class="nav navbar-nav mainbar">
+					<li class="" style="left: -3%;"><a href="<%= request.getContextPath()%>/selectAll.cr">
+					<i class="fas fa-arrow-left"></i></a></li>
+				</ul>
+			<%}else{ %>
+				<ul class="nav navbar-nav mainbar">
+					<li data-toggle="modal" data-target="#msearch" class="search"
+						style="right: 0%;"><a href="#msearch">
+						<i class="fas fa-bars"></i></a></li>
+					<li data-toggle="modal" data-target="#ksearch" class="search"
+						style="right: 13%;"><a href="#ksearch">
+						<i class="fas fa-search"></i></a></li>
+				</ul>
+			<%} %>
+		</div>
+	</div>
+</nav>
    <div id="container" style="margin-top:50px;">
       <div id="messageWindow" style="height: 410px; background: white"></div>
       <div id="chatForm">
@@ -441,7 +549,8 @@ Date.prototype.format = function(f) {
            case "a/p": return d.getHours() < 12 ? "오전" : "오후";            
            default: return $1;        
          }    
-    });}; 
+    });
+}; 
 
 //한자리일경우 앞에 0을 붙여준다.
 String.prototype.string = function(len){
@@ -453,9 +562,9 @@ String.prototype.zf = function(len){return "0".string(len - this.length) + this;
 Number.prototype.zf = function(len){return this.toString().zf(len);};
 //->여기까지 Date Format함수!
 
-    var textarea = document.getElementById("messageWindow");
-    var webSocket = new WebSocket("ws://<%=Address.getHostAddress()%>:8001" + '<%=request.getContextPath()%>/serverStart<%-- ?rno=<%=rno%> --%>');
-    var inputMessage = document.getElementById('inputMessage');
+var textarea = document.getElementById("messageWindow");
+var webSocket = new WebSocket("ws://<%=Address.getHostAddress()%>:8001" + '<%=request.getContextPath()%>/serverStart<%-- ?rno=<%=rno%> --%>');
+var inputMessage = document.getElementById('inputMessage');
     
 webSocket.onerror = function(event) {
   onError(event)
@@ -468,10 +577,9 @@ webSocket.onmessage = function(event) {
 };
 webSocket.onclose = function(event) {  
 	onClose(event)
-	};
+};
 	
 function onMessage(event) {
-
 	var msg = event.data;
 	var str2 = "-";
 	var str3 = ":";
@@ -479,12 +587,17 @@ function onMessage(event) {
 	if(msg.includes(str2) == true){
 		var rtime = new Date().format('yyyy.MM.dd a/p hh:mm');
 		var srr = msg.split("-");
+		var rno = srr[0];
+		console.log("rno : "+rno);
 		var userId = srr[1];
 		var message = srr[2];
+		if(rno == <%=rno%>)
 		$("#messageWindow").append("<div><div class='rmsgBox'>" + message + "<br><p class='me'>" + userId + "</p></div><p class='ct' id='rtime'>" + rtime + "</p></div>");
 	}else if(msg.includes(str3) == true){
 		var srr = msg.split(":");
+		var rno = srr[0];
 		var message = srr[1];
+		if(rno == <%=rno%>)
 		$("#messageWindow").append("<p id='cs'>" + message + "</p>");
 	}else{
 		var message = msg;
@@ -506,8 +619,8 @@ function onError(event) {
 }
 
 function onClose(event){
-
 }
+
 function send(msg) {   
 
 	var sendMsg = '';
@@ -518,7 +631,7 @@ function send(msg) {
 		console.log(msg);
 
 		if (msg == undefined) {
-			console.log("채팅");
+			//console.log("채팅");
 			$("#messageWindow")
 					.append(
 							"<div><div class='smsgBox'>"
@@ -527,7 +640,7 @@ function send(msg) {
 									+ stime + "</p></div>");
 			sendMsg = rno + "-" + userId + "-" + inputMessage.value;
 		} else {
-			console.log("입장");
+			console.log("입장/퇴장test");
 			sendMsg = rno + ":" + msg;
 		}
 		//webSocket.send(userId + ":" + inputMessage.value);
@@ -536,5 +649,10 @@ function send(msg) {
 		textarea.scrollTop = textarea.scrollHeight;
 		$("#inputMessage").val(' ');
 	}
+function leaveRoom(){
+	var userId = "<%=m.getUserName()%>";
+	send(userId + "님이 채팅방을 나가셨습니다.");
+	location.href = "<%= request.getContextPath()%>/leave.cr";
+}
 </script>
 </html>
