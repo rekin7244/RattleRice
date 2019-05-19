@@ -51,7 +51,6 @@ public class NoticeBoardSelectServlet extends HttpServlet {
 		endPage = startPage + limit - 1;
 		
 		PageInfo pi = new PageInfo(currentPage,limit,maxPage,startPage,endPage);
-		System.out.println(pi);
 		ArrayList<Board> list = new BoardService().selectNoticeList(pi);
 		//System.out.println(list);
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
