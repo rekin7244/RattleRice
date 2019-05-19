@@ -39,7 +39,7 @@ public class SearchNoticeBoardServlet extends HttpServlet {
 		if(request.getParameter("keyword") != null) {
 			keyword = request.getParameter("keyword");
 		}
-		System.out.println("keyword : "+keyword+"\ncondition : "+condition);
+		//System.out.println("keyword : "+keyword+"\ncondition : "+condition);
 		
 		int currentPage;
 		int limit;
@@ -58,9 +58,9 @@ public class SearchNoticeBoardServlet extends HttpServlet {
 		endPage = startPage + limit - 1;
 		
 		PageInfo pi = new PageInfo(currentPage,limit,maxPage,startPage,endPage);
-		System.out.println(pi);
+		//System.out.println(pi);
 		ArrayList<Board> list = new BoardService().searchNoticeList(pi, keyword, condition);
-		System.out.println(list);
+		//System.out.println(list);
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("list", list);
 		hmap.put("pi", pi);

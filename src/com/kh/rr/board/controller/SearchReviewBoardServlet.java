@@ -38,7 +38,6 @@ public class SearchReviewBoardServlet extends HttpServlet {
 		if(request.getParameter("keyword") != null) {
 			keyword = request.getParameter("keyword");
 		}
-		System.out.println("keyword : "+keyword);
 		
 		int currentPage;
 		int limit;
@@ -52,15 +51,12 @@ public class SearchReviewBoardServlet extends HttpServlet {
 		}
 		limit = 5;
 		int listCount = new BoardService().getSearchReviewListCount(keyword);
-		System.out.println("listCount : "+listCount);
 		maxPage = (int)((double)listCount / limit + 0.9);
 		startPage = (currentPage - 1) * limit + 1;
 		endPage = startPage + limit - 1;
 		
 		PageInfo pi = new PageInfo(currentPage,limit,maxPage,startPage,endPage);
-		System.out.println(pi);
 		ArrayList<Board> list = new BoardService().searchReviewList(pi, keyword);
-		System.out.println(list);
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("list", list);
 		hmap.put("pi", pi);

@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.transaction.model.vo.*"%>
 <%
 	ArrayList<Transaction> list = (ArrayList<Transaction>) request.getAttribute("list");
-	ArrayList<HashMap<String, Object>> list2 = (ArrayList<HashMap<String, Object>>) request.getAttribute("list2");
-	
 	HashMap<String, Object> hmap = null;
 	for (int i = 0; i < list2.size(); i++) {
 		hmap = list2.get(i);

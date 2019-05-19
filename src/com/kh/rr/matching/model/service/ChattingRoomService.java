@@ -151,7 +151,6 @@ public class ChattingRoomService {
 		
 		return list;
 	}
-
 	//채팅방 조건검색 메소드
 	public ArrayList<ChattingRoom> searchChattingRoom(HashMap<String, Object> searchMap) {
 		Connection con = getConnection();
@@ -163,7 +162,6 @@ public class ChattingRoomService {
 		return reqList;
 		
 	}
-
 
 
 
