@@ -257,8 +257,8 @@ width: auto;
 						    	
 						    	var key = data;
 						    	$.ajax({
-						    		url:"<%=request.getContextPath()%>/login.kk",
-						    		data:{key:key},
+						    		url:"<%=request.getContextPath()%>/loginkakao.me",
+						    		data:{userPwd:key},
 						    		type:"post",
 						    		success:function(){
 						    			console.log("성공!");

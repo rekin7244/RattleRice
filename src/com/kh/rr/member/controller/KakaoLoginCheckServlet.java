@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.rr.member.model.service.MemberService;
 import com.kh.rr.member.model.vo.Member;
 
-@WebServlet("/login.kk")
+@WebServlet("/loginkakao.me")
 public class KakaoLoginCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -20,11 +20,11 @@ public class KakaoLoginCheckServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("data");
+		String userPwd = request.getParameter("userPwd");
 		
-		System.out.println(id);
+		System.out.println(userPwd);
 		
-		Member reqMember = new MemberService().kakaoCheck(id);
+		Member reqMember = new MemberService().kakaoCheck(userPwd);
 		
 		if(reqMember != null) {
 			System.out.println("이미 있는 회원!");

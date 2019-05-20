@@ -379,7 +379,7 @@ public class MemberDao {
 			
 			if(rset.next()) {
 				reqMember = new Member();
-				reqMember.setUserId(rset.getString("M_ID"));
+				reqMember.setUserId(rset.getString("M_PWD"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
