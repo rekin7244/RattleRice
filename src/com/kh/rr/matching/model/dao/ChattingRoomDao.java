@@ -485,6 +485,29 @@ public class ChattingRoomDao {
 		return result;
 	}
 
+	//사용자 강퇴하는 메소드
+	public int kickUser(Connection con, String userId, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteRoomRecord");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 }
 
 

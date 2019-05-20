@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.rr.matching.model.service.ChattingRoomService;
 import com.kh.rr.matching.model.vo.ChattingRoom;
@@ -31,7 +32,9 @@ public class SetDeadLineTimeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int rno = Integer.parseInt(request.getParameter("rno"));
+		HttpSession session = request.getSession();		
+		int rno = (int) session.getAttribute("rno");
+		
 		String dTime = request.getParameter("dTime");
 		
 		ChattingRoom reqCr = new ChattingRoom();
@@ -45,7 +48,11 @@ public class SetDeadLineTimeServlet extends HttpServlet {
 		Date d = new Date(now);
 		
 		if(result > 0) {
-			
+			request.getSession().setAttribute("reqCr", reqCr);
+			request.getRequestDispatcher("views/matching/chatting.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("views/common/errorPage.jsp")
+			.forward(request, response);
 		}
 	}
 
