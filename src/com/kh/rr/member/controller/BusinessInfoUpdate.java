@@ -37,7 +37,7 @@ public class BusinessInfoUpdate extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		
-		
+		String brand = request.getParameter("brand");
 		String contact = request.getParameter("phone");
 		String location = request.getParameter("address");
 		String open_hore = request.getParameter("openTime1");
@@ -46,6 +46,7 @@ public class BusinessInfoUpdate extends HttpServlet {
 		System.out.println(loginUser.getUserId()+", "+contact+", "+location+", "+intro+", "+open_hore+", "+close_hore);
 		
 		StoreInfo storeUser = new StoreInfo();
+		storeUser.setBrand(brand);
 		storeUser.setCotact(contact);
 		storeUser.setLocation(location);
 		storeUser.setOpening_hore(open_hore);

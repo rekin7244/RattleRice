@@ -32,7 +32,9 @@ public class LoginMemberServlet extends HttpServlet {
 		/*System.out.println(userId);
 		System.out.println(password);*/
 		Member loginUser = new MemberService().loginCheck(userId, userPwd);
-
+		System.out.println("userId : " + userId);
+		System.out.println("userPwd : " + userPwd); 
+		System.out.println("loginUser : " + loginUser.getMemberType());
 		String page ="";
 
 		//System.out.println("userId : "+userId+"\nuserPwd : "+userPwd+"\nloginUser : "+loginUser);
@@ -44,6 +46,7 @@ public class LoginMemberServlet extends HttpServlet {
 				page = "memberlist.ad";
 				request.getRequestDispatcher(page).forward(request, response);
 			}else if(loginUser.getMemberType().equals("2")){
+				System.out.println("멤버 타입 2");
 				page = "checkBusiness.me";
 				request.getRequestDispatcher(page).forward(request, response);
 				

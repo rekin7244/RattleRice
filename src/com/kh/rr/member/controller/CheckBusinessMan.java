@@ -15,24 +15,14 @@ import javax.servlet.http.HttpSession;
 import com.kh.rr.member.model.service.MemberService;
 import com.kh.rr.member.model.vo.Member;
 
-/**
- * Servlet implementation class CheckBusinessMan
- */
 @WebServlet("/checkBusiness.me")
 public class CheckBusinessMan extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CheckBusinessMan() {
+
+	public CheckBusinessMan() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("사업자 로그인체크 서블릿 들어옴");
 		
@@ -42,10 +32,9 @@ public class CheckBusinessMan extends HttpServlet {
 		ArrayList<HashMap<String, Object>> list = new MemberService().logincheckBusiness(loginUser.getUserId());
 
 		
-		System.out.println("리턴값 가지고 사업자 서블릿 되돌아옴");
+		System.out.println("서블릿에서 보내주는 list"+list);
 		String page = "";
 		if(list != null) {
-			//System.out.println("list : " + list);
 			page = "/views/business/businessFormShop.jsp";
 			request.setAttribute("list", list);
 			
@@ -56,12 +45,7 @@ public class CheckBusinessMan extends HttpServlet {
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 		
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -33,6 +33,7 @@ public class MemberDao {
 	}
 
 	public Member loginCheck(Connection con, String userId, String userPwd) {
+		System.out.println("dao 실행");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -58,6 +59,7 @@ public class MemberDao {
 				loginUser.setStatus(rset.getString("M_STATUS"));
 				loginUser.setEmail(rset.getString("EMAIL"));
 				loginUser.setPhone(rset.getString("PHONE"));
+				System.out.println(loginUser);
 				
 			}
 			

@@ -38,6 +38,7 @@ public class BusinessDao {
 		System.out.println(storeUser.getbId());
 		String query = prop.getProperty("updateBusinessInfo");
 		
+		//브랜드 추가
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, storeUser.getCotact());
@@ -45,7 +46,8 @@ public class BusinessDao {
 			pstmt.setString(3, storeUser.getOpening_hore());
 			pstmt.setString(4, storeUser.getClose_hore());
 			pstmt.setString(5, storeUser.getIntro());
-			pstmt.setString(6, storeUser.getbId());
+			pstmt.setString(6, storeUser.getBrand());
+			pstmt.setString(7, storeUser.getbId());
 			
 			result = pstmt.executeUpdate();
 			
@@ -125,8 +127,8 @@ public class BusinessDao {
 			pstmt.setString(1, storeMenuInfo.getMenu());
 			pstmt.setInt(2, storeMenuInfo.getPrice());
 			pstmt.setString(3, storeMenuInfo.getOrigin());
-			//pstmt.setInt(4, hmap.get("s_id"));
-			//pstmt.setInt(5, hmap.get("s_code"));
+			pstmt.setInt(4, (int) hmap.get("s_id"));
+			pstmt.setInt(5, (int) hmap.get("s_code"));
 			
 			result = pstmt.executeUpdate();
 			
@@ -137,8 +139,6 @@ public class BusinessDao {
 		} finally {
 			close(pstmt);
 		}
-		
-		
 		
 		return result;
 	}
