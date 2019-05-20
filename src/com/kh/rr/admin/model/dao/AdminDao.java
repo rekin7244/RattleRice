@@ -302,6 +302,8 @@ public class AdminDao {
 				community.setbDate(rset.getDate("BDATE"));
 			}
 			
+			System.out.println(community);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
