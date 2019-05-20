@@ -463,6 +463,28 @@ public class ChattingRoomDao {
 		return result;
 	}
 
+	//마감시간 설정하는 메소드
+	public int updateChattingRoom(Connection con, int rno, ChattingRoom reqCr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateChattingRoom");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqCr.getdTime());
+			pstmt.setInt(2, rno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }
 
 

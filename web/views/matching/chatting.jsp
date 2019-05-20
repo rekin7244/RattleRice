@@ -58,18 +58,34 @@ $(function() {
 					var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
 					var $imgDiv = $("<div class='profileImg' data-toggle='modal' data-target='#userProfile'>");
 					var $nameDiv = $("<div class='profileName'>");
+					var $kickDiv = $("<div style='float: right; margin-top: 8px;'>");
 					
 					$imgDiv.append("<img src='/rr/profileImg_upload/"+ data[key].changeName +"' style='width:100%; border-radius:6em;'>");
 					
 					if(myId === data[key].userId){
-						$nameDiv.append("<p>" + data[key].nickName + "(나)</p>");						
+						$nameDiv.append("<p>" + data[key].nickName + "(나)</p>");
+						
+						if(data[key].type === "MASTER"){
+							//내가 방장일 경우
+							//$kickDiv.append("<button type='button' class='btn btn-danger kickBtn' >강퇴</button>");
+							//$div.append($kickDiv);							
+							//밖으로 빼서 따로
+							for(var key in data){
+								if(myId !== data[key].userId){
+									$kickDiv.append("<button type='button' class='btn btn-danger kickBtn' >강퇴</button>");
+									$div.append($kickDiv);
+								}
+							}
+							$("#deadLineI").append("<i class='fas fa-stopwatch' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>");
+						}
+						
 					}else{
 						$nameDiv.append("<p>" + data[key].nickName + "</p>");	
 					}
 
 					$div.append($imgDiv);
 					$div.append($nameDiv);
-
+					
 					$chatPersonDiv.append($div);
 					
 					//-> 잘못된 알고리즘
@@ -125,7 +141,7 @@ $(function() {
 				
 				$(".close").click(function(){
 					$(".divArea").remove();
-					//$(".fa-stopwatch").remove();
+					$(".fa-stopwatch").remove();
 					console.log("지운다.")
 				});
 				
@@ -492,19 +508,27 @@ body::-webkit-scrollbar {
 					<div class="modal-header" data-backdrop="static">
 						<h4 class="modal-title" style=' text-align:center '>마감시간 설정</h4>
 					</div>
+					<form id="deadLineForm" action="<%= request.getContextPath() %>/deadLine.cr" method="post">
 					<div class="modal-body" data-backdrop="static" style="padding: 0;">
-						<input type="time" class="form-control" id="dt" name="deadT" style="width: 80%; margin: 30px; text-align: center;">										
+						<input type="time" class="form-control" id="dt" name="dTime" style="width: 80%; margin: 30px; text-align: center;">
+						<input type="hidden" value="<%= rno%>" name="rno">									
 					</div>
 					<div class="modal-footer" data-backdrop="static">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							aria-label="Close">취소</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal" >확인</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="deadLineStart()">확인</button>
 					</div>
+					</form>
 				</div>
 			</div>
 
 		</div>
 	</div>
+	<script>
+		function deadLineStart(){
+			$("#deadLineForm").submit();
+		};
+	</script>
 	
 	<!-- 사용자 평가 모달 컨텐츠 -->
    <div class="container">
@@ -519,7 +543,7 @@ body::-webkit-scrollbar {
 					</div>
 					<div class="modal-body" data-backdrop="static" style="padding: 0;">
 						<%-- 대화상대 --%>
-						<div class="chatPerson">
+						<div id="chatPersonEv">
 						
 						</div>									
 					</div>

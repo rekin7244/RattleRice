@@ -176,8 +176,18 @@ public class ChattingRoomService {
 		return result;
 	}
 
-
-
-
-	
+	//마감시간 설정하는 메소드
+	public int updateChattingRoom(int rno, ChattingRoom reqCr) {
+		Connection con = getConnection();
+		
+		int result = new ChattingRoomDao().updateChattingRoom(con, rno, reqCr);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return result;
+	}	
 }
