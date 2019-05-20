@@ -84,8 +84,8 @@ public class MemberService {
 	public int insertBusinessMember(Member reqMember) {
 		Connection con = getConnection();
 
-		int result = new MemberDao().insertBusinessMember(con, reqMember);
 
+		int result = new MemberDao().insertBusinessMember(con, reqMember);
 		if (result > 0) {
 			commit(con);
 		} else {
