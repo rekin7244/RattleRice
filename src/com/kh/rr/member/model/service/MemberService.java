@@ -59,6 +59,7 @@ public class MemberService {
 
 	public Member loginCheck(String userId, String userPwd) {
 		Connection con = getConnection();
+		System.out.println("서비스 실행");
 
 		Member loginUser = new MemberDao().loginCheck(con, userId, userPwd);
 

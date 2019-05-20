@@ -216,6 +216,11 @@ padding-bottom: 30px;
 #topMenu li {
 	margin-right:20px;
 }
+
+.active {
+	background: gray;
+	color: white;
+}
 </style>
 </head>
 
@@ -283,6 +288,10 @@ padding-bottom: 30px;
 								hmap = list.get(0);
 							}
 							%>
+							<tr>
+								<td><label>매장명 : </label></td>
+								<td><input type="text" name="brand" value='<%=hmap.get("brand") %>'></td>
+							</tr>
 							<tr>
 								<td><label>hp : </label></td>
 								<td><input type="tel" name="phone" value='<%=hmap.get("contact") %>'></td>
@@ -441,25 +450,26 @@ padding-bottom: 30px;
 	</div>
 	<script>
 	$(function(){
-		/* $("#fileArea").hide(); */
+		/*  $("#fileArea").hide(); */
 		
 		$("#contentImgArea1").click(function(){
-			console.log("#contentImgArea1");
-			$("#thumbnailImg1").click();
+			$("#thumbnailImg1").addClass("active");
+			
+			
 		});
-		$("#contentImgArea2").click(function(){
+		/* $("#contentImgArea2").click(function(){
 			$("#thumbnailImg2").click();
 		});
 		$("#contentImgArea3").click(function(){
 			$("#thumbnailImg3").click();
-		});
+		}); */
 	});
 	
 	function loadImg(value, num){
 		if(value.files && value.files[0]){
 			var reader = new FileReader();
 			reader.onload = function(e){
-				switch(num){
+				/* switch(num){
 				case 1 : $("#contentImg1").removeAttr("src");
 						$("#contentImg1").attr("scr", e.target.result);
 					break;
@@ -468,6 +478,13 @@ padding-bottom: 30px;
 					break;
 				case 3 : $("#contentImg3").removeAttr("src");
 						$("#contentImg3").attr("scr", e.target.result);
+					break; */
+					switch(num){
+				case 1 : $("#contentImg1").attr("scr", e.target.result);
+					break;
+				case 2 : $("#contentImg2").attr("scr", e.target.result);
+					break;
+				case 3 : $("#contentImg3").attr("scr", e.target.result);
 					break;
 				}
 			}
