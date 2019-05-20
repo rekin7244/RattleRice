@@ -5,9 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
 <script>
 	$(function() {
 		$(window).resize(function() {
@@ -199,9 +196,9 @@ width: auto;
 							</div>
 							<br> <a id="kakao-login-btn"></a> <a
 								href="http://developers.kakao.com/logout"></a>
+								
 							<script type='text/javascript'>
-					var openWin;
-							
+							var openWin;
 							
 							//<![CDATA[
 						    // 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -210,18 +207,39 @@ width: auto;
 						    Kakao.Auth.createLoginButton({
 						      container: '#kakao-login-btn',
 						      success: function(authObj) {
+						    	  <%-- $.ajax({
+						            	url:"<%=request.getContextPath()%>/login.kk",
+						            	data:{res.id:res.id},
+						            	success:function(){
+						            		console.log(date);
+						            	},
+						            	error:function(){
+						            		console.log("실패")!
+						            	};
+						            });
+						             --%>
+						    	  
 						        // 로그인 성공시, API를 호출합니다.
 						        Kakao.API.request({
 						          url: '/v2/user/me',
 						          success: function(res) {
 						        	console.log(res.id);
 						            console.log(res.properties['nickname']);
+
+						            getKey(res.id);
+						            
+						            alert('최초 카카오톡 로그인 시 개인정보를 설정 해주셔야 해요!');
 						            
 						            window.name = "main";
-						            
-						            
 						           openWin = window.open('/rr/views/member/kakaoMemberLoginForm.jsp','childForm',
 									'top=50px, left=800px, height=500, width=400');
+						           
+						           timer = setInterval(function(){
+							   			openWin.$("#userId").val(res.id);
+							   			openWin.$("#userName").val(res.properties['nickname']);
+						   		}, 1000);
+ 					           
+						           
 						          },
 						          fail: function(error) {
 						            alert(JSON.stringify(error));
@@ -233,6 +251,24 @@ width: auto;
 						      }
 						    });
 						  //]]>
+							
+						    function getKey(data){
+						    	console.log(data);
+						    	
+						    	var key = data;
+						    	$.ajax({
+						    		url:"<%=request.getContextPath()%>/login.kk",
+						    		data:{key:key},
+						    		type:"post",
+						    		success:function(){
+						    			console.log("성공!");
+						    		},
+						    		error:function(){
+						    			console.log("실패!");
+						    		}
+						    	});
+						    	
+						    }
 							</script>
 						</div>
 					</form>

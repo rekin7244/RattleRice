@@ -363,6 +363,34 @@ public class MemberDao {
 		return result;
 	}
 
+	//카카오톡 로그인 시 기존 회원 인지 판단하는 매소드
+	public Member kakaoCheck(Connection con, String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member reqMember = null;
+		
+		String query = prop.getProperty("kakaoCheck");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				reqMember = new Member();
+				reqMember.setUserId(rset.getString("M_ID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return reqMember;
+	}
+
 
 
 

@@ -4,12 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 
 <style>
 body {
@@ -161,12 +163,12 @@ body {
 								action="<%=request.getContextPath()%>/insertMember.me"
 								method="post" role="form" style="display: block;">
 								<input type="hidden" name="memberType" id="memberType" value="1">
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<input type="text" name="userId" id="userId"
-										class="form-control" placeholder="아이디" required>
+										class="form-control" placeholder="아이디" >
 									<button type="button" class="btn btn-warning " id="idCheck"
 										style="background: white; color: gray;">중복확인</button>
-								</div>
+								</div> -->
 								<div class="form-group">
 									<input type="password" name="userPwd" id="userPwd"
 										class="form-control" placeholder="비밀번호" required>
@@ -178,7 +180,7 @@ body {
 
 								<div class="form-group">
 									<input type="text" name="userName" id="userName"
-										class="form-control" placeholder="이름" required>
+										class="form-control" placeholder="이름" required onchange="alert('바뀜')">
 								</div>
 								<div class="form-group">
 									<label>생년월일 : </label> <input type="date" name="birthday"
@@ -250,33 +252,8 @@ body {
 		var idCheck = "0";
 		var pwdCheck = "0";
 
-		$(function() {
-			$("#idCheck").click(function() {
-				var userId = $("#userId").val();
-
-				$.ajax({
-					url : "/rr/idCheck.me",
-					type : "post",
-					data : {
-						userId : userId
-					},
-					success : function(data) {
-						if (data === "fail") {
-							alert("아이디가 중복됩니다.");
-							idCheck = "0";
-						} else {
-							alert("사용 가능합니다.");
-							idCheck = "1";
-							$("#userId").attr("readonly", "readonly");
-						}
-					},
-					error : function() {
-						console.log("실패");
-					}
-				});
-			})
-		});
-
+		
+		
 		$(function() {
 			$("#userPwd").keyup(function() {
 				var pwd1 = $("#userPwd").val();
