@@ -17,7 +17,7 @@
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
-#content {
+ #content {
 	width: calc(100% - 250px);
 	padding: 40px;
 	min-height: 100vh;
@@ -38,19 +38,15 @@
 	border-radius: 10px;
 }
 
-#update{
-	
-	padding:10px;
-}
 
 #insert{
 	width : 1000px;
-	margin-left:-200px;
+	margin-left:50px;
 }
 
 #insertbtn{
-	margin-left:700px;
-}
+	margin-left:1000px;
+} 
 
 
 </style>
@@ -59,6 +55,7 @@
 <body>
 	<%@ include file="menubar_admin.jsp" %>
 	<!-- Page Content  -->
+	
 	<div id="content">
 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -148,7 +145,7 @@
 								</tbody>
 							</table>
 								
-							<input type="submit" class="btn btn-primary pull-right" value="글쓰기" id="insertbtn"/>
+							<input type="submit" class="btn btn-primary pull-right" value="등록" id="insertbtn"/>
 						</form>
 					</div>
 				</div>

@@ -253,6 +253,7 @@ public class AdminDao {
 		return list;
 	}
 
+	//공지사항 추가
 	public int insertCommunity(Connection con, Board community) {
 
 		PreparedStatement pstmt = null;
@@ -279,6 +280,7 @@ public class AdminDao {
 		return result;
 	}
 
+	//공지사항 상세보기
 	public Board selectOne(Connection con, int num) {
 
 		Board community = null;
@@ -295,14 +297,15 @@ public class AdminDao {
 			
 			if(rset.next()) {
 				community = new Board();
+				community.setNbid(rset.getInt("NBID"));
 				community.setTitle(rset.getString("TITLE"));
-				community.setbContent(rset.getString("CONTENT"));
+				community.setbContent(rset.getString("BCONTENT"));
 				community.setWriter(rset.getString("M_ID"));
 				community.setbCount(rset.getInt("BCOUNT"));
 				community.setbDate(rset.getDate("BDATE"));
-			}
 			
-			System.out.println(community);
+			
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -315,9 +318,25 @@ public class AdminDao {
 		return community;
 	}
 
-	public int updateCount(Connection con, int bid) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateCount(Connection con, int nbid) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("updeteCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, nbid);
+			pstmt.setInt(2, nbid);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 }

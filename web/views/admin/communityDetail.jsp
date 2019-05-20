@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.board.model.vo.Board"%>
 <%
-	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	Board community = (Board)request.getAttribute("community");
 %>
 <!DOCTYPE html>
 <html>
@@ -27,9 +27,9 @@
 	right: 0;
 }
 
-#content.active {
+/* #content.active {
 	width: 100%;
-}
+} */
 
 #mainbar {
 	background-color: lightgreen;
@@ -38,18 +38,15 @@
 	border-radius: 10px;
 }
 
-#update{
-	
-	padding:10px;
-}
 
-#insert{
+
+#detail{
 	width : 1000px;
-	margin-left:-200px;
+	margin-left:50px;
 }
 
 #btn{
-	margin-left:650px;
+	margin-left:900px;
 }
 
 
@@ -120,7 +117,7 @@
 				<div class="container">
 					<div class="row">
 						<form action="<%=request.getContextPath()%>/communityInsert.ad" method="post">
-							<table class="table table-striped" id="insert"
+							<table class="table table-striped" id="detail"
 								style="text-align:center; border:1px solid #dddddd">
 								<thead>
 									<tr>
@@ -133,12 +130,12 @@
 								<tbody>
 							
 									<tr>
-										<td>제목</td>
+										<td><%= community.getTitle() %></td>
 									</tr>
 									
 									<tr>
 										<td><textarea readonly class="form-control"  name="content" 
-												maxlength="2048" style="height:400px;">내용입니다</textarea></td>
+												maxlength="2048" style="height:400px;"><%=community.getbContent() %></textarea></td>
 									</tr>
 									
 												
@@ -146,8 +143,8 @@
 							</table>
 							
 							<div id="btn">
-								<input type="submit" class="btn btn-primary pull-right" value="이전" id="beforebtn"/>
-								<input type="submit" class="btn btn-primary pull-right" value="수정" id="updatebtn"/>
+								<button class="btn btn-primary pull-right" onclick="location.href='<%=request.getContextPath() %>/communitylist.ad'">이전</button>
+								<button class="btn btn-primary pull-right" onclick="location.href='<%=request.getContextPath() %>/communitylist.ad'">수정</button>
 							</div>
 							
 						</form>
