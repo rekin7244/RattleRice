@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.rr.member.model.dao.MemberDao;
+import com.kh.rr.member.model.dao.UserInfoDao;
 import com.kh.rr.member.model.vo.Member;
-import com.kh.rr.member.model.vo.UserInfo;
 
 public class MemberService {
 

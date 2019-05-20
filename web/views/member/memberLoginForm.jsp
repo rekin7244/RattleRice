@@ -8,7 +8,6 @@
 <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
 	$(function() {
 		$(window).resize(function() {
@@ -144,6 +143,7 @@ width: auto;
 }
 </style>
 <title>딸랑밥 로그인</title>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
 	<div class="panel panel-login">
@@ -202,7 +202,7 @@ width: auto;
 							<script type='text/javascript'>
 								//<![CDATA[
 								// 사용할 앱의 JavaScript 키를 설정해 주세요.
-								Kakao.init('a36d07e3fc23e75d5f13dffaae340043');
+								Kakao.init('3ed0b4e71ba7007ca6b6bebd10d3db82');
 								// 카카오 로그인 버튼을 생성합니다.
 								Kakao.Auth.createLoginButton({
 									container : '#kakao-login-btn',

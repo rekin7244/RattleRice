@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -175,6 +176,67 @@ public class UserInfoDao {
 		}
 		return result;
 	}
+
+	public ArrayList<HashMap<String, Object>> selectUserPoint(Connection con, String userId) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("selectUserPoint");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+
+			list = new ArrayList<HashMap<String, Object>>();
+
+			while (rset.next()) {
+				hmap = new HashMap<String, Object>();
+
+				hmap.put("point", rset.getInt("POINT"));
+				hmap.put("bell", rset.getInt("BELL"));
+				hmap.put("date", rset.getDate("TDATE"));
+				hmap.put("price", rset.getInt("TPRICE"));
+				hmap.put("type", rset.getString("TYPE"));
+				hmap.put("unit", rset.getString("UNIT"));
+
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return list;
+	}
+	
+	public int updatePoint(Connection con, String amount, String userId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updatePoint");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, amount);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	
 	
 	
 
