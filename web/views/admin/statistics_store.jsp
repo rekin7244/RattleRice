@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 통계</title>
+<title>매장 통계</title>
 </head>
 <body>
 	<%@ include file="menubar_statistics.jsp"%>
@@ -27,7 +27,7 @@
 				</button>
 				&nbsp; &nbsp;
 				<div id="mainbar">
-					<a>회원 분석</a>
+					<a>매장 분석</a>
 				</div>
 
 				<iframe name='action' width="0" height="0" frameborder="0"
@@ -51,7 +51,7 @@
 		</div>
 	</div>
 	<script>
-		var userData;
+		var storeData;
 		//first Chart 생성
 		var ctx = $("#firstChart");
 		var firstChart = new Chart(ctx, {
@@ -59,17 +59,26 @@
 			data:{
 				labels:[],
 				datasets: [{
-					/* label:"회원 비율", */
 					data:[],
 					backgroundColor:[
 						'rgba(255,99,132,0.2)',
 						'rgba(54,162,235,0.2)',
-						'rgba(255,206,86,0.2)'
+						'rgba(255,206,86,0.2)',
+						'rgba(75,192,192,0.2)',
+						'rgba(153,102,255,0.2)',
+						'rgba(255,159,64,0.2)',
+						'rgba(100,100,100,0.2)',
+						'rgba(0,255,120,0.2)'
 					],
 					borderColor:[
 						'rgba(255,99,132,1)',
 						'rgba(54,162,235,1)',
-						'rgba(255,206,86,1)'
+						'rgba(255,206,86,1)',
+						'rgba(75,192,192,1)',
+						'rgba(153,102,255,1)',
+						'rgba(255,159,64,1)',
+						'rgba(100,100,100,1)',
+						'rgba(0,255,120,1)'
 					],
 					borderWidth:1
 				}]
@@ -88,16 +97,16 @@
 		//data loading
 		$(function(){
 			$.ajax({
-				url:"<%=request.getContextPath()%>/statisticsMember.st",
+				url:"<%=request.getContextPath()%>/statisticsStore.st",
 				type:"post",
 				data:{},
 				success:function(data){
-					var userData = data;
-					console.log(userData);
+					var storeData = data;
+					console.log(storeData);
 					removeData(firstChart);
-					addData(firstChart,"사용자",userData[0]);
-					addData(firstChart,"사업자",userData[1]);
-					addData(firstChart,"관리자",userData[2]);
+					for ( var key in storeData) {
+					addData(firstChart,storeData[key].location,storeData[key].value);						
+					}
 				},
 				error:function(data){
 					console.log("로드 실패");

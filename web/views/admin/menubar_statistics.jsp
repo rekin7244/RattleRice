@@ -212,23 +212,34 @@ a.article, a.article:hover {
 				<p>
 					<b><%=loginUser.getUserName()%> 관리자 님 환영합니다.</b>
 				</p>
-				<li class="active"><a href="#homeSubmenu"
+				<li><a href="#homeSubmenu"
 					data-toggle="collapse" aria-expanded="false"
-					class="dropdown-toggle">회원 통계</a>
+					class="dropdown-toggle">서비스 통계</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
-						<li><a href="/views/admin/statistics_member.jsp">회원 분석</a></li>
 						<li><a href="">시간대별 이용 조회</a></li>
 						<li><a href="">장소별 이용 조회</a></li>
 						<li><a href="">카테고리별 이용 조회</a></li>
-						<li><a href="">사업자 분석</a></li>
-					</ul></li>
+					</ul>
+				</li>
 
 				<li><a href="#pageSubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">매출 통계</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
-						<li><a href="/views/admin/statistics_sales.jsp">포인트 매출 통계</a></li>
+						<li><a href="<%=request.getContextPath() %>/views/admin/statistics_sales.jsp">포인트 매출 통계</a></li>
 						<li><a href="">코인 사용 통계</a></li>
-					</ul></li>
+					</ul>
+				</li>
+					
+				<li><a href="#pageSubmenu2" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle">관리 통계</a>
+					<ul class="collapse list-unstyled" id="pageSubmenu2">
+						<li><a href="<%=request.getContextPath() %>/views/admin/statistics_member.jsp">회원 분석</a></li>
+						<li><a href="">사업자 분석</a></li>
+						<li><a href="<%=request.getContextPath()%>/views/admin/statistics_store.jsp">매장 분석</a></li>
+					</ul>
+				</li>
+				
+				<li><a href="<%=request.getContextPath() %>/memberlist.ad">관리자 페이지</a></li>
 			</ul>
 		</nav>
 	</div>
