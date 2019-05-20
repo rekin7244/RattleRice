@@ -76,7 +76,7 @@ public class AdminService {
 		
 		close(con);
 		
-		System.out.println("서비스실행 : " + list);
+		/*System.out.println("서비스실행 : " + list);*/
 		
 		return list;
 	}
@@ -107,6 +107,7 @@ public class AdminService {
 		Board community = new AdminDao().selectOne(con, num);
 		
 		if(community != null) {
+			
 			int result = new AdminDao().updateCount(con, community.getNbid());
 			
 			if(result>0) {
@@ -118,9 +119,11 @@ public class AdminService {
 		
 		close(con);
 		
-		/*System.out.println("게시판 상세보기 서비스");*/
+		System.out.println("게시판 상세보기 서비스");
 		
 		return community;
 	}
+
+
 
 }
