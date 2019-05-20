@@ -67,6 +67,7 @@ public class AdminService {
 		return bisilist;
 	}
 
+	//공지사항 목록조회
 	public ArrayList<Board> communitylist() {
 
 		Connection con = getConnection();
@@ -80,6 +81,7 @@ public class AdminService {
 		return list;
 	}
 
+	//공지사항 추가
 	public int insertCommunity(Board community) {
 
 		Connection con = getConnection();
@@ -97,6 +99,7 @@ public class AdminService {
 		return result;
 	}
 
+	//공지사항 상세보기
 	public Board selectOne(int num) {
 
 		Connection con = getConnection();
@@ -104,7 +107,7 @@ public class AdminService {
 		Board community = new AdminDao().selectOne(con, num);
 		
 		if(community != null) {
-			int result = new AdminDao().updateCount(con, community.getBid());
+			int result = new AdminDao().updateCount(con, community.getNbid());
 			
 			if(result>0) {
 				commit(con);
@@ -115,7 +118,7 @@ public class AdminService {
 		
 		close(con);
 		
-		System.out.println("게시판 상세보기 서비스");
+		/*System.out.println("게시판 상세보기 서비스");*/
 		
 		return community;
 	}

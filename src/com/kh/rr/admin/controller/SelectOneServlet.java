@@ -29,7 +29,7 @@ public class SelectOneServlet extends HttpServlet {
 		
 		Board community = new AdminService().selectOne(num);
 		
-		System.out.println("게시판 상세보기 서블릿");
+		/*System.out.println("게시판 상세보기 서블릿");*/
 		
 		String page="";
 		if(community != null) {
