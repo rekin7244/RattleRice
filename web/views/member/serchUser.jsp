@@ -176,17 +176,17 @@ body {
 									style="display: block;">
 									<div class="form-group">
 										<input type="text" name="username" id="username"
-											class="form-control" placeholder="이름" value="">
+											class="form-control" placeholder="이름 입력" value="">
 									</div>
 									<div class="form-group">
-										<input type="tel" name="tel" id="tel" class="form-control"
-											placeholder="전화번호">
+										<input type="email" name="email" id="email"
+											class="form-control" placeholder="이메일 입력">
 									</div>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
 												<input type="submit" name="login-submit" id="login-submit"
-													class="form-control btn btn-login" value="SMS 인증">
+													class="form-control btn btn-login" value="이메일 인증">
 											</div>
 										</div>
 									</div>
@@ -195,22 +195,22 @@ body {
 									style="display: none;">
 									<div class="form-group">
 										<input type="text" name="username" id="username"
-											class="form-control" placeholder="이름" value="">
+											class="form-control" placeholder="이름 입력" value="">
 									</div>
 									<div class="form-group">
 										<input type="email" name="email" id="email"
-											class="form-control" placeholder="아이디" value="">
+											class="form-control" placeholder="아이디 입력" value="">
 									</div>
 									<div class="form-group">
-										<input type="tel" name="tel" id="tel" class="form-control"
-											placeholder="전화번호">
+										<input type="email" name="email" id="email"
+											class="form-control" placeholder="이메일 입력">
 									</div>
 
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
 												<input type="submit" name="login-submit" id="login-submit"
-													class="form-control btn btn-login" value="SMS 인증">
+													class="form-control btn btn-login" value="이메일 인증">
 											</div>
 										</div>
 									</div>
