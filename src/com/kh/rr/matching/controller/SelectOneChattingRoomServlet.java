@@ -32,19 +32,33 @@ public class SelectOneChattingRoomServlet extends HttpServlet {
 		//룸레코드 DB에 기록이 있는지 체크한다
 		int result = new ChattingRoomService().checkMasterRecord(loginUser, rno);
 		
-		//일반 Room_record 삽입 하는 메소드
-		int result2 = new ChattingRoomService().insertRoomRecord(loginUser, rno);
-
-		if(result2 > 0) {
-			ArrayList<HashMap<String, Object>> list = 
-					new AttachmentService().selectAttachmentlList(loginUser.getUserId());
-
-			request.setAttribute("list", list);
-			request.getSession().setAttribute("rno", rno);
-			request.getRequestDispatcher("views/matching/chatting.jsp").forward(request, response);
+		System.out.println(result);
+		if(result > 0) {
+				ArrayList<HashMap<String, Object>> list = 
+						new AttachmentService().selectAttachmentlList(loginUser.getUserId());
+				
+				request.setAttribute("list", list);
+				request.getSession().setAttribute("rno", rno);
+				request.getRequestDispatcher("views/matching/chatting.jsp").forward(request, response);
+			
 		}else {
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			System.out.println("일반 사용자로 입장");
+			int result2 = new ChattingRoomService().insertRoomRecord(loginUser, rno);
+			
+			if(result2 > 0) {
+				ArrayList<HashMap<String, Object>> list = 
+						new AttachmentService().selectAttachmentlList(loginUser.getUserId());
+				
+				request.setAttribute("list", list);
+				request.getSession().setAttribute("rno", rno);
+				request.getRequestDispatcher("views/matching/chatting.jsp").forward(request, response);
+
+			}else {
+				request.setAttribute("msg", "채팅방 입장 실패!");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
 		}
+
 
 
 	}

@@ -439,10 +439,28 @@ public class ChattingRoomDao {
 	public int checkMasterRecord(Connection con, Member loginUser, int rno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		int result = 0;
 		
-		String query = null;
+		String query = prop.getProperty("checkMasterRecord");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			pstmt.setString(2, loginUser.getUserId());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
 		
-		return 0;
+		
+		return result;
 	}
 
 }
