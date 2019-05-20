@@ -115,6 +115,8 @@ public class AdminService {
 		
 		close(con);
 		
+		System.out.println("게시판 상세보기 서비스");
+		
 		return community;
 	}
 
