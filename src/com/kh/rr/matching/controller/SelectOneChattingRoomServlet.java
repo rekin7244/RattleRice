@@ -52,7 +52,7 @@ public class SelectOneChattingRoomServlet extends HttpServlet {
 				
 				request.setAttribute("list", list);
 				request.getSession().setAttribute("rno", rno);
-				request.getRequestDispatcher("views/matching/chatting.jsp").forward(request, response);
+				request.getRequestDispatcher("views/matching/chatting.jsp?rno=" + rno).forward(request, response);
 
 			}else {
 				request.setAttribute("msg", "채팅방 입장 실패!");
