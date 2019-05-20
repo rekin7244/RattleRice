@@ -338,6 +338,13 @@ body::-webkit-scrollbar {
 .fa-sign-out-alt {
 	margin-top:9px;
 }
+
+#busImg {
+	height: 200px;
+    width: 250px;
+    margin: auto;
+    text-align: center;
+}
 </style>
 </head>
 <body>
@@ -519,7 +526,12 @@ body::-webkit-scrollbar {
 					</div>
 					<div class="modal-body" data-backdrop="static" style="padding: 0;">
 						<h4 style="text-align:center;">식당이름</h4>
-						<p style="color:lightgray; margin-left: 15px;">오늘 방문하신 식당은 어떠셨나요?</p>								
+						<p style="color:lightgray; margin-left: 15px;">오늘 방문하신 식당은 어떠셨나요?</p>
+						<div id="busImg">
+							<img src="/rr/images/picture.png" style=" width: 250px; height: 200px; ">
+						</div>
+						<div id="">
+						</div>					
 					</div>
 					<div class="modal-footer" data-backdrop="static">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
