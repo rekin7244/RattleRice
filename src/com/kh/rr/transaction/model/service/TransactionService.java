@@ -35,7 +35,6 @@ public class TransactionService {
 		
 		return list;
 	}
-
 	//가장 최근 transaction 불러오는 메소드
 	public Transaction selectLatestTransaction() {
 		Connection con = getConnection();

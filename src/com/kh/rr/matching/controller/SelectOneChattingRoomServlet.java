@@ -40,6 +40,7 @@ public class SelectOneChattingRoomServlet extends HttpServlet {
 					new AttachmentService().selectAttachmentlList(loginUser.getUserId());
 
 			request.setAttribute("list", list);
+			request.setAttribute("rno", rno);
 			request.getSession().setAttribute("rno", rno);
 			request.getRequestDispatcher("views/matching/chatting.jsp").forward(request, response);
 		}else {

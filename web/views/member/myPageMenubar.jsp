@@ -12,8 +12,26 @@
 	width: 33%;
 }
 
-#sidebar ul{
-border: 1px solid black;
+#sidebar ul {
+	border: 1px solid black;
+}
+
+#sidebar ul li a {
+	padding: 10px;
+	font-size: 1.1em;
+	display: block;
+	text-align: center;
+	width: 100.9%;
+}
+#sidebar ul p {
+	color: black;
+	padding: 10px;
+}
+
+
+#sidebar ul li a:hover {
+	color: black;
+	background: lightgray;
 }
 </style>
 </head>
@@ -23,18 +41,24 @@ border: 1px solid black;
 	</div>
 	<nav id="sidebar">
 		<ul class="list-unstyled components">
-			<li><a onclick="goProfile()" style="cursor: pointer;">마이페이지</a></li>
-			<li><a
+			<li><a id="profile" onclick="goProfile()"
+				style="cursor: pointer;">마이페이지</a></li>
+			<li><a id="write"
 				href="<%=request.getContextPath()%>/views/member/myWriteForm.jsp">작성글
 					조회</a></li>
-			<li><a
-				href="<%=request.getContextPath()%>/views/member/myPointForm.jsp">포인트</a></li>
+			<li><a id="point" onclick="goPoint()" style="cursor: pointer;">포인트</a></li>
 		</ul>
 	</nav>
 </body>
 <script>
 	function goProfile() {
 		location.href = "/rr/selectPro";
+	};
+	/* function goProfile() {
+		location.href = "/rr/selectPro";
+	}; */
+	function goPoint() {
+		location.href = "/rr/selectPoint";
 	};
 </script>
 </html>

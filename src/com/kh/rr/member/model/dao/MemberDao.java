@@ -340,6 +340,27 @@ public class MemberDao {
 		return result;
 	}
 
+	public int defaultPointCharge(Connection con, String userId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("defaultPointCharge");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "1000");
+			pstmt.setString(2, userId);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 
 
