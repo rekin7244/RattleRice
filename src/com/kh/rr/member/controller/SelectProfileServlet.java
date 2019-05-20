@@ -29,9 +29,15 @@ public class SelectProfileServlet extends HttpServlet {
 		String userId = loginUser.getUserId();
 		
 		ArrayList<HashMap<String, Object>> list = new AttachmentService().selectAttachmentlList(userId);
-		
+		System.out.println("프로필변경");
+		System.out.println(loginUser);
 		String page ="";
 		if(list != null) {
+			if(loginUser.getMemberType().equals("2")) {
+				System.out.println("사진 업데이트 member타입2");
+				page = "views/business/businessFormUpdate";
+				request.setAttribute("list", list);
+			}
 			page = "views/member/myPageForm.jsp";
 			request.setAttribute("list", list);
 		}else {
