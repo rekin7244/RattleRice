@@ -1,11 +1,8 @@
 package com.kh.rr.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.PrintWriter;
 
-import javax.security.auth.login.LoginException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,17 +55,15 @@ public class LoginMemberServlet extends HttpServlet {
 				response.sendRedirect(page);
 			}
 		}else{
-			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "로그인에러!");
-			try {
-				throw new LoginException("로그인에러!");
-			} catch (LoginException e) {
-				RequestDispatcher view = 
-						request.getRequestDispatcher(page);
-				view.forward(request, response);
-			}
+			response.setContentType("text/html; charset=euc-kr"); // 한글이 인코딩
+			PrintWriter out = response.getWriter(); // 선언
 
-
+			String str = "";
+			str = "<script language='javascript'>";
+			str += "alert(\"로그인에 실패하였습니다. 아이디 혹은 패스워드를 확인해주세요!\");";
+			str += "history.go(-1);";
+			str += "</script>";
+			out.print(str);
 		}
 	}
 

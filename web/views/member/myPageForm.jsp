@@ -375,7 +375,7 @@ footer {
 							</div>
 							<div class="form-group">
 								<label>연락처</label><br> <input type="tel" class="form-control"
-									value="0<%=hmap.get("phone")%>" name="tel">
+									value="0<%=hmap.get("phone")%>" name="tel" disabled>
 							</div>
 							<div class="form-group">
 								<label>생일</label><br> <input type="date" class="form-control"

@@ -138,7 +138,7 @@ body {
 	text-align: center;
 }
 
-#userId, #tel, #curjob {
+#userId, #phone, #curjob {
 	width: 215px;
 	height: 35px;
 }
@@ -164,8 +164,7 @@ body {
 								<div class="form-group">
 									<input type="text" name="userId" id="userId"
 										class="form-control" placeholder="아이디" required>
-									<button type="button" class="btn btn-warning " id="idCheck"
-										style="background: white; color: gray;">중복확인</button>
+									<button type="button" class="btn btn-warning " id="idCheck">중복확인</button>
 								</div>
 								<div class="form-group">
 									<input type="password" name="userPwd" id="userPwd"
@@ -222,14 +221,15 @@ body {
 								</div>
 								<br>
 								<div class="form-group">
-									<input type="tel" name="phone" id="phone" class="form-control"
-										placeholder="휴대폰번호" required>
+								<input type="email" name="email" id="email"
+										class="form-control" placeholder="이메일" required>
+									
 								</div>
 								<div class="form-group">
-									<input type="email" name="email" id="email"
-										class="form-control" placeholder="이메일" required>
-									<button type="button" class="btn btn-primary"
-										style="background: white; color: gray;">SMS인증</button>
+									<input type="tel" name="phone" id="phone" class="form-control"
+										placeholder="휴대폰번호" required>
+									<button onclick="phoneCheckBtn()" type="button"
+										class="btn btn-primary" id="smsBtn">SMS인증</button>
 								</div>
 								<div class="form-group">
 									<div class="row">
@@ -249,7 +249,9 @@ body {
 	<script>
 		var idCheck = "0";
 		var pwdCheck = "0";
+		var phoneCheck = "0";
 
+		//아이디 중복체크
 		$(function() {
 			$("#idCheck").click(function() {
 				var userId = $("#userId").val();
@@ -277,6 +279,8 @@ body {
 			})
 		});
 
+		
+		//비밀번호 체크
 		$(function() {
 			$("#userPwd").keyup(function() {
 				var pwd1 = $("#userPwd").val();
@@ -306,9 +310,45 @@ body {
 				}
 			});
 		});
+		
+		//휴대폰 인증
+		function phoneCheckBtn() {
+			var rand = Math.floor(Math.random() * 99999) + 10001; //랜덤값 
+			var phoneNumber = $("#phone").val(); // 연락처 입력 값
+			
+			/* $.ajax({
+				url : "/rr/telCheck",
+				type : "post",
+				data : {rand : rand , phoneNumber : phoneNumber},
+				success : function() {
+					console.log("문자 보내기 성공");
+				},
+				error : function() {
+					console.log("문자 보내기 성공");
+				}
+			}); */ //인증시에만 사용
+			
+			var result = window.prompt('잠시후 도착할 인증번호를 입력하세요. 임시용 : ' + rand); //회원이 입력한 값
+			
+			if(result == rand){
+				phoneCheck = "1";
+				alert("인증되었습니다.");
+				$("#phone").attr("disabled", "disabled");
+				$("#smsBtn").attr("disabled", "disabled");
+				
+			}else{
+				alert("인증번호가 틀립니다.");
+			}
+		}
 
+		//회원가입 활성화
 		setInterval(function() {
-			if (idCheck == "1" && pwdCheck == "1") {
+			console.log(idCheck);
+			console.log(pwdCheck);
+			console.log(phoneCheck);
+			
+			
+			if (idCheck == "1" && pwdCheck == "1" && phoneCheck == "1") {
 				$("#register-submit").removeAttr("disabled");
 			} else {
 				$("#register-submit").attr("disabled", "disabled");
