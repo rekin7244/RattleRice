@@ -200,20 +200,39 @@ width: auto;
 							<br> <a id="kakao-login-btn"></a> <a
 								href="http://developers.kakao.com/logout"></a>
 							<script type='text/javascript'>
-								//<![CDATA[
-								// 사용할 앱의 JavaScript 키를 설정해 주세요.
-								Kakao.init('3ed0b4e71ba7007ca6b6bebd10d3db82');
-								// 카카오 로그인 버튼을 생성합니다.
-								Kakao.Auth.createLoginButton({
-									container : '#kakao-login-btn',
-									success : function(authObj) {
-										alert(JSON.stringify(authObj));
-									},
-									fail : function(err) {
-										alert(JSON.stringify(err));
-									}
-								});
-								//]]>
+					var openWin;
+							
+							
+							//<![CDATA[
+						    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+						    Kakao.init('bf07de78ccb40d07273cceb9edaf6165');
+						    // 카카오 로그인 버튼을 생성합니다.
+						    Kakao.Auth.createLoginButton({
+						      container: '#kakao-login-btn',
+						      success: function(authObj) {
+						        // 로그인 성공시, API를 호출합니다.
+						        Kakao.API.request({
+						          url: '/v2/user/me',
+						          success: function(res) {
+						        	console.log(res.id);
+						            console.log(res.properties['nickname']);
+						            
+						            window.name = "main";
+						            
+						            
+						           openWin = window.open('/rr/views/member/kakaoMemberLoginForm.jsp','childForm',
+									'top=50px, left=800px, height=500, width=400');
+						          },
+						          fail: function(error) {
+						            alert(JSON.stringify(error));
+						          }
+						        });
+						      },
+						      fail: function(err) {
+						        alert(JSON.stringify(err));
+						      }
+						    });
+						  //]]>
 							</script>
 						</div>
 					</form>
