@@ -164,6 +164,18 @@ public class ChattingRoomService {
 		
 	}
 
+	//방장으로 들어온건지 아닌지 판단해주는 메소드
+	//룸레코드 DB에 기록이 있는지 체크한다
+	public int checkMasterRecord(Member loginUser, int rno) {
+		Connection con = getConnection();
+		
+		int result = new ChattingRoomDao().checkMasterRecord(con, loginUser, rno);
+
+		close(con);
+		
+		return result;
+	}
+
 
 
 
