@@ -84,28 +84,6 @@ a, a:hover, a:focus {
 	transition: all 0.3s;
 }
 
-/* page표시 */
-#sidebar .sidebar-header {
-	
-}
-
-#sidebar ul p {
-	color: black;
-	padding: 10px;
-}
-
-#sidebar ul li a {
-	padding: 10px;
-	font-size: 1.1em;
-	display: block;
-	text-align: center;
-}
-
-#sidebar ul li a:hover {
-	color: black;
-	background: lightgray;
-}
-
 a[data-toggle="collapse"] {
 	position: relative;
 }
@@ -447,6 +425,7 @@ footer {
 	<script>
 		$(function() {
 			$("#fileArea").hide();
+			$('#profile').addClass('active');
 
 			$("#profileImgArea").click(function() {
 				$("#profileImg").click();
