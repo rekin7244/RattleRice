@@ -5,8 +5,8 @@
 <%
 	InetAddress Address = InetAddress.getLocalHost();
 	Member m = (Member) (request.getSession().getAttribute("loginUser"));
-	//int rno = (int) session.getAttribute("rno");
-	int rno = (int) request.getAttribute("rno");
+	int rno = (int) session.getAttribute("rno");
+	/* int rno = (int) request.getAttribute("rno"); */
 	/* ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 
 	HashMap<String, Object> hmap = null;
@@ -54,8 +54,27 @@ $(function() {
 				
 				for (var key in data) {
 					console.log(data[key].type);
+					//alert(typeof(data[key].type)); // ->String
+					var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
+					var $imgDiv = $("<div class='profileImg' data-toggle='modal' data-target='#userProfile'>");
+					var $nameDiv = $("<div class='profileName'>");
 					
-					if(data[key].type == "USER"){
+					$imgDiv.append("<img src='/rr/profileImg_upload/"+ data[key].changeName +"' style='width:100%; border-radius:6em;'>");
+					
+					if(myId === data[key].userId){
+						$nameDiv.append("<p>" + data[key].nickName + "(나)</p>");						
+					}else{
+						$nameDiv.append("<p>" + data[key].nickName + "</p>");	
+					}
+
+					$div.append($imgDiv);
+					$div.append($nameDiv);
+
+					$chatPersonDiv.append($div);
+					
+					//-> 잘못된 알고리즘
+					/* if(data[key].type == "USER"){
+						console.log(data[key].type);
 						var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
 						var $imgDiv = $("<div class='profileImg' data-toggle='modal' data-target='#userProfile'>");
 						var $nameDiv = $("<div class='profileName'>");
@@ -97,14 +116,16 @@ $(function() {
 
 						$("#deadLineI").append("<i class='fas fa-stopwatch' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>");
 						
-					}
+					} */
 					
 					
 				}
 				
+				
+				
 				$(".close").click(function(){
 					$(".divArea").remove();
-					$(".fa-stopwatch").remove();
+					//$(".fa-stopwatch").remove();
 					console.log("지운다.")
 				});
 				
