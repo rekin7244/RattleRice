@@ -280,6 +280,7 @@ padding-bottom: 30px;
 					<br> <br>
 					<form action="<%=request.getContextPath() %>/businessInfoUpdate.b" method="post">
 					<button type="submit" id="submitBtn1">적용하기</button>
+					<br>
 						<table align="center"
 							style="min-width: 500px; border-collapse: separate; border-spacing: 0 10px;">
 							<% if(list != null){
@@ -398,21 +399,30 @@ padding-bottom: 30px;
 				
 				<div class="container col-sm-9"
 					style="border: 0.5px solid lightgray; height: 400px;float: left; width: 33%; padding:10px;">
-					<form action="<%= request.getContextPath() %>/businessinsert.tn" method="post"
+					<form action="<%= request.getContextPath() %>/updateProImg" method="post"
 							encType="multipart/form-data">
 					
 						<h4 align="center">사진첨부</h4>
 						
 						<button type="submit" id="storeImgUpdate">적용하기</button>
 						
+						<!-- 이미지첨부 -->
 						<div id="contentImgArea1"
-							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
+							style="border: 0.5px solid lightgray; margin 0 auto; height: 150px;">
+							
+							<div id="fileArea">
+							<input type="file" id="contentImg" name="contentImg" 
+									onchnage="loadImg(this)">
+						    </div>
+						
+						
 								 <%
 								 HashMap<String, Object> hamp = null;
 									for (int i = 0; i < list.size(); i++) {
 										hamp = list.get(i);
 								%>
-								<img id="contentImg1" src="/rr/profileImg_upload/<%=hamp.get("changeName")%>" width="120" height="100">
+								<img id="contentImg1" src="/rr/profileImg_upload/<%=hamp.get("changeName")%>" style="
+									width:170px; align=center; ">
 								<%
 									}
 								%> 
@@ -432,15 +442,6 @@ padding-bottom: 30px;
 								
 						</div> --%>
 						
-						<div id="fileArea">
-						
-							<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)">
-							<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)">
-							<input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this,3)">
-							
-						
-						</div>
-						
 					</form>
 					
 				</div>
@@ -450,11 +451,13 @@ padding-bottom: 30px;
 	</div>
 	<script>
 	$(function(){
-		/*  $("#fileArea").hide(); */
-		
-		$("#contentImgArea1").click(function(){
+		/* $("#fileArea").hide(); */
 			$("#thumbnailImg1").addClass("active");
+			console.log("thumbnailImg");
 			
+		$("#contentImgArea1").click(function(){
+			console.log("contentImgArea");
+			$('#contentImg').click();			
 			
 		});
 		/* $("#contentImgArea2").click(function(){
@@ -469,29 +472,14 @@ padding-bottom: 30px;
 		if(value.files && value.files[0]){
 			var reader = new FileReader();
 			reader.onload = function(e){
-				/* switch(num){
-				case 1 : $("#contentImg1").removeAttr("src");
-						$("#contentImg1").attr("scr", e.target.result);
-					break;
-				case 2 : $("#contentImg2").removeAttr("src");
-						$("#contentImg2").attr("scr", e.target.result);
-					break;
-				case 3 : $("#contentImg3").removeAttr("src");
-						$("#contentImg3").attr("scr", e.target.result);
-					break; */
-					switch(num){
-				case 1 : $("#contentImg1").attr("scr", e.target.result);
-					break;
-				case 2 : $("#contentImg2").attr("scr", e.target.result);
-					break;
-				case 3 : $("#contentImg3").attr("scr", e.target.result);
-					break;
-				}
-			}
+				 $("#contentImg1").removeAttr("src");
+					$("#contentImg1").attr("scr", e.target.result);
+					}
+			
 			reader.readAsDataURL(value.files[0]);
 			//$("#").removeAttr("disabled");
 		}
-	}
+	};
 	
 	</script>
 
