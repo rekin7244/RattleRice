@@ -87,8 +87,8 @@ ul, body {
 		<!-- 채팅방에 입장했을때 : rno는 방번호 입니다 -->
 			<%if(request.getParameter("rno") != null) { %>
 				<ul class="nav navbar-nav mainbar">
-					<li class="" style="left: -3%;"><a href="<%= request.getContextPath()%>/leave.cr"
-					style="padding: 0;margin-top: 9px;">
+					<li class="" style="left:-3%;"><a href="<%= request.getContextPath()%>/leave.cr"
+					style="padding: 0;">
 					<i class="fas fa-sign-out-alt" style="font-size:1.8em;"></i></a></li>
 					<li id="chatP" data-toggle="modal" data-target="#chatSub" class="search"
 						style="right: 0%;"><a href="#chatSub">

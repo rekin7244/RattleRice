@@ -27,7 +27,7 @@ public class SelectOneChattingRoomServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int rno = Integer.parseInt(request.getParameter("rno"));
-
+		System.out.println("일반 사용자로 입장");
 		int result = new ChattingRoomService().insertRoomRecord(loginUser, rno);
 
 		if(result > 0) {
