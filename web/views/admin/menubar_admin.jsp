@@ -233,7 +233,8 @@ a.article, a.article:hover {
 						<li><a href="<%=request.getContextPath() + "/communitylist.ad"%>">공지사항</a></li>
 						<li><a href="<%=request.getContextPath() %>/views/admin/FAQ.jsp">Q & A</a></li>
 						<li><a href="<%=request.getContextPath() %>/views/admin/visit.jsp">후기게시판</a></li>
-					</ul></li>
+					</ul>
+				</li>
 
 				<li><a href="#pageSubmenu2" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">정산관리</a>
@@ -242,14 +243,18 @@ a.article, a.article:hover {
 						<li><a href="<%=request.getContextPath() %>/views/admin/calculate.jsp">취소 / 환불</a></li>
 						<li><a href="<%=request.getContextPath() %>/views/admin/b_calculate.jsp">사업자 정산</a></li>
 						<li><a href="<%=request.getContextPath() %>/views/admin/p.calculate.jsp">포인트정산</a></li>
-					</ul></li>
+					</ul>
+				</li>
 
 				<li><a href="#pageSubmenu3" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">SMS관리</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu3">
 						<li><a href="<%=request.getContextPath() %>/views/admin/sms.jsp">SMS 발송</a></li>
 						<li><a href="#">내역 조회</a></li>
-					</ul></li>
+					</ul>
+				</li>
+				
+				<li><a href="<%=request.getContextPath() %>/views/admin/statistics_member.jsp">통계 페이지</a></li>
 			</ul>
 		</nav>
 	</div>
