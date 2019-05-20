@@ -239,7 +239,7 @@ public class AdminDao {
 				
 				list.add(clist);
 				
-				System.out.println(list);
+				/*System.out.println(list);*/
 			}
 			
 		} catch (SQLException e) {
@@ -269,7 +269,7 @@ public class AdminDao {
 			
 			result = pstmt.executeUpdate();
 			
-			System.out.println(result);
+			/*System.out.println(result);*/
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -319,10 +319,15 @@ public class AdminDao {
 	}
 
 	public int updateCount(Connection con, int nbid) {
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
 		String query = prop.getProperty("updeteCount");
+		
+		System.out.println("카운트 dao실행 : " + nbid);
+		
+		
 		
 		try {
 			pstmt = con.prepareStatement(query);

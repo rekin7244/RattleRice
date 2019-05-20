@@ -45,10 +45,10 @@
 	margin-left:50px;
 }
 
-#btn{
+
+#delete{
 	margin-left:900px;
 }
-
 
 </style>
 </head>
@@ -131,6 +131,7 @@
 							
 									<tr>
 										<td><%= community.getTitle() %></td>
+										<td type="hidden" name="nbid" value="<%=community.getNbid()%>"></td>
 									</tr>
 									
 									<tr>
@@ -142,16 +143,19 @@
 								</tbody>
 							</table>
 							
-							<div id="btn">
-								<button class="btn btn-primary pull-right" onclick="location.href='<%=request.getContextPath() %>/communitylist.ad'">이전</button>
-								<button class="btn btn-primary pull-right" onclick="location.href='<%=request.getContextPath() %>/communitylist.ad'">수정</button>
-							</div>
+							
+								<button class="btn btn-primary pull-right" id="before" onclick="location.href='<%=request.getContextPath() %>/communitylist.ad'">이전</button>
+								<button class="btn btn-primary pull-right" id="update">수정</button>
+								<button class="btn btn-primary pull-right" id="delete">
+								<a href="<%= request.getContextPath()%>/communityDelete.ad">삭제</a></button>
+							
 							
 						</form>
 					</div>
 				</div>
 
 				
+			
 				
 				
 				
