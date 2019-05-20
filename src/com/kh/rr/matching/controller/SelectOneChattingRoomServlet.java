@@ -27,10 +27,15 @@ public class SelectOneChattingRoomServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int rno = Integer.parseInt(request.getParameter("rno"));
-		System.out.println("일반 사용자로 입장");
-		int result = new ChattingRoomService().insertRoomRecord(loginUser, rno);
 
-		if(result > 0) {
+		//방장으로 들어온건지 아닌지 판단해주는 메소드
+		//룸레코드 DB에 기록이 있는지 체크한다
+		int result = new ChattingRoomService().checkMasterRecord(loginUser, rno);
+		
+		//일반 Room_record 삽입 하는 메소드
+		int result2 = new ChattingRoomService().insertRoomRecord(loginUser, rno);
+
+		if(result2 > 0) {
 			ArrayList<HashMap<String, Object>> list = 
 					new AttachmentService().selectAttachmentlList(loginUser.getUserId());
 

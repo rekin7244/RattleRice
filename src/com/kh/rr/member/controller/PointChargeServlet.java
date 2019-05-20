@@ -31,10 +31,11 @@ public class PointChargeServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String amount = request.getParameter("amount");
 		String userId = request.getParameter("userId");
-
+//System.out.println("서블릿시작");
 		int result = new MemberService().pointCharge(amount, userId);
+		int result2 = new UserInfoService().pointUpdate(amount,userId);
 
-		if (result > 0) {
+		if (result > 0 && result2>0 ) {
 			System.out.println("포인트 충전 성공");
 		} else {
 			System.out.println("포인트 충전 실패");

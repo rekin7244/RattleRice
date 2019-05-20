@@ -94,7 +94,7 @@
 		<div class="page-wrapper">
 			<div class="container-fluid">
 				<div class="col-lg-8">
-					<!--게시판 넓이 -->
+ 					<!--게시판 넓이 -->
  	
 				</div>
 				<div class="panel panel-default">
@@ -151,6 +151,7 @@
 			</div>
 		</div>
 	</div>
+	
 <script>
 	$(function(){
 		$("#listArea td").click(function(){
@@ -158,9 +159,7 @@
 			
 			console.log(num);
 			
-			location.href = "<%=request.getContextPath()%>/selectOne.no?num="+num;
-			
-			
+			location.href = "<%=request.getContextPath()%>/selectOne.ad?num=" + num;
 		})
 	})
 </script>

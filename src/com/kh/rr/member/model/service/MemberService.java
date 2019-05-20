@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.rr.member.model.dao.MemberDao;
+import com.kh.rr.member.model.dao.UserInfoDao;
 import com.kh.rr.member.model.vo.Member;
-import com.kh.rr.member.model.vo.UserInfo;
 
 public class MemberService {
 
@@ -84,8 +84,8 @@ public class MemberService {
 	public int insertBusinessMember(Member reqMember) {
 		Connection con = getConnection();
 
-		int result = new MemberDao().insertBusinessMember(con, reqMember);
 
+		int result = new MemberDao().insertBusinessMember(con, reqMember);
 		if (result > 0) {
 			commit(con);
 		} else {

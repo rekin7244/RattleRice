@@ -217,7 +217,7 @@
 
 	function login() {
 		cw=450;
-		ch=580;
+		ch=620;
 		sw=screen.availWidth;
 		sh=screen.availHeight;
 		px=(sw-cw)/2;

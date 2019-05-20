@@ -9,16 +9,18 @@ public class BusinessMan implements java.io.Serializable{
 	private String holder; //예금주
 	private String bCode; //사업자 등록번호
 	private String bId; //사업자 아이디
+	private int revenue; // 수익
 	
 	public BusinessMan() {}
 
-	public BusinessMan(String account, String bankcode, String holder, String bCode, String bId) {
+	public BusinessMan(String account, String bankcode, String holder, String bCode, String bId, int revenue) {
 		super();
 		this.account = account;
 		this.bankcode = bankcode;
 		this.holder = holder;
 		this.bCode = bCode;
 		this.bId = bId;
+		this.revenue = revenue;
 	}
 
 	public String getAccount() {
@@ -61,12 +63,21 @@ public class BusinessMan implements java.io.Serializable{
 		this.bId = bId;
 	}
 
+	public int getRevenue() {
+		return revenue;
+	}
+
+	public void setRevenue(int revenue) {
+		this.revenue = revenue;
+	}
+
 	@Override
 	public String toString() {
 		return "BusinessMan [account=" + account + ", bankcode=" + bankcode + ", holder=" + holder + ", bCode=" + bCode
-				+ ", bId=" + bId + "]";
+				+ ", bId=" + bId + ", revenue=" + revenue + "]";
 	}
-	
+
+		
 	
 }
 
