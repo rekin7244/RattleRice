@@ -41,7 +41,7 @@ public class IndexDao {
 				info.setsInfo(rset.getString("SINFO"));
 				info.setsService(rset.getString("SSERVICE"));
 				info.setTerms(rset.getString("TERMS"));
-				info.setContact(rset.getString("CONTACT"));
+				//info.setContact(rset.getString("CONTACT"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -55,7 +55,6 @@ public class FAQBoardSelectServlet extends HttpServlet {
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("list", list);
 		hmap.put("pi", pi);
-		//System.out.println(list);
 		if(list != null) {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");

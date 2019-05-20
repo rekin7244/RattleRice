@@ -62,6 +62,7 @@ public class InsertChattingRoomServlet extends HttpServlet {
 			
 				int currval = new ChattingRoomService().getCurrval(reqCr);
 				int result2 = new ChattingRoomService().insertMasterRoomRecord(loginUser, currval);
+				System.out.println("마스터로 입장");
 				
 				if(result2 > 0) {
 					

@@ -84,29 +84,6 @@ a, a:hover, a:focus {
 	transition: all 0.3s;
 }
 
-/* page표시 */
-#sidebar .sidebar-header {
-	
-}
-
-
-#sidebar ul p {
-	color: black;
-	padding: 10px;
-}
-
-#sidebar ul li a {
-	padding: 10px;
-	font-size: 1.1em;
-	display: block;
-	text-align: center;
-}
-
-#sidebar ul li a:hover {
-	color: black;
-	background: lightgray;
-}
-
 a[data-toggle="collapse"] {
 	position: relative;
 }
@@ -139,11 +116,6 @@ a[data-toggle="collapse"] {
 .active {
 	background: gray;
 	color: white;
-}
-
-.row {
-	/* width: 1530px; */
-	
 }
 
 .content h3 {
@@ -184,51 +156,20 @@ a[data-toggle="collapse"] {
 	padding: 0;
 }
 
-.profile {
-	
-}
 
-.form1, .form2 {
+.form1{
 	margin-top: 30px;
-}
-
-.form1 {
 	padding-left: 30px;
 }
 
-.form2 {
-	padding-right: 30px;
-}
-
-.img {
-	
-}
 
 .form-input {
 	width: auto;
 	display: inline-block;
 }
 
-#profileImgArea {
-	cursor: pointer;
-}
-
-#inProfileImg {
-	object-fit: cover;
-	border-radius: 50%;
-}
-
 .form-group {
 	display: block;
-}
-
-#userUpdateBtn {
-	
-}
-
-#userArea {
-	margin-left: 120px;
-	margin-right: 100px;
 }
 
 .form-control {
@@ -242,10 +183,6 @@ input, textarea {
 
 .col-sm-5 {
 	width: auto;
-}
-
-#profileImgUpdateBtn {
-	background-color: lightgray;
 }
 
 /* Remove the navbar's default margin-bottom and rounded borders */
@@ -383,6 +320,11 @@ footer {
 </div>
 
 <script>
+
+$(function() {
+	$('#write').addClass('active');
+});
+
 
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {

@@ -29,7 +29,7 @@ public class CommunitylistServlet extends HttpServlet {
 		
 		ArrayList<Board> list = new AdminService().communitylist();
 		
-		/*System.out.println("서블릿실행 : " + list);*/
+		System.out.println("서블릿실행 : " + list);
 		
 		String page="";
 		

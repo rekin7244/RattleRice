@@ -7,10 +7,10 @@ import static com.kh.rr.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import com.kh.rr.member.model.dao.AttachmentDao;
+import com.kh.rr.member.model.dao.MemberDao;
 import com.kh.rr.member.model.dao.UserInfoDao;
-import com.kh.rr.member.model.vo.Attachment;
 import com.kh.rr.member.model.vo.UserInfo;
 
 public class UserInfoService {
@@ -27,6 +27,7 @@ public class UserInfoService {
 		Connection con = getConnection();
 
 		int result = new UserInfoDao().insertUserInfo(con, reqUserInfo);
+		int result2 = new MemberDao().defaultPointCharge(con, reqUserInfo.getUserId());
 
 		if (result > 0) {
 			commit(con);
@@ -70,8 +71,8 @@ public class UserInfoService {
 	}
 
 	public int updateUserInfo(UserInfo ui) {
-Connection con = getConnection();
-		
+		Connection con = getConnection();
+
 		int result = new UserInfoDao().updateInfo(con, ui);
 
 		if (result > 0) {
@@ -83,6 +84,31 @@ Connection con = getConnection();
 		close(con);
 
 		return result;
+	}
+
+	public int pointUpdate(String amount, String userId) {
+		Connection con = getConnection();
+		
+		int result = new UserInfoDao().updatePoint(con, amount, userId);
+
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectUserPoint(String userId) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new UserInfoDao().selectUserPoint(con, userId);
+
+		close(con);
+		
+		return list;
 	}
 
 }

@@ -4,7 +4,7 @@
 
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
-	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -84,28 +84,6 @@ a, a:hover, a:focus {
 	z-index: 999;
 	color: black;
 	transition: all 0.3s;
-}
-
-/* page표시 */
-#sidebar .sidebar-header {
-	
-}
-
-#sidebar ul p {
-	color: black;
-	padding: 10px;
-}
-
-#sidebar ul li a {
-	padding: 10px;
-	font-size: 1.1em;
-	display: block;
-	text-align: center;
-}
-
-#sidebar ul li a:hover {
-	color: black;
-	background: lightgray;
 }
 
 a[data-toggle="collapse"] {
@@ -208,10 +186,6 @@ a[data-toggle="collapse"] {
 .form-input {
 	width: auto;
 	display: inline-block;
-}
-
-#profileImgArea {
-	cursor: pointer;
 }
 
 #inProfileImg {
@@ -350,7 +324,10 @@ tr>th, tr>td {
 			<div class="col-sm-12 form1 well">
 				<div>
 					<div>
-						<h2>보유 포인트 : 15600p</h2>
+					<%HashMap<String, Object> pointHmap = list.get(0); %>
+					
+						<h2>보유 Point : <%=pointHmap.get("point")%>&nbsp;P</h2>
+						<h2>보유 Bell : <%=pointHmap.get("bell")%>&nbsp;B</h2>
 						<select id="pointSelect">
 							<option value="2000">2,000p</option>
 							<option value="5000">5,000p</option>
@@ -374,73 +351,52 @@ tr>th, tr>td {
 										type="text" placeholder="날짜 검색"></th>
 									<th>금액<input class="form-control" id="myInput2"
 										type="text" placeholder="금액 검색"></th>
-									<th>상태<input class="form-control" id="myInput3"
-										type="text" placeholder="상태 검색"></th>
-									<th>분류<input class="form-control" id="myInput4"
+									<th>분류<input class="form-control" id="myInput3"
 										type="text" placeholder="분류 검색"></th>
-									<th>잔액<input class="form-control" id="myInput5"
-										type="text" placeholder="잔액 검색"></th>
+									<th>상태<input class="form-control" id="myInput4"
+										type="text" placeholder="상태 검색"></th>
 
 								</tr>
 							</thead>
 							<tbody id="myTable">
+								<%
+									for (int i = 0; i < list.size(); i++) {
+										HashMap<String, Object> hmap = list.get(i);
+								%>
 								<tr>
-									<td>2019년 05월 10일</td>
-									<td>5400원</td>
-									<td>결제</td>
-									<td>포인트</td>
-									<td>15600원</td>
-
-								</tr>
-								<tr>
-									<td>2019년 05월 05일</td>
-									<td>10000원</td>
+									<td><%=hmap.get("date")%></td>
+									<td><%=hmap.get("price")%>원</td>
+									<%
+										if (hmap.get("unit").equals("PO")) {
+									%>
+									<td>Point</td>
+									<%
+										} else if(hmap.get("unit").equals("BE")){
+									%>
+									<td>Bell</td>
+									<%
+										}
+									%>
+									<%
+										if (hmap.get("type").equals("CH")) {
+									%>
 									<td>충전</td>
-									<td>포인트</td>
-									<td>21000원</td>
-								</tr>
-								<tr>
-									<td>2019년 04월 11일</td>
-									<td>9000원</td>
-									<td>결제</td>
-									<td>포인트</td>
-									<td>11000원</td>
-								</tr>
-								<tr>
-									<td>2019년 04월 11일</td>
-									<td>20000원</td>
-									<td>충전</td>
-									<td>포인트</td>
-									<td>20000원</td>
-								</tr>
-								<tr>
-									<td>2019년 03월 6일</td>
-									<td>10000원</td>
+									<%
+										} else if(hmap.get("type").equals("RE")){
+									%>
 									<td>환불</td>
-									<td>포인트</td>
-									<td>0원</td>
+									<%
+										}else if (hmap.get("payment").equals("PAY")){
+									%>
+									<td>사용</td>
+									<%
+										}
+									%>
 								</tr>
-								<tr>
-									<td>2019년 03월 5일</td>
-									<td>10000원</td>
-									<td>충전</td>
-									<td>포인트</td>
-									<td>10000원</td>
-								</tr>
-								<tr>
-									<td>2019년 03월 1일</td>
-									<td>2000원</td>
-									<td>구매</td>
-									<td>BELL</td>
-									<td>0원</td>
-								</tr>
-								<tr>
-									<td>2019년 02월 20일</td>
-									<td>2000원</td>
-									<td>충전</td>
-									<td>포인트</td>
-									<td>2000원</td>
-								</tr>
+								<%
+									}
+								%>
+
 							</tbody>
 						</table>
 						<br>
@@ -461,7 +417,10 @@ tr>th, tr>td {
 		
 	$(function() {
 		$(".userInfo").hide();
+		$('#point').addClass('active');
 	});
+	
+	
 		$(document).ready(function(){
 		  $("#myInput1").on("keyup", function() {
 		    var value = $(this).val().toLowerCase();
@@ -472,6 +431,8 @@ tr>th, tr>td {
 		  });
 		});
 	
+		
+		
 		function pointCharge() {
 			
 			
@@ -503,7 +464,6 @@ tr>th, tr>td {
 					msg += '결제 금액 : ' + rsp.paid_amount;
 					msg += '카드 승인번호 : ' + rsp.apply_num; */
 					
-					// 거래금액 / 거래자 ID
 					$.ajax({
 						url:"<%=request.getContextPath()%>/pointCharge",
 						data: {amount:selectAmount, userId:userId},
@@ -511,6 +471,7 @@ tr>th, tr>td {
 						success:function(){
 							console.log("ajax성공!");
 							alert("테스트 결제 성공");
+							window.location.reload();
 						},
 						error:function(data){
 							console.log("ajax실패!");
