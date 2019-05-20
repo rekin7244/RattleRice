@@ -172,4 +172,15 @@ public class MemberService {
 
 	}
 
+	//카카오톡 로그인 시 기존 회원 인지 판단하는 매소드
+	public Member kakaoCheck(String id) {
+		Connection con = getConnection();
+		
+		Member reqMember = new MemberDao().kakaoCheck(con, id);
+		
+		close(con);
+		
+		return reqMember;
+	}
+
 }

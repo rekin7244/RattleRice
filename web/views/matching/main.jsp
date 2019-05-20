@@ -438,7 +438,7 @@ function searchCondition(){
 							</div>
 							<div class="form-group">
 								<label for="time">시간</label> <input type="date"
-									class="form-control" id="searchTime">
+									class="form-control" id="searchTime" required>
 							</div>
 							<div class="form-group">
 								<label for="membercount">인원수</label> <input type="number"
