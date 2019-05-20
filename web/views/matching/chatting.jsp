@@ -335,6 +335,9 @@ body::-webkit-scrollbar {
     padding: 5px;
 }
 
+.fa-sign-out-alt {
+	margin-top:9px;
+}
 </style>
 </head>
 <body>
@@ -487,7 +490,10 @@ body::-webkit-scrollbar {
 						<h4 class="modal-title" style=' text-align:center '>사용자 평가</h4>
 					</div>
 					<div class="modal-body" data-backdrop="static" style="padding: 0;">
-						<input type="time" class="form-control" id="dt" name="deadT" style="width: 80%; margin: 30px; text-align: center;">										
+						<%-- 대화상대 --%>
+						<div class="chatPerson">
+						
+						</div>									
 					</div>
 					<div class="modal-footer" data-backdrop="static">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
@@ -512,7 +518,8 @@ body::-webkit-scrollbar {
 						<h4 class="modal-title" style=' text-align:center '>식당 평가</h4>
 					</div>
 					<div class="modal-body" data-backdrop="static" style="padding: 0;">
-						<input type="time" class="form-control" id="dt" name="deadT" style="width: 80%; margin: 30px; text-align: center;">										
+						<h4 style="text-align:center;">식당이름</h4>
+						<p style="color:lightgray; margin-left: 15px;">오늘 방문하신 식당은 어떠셨나요?</p>								
 					</div>
 					<div class="modal-footer" data-backdrop="static">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
