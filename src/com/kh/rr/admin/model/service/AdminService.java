@@ -32,7 +32,7 @@ public class AdminService {
 		
 		ArrayList<Member> blist = new AdminDao().Nonmemberlist(con);
 		
-		System.out.println("dao : " + blist);
+		/*System.out.println("dao : " + blist);*/
 		
 		close(con);
 		
@@ -139,10 +139,31 @@ public class AdminService {
 			rollback(con);
 		}
 		
+		close(con);
 		
 		
+		return result;
+	}
+
+	//공지사항 수정
+	public int updateCommunity(Board community) {
 		
-		return 0;
+		Connection con = getConnection();
+		
+		int result = new AdminDao().updateCommunity(con, community);
+		
+		System.out.println(result);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return result;
 	}
 
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.board.model.vo.Board"%>
 <%
-	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	Board community = (Board)request.getAttribute("community");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,14 +11,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+
 <title>커뮤니티 관리</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
 #content {
-	width: calc(100% - 250px);
+	width:  calc(100% - 250px); 
 	padding: 40px;
 	min-height: 100vh;
 	transition: all 0.3s;	
@@ -27,9 +27,9 @@
 	right: 0;
 }
 
-#content.active {
+/* #content.active {
 	width: 100%;
-}
+} */
 
 #mainbar {
 	background-color: lightgreen;
@@ -38,10 +38,13 @@
 	border-radius: 10px;
 }
 
-#update{
-	
-	padding:10px;
+
+
+#detail{
+	width : 1000px;
+	margin-left:50px;
 }
+
 
 
 </style>
@@ -89,80 +92,79 @@
 		</nav>
 		
 	<br><br>
-	
-	    
+
 		<div class="page-wrapper">
 			<div class="container-fluid">
 				<div class="col-lg-8">
- 					<!--게시판 넓이 -->
+					<!--게시판 넓이 -->
  	
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-body">
-					<button id="update"
-					onclick = "location.href='views/admin/communityInsert.jsp'">글 등록</button>
+				
+				<!-- 게시판 -->
+				
+					<div class="page-wrapper">
+			<div class="container-fluid">
+				<div class="col-lg-8">
+					<!--게시판 넓이 -->
+ 	
+				</div>
+				
+				<!-- 게시판 -->
+				
+				<%-- <div class="container">
+					<div class="row">
+						 <form  action="<%=request.getContextPath() %>/communityUpdate.ad?nbid=<%=community.getNbid()%> '" method="post"> 
+							<table class="table table-striped" id="detail"
+								style="text-align:center; border:1px solid #dddddd">
+								<thead>
+									<tr>
+										<th colspan="2" style="background-color:#eeeeee;
+										text-align:center;">
+										게시판 수정 페이지</th>
+									</tr>
+								</thead> --%>
+								
+								<tbody>
+							
+									<tr>
+										<td><input type="text" name="title" value="<%= community.getTitle() %>">
+										<input id="nbid" type="hidden" value="<%=community.getNbid()%>"></td>
+										
+									</tr>
+									
+									<tr>
+										<td><textarea class="form-control"  name="content" 
+												maxlength="2048" style="height:400px; width:1000px;"><%=community.getbContent() %></textarea></td>
+									</tr>
+									
+												
+								</tbody>
+							</table>
+						</form>
+							
+							<div>
+								<button class="btn btn-primary pull-right" id="before" 
+									onclick="location.href='<%=request.getContextPath() %>/communitylist.ad'">이전</button>
+								<button class="btn btn-primary pull-right" id="update">완료</button>
+								
+								
+									
+							</div>
+							
 						
-					<%--  <form action="<%=request.getContextPath()%>/communitylist.ad" method="post">  --%>
-						<!-- 공지사항 리스트  -->
-						<table class="table table-hover" id="listArea">
-						
-							
-								<tr>
-									<th>글번호</th>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>작성일</th>
-									<th>조회수</th>
-								</tr>
-							
-							
-							
-							 <% for(int i = 0; i<list.size(); i++){ %>
-							<tr>
-								<td><%=list.get(i).getNbid() %></td>
-								<td><%=list.get(i).getTitle() %></td>
-								<td><%=list.get(i).getWriter() %></td>
-								<td><%=list.get(i).getbDate() %></td>
-								<td><%=list.get(i).getbCount() %></td>
-							</tr>
-							<% } %> 
-							<!-- 	</form> -->
-
-							
-							<!-- <tbody>
-								<tr>
-									<td>1</td>
-									<td>공지사항 테스트</td>
-									<td>관리자</td>
-									<td>2018-03-01 19:31</td>
-									<td>196</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>딸랑밥 이용방법</td>
-									<td>관리자</td>
-									<td>2019-04-29 12:10</td>
-									<td>56</td>
-								</tr>
-							</tbody> -->
-						</table>
 					</div>
 				</div>
+
+
+
+
+
+
+
 			</div>
 		</div>
 	</div>
-	
-<script>
-	$(function(){
-		$("#listArea td").click(function(){
-			 var num = $(this).parent().children().eq(0).text();
-			
-			console.log(num);
-			
-			location.href = "<%=request.getContextPath()%>/selectOne.ad?num=" + num;
-		})
-	})
-</script>
+
 
 </body>
 
