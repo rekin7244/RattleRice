@@ -56,7 +56,7 @@ public class UserInfoService {
 
 	public int updateProfile(UserInfo ui) {
 		Connection con = getConnection();
-		
+
 		int result = new UserInfoDao().updateProfile(con, ui);
 
 		if (result > 0) {
@@ -88,7 +88,7 @@ public class UserInfoService {
 
 	public int pointUpdate(String amount, String userId) {
 		Connection con = getConnection();
-		
+
 		int result = new UserInfoDao().updatePoint(con, amount, userId);
 
 		if (result > 0) {
@@ -101,14 +101,48 @@ public class UserInfoService {
 	}
 
 	public ArrayList<HashMap<String, Object>> selectUserPoint(String userId) {
-		
+
 		Connection con = getConnection();
-		
+
 		ArrayList<HashMap<String, Object>> list = new UserInfoDao().selectUserPoint(con, userId);
 
 		close(con);
-		
+
 		return list;
+	}
+
+	public HashMap<String, Object> selectCheckEmail(String userName, String userId, String email) {
+		Connection con = getConnection();
+
+		HashMap<String, Object> hmap = new UserInfoDao().selectCheckEmail(con, userName, userId, email);
+
+		close(con);
+
+		return hmap;
+	}
+
+	public int selectCheckEmailPwd(String userName, String userId, String email) {
+		Connection con = getConnection();
+
+		int result = new UserInfoDao().selectCheckEmailPwd(con, userName, userId, email);
+
+		close(con);
+
+		return result;
+	}
+
+	public int updateCheckEmailPwd(String userId, String newPwd) {
+		Connection con = getConnection();
+
+		int result = new UserInfoDao().updateCheckEmailPwd(con, userId,newPwd);
+
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+
+		return result;
 	}
 
 }

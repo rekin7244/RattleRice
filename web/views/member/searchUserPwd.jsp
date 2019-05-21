@@ -161,10 +161,10 @@ body {
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-6">
-								<a href="#" class="active" id="login-form-link">아이디 찾기</a>
+								<a href="searchUser.jsp" >아이디 찾기</a>
 							</div>
 							<div class="col-xs-6">
-								<a href="#" id="register-form-link">비밀번호 찾기</a>
+								<a href="searchUserPwd.jsp" class="active" >비밀번호 찾기</a>
 							</div>
 						</div>
 						<hr>
@@ -172,49 +172,63 @@ body {
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
+							
+								<%!public int getRandom() {
+									int random = 0;
+									random = (int) Math.floor((Math.random() * (99999 - 10000 + 1))) + 10000;
+									return random;
+								}%>
+
+								<!-- 아이디 찾기 -->
+									<input type="text" readonly="readonly" name="code_check" id="code_check" value="<%=getRandom()%>" />
+
 								<form id="login-form" method="post" role="form"
 									style="display: block;">
 									<div class="form-group">
+									
 										<input type="text" name="username" id="username"
 											class="form-control" placeholder="이름 입력" value="">
+											
 									</div>
+									
 									<div class="form-group">
-										<input type="email" name="email" id="email"
-											class="form-control" placeholder="이메일 입력">
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit"
-													class="form-control btn btn-login" value="이메일 인증">
-											</div>
-										</div>
-									</div>
-								</form>
-								<form id="register-form" method="post" role="form"
-									style="display: none;">
-									<div class="form-group">
-										<input type="text" name="username" id="username"
-											class="form-control" placeholder="이름 입력" value="">
-									</div>
-									<div class="form-group">
-										<input type="email" name="email" id="email"
+									
+										<input type="text" name="userId" id="userId"
 											class="form-control" placeholder="아이디 입력" value="">
+											
 									</div>
+									
 									<div class="form-group">
+									
 										<input type="email" name="email" id="email"
-											class="form-control" placeholder="이메일 입력">
+											class="form-control" placeholder="이메일 입력"
+											style="width: 75%; display: inline-block;" value="">
+											
+										<button type="button" class="btn btn-warning" style="display: inline-block;" onclick="checkUserPwd()">인증번호
+											발송</button>
+											
 									</div>
 
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit"
-													class="form-control btn btn-login" value="이메일 인증">
+											
+												<input type="text" name="code" id="code"
+													class="form-control" style="width: 100%"
+													onkeyup="checkCode()" placeholder="인증번호를 입력하세요." />
+													
+												<div id="checkCode"></div>
+												
+												<br> <input type="hidden" name="login-submit"
+													id="login-submit" onclick="showId()"
+													class="form-control btn btn-login" value="비밀번호 확인하기">
 											</div>
 										</div>
 									</div>
 								</form>
+
+								<!-- 인증 확인 -->
+
 							</div>
 						</div>
 					</div>
@@ -222,5 +236,94 @@ body {
 			</div>
 		</div>
 	</div>
+
+
+
+	
+
 </body>
+<script>
+//비밀번호 찾기
+var findPwd = null;
+var checkSuccess=0;
+
+function checkUserPwd() {
+	
+	var userName = $("#username").val();
+	var userId = $("#userId").val();
+	var email = $("#email").val();
+	var code = $("#code_check").val();
+	
+	
+	if(email != "" &&  userName != "" && userId != ""){
+		$.ajax({
+			url:"<%=request.getContextPath()%>/checkEmailPwd.me",
+			data: {userName:userName,userId:userId, email:email ,userPwd:code},
+			type:"post",
+			success:function(data){
+				checkSuccess = data;
+				console.log("위 :"+checkSuccess);
+			}
+		});
+		
+		emailSubmit();
+		
+	}else{
+		alert("정보를 입력해 주세요!");
+	}
+};
+
+
+
+
+
+function emailSubmit() {
+	
+	console.log("아래 : "+checkSuccess);
+if(checkSuccess != 0){
+		
+		$.ajax({
+			url:"<%=request.getContextPath()%>/send",
+			data: {email:email,code:code},
+			type:"post",
+			success:function(data){
+				alert("인증번호가 발송되었습니다.");
+			},
+		});
+		
+		}else{
+			alert("정보를 다시 확인해 주세요!");
+		}
+	
+}
+
+	function checkCode(){
+		  var v1 = $("#code_check").val();
+		  var v2 = $("#code").val();
+		  if(v1!=v2){
+			   document.getElementById('checkCode').style.color = "red";
+			   document.getElementById('checkCode').innerHTML = "잘못된인증번호";
+               makeNull();
+		  }else{
+			   document.getElementById('checkCode').style.color = "blue";
+			   document.getElementById('checkCode').innerHTML = "인증되었습니다."; 
+			   makeReal();
+			   $("#login-submit").show();
+		  }
+		 }
+	function makeReal(){
+		var hi = document.getElementById("login-submit");
+		hi.type="submit";
+	}
+    function makeNull(){
+		var hi = document.getElementById("login-submit");
+		hi.type="hidden";
+	}
+    
+    function showId() {
+		alert("새로 지정된 암호는 \" " + findPwd+" \" 입니다. 로그인후 비밀번호를 변경해 주세요!");
+	}
+
+    
+</script>
 </html>

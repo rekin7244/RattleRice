@@ -189,7 +189,7 @@ width: auto;
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="text-center">
-										<a href="views/member/serchUser.jsp" target="_blank"
+										<a href="views/member/searchUser.jsp" target="_blank"
 											tabindex="5" class="forgot-password">아이디 / 비밀번호 찾기</a>
 									</div>
 								</div>
