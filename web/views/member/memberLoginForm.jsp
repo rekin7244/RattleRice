@@ -200,46 +200,18 @@ width: auto;
 							<script type='text/javascript'>
 							var openWin;
 							
-							//<![CDATA[
 						    // 사용할 앱의 JavaScript 키를 설정해 주세요.
 						    Kakao.init('bf07de78ccb40d07273cceb9edaf6165');
 						    // 카카오 로그인 버튼을 생성합니다.
 						    Kakao.Auth.createLoginButton({
 						      container: '#kakao-login-btn',
 						      success: function(authObj) {
-						    	  <%-- $.ajax({
-						            	url:"<%=request.getContextPath()%>/login.kk",
-						            	data:{res.id:res.id},
-						            	success:function(){
-						            		console.log(date);
-						            	},
-						            	error:function(){
-						            		console.log("실패")!
-						            	};
-						            });
-						             --%>
-						    	  
 						        // 로그인 성공시, API를 호출합니다.
 						        Kakao.API.request({
 						          url: '/v2/user/me',
 						          success: function(res) {
-						        	console.log(res.id);
-						            console.log(res.properties['nickname']);
-
-						            getKey(res.id);
-						            
-						            alert('최초 카카오톡 로그인 시 개인정보를 설정 해주셔야 해요!');
-						            
-						            window.name = "main";
-						           openWin = window.open('/rr/views/member/kakaoMemberLoginForm.jsp','childForm',
-									'top=50px, left=800px, height=500, width=400');
-						           
-						           timer = setInterval(function(){
-							   			openWin.$("#userId").val(res.id);
-							   			openWin.$("#userName").val(res.properties['nickname']);
-						   		}, 1000);
- 					           
-						           
+						        	//내가 만든 함수로 값 전달
+						            getKey(res.id, res.properties['nickname']);
 						          },
 						          fail: function(error) {
 						            alert(JSON.stringify(error));
@@ -250,24 +222,46 @@ width: auto;
 						        alert(JSON.stringify(err));
 						      }
 						    });
-						  //]]>
 							
-						    function getKey(data){
-						    	console.log(data);
+						    //카카오톡 로그인 성공 시, 아이디 int 값과 닉네임을 전달받는 메소드
+						    function getKey(data, name){
 						    	
+						    	//전달받은 아이디를 그대로 전달하는것 하나, 암호화 필터에 걸리는것 하나 총 두개 전달함
 						    	var key = data;
+						    	var key2 = data;
+						    	var nickName = name;
 						    	$.ajax({
-						    		url:"<%=request.getContextPath()%>/login.kk",
-						    		data:{key:key},
+						    		url:"<%=request.getContextPath()%>/loginKakao.me",
+						    		data:{userPwd:key, userId:key2},
 						    		type:"post",
-						    		success:function(){
-						    			console.log("성공!");
+						    		success:function(data){
+						    			
+						    			//기존회원이 아닌경우 회원가입 폼을 띄움
+						    			if(data != '기존회원'){
+							    			   alert('최초 카카오톡 로그인 시 개인정보를 설정 해주셔야 해요!');
+										       window.name = "main";
+										       openWin = window.open('/rr/views/member/kakaoMemberLoginForm.jsp','childForm',
+													'top=50px, left=800px, height=500, width=400');
+										           
+									           var userPwd = data.split(",")[0];
+									           var userId = data.split(",")[1];
+									           
+									           timer = setInterval(function(){
+									        	   //받아온 정보들을 새로띄운 회원가입 창에 입력함(보이지는 않음)
+									        	    openWin.$("#userId").val(userId);
+										   			openWin.$("#userPwd").val(data);
+										   			openWin.$("#userPwd2").val(data);
+										   			openWin.$("#userName").val(nickName);
+									   		}, 1000);
+						    			}else{
+						    				//기존 회원인 경우 서블릿에서 로그인 처리 하고, 새로고침해줌
+						    				window.location.reload();
+						    			}
 						    		},
 						    		error:function(){
 						    			console.log("실패!");
 						    		}
 						    	});
-						    	
 						    }
 							</script>
 						</div>
