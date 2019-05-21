@@ -88,6 +88,8 @@ public class AttachmentDao {
 				hmap.put("filePath", rset.getString("FILE_PATH"));
 				hmap.put("uploadDate", rset.getDate("UPLOAD_DATE"));
 				hmap.put("email", rset.getString("EMAIL"));
+				hmap.put("point", rset.getInt("POINT"));
+				hmap.put("bell", rset.getInt("BELL"));
 
 				list.add(hmap);
 			}

@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import com.kh.rr.member.model.dao.MemberDao;
 import com.kh.rr.member.model.dao.UserInfoDao;
+import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.member.model.vo.UserInfo;
 
 public class UserInfoService {
@@ -111,6 +112,23 @@ public class UserInfoService {
 		return list;
 	}
 
+
+	//벨 충전시, 보유포인트는 차감하고 벨은 증가시키는 메소드
+	public int chargeBell(int bell, Member loginUser) {
+		Connection con = getConnection();
+		
+		int result = new UserInfoDao().chargeBell(con, bell, loginUser);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+		
+		return result;
+	}
 	public HashMap<String, Object> selectCheckEmail(String userName, String userId, String email) {
 		Connection con = getConnection();
 

@@ -1,6 +1,7 @@
 package com.kh.rr.transaction.model.service;
 
-import static com.kh.rr.common.JDBCTemplate.*;
+import static com.kh.rr.common.JDBCTemplate.close;
+import static com.kh.rr.common.JDBCTemplate.commit;
 import static com.kh.rr.common.JDBCTemplate.getConnection;
 import static com.kh.rr.common.JDBCTemplate.rollback;
 
@@ -46,4 +47,61 @@ public class TransactionService {
 		return reqTr;
 	}
 	
+	//벨 충전 내역 추가하는 메소드
+	public int insertBellTransaction(int bell, Member loginUser) {
+		Connection con = getConnection();
+		int result = new TransactionDao().insertBellTransaction(con, bell, loginUser);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	//벨 관련 트랜잭션 가져오는 메소드
+	public ArrayList<Transaction> selectBellTransaction(Member loginUser) {
+		Connection con = getConnection();
+		ArrayList<Transaction> list = new TransactionDao().selectBellTransaction(con, loginUser);
+		
+		return list;
+	}
+
+	//transaction 테이블에 컬럼추가 - 포인트 사용
+	public int payPoint(int bell, Member loginUser) {
+		Connection con = getConnection();
+		
+		int result = new TransactionDao().payPoint(con, bell, loginUser);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
