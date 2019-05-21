@@ -386,7 +386,7 @@ tr>th, tr>td {
 									%>
 									<td>환불</td>
 									<%
-										}else if (hmap.get("payment").equals("PAY")){
+										}else if (hmap.get("type").equals("PAY")){
 									%>
 									<td>사용</td>
 									<%

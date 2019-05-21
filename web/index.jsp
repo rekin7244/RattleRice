@@ -31,7 +31,7 @@ th {
 <style>
 
 img {
-	width: 100%;
+	width: 100% !important;
 }
 
 #bg-img {
@@ -69,13 +69,24 @@ img {
 	margin:0 auto;
 }
 
+.navbar-inverse .navbar-nav>li>a:hover {
+	cursor: pointer;
+}
+
 .navbar-inverse {
+	opacity: 0.9;
 	background: #F4AC8A;
 	border: none;
+	font-weight: bold;
 }
 
 .navbar-inverse .navbar-nav>li>a {
 	color: black;
+}
+
+.content > .content-inner {
+	display: table-cell;
+	vertical-align: middle;
 }
 
 .contact-form {
@@ -83,6 +94,13 @@ img {
 	padding: 10px;
 	text-align: center;
 	background: yellowgreen;
+}
+
+/*contact 페이지 스타일*/
+.contact-inner {
+	background: lightblue;
+	border-radius: 2em;
+	padding: 30px 0;
 }
 /* 우측하단 채팅방 아이콘 고정 */
 .fixed {
@@ -180,7 +198,7 @@ body::-webkit-scrollbar {
 	<br>
 
 	<!-- section1 : about us -->
-	<div class="container" id="div1">
+	<div class="container-fluid" id="div1">
 		<h1
 			style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">About
 			Us</h1>
@@ -189,21 +207,28 @@ body::-webkit-scrollbar {
 
 		<div class="row content">
 
-			<img src="images/section1.jpg" /> <br /> <br /> <br />
+			<img src="images/section1.jpg" style="width: 100%;"/> <br /> <br /> <br />
 			<hr>
+		</div>
+		<br><br>
+	</div>
+	
+	<div class="container">
+	
+		<div class="row content">
 			<h4>딸랑밥 소개</h4>
-			<div class="col-md-4">
+			<div class="col-md-4 content-inner content-img">
 				<img src="images/section1-face.jpg" height="300px"/>
 			</div>
-			<div id="siteIntroDiv" class="col-md-8">
-				<p id="siteIntroduction">아니더면, 만물은 충분히 꽃이 인간은 황금시대의 이것이다. 이상은 눈이 충분히 끓는다. 무엇이 때까지 대고,
+			<div id="siteIntroDiv" class="col-md-8 content-inner content-text">
+				<p id="">아니더면, 만물은 충분히 꽃이 인간은 황금시대의 이것이다. 이상은 눈이 충분히 끓는다. 무엇이 때까지 대고,
 					같이, 이상을 이것이다. 그것은 희망의 그러므로 따뜻한 가슴에 같이, 지혜는 봄바람이다. 사랑의 커다란 끝까지 그들의
 					트고, 힘있다. 그들은 동산에는 뜨고, 속잎나고, 불어 무엇을 얼마나 봄바람이다. 굳세게 하는 관현악이며, 얼마나 이상
 					대고, 들어 것이다. 인생을 모래뿐일 소금이라 이상은 힘있다. 못할 노래하며 청춘의 이 있는 안고, 것이다. 하였으며,
 					하여도 이것을 뜨거운지라, 크고 일월과 우리 사막이다. 얼음에 별과 전인 운다.</p>
 			</div>
 		</div>
-
+	
 	</div>
 
 	<br />
@@ -215,128 +240,101 @@ body::-webkit-scrollbar {
 	<br>
 	<br>
 	<!--    section2 : service -->
-	<div class="container">
-
-		<h1
-			style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">Service</h1>
-		<p id="serviceIntroduction" style="text-align: center">위치기반 최신 지도 서비스 및 게시판 기능을 제공합니다.</p>
-		<div class="row content">
-
-
-			<div class="col-md-6">
-				<img src="images/section2-map.jpg" />
+	<div class="container-fluid" style="background:#F4AC9C">
+		<div class="row">
+		<h1 style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">Service</h1>
+		<p style="text-align: center">딸랑밥에서 제공하는 서비스 입니다.</p>
+		<br />
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		    <!-- Indicators -->
+		    <ol class="carousel-indicators">
+		      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+		      <li data-target="#myCarousel" data-slide-to="1"></li>
+		      <li data-target="#myCarousel" data-slide-to="2"></li>
+		    </ol>
+		
+		    <!-- Wrapper for slides -->
+		    <div class="carousel-inner" role="listbox">
+		      <div class="item active">
+		        <img src="images/section1-joker.jpg" alt="New York" width="1200" height="700">
+		        <div class="carousel-caption">
+		          <h3>New York</h3>
+		          <p>The atmosphere in New York is lorem ipsum.</p>
+		        </div>      
+		      </div>
+		
+		      <div class="item">
+		        <img src="images/section1-joker.jpg" alt="Chicago" width="1200" height="700">
+		        <div class="carousel-caption">
+		          <h3>Chicago</h3>
+		          <p>Thank you, Chicago - A night we won't forget.</p>
+		        </div>      
+		      </div>
+		    
+		      <div class="item">
+		        <img src="images/section1-joker.jpg" alt="Los Angeles" width="1200" height="700">
+		        <div class="carousel-caption">
+		          <h3>LA</h3>
+		          <p>Even though the traffic was a mess, we had the best time playing at Venice Beach!</p>
+		        </div>      
+		      </div>
+		    </div>
+		  <!-- Left and right controls -->
+		    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+		      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		      <span class="sr-only">Previous</span>
+		    </a>
+		    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+		      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		      <span class="sr-only">Next</span>
+		    </a>
+		
 			</div>
-			<div class="col-md-6">
-				<img src="images/section2-board.png" />
 			</div>
-		</div>
-
-
-
 	</div>
 
 
 	<!--    제이쿼리 스크롤 이벤트를 위한 다이브 -->
 	<div id="div3"></div>
-
 	<br>
 	<br>
 	<!-- section3 : contact -->
 	<div class="container">
-		<h1
-			style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">Contact</h1>
-		<p style="text-align: center">지.금.제.휴.해</p>
-		<br />
-		<div class="row content">
-
-			<div class="contact-form">
-
-				<form action="" method="post">
-				
-					<table>
-						<colgroup>
-							<col width="100px" />
-							<col width="*" />
-							<col width="100px" />
-							<col width="320px" />
-						</colgroup>
-						<tr>
-							<td colspan="4" style="font-size: 12px;">*는 필수 입력 사항 입니다.</td>
-						</tr>
-						<tr>
-							<td>이름 *</td>
-							<td><input type="text" class="input_type01"
-								style="width: 170px" id="uname" value="" name="uname" /></td>
-							<td>희망지역 *</td>
-							<td><select class="selectbox_custom news" name="area1"
-								style="width: 110px;">
-									<option>시/도</option>
-									<option value="서울">서울</option>
-									<option value="경기">경기</option>
-									<option value="인천">인천</option>
-									<option value="강원">강원</option>
-									<option value="충남">충남</option>
-									<option value="대전">대전</option>
-									<option value="충북">충북</option>
-									<option value="부산">부산</option>
-									<option value="울산">울산</option>
-									<option value="대구">대구</option>
-									<option value="강북">강북</option>
-									<option value="경남">경남</option>
-									<option value="전남">전남</option>
-									<option value="광주">광주</option>
-									<option value="전북">전북</option>
-									<option value="제주">제주</option>
-							</select> <span id="asdfc1"> <select class="selectbox_custom news"
-									name="area2" style="width: 150px;">
-										<option>시/군/구</option>
-								</select>
-							</span></td>
-
-						</tr>
-						<tr>
-							<td>핸드폰번호 *</td>
-							<td><input type="text" class="input_type02" id="tel1"
-								value="" maxlength="4" name="tel1" /> <input type="text"
-								class="input_type02" id="tel2" value="" maxlength="4"
-								name="tel2" /> <input type="text" class="input_type02"
-								id="tel3" value="" maxlength="4" name="tel3" /></td>
-							<td>문의내용</td>
-							<td><input type="text" class="input_type01" id="title"
-								style="width: 260px;" value="" name="title" /></td>
-						</tr>
-						<tr>
-
-						</tr>
-						<tr>
-							<td colspan="4">
-								<div class="termsWrap">
-									<h3>
-										<strong>개인정보 수집약관 동의</strong>
-									</h3>
-									<ul id="termsInfo" class="terms" type="none"></ul>
-									<p>
-										<label><input type="checkbox" id="cb9" name="check"
-											value="Y"
-											onclick="setCheckBoxAsRadio(PageForm.check_yn,this)" />&nbsp;동의</label>
-										<label><input type="checkbox" id="cb9" name="check"
-											value="N"
-											onclick="setCheckBoxAsRadio(PageForm.check_yn,this)" checked />&nbsp;비동의</label>
-									</p>
-								</div>
-							</td>
-						</tr>
-
-					</table>
-
-					<p class="MainConsult_Btn">
-						<span>창업상담 신청하기</span>
-					</p>
-
-
-				</form>
-			</div>
-
+			
+		<div id="contact" class="container" >
+		  <div class="row">
+		  <div class="col-md-8 col-md-offset-2 contact-inner" style="background:lightblue;">
+			 <h1
+				style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">Contact</h1>
+			<p style="text-align: center">제휴를 맺읍시다</p>
+			<br />
+		    <div class="col-md-2 col-md-offset-2">
+		      <p>Fan? Drop a note.</p>
+		      <p><span class="glyphicon glyphicon-map-marker"></span>Chicago, US</p>
+		      <p><span class="glyphicon glyphicon-phone"></span>Phone: +00 1515151515</p>
+		      <p><span class="glyphicon glyphicon-envelope"></span>Email: mail@mail.com</p>
+		    </div>
+		    <div class="col-md-6">
+		      <div class="row">
+		        <div class="col-sm-6 form-group">
+		          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+		        </div>
+		        <div class="col-sm-6 form-group">
+		          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+		        </div>
+		      </div>
+		      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea>
+		      <br>
+		      <div class="row">
+		        <div class="col-md-12 form-group">
+		          <button class="btn pull-right" type="submit">Send</button>
+		        </div>
+		      </div>
+		    </div>
+		    
+		    </div>
+		    
+		  </div>
 		</div>
 	</div>
 	<!--    제이쿼리 스크롤 이벤트를 위한 다이브 -->
@@ -347,8 +345,6 @@ body::-webkit-scrollbar {
 	
 	<!-- section4 : Notice  -->
 	<div class="container">
-
-
 		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">공지사항</h1>
 		<p align="center">공지사항을 읽어주세요</p>
 		<br>
@@ -399,15 +395,12 @@ body::-webkit-scrollbar {
 				</nav>
 			</div>
 		</div>
-
 	</div>
 	<br>
 	<br>
 	
 	<!-- section5 : FAQ  -->
 	<div class="container">
-
-
 		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">FAQ</h1>
 		<p align="center">자주 물어보시는 질문입니다</p>
 		<br>
@@ -461,19 +454,14 @@ body::-webkit-scrollbar {
 				</nav>
 			</div>
 		</div>
-
 	</div>
 	<br>
 	<br>
-	
 	<!-- section6 : Review  -->
 	<div class="container">
-
-
 		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">REVIEW</h1>
 		<p align="center">후기글들입니다</p>
 		<br>
-
 		<div class="container-fluid">
 			<div class="row content">
 					<div class="form-group">
@@ -507,18 +495,15 @@ body::-webkit-scrollbar {
 				</nav>
 			</div>
 		</div>
-
 	</div>
 	<br>
 	<br>
-	
 	<%if(loginUser != null){ %>
 		<div class="fixed">
 			<a
 				onclick="window.open('<%=request.getContextPath()%>/selectAll.cr', '', 'top=50px, left=800px, height=500, width=400')">
 				<i class="far fa-comment"></i></a>
 		</div>
-		
 	<%}else{ %>
 	
 	<%} %>

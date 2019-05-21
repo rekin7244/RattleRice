@@ -30,7 +30,6 @@ public class SelectAllTransactionServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		ArrayList<HashMap<String, Object>> list2 = new AttachmentService().selectAttachmentlList(loginUser.getUserId());
-		System.out.println(list2);
 		String page = "";
 		if(list != null) {
 			request.setAttribute("list", list);

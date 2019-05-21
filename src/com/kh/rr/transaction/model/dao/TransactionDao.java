@@ -115,4 +115,111 @@ public class TransactionDao {
 		return reqTr;
 	}
 
+	//벨 충전 내역 추가하는 메소드
+	public int insertBellTransaction(Connection con, int bell, Member loginUser) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertBellTransaction");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bell);
+			pstmt.setString(2, loginUser.getUserId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	//벨 관련 트랜잭션 가져오는 메소드
+	public ArrayList<Transaction> selectBellTransaction(Connection con, Member loginUser) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Transaction> list = null;
+		
+		String query = prop.getProperty("selectBellTransaction");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, loginUser.getUserId());
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Transaction>();
+			while(rset.next()) {
+				Transaction t = new Transaction();
+				t.settId(rset.getInt("TID"));
+				t.settDate(rset.getDate("TDATE"));
+				t.settPrice(rset.getInt("TPRICE"));
+				t.setType(rset.getString("TYPE"));
+				t.setUnit(rset.getString("UNIT"));
+				t.setUserId(rset.getString("M_ID"));
+				
+				list.add(t);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	//transaction 테이블에 컬럼추가 - 포인트 사용
+	public int payPoint(Connection con, int bell, Member loginUser) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("payPoint");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bell*500);
+			pstmt.setString(2, loginUser.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+				
+		
+		return result;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
+
