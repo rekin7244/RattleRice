@@ -72,6 +72,26 @@ public class BoardService {
 		return list;
 	}
 
+	public ArrayList<Board> selectFreeBoardList(PageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectFreeBoardList(con,pi);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int getFreeBoardListCount() {
+		Connection con = getConnection();
+		
+		int listCount = new BoardDao().getFreeBoardListCount(con);
+		
+		close(con);
+		
+		return listCount;
+	}
+
 	public int getSearchNoticeListCount(String keyword, String condition) {
 		Connection con = getConnection();
 		
@@ -131,5 +151,27 @@ public class BoardService {
 		
 		return list;
 	}
+
+	public int getSearchFreeBoardListCount(String keyword) {
+		Connection con = getConnection();
+		
+		int listCount = new BoardDao().getSearchFreeBoardListCount(con, keyword);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> searchFreeBoardList(PageInfo pi, String keyword) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().searchFreeBoardList(con,pi,keyword);
+		
+		close(con);
+		
+		return list;
+	}
+
+
 	
 }

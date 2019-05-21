@@ -7,6 +7,7 @@ public class Board implements java.io.Serializable{
 	private int fbid;	//FBID
 	private int nbid;	//NBID
 	private int rbid;	//RBID
+	private int fbbid;  //FBBID
 	private int refBid;	//REF_BID
 	private int type;	//type
 	private String title;
@@ -22,13 +23,14 @@ public class Board implements java.io.Serializable{
 	
 	public Board() {}
 
-	public Board(int bid, int fbid, int nbid, int rbid, int refBid, int type, String writer, String brand, String bType,
+	public Board(int bid, int fbid, int nbid, int rbid, int fbbid, int refBid, int type, String writer, String brand, String bType,
 			String bContent, String target, String fCategory, Date bDate, int bCount, int grade) {
 		super();
 		this.bid = bid;
 		this.fbid = fbid;
 		this.nbid = nbid;
 		this.rbid = rbid;
+		this.fbbid = fbbid;
 		this.refBid = refBid;
 		this.type = type;
 		this.writer = writer;
@@ -40,6 +42,14 @@ public class Board implements java.io.Serializable{
 		this.bDate = bDate;
 		this.bCount = bCount;
 		this.grade = grade;
+	}
+
+	public int getFbbid() {
+		return fbbid;
+	}
+
+	public void setFbbid(int fbbid) {
+		this.fbbid = fbbid;
 	}
 
 	public int getBid() {
@@ -174,11 +184,12 @@ public class Board implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Board [bid=" + bid + ", fbid=" + fbid + ", nbid=" + nbid + ", rbid=" + rbid + ", refBid=" + refBid
-				+ ", type=" + type + ", title=" + title + ", writer=" + writer + ", brand=" + brand + ", bType=" + bType + ", bContent="
-				+ bContent + ", target=" + target + ", fCategory=" + fCategory + ", bDate=" + bDate + ", bCount="
-				+ bCount + ", grade=" + grade + "]";
+		return "Board [bid=" + bid + ", fbid=" + fbid + ", nbid=" + nbid + ", rbid=" + rbid + ", fbbid=" + fbbid
+				+ ", refBid=" + refBid + ", type=" + type + ", title=" + title + ", writer=" + writer + ", brand="
+				+ brand + ", bType=" + bType + ", bContent=" + bContent + ", target=" + target + ", fCategory="
+				+ fCategory + ", bDate=" + bDate + ", bCount=" + bCount + ", grade=" + grade + "]";
 	}
+
 
 
 }

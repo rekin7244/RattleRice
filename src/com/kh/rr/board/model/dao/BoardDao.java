@@ -411,6 +411,119 @@ public class BoardDao {
 		}
 		return list;
 	}
-	
-	
+
+	public ArrayList<Board> selectFreeBoardList(Connection con, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		String sql = prop.getProperty("selectFreeBoardList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pi.getStartPage());
+			pstmt.setInt(2, pi.getEndpage());
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBid(rset.getInt("BID"));
+				if(rset.getString("FBBID")!=null) {
+					b.setFbbid(rset.getInt("FBBID"));
+				}
+				b.setTitle(rset.getString("TITLE"));
+				b.setWriter(rset.getString("M_NAME"));
+				b.setbDate(rset.getDate("BDATE"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setbContent(rset.getString("BCONTENT"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int getFreeBoardListCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = prop.getProperty("getFreeBoardListCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return listCount;
+	}
+
+	public int getSearchFreeBoardListCount(Connection con, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = "";
+		sql = prop.getProperty("getSearchFreeBoardListCount");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+
+	public ArrayList<Board> searchFreeBoardList(Connection con, PageInfo pi, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		String sql = prop.getProperty("searchFreeBoardList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			pstmt.setInt(2, pi.getStartPage());
+			pstmt.setInt(3, pi.getEndpage());
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBid(rset.getInt("BID"));
+				if(rset.getString("FBBID")!=null) {
+					b.setFbbid(rset.getInt("FBBID"));
+				}
+				b.setTitle(rset.getString("TITLE"));
+				b.setWriter(rset.getString("M_NAME"));
+				b.setbDate(rset.getDate("BDATE"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setbContent(rset.getString("BCONTENT"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}	
 }
