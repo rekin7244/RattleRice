@@ -280,7 +280,7 @@ footer {
 					<h2>내가 작성한 글</h2><br>
 					<div class="container">
 						<input class="form-control" id="myInput" type="text"
-							placeholder="Search.."> <br>
+							placeholder="키워드 검색"> <br>
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
