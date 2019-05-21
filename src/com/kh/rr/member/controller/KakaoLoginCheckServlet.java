@@ -7,11 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.rr.member.model.service.MemberService;
 import com.kh.rr.member.model.vo.Member;
 
-@WebServlet("/login.kk")
+@WebServlet("/loginKakao.me")
 public class KakaoLoginCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -20,16 +21,23 @@ public class KakaoLoginCheckServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("data");
+		String userPwd = request.getParameter("userPwd");
+		String userId = request.getParameter("userId");
+		//userId 값으로 기존회원 인지 판별함
+		Member reqMember = new MemberService().kakaoCheck(userId);
 		
-		System.out.println(id);
-		
-		Member reqMember = new MemberService().kakaoCheck(id);
-		
+		//기존 회원일 경우 바로 로그인 처리
 		if(reqMember != null) {
-			System.out.println("이미 있는 회원!");
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", reqMember);
+			
+			response.getWriter().print("기존회원");
+		//기존 회원 아닐 경우, 추가 정보 입력받아서 회원가입 처리
 		}else {
-			System.out.println("신규 회원!");
+			Member newMember = new Member();
+			newMember.setUserPwd(userPwd);
+			response.getWriter().print(userPwd);
+			response.getWriter().print(","+userId);
 		}
 	}
 

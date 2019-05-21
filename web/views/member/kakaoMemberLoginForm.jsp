@@ -160,27 +160,25 @@ body {
 					<div class="row">
 						<div class="col-lg-12">
 							<form id="join-form"
-								action="<%=request.getContextPath()%>/insertMember.me"
+								action="<%=request.getContextPath()%>/insertKakaoMember"
 								method="post" role="form" style="display: block;">
 								<input type="hidden" name="memberType" id="memberType" value="1">
-								<!-- <div class="form-group">
-									<input type="text" name="userId" id="userId"
+								 <div class="form-group">
+									<input type="hidden" name="userId" id="userId"
 										class="form-control" placeholder="아이디" >
-									<button type="button" class="btn btn-warning " id="idCheck"
-										style="background: white; color: gray;">중복확인</button>
-								</div> -->
+								</div>
 								<div class="form-group">
-									<input type="password" name="userPwd" id="userPwd"
+									<input type="hidden" name="userPwd" id="userPwd"
 										class="form-control" placeholder="비밀번호" required>
 								</div>
 								<div class="form-group">
-									<input type="password" name="userPwd2" id="userPwd2"
+									<input type="hidden" name="userPwd2" id="userPwd2"
 										class="form-control" placeholder="비밀번호 확인" required>
 								</div>
 
 								<div class="form-group">
 									<input type="text" name="userName" id="userName"
-										class="form-control" placeholder="이름" required onchange="alert('바뀜')">
+										class="form-control" placeholder="이름" readonly >
 								</div>
 								<div class="form-group">
 									<label>생년월일 : </label> <input type="date" name="birthday"
@@ -238,7 +236,7 @@ body {
 
 										<input type="submit" name="register-submit"
 											id="register-submit" class="form-control btn btn-register"
-											value="회원가입" onclick="success()" disabled>
+											value="회원가입" onclick="success()">
 									</div>
 								</div>
 							</form>
@@ -254,43 +252,7 @@ body {
 
 		
 		
-		$(function() {
-			$("#userPwd").keyup(function() {
-				var pwd1 = $("#userPwd").val();
-				var pwd2 = $("#userPwd2").val();
-				if (pwd1 != "" || pwd2 != "") {
-					if (pwd1 == pwd2) {
-						$("#userPwd2").css("border", "solid 2px lightgreen");
-						pwdCheck = "1";
-					} else {
-						$("#userPwd2").css("border", "solid 2px red");
-						pwdCheck = "0";
-					}
-				}
-			});
-			
-			$("#userPwd2").keyup(function() {
-				var pwd1 = $("#userPwd").val();
-				var pwd2 = $("#userPwd2").val();
-				if (pwd1 != "" || pwd2 != "") {
-					if (pwd1 == pwd2) {
-						$("#userPwd2").css("border", "solid 2px lightgreen");
-						pwdCheck = "1";
-					} else {
-						$("#userPwd2").css("border", "solid 2px red");
-						pwdCheck = "0";
-					}
-				}
-			});
-		});
-
-		setInterval(function() {
-			if (idCheck == "1" && pwdCheck == "1") {
-				$("#register-submit").removeAttr("disabled");
-			} else {
-				$("#register-submit").attr("disabled", "disabled");
-			}
-		}, 500);
+	
 	</script>
 
 </body>

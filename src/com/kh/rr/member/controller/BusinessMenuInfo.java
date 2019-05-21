@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.member.model.vo.StoreMenuInfo;
 
-@WebServlet("/menuInfoUpdate.b")
+@WebServlet("/menuInfoUpdate.b2")
 public class BusinessMenuInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

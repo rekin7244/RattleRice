@@ -380,6 +380,10 @@ public class MemberDao {
 			if(rset.next()) {
 				reqMember = new Member();
 				reqMember.setUserId(rset.getString("M_ID"));
+				reqMember.setUserPwd(rset.getString("M_PWD"));
+				reqMember.setUserName(rset.getString("M_NAME"));
+				reqMember.setMemberType(rset.getString("M_TYPE"));
+				reqMember.setStatus(rset.getString("M_STATUS"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
