@@ -233,11 +233,11 @@ a.article, a.article:hover {
 					</button>
 	
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<%for(int i = 0; i < list.size(); i++){ 
-							HashMap<String, Object> hmap = list.get(i);
+					<%
+							HashMap<String, Object> hmap1 = list.get(0);
 					%>
-					<h3 align="center"><%= hmap.get("brand") %></h3>
-					<%} %>
+					<h3 align="center"><%= hmap1.get("brand") %></h3>
+					
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item"><a class="nav-link"
 								href="reservationForm.jsp">예약관리</a></li>
@@ -254,13 +254,10 @@ a.article, a.article:hover {
 			<div class="container col-sm-9">
 				<div style="border: 0.5px solid lightgray; width: 70%; height: 50%;" id="imgArea">
 				<%
-					for (int i = 0; i < list.size(); i++) {
-						HashMap<String, Object> hmap = list.get(i);
+						HashMap<String, Object> hmap2 = list.get(0);
 				%>
-				<img src="profileImg_upload/<%=hmap.get("changeName")%>" width="80%" height="50%" id="imgtag">
-				<%
-					}
-				%>
+				<img src="profileImg_upload/<%=hmap2.get("changeName")%>" width="80%" height="50%" id="imgtag">
+				
 			</div>
 
 			
@@ -268,27 +265,27 @@ a.article, a.article:hover {
 					<table id="info" border="1">
 						<tbody align="center">
 						<%
-							HashMap<String, Object> hmap = list.get(0);
+							HashMap<String, Object> hmap3 = list.get(0);
 						%>
 						<tr>
 							<td>hp :</td>
-							<td><%= hmap.get("contact") %></td>
+							<td><%= hmap3.get("contact") %></td>
 						</tr>
 						<tr>
 								<td>위치 :</td>
-								<td><%= hmap.get("location") %></td>
+								<td><%= hmap3.get("location") %></td>
 							</tr>
 							<tr>
 								<td>오픈시간 : </td>
-								<td><%=hmap.get("opening_hore") %></td>
+								<td><%=hmap3.get("opening_hore") %></td>
 							</tr>
 							<tr>					
 								<td>종료시간 : </td>			
-								<td><%=hmap.get("close_hore") %></td>
+								<td><%=hmap3.get("close_hore") %></td>
 							</tr>
 							<tr>
 								<td>매장소개 :</td>
-								<td><%= hmap.get("intro") %></td>
+								<td><%= hmap3.get("intro") %></td>
 							</tr>
 				
 						</tbody>
@@ -305,12 +302,12 @@ a.article, a.article:hover {
 					</thead>
 					<tbody align="center">
 					<% for(int i = 0; i < list.size(); i++){ 
-						HashMap<String, Object> hmap1 = list.get(i);
+						HashMap<String, Object> hmap4 = list.get(i);
 					%> 
 						<tr>
-							<td><%=hmap1.get("menu") %></td>
-							<td><%= hmap1.get("price") %></td>
-							<td><%= hmap1.get("origin") %>
+							<td><%=hmap4.get("menu") %></td>
+							<td><%= hmap4.get("price") %></td>
+							<td><%= hmap4.get("origin") %>
 						</tr>
 						<%} %>
 
