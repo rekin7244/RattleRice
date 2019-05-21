@@ -33,7 +33,6 @@ public class SelectAllTransactionServlet extends HttpServlet {
 		String page = "";
 		if(list != null) {
 			request.setAttribute("list", list);
-			System.out.println();
 			request.setAttribute("list2", list2);
 			page = "views/matching/payment.jsp";
 		}else {
