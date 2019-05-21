@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 통계</title>
+<title>매출 통계</title>
 </head>
 <body>
 	<%@ include file="menubar_statistics.jsp"%>
