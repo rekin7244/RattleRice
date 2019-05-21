@@ -206,6 +206,7 @@ public class AttachmentDao {
 					hmap.put("uploadDate", rset.getDate("UPLOAD_DATE"));
 					hmap.put("email", rset.getString("EMAIL"));
 					hmap.put("type", rset.getString("TYPE"));
+					hmap.put("dTime", rset.getString("DTIME"));
 					System.out.println(i+"번쨰 - "+hmap);
 					userList.add(hmap);
 				}
