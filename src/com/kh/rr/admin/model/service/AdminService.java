@@ -34,7 +34,7 @@ public class AdminService {
 		
 		ArrayList<Member> blist = new AdminDao().Nonmemberlist(con);
 		
-		System.out.println("dao : " + blist);
+		/*System.out.println("dao : " + blist);*/
 		
 		close(con);
 		
@@ -140,10 +140,33 @@ public class AdminService {
 		}else {
 			rollback(con);
 		}
-
-		return 0;
+    close(con);
+		
+		return result;
 	}
-	//코인 내역 전체 카운트 조회
+
+	//공지사항 수정
+	public int updateCommunity(Board community) {
+		
+		Connection con = getConnection();
+		
+		int result = new AdminDao().updateCommunity(con, community);
+		
+		System.out.println(result);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return result;
+	
+	}
+  	//코인 내역 전체 카운트 조회
 	public int getCoinRecordListCount() {
 		Connection con = getConnection();
 		

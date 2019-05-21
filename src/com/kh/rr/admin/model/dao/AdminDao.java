@@ -214,7 +214,7 @@ public class AdminDao {
 			stmt = con.createStatement();
 			
 			rset = stmt.executeQuery(query);
-			System.out.println(query);
+			/*System.out.println(query);*/
 			list = new ArrayList<Board>();
 			
 			while(rset.next()) {
@@ -358,11 +358,39 @@ public class AdminDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, nbid);
+			
+			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
+		
 			close(pstmt);
 		}
+		
+		return result;
+	}
+
+	//공지사항 수정
+	public int updateCommunity(Connection con, Board community) {
+		int result =  0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("updateCommunity");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, community.getTitle());
+			pstmt.setString(2, community.getbContent());
+			pstmt.setInt(3, community.getNbid());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		System.out.println(result);
 		
 		return result;
 	}

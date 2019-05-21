@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.board.model.vo.Board"%>
 <%
 	Board community = (Board)request.getAttribute("community");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -18,7 +19,7 @@
     CONTENT STYLE
 ----------------------------------------------------- */
 #content {
-	width: calc(100% - 250px);
+	width:  calc(100% - 250px); 
 	padding: 40px;
 	min-height: 100vh;
 	transition: all 0.3s;	
@@ -46,9 +47,6 @@
 }
 
 
-#delete{
-	margin-left:900px;
-}
 
 </style>
 </head>
@@ -116,7 +114,7 @@
 				
 				<div class="container">
 					<div class="row">
-						<form action="<%=request.getContextPath()%>/communityInsert.ad" method="post">
+						<form id="detailForm" method="post">
 							<table class="table table-striped" id="detail"
 								style="text-align:center; border:1px solid #dddddd">
 								<thead>
@@ -130,33 +128,61 @@
 								<tbody>
 							
 									<tr>
-										<td><%= community.getTitle() %></td>
-										<td type="hidden" name="nbid" value="<%=community.getNbid()%>"></td>
+										<td>글제목 : <input readonly type="text" name="title" value="<%= community.getTitle() %>">
+										<input id="nbid" type="hidden" value="<%=community.getNbid()%>">
 									</tr>
 									
 									<tr>
 										<td><textarea readonly class="form-control"  name="content" 
-												maxlength="2048" style="height:400px;"><%=community.getbContent() %></textarea></td>
+												maxlength="2048" style="height:400px; width:1000px;"><%=community.getbContent() %></textarea></td>
 									</tr>
 									
 												
 								</tbody>
 							</table>
-							
-							
-								<button class="btn btn-primary pull-right" id="before" onclick="location.href='<%=request.getContextPath() %>/communitylist.ad'">이전</button>
-								<button class="btn btn-primary pull-right" id="update">수정</button>
-								<button class="btn btn-primary pull-right" id="delete">
-								<a href="<%= request.getContextPath()%>/communityDelete.ad">삭제</a></button>
-							
-							
 						</form>
+							
+							<div>
+								<button class="btn btn-primary pull-right" id="before" 
+									onclick="location.href='<%=request.getContextPath() %>/communitylist.ad'">이전</button>
+								<%-- <button class="btn btn-primary pull-right" id="update" 
+									onclick="location.href='<%=request.getContextPath()%>/communityUpdate.ad?nbid=<%=community.getNbid()%>'">수정</button> --%>
+								<button class="btn btn-primary pull-right" id="update"
+								onclick="location.href='views/admin/communityUpdate.jsp'">수정</button>
+								<button class="btn btn-primary pull-right" id="delete"
+									onclick="deleteCommunity();">삭제</button>
+								
+									
+							</div>
+							
+						
 					</div>
 				</div>
-
 				
 			
+				<script>
+				function deleteCommunity(){
+					  
+					var nbid = $("#nbid").val();
 				
+					console.log(nbid);
+						
+						 if(confirm("삭제 하시겠습니까?") == true){
+							
+							alert("삭제되었습니다.");
+							
+							<%-- $("#detailForm").attr("atcion", "<%=request.getContextPath()%>/communityDelete.ad"); --%>
+							
+							location.href = "<%=request.getContextPath()%>/communityDelete.ad?nbid=" + nbid;
+							
+						}else{
+							return;
+						} 
+					}
+				
+				
+				
+				</script>
 				
 				
 				
