@@ -38,6 +38,8 @@ public class InsertMemberServlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
 		
+		System.out.println(phone);
+		
 		
 		java.util.Date utilDate = new java.util.Date();
 		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");

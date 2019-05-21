@@ -226,8 +226,7 @@ body {
 									
 								</div>
 								<div class="form-group">
-									<input type="tel" name="phone" id="phone" class="form-control"
-										placeholder="휴대폰번호" required>
+									<input type="tel" name="phone" id="phone" class="form-control" placeholder="휴대폰번호" required>
 									<button onclick="phoneCheckBtn()" type="button"
 										class="btn btn-primary" id="smsBtn">SMS인증</button>
 								</div>
@@ -333,9 +332,8 @@ body {
 			if(result == rand){
 				phoneCheck = "1";
 				alert("인증되었습니다.");
-				$("#phone").attr("disabled", "disabled");
+				$("#phone").attr("readonly", "readonly");
 				$("#smsBtn").attr("disabled", "disabled");
-				
 			}else{
 				alert("인증번호가 틀립니다.");
 			}

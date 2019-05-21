@@ -58,11 +58,14 @@ td {
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="nav navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminForm.jsp">회원관리</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<%=request.getContextPath() + "/memberlist.ad"%>">회원관리</a></li>
 						<li class="nav-item active"><a class="nav-link"
-							href="<%=request.getContextPath() %>/views/admin/community.jsp">커뮤니티</a></li>
-						<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/views/admin/calculate.jsp">정산</a></li>
-						<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/views/admin/sms.jsp">SMS</a></li>
+							href="<%=request.getContextPath() %>/views/admin/updateMainForm.jsp">커뮤니티</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<%=request.getContextPath() %>/views/admin/coinRecord.jsp">정산</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<%=request.getContextPath() %>/views/admin/sms.jsp">SMS</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
 					</ul>

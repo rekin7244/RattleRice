@@ -226,7 +226,7 @@ a.article, a.article:hover {
 					aria-expanded="false" class="dropdown-toggle">매출 통계</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
 						<li><a href="<%=request.getContextPath() %>/views/admin/statistics_sales.jsp">포인트 매출 통계</a></li>
-						<li><a href="">코인 사용 통계</a></li>
+						<li><a href="<%=request.getContextPath() %>/views/admin/statistics_coins.jsp">코인 사용 통계</a></li>
 					</ul>
 				</li>
 					

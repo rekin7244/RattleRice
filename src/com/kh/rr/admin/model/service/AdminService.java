@@ -6,9 +6,11 @@ import static com.kh.rr.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.rr.admin.model.dao.AdminDao;
 import com.kh.rr.board.model.vo.Board;
+import com.kh.rr.common.model.vo.PageInfo;
 import com.kh.rr.member.model.vo.Member;
 
 public class AdminService {
@@ -138,9 +140,7 @@ public class AdminService {
 		}else {
 			rollback(con);
 		}
-		
-		close(con);
-		
+    close(con);
 		
 		return result;
 	}
@@ -164,7 +164,50 @@ public class AdminService {
 		
 		
 		return result;
+	
 	}
+  	//코인 내역 전체 카운트 조회
+	public int getCoinRecordListCount() {
+		Connection con = getConnection();
+		
+		int listCount = new AdminDao().getCoinRecordListCount(con);
+		
+		close(con);
+		
+		return listCount;
+	}
+	//코인 내역 전체 조회
+	public ArrayList<HashMap<String, Object>> coinRecord(PageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new AdminDao().coinRecord(con, pi);
+		
+		close(con);
+		
+		return list;
+	}
+	//코인 내역 검색 카운트 조회
+	public int searchCoinRecordListCount(String condition, String userId) {
+		Connection con = getConnection();
+		
+		int listCount = new AdminDao().searchCoinRecordListCount(con,condition,userId);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> searchCoinRecord(PageInfo pi, String condition, String userId) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new AdminDao().searchCoinRecord(con,pi,condition,userId);
+		
+		close(con);
+		
+		return list;
+	}
+
+	
 
 
 

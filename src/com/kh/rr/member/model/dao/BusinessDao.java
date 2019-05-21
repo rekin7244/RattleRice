@@ -146,7 +146,7 @@ public class BusinessDao {
 	public int updateMenu(Connection con, StoreMenuInfo menuInfo, Member loginUser) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		ResultSet rset = null;
+		/*ResultSet rset = null;
 		HashMap<String, Object> hmap = null;
 		
 		String selectQuery = prop.getProperty("selectStoreInfo");
@@ -169,7 +169,7 @@ public class BusinessDao {
 			e1.printStackTrace();
 		} finally {
 			//close(rset);
-		}
+		}*/
 		
 		String query = prop.getProperty("menuUpdate");
 		System.out.println(query);
@@ -178,19 +178,19 @@ public class BusinessDao {
 			pstmt.setString(1, menuInfo.getMenu());
 			pstmt.setString(2, menuInfo.getPrice());
 			pstmt.setString(3, menuInfo.getOrigin());
-			pstmt.setInt(4, (int) hmap.get("s_id"));
+			pstmt.setString(4, menuInfo.getmId());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-				
 		
 		return result;
 	}
 	
 
 	public int insertMenu(Connection con, StoreMenuInfo menuInfo, Member loginUser) {
+		System.out.println("insertMenuDao들어옴");
 		PreparedStatement pstmt = null;
 		int result = 0;
 		ResultSet rset = null;
@@ -219,50 +219,29 @@ public class BusinessDao {
 		}
 		
 		String query = prop.getProperty("insertMenu");
-		
+		System.out.println(query);
+		System.out.println(menuInfo);
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, menuInfo.getMenu());
 			pstmt.setString(2, menuInfo.getPrice());
 			pstmt.setString(3, menuInfo.getOrigin());
-			pstmt.setInt(4, (int) hmap.get("s_code"));
+			pstmt.setInt(4, (int) hmap.get("s_id"));
+			pstmt.setInt(5, (int) hmap.get("s_code"));
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 				
 		
-		return 0;
+		return result;
 	}
 
 	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

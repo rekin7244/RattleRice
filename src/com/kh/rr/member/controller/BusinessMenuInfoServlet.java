@@ -12,9 +12,6 @@ import com.kh.rr.member.model.service.BusinessMenuInfo;
 import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.member.model.vo.StoreMenuInfo;
 
-/**
- * Servlet implementation class BusinessMenuInfoServlet
- */
 @WebServlet("/menuInfoUpdate.b")
 public class BusinessMenuInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,29 +25,35 @@ public class BusinessMenuInfoServlet extends HttpServlet {
 	       
 	       String menu = request.getParameter("menu");
 	       //int price = Integer.parseInt(request.getParameter("price"));
-	       String price = request.getParameter("price");
+	       String price = request.getParameter("menuPrice");
 	       String origin = request.getParameter("origin");
+	       String mid = request.getParameter("mid");
+	       System.out.println("mid : " + mid);
+	     
+	    	   
+	       //메뉴 업데이트
+	    	   StoreMenuInfo menuInfo = new StoreMenuInfo();
+	    	   menuInfo.setMenu(menu);
+	    	   menuInfo.setPrice(price);
+	    	   menuInfo.setOrigin(origin);
+	    	   menuInfo.setmId(mid);
+	    	   System.out.println("메뉴인포 서블릿");
+	    	   System.out.println("menuInfo : " + menuInfo);
+	    	   int result = new BusinessMenuInfo().menuUpdate(menuInfo, loginUser);
 	       
-	       StoreMenuInfo menuInfo = new StoreMenuInfo();
-	       menuInfo.setMenu(menu);
-	       menuInfo.setPrice(price);
-	       menuInfo.setOrigin(origin);
-	       System.out.println("메뉴인포 서블릿");
-	       System.out.println("menuInfo : " + menuInfo);
-			
-			
-			if(menuInfo != null) {
-				int result1 = new BusinessMenuInfo().menuUpdate(menuInfo, loginUser);
-			}else {
-				//int result2 = new BusinessMenuInfo().menuInsert(menuInfo, loginUser);
-			}
-			
-			
+	    	   String page = "";
+	    	   
+	    	   if(result > 0) {
+	    		   page = "/views/business/businessFormShop.jsp";
+	    		   //request.setAttribute(arg0, arg1);
+	    	   }else {
+	    		   
+	    	   }
+	      
 			
 		}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

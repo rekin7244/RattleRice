@@ -14,6 +14,12 @@
 	for (int i = 0; i < list.size(); i++) {
 		hmap = list.get(i);
 	} */
+	//현재시간
+	long now = System.currentTimeMillis();
+			
+	Date d = new Date(now);
+	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+	String getTime = sdf.format(d);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -49,17 +55,25 @@ $(function() {
 			type:"get",
 			success:function(data){
 				console.log(data);
-				var myId = "<%=m.getUserId()%>";
+				<%-- var myId = "<%=m.getUserId()%>"; --%>
 				
 				$chatPersonDiv = $(".chatPerson");
 				
 				for (var key in data) {
 					console.log(data[key].type);
 					//alert(typeof(data[key].type)); // ->String
-					var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
+					
+					/* if( === data[key].userId){
+						
+					} */
+					
+					//-> 잘못된 알고리즘2
+					<%-- var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
 					var $imgDiv = $("<div class='profileImg' data-toggle='modal' data-target='#userProfile'>");
 					var $nameDiv = $("<div class='profileName'>");
 					var $kickDiv = $("<div style='float: right; margin-top: 8px;'>");
+					var deadLineTime = data[key].dTime;
+					//alert(typeof(data[key].dTime)); // ->String
 					
 					$imgDiv.append("<img src='/rr/profileImg_upload/"+ data[key].changeName +"' style='width:100%; border-radius:6em;'>");
 					//$kickDiv.append("<button type='button' class='btn btn-danger kickBtn' style='visibility:hidden;' >강퇴</button>");
@@ -74,11 +88,12 @@ $(function() {
 						
 					}else{
 						var userId = data[key].userId;
-						$nameDiv.append("<p>" + data[key].nickName + "</p>");					
+						$nameDiv.append("<p>" + data[key].nickName + "</p>");		
+						
 						//$(".kickBtn").css({visibility:"visible"});
 						if(data[key].type === "USER"){
-							$kickDiv.append("<form id='kickForm' action='<%= request.getContextPath() %>/kick.cr' method='post'><button type='submit' class='btn btn-danger kickBtn'>강퇴</button><input type='hidden' value='<%= rno%>' name='rno'></form>");
-							$("#deadLineI").append("<p id='dTime' style='float: right; margin-left: 14px; font-size: 16px; '><%=reqCr.getdTime() %></p>");
+							/* $("#deadLineI").append("<i class='fas fa-credit-card' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>"); */
+							$kickDiv.append("<button type='button' class='btn btn-danger kickBtn'>강퇴</button><input type='hidden' value='<%= rno%>' name='rno'>");
 						}
 						
 					}
@@ -88,6 +103,19 @@ $(function() {
 					$div.append($kickDiv);
 					
 					$chatPersonDiv.append($div);
+					
+					if(now < deadLineTime){
+						$("#dTime").text(deadLineTime);
+					}else{
+						$("input[name=dTime]").val("25");
+						location.href = "<%= request.getContextPath()%>/deadLine.cr";
+					}
+					
+					if(deadLineTime === "25"){
+						$("#dTime").text("마감시간을 설정하세요.");	
+					} --%>
+						
+					} 
 
 					//-> 잘못된 알고리즘
 					/* if(data[key].type == "USER"){
@@ -134,14 +162,11 @@ $(function() {
 						$("#deadLineI").append("<i class='fas fa-stopwatch' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>");
 						
 					} */
-					
-					
-				}			
+								
 				
 				$(".close").click(function(){
 					$(".divArea").remove();
 					$(".fa-stopwatch").remove();
-					$("#dTime").remove();
 					console.log("지운다.")
 				});
 				
@@ -149,6 +174,25 @@ $(function() {
 				
 		});
 	});
+   
+   $("#dt").click(function(){
+	   
+	   var dTime = $("input[name=dTime]").val();
+	   var dtRno = $("input[name=dtRno]").val();
+	   
+	   $.ajax({
+			url:"<%=request.getContextPath()%>/deadLine.cr",
+			data:{dTime:dTime, dtRno:dtRno},
+			type:"get",
+			success:function(data){
+				console.log(data);
+				/* $("#dTime").text(data); */
+			}
+			
+			
+	   });
+   });
+   
 });
 </script>
 <style>
@@ -453,7 +497,7 @@ body::-webkit-scrollbar {
 								<h4>마감시간</h4>
 							</div>
 							<div id="deadLineI" style=" display: inline-block; margin-left: 10%; ">
-								<!-- <i class="fas fa-stopwatch" style="font-size: 22px; color: #1abc9ccc;"></i> -->
+								<p id="dTime" style="float: right; margin-left: 14px; font-size: 16px; "></p>
 							</div>
 						</div>
 						
@@ -508,26 +552,22 @@ body::-webkit-scrollbar {
 					<div class="modal-header" data-backdrop="static">
 						<h4 class="modal-title" style=' text-align:center '>마감시간 설정</h4>
 					</div>
-					<form id="deadLineForm" action="<%= request.getContextPath() %>/deadLine.cr" method="post">
 					<div class="modal-body" data-backdrop="static" style="padding: 0;">
-						<input type="time" class="form-control" id="dt" name="dTime" style="width: 80%; margin: 30px; text-align: center;">
-						<input type="hidden" value="<%= rno%>" name="rno">									
+						<input type="time" class="form-control" name="dTime" style="width: 80%; margin: 30px; text-align: center;">
+						<input type="hidden" value="<%= rno%>" name="dtRno">						
 					</div>
 					<div class="modal-footer" data-backdrop="static">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							aria-label="Close">취소</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="deadLineStart()">확인</button>
+						<button type="button" id="dt" class="btn btn-default" data-dismiss="modal">확인</button>
 					</div>
-					</form>
 				</div>
 			</div>
 
 		</div>
 	</div>
 	<script>
-		function deadLineStart(){
-			$("#deadLineForm").submit();
-		};
+	$("input[name=dTime]").val('<%=getTime%>');
 	</script>
 	
 	<!-- 사용자 평가 모달 컨텐츠 -->
@@ -660,12 +700,16 @@ function onMessage(event) {
 	}else if(msg.includes(str3) == true){
 		var srr = msg.split(":");
 		var rno = srr[0];
-		var message = srr[1];
-		if(rno == <%=rno%>)
-		$("#messageWindow").append("<p id='cs'>" + message + "</p>");
-	}else{
-		var message = msg;
-		$("#messageWindow").append("<br><p id='cc'>" + message + "</p>");
+		var userId = srr[1]
+		var message = srr[2];
+		if(rno == <%=rno%>){
+			$("#messageWindow").append("<p id='cs'>" + userId + message + "</p>");
+			
+			<%-- 방 나가지는 기능 --%>
+			if(message.includes("나가셨습니다.")){
+				location.href = "<%= request.getContextPath()%>/leave.cr";
+			}
+		}
 	}
 	
 	textarea.scrollTop = textarea.scrollHeight;
@@ -674,7 +718,7 @@ function onOpen(event) {
    	var userId = "<%=m.getUserName()%>";
    	$("#messageWindow").append("<br><p id='cs'>" + userId + "님이 채팅방에 참여하셨습니다.</p>");
 
-    var str = userId + "님이 채팅방에 참여하셨습니다.";
+    var str = userId + ":님이 채팅방에 참여하셨습니다.";
     send(str);
 }
 
@@ -715,7 +759,7 @@ function send(msg) {
 	}
 function leaveRoom(){
 	var userId = "<%=m.getUserName()%>";
-	send(userId + "님이 채팅방을 나가셨습니다.");
+	send(userId + ":님이 채팅방을 나가셨습니다.");
 	location.href = "<%= request.getContextPath()%>/leave.cr";
 }
 </script>

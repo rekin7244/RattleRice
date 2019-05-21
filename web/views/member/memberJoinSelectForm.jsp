@@ -228,7 +228,7 @@
 	
 	function bLogin() {
 		cw=450;
-		ch=730;
+		ch=620;
 		sw=screen.availWidth;
 		sh=screen.availHeight;
 		px=(sw-cw)/2;
