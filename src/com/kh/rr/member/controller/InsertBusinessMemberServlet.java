@@ -46,7 +46,7 @@ public class InsertBusinessMemberServlet extends HttpServlet {
 		String brand = "매장명";
 		//menuInfo
 		String menu = "메뉴정보";
-		int price = 0;
+		String price = "0";
 		String origin = "원산지";
 		
 		Member member = new Member();

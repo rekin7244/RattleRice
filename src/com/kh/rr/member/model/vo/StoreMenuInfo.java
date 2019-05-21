@@ -3,7 +3,7 @@ package com.kh.rr.member.model.vo;
 public class StoreMenuInfo {
 	//menu
 	private String menu; //메뉴명
-	private int price; //메뉴가격
+	private String price; //메뉴가격
 	private String origin; //원산지
 	private int sId;//매장정보 코드
 	private int mId; //메뉴코드
@@ -11,7 +11,7 @@ public class StoreMenuInfo {
 	
 	public StoreMenuInfo() {}
 
-	public StoreMenuInfo(String menu, int price, String origin, int sId, int mId, int sCode) {
+	public StoreMenuInfo(String menu, String price, String origin, int sId, int mId, int sCode) {
 		super();
 		this.menu = menu;
 		this.price = price;
@@ -29,11 +29,11 @@ public class StoreMenuInfo {
 		this.menu = menu;
 	}
 
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
@@ -75,5 +75,7 @@ public class StoreMenuInfo {
 				+ mId + ", sCode=" + sCode + "]";
 	}
 
+	
+	
 			
 }

@@ -345,9 +345,9 @@ padding-bottom: 30px;
 					overflow-x: auto; overflow-y:auto;">
 					<h4 align="center">메뉴</h4>
 					<br><br>
-					<button id="menuAdd">+</button>
-					<button>적용하기</button>
 					<form action="menuInfoUpdate.b" method="post">
+					<button id="menuAdd">+</button>
+					<button type="submit">적용하기</button>
 						<table class="table table-bordered" id="menuTable" style="min-width: 500px;">
 							<thead>
 								<tr style="background: lightgray">
@@ -373,10 +373,10 @@ padding-bottom: 30px;
 					<br>
 					<hr>
 					<br>
-					<from action="">
+				<!--<from action="">
 					
 					
-					</from>
+					</from>-->
 				</div>
 				<script>
 					
