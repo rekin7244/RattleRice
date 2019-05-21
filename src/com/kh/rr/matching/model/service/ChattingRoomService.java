@@ -189,5 +189,22 @@ public class ChattingRoomService {
 		}
 		
 		return result;
+	}
+
+	//사용자 강퇴하는 메소드
+	public int kickUser(String userId, int rno) {
+		Connection con = getConnection();
+		
+		int result = new ChattingRoomDao().kickUser(con, userId, rno);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}	
 }
