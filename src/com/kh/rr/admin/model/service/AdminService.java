@@ -123,6 +123,27 @@ public class AdminService {
 		
 		return community;
 	}
+	
+	
+    //공지사항 삭제
+	public int deleteCommunity(int nbid) {
+		
+		Connection con = getConnection();
+		
+		int result = new AdminDao().deleteCommunity(con, nbid);
+		
+		if(result>0) {
+			commit(con);
+			
+		}else {
+			rollback(con);
+		}
+		
+		
+		
+		
+		return 0;
+	}
 
 
 

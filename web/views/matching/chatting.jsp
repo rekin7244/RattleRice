@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 
 	pageEncoding="UTF-8"
-	import="com.kh.rr.member.model.vo.*, java.net.*, java.util.*, javax.websocket.Session, java.text.*"%>
+	import="com.kh.rr.member.model.vo.*, java.net.*, java.util.*, javax.websocket.Session, java.text.*, com.kh.rr.matching.model.vo.*"%>
 <%
 	InetAddress Address = InetAddress.getLocalHost();
 	Member m = (Member) (request.getSession().getAttribute("loginUser"));
+	ChattingRoom reqCr = (ChattingRoom) (request.getSession().getAttribute("reqCr"));
 	int rno = (int) session.getAttribute("rno");
 	/* int rno = (int) request.getAttribute("rno"); */
 	/* ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
@@ -61,33 +62,33 @@ $(function() {
 					var $kickDiv = $("<div style='float: right; margin-top: 8px;'>");
 					
 					$imgDiv.append("<img src='/rr/profileImg_upload/"+ data[key].changeName +"' style='width:100%; border-radius:6em;'>");
+					//$kickDiv.append("<button type='button' class='btn btn-danger kickBtn' style='visibility:hidden;' >강퇴</button>");
 					
 					if(myId === data[key].userId){
 						$nameDiv.append("<p>" + data[key].nickName + "(나)</p>");
 						
 						if(data[key].type === "MASTER"){
 							//내가 방장일 경우
-							//$kickDiv.append("<button type='button' class='btn btn-danger kickBtn' >강퇴</button>");
-							//$div.append($kickDiv);							
-							//밖으로 빼서 따로
-							for(var key in data){
-								if(myId !== data[key].userId){
-									$kickDiv.append("<button type='button' class='btn btn-danger kickBtn' >강퇴</button>");
-									$div.append($kickDiv);
-								}
-							}
 							$("#deadLineI").append("<i class='fas fa-stopwatch' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>");
 						}
 						
 					}else{
-						$nameDiv.append("<p>" + data[key].nickName + "</p>");	
+						var userId = data[key].userId;
+						$nameDiv.append("<p>" + data[key].nickName + "</p>");					
+						//$(".kickBtn").css({visibility:"visible"});
+						if(data[key].type === "USER"){
+							$kickDiv.append("<form id='kickForm' action='<%= request.getContextPath() %>/kick.cr' method='post'><button type='submit' class='btn btn-danger kickBtn'>강퇴</button><input type='hidden' value='<%= rno%>' name='rno'></form>");
+							$("#deadLineI").append("<p id='dTime' style='float: right; margin-left: 14px; font-size: 16px; '><%=reqCr.getdTime() %></p>");
+						}
+						
 					}
-
+					
 					$div.append($imgDiv);
 					$div.append($nameDiv);
+					$div.append($kickDiv);
 					
 					$chatPersonDiv.append($div);
-					
+
 					//-> 잘못된 알고리즘
 					/* if(data[key].type == "USER"){
 						console.log(data[key].type);
@@ -135,13 +136,12 @@ $(function() {
 					} */
 					
 					
-				}
-				
-				
+				}			
 				
 				$(".close").click(function(){
 					$(".divArea").remove();
 					$(".fa-stopwatch").remove();
+					$("#dTime").remove();
 					console.log("지운다.")
 				});
 				
