@@ -7,21 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.rr.common.model.service.IndexService;
 import com.kh.rr.common.model.vo.IndexInfo;
 
 /**
- * Servlet implementation class selectIndexInfoServlet
+ * Servlet implementation class UpdateIndexInfoServlet
  */
-@WebServlet("/indexInfo.if")
-public class selectIndexInfoServlet extends HttpServlet {
+@WebServlet("/updateSiteInfo.if")
+public class UpdateIndexInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public selectIndexInfoServlet() {
+    public UpdateIndexInfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,12 +29,22 @@ public class selectIndexInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		IndexInfo info = new IndexService().loadInfo();
+		String intro = request.getParameter("aIntro");
+		String service = request.getParameter("aService");
 		
-		if(info != null) {
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
-			new Gson().toJson(info, response.getWriter());
+		IndexInfo info = new IndexInfo();
+		info.setsInfo(intro);
+		info.setsService(service);
+		
+		int result = new IndexService().updateSiteInfo(info);
+		
+		String page = "";
+		if(result > 0) {
+			response.sendRedirect("views/admin/updateMainForm.jsp");
+		}else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "메인페이지 정보 수정 실패!");
+			request.getRequestDispatcher(page).forward(request, response);
 		}
 	}
 
