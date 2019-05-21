@@ -318,6 +318,7 @@ public class AdminDao {
 		return community;
 	}
 
+	//조회수 증가 메소드
 	public int updateCount(Connection con, int nbid) {
 		
 		int result = 0;
@@ -325,7 +326,7 @@ public class AdminDao {
 		
 		String query = prop.getProperty("updeteCount");
 		
-		System.out.println("카운트 dao실행 : " + nbid);
+		/*System.out.println("카운트 dao실행 : " + nbid);*/
 		
 		
 		
@@ -343,5 +344,27 @@ public class AdminDao {
 
 		return result;
 	}
+
+	//공지사항 삭제
+	public int deleteCommunity(Connection con, int nbid) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query =prop.getProperty("deleteCommunity");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, nbid);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
 
 }
