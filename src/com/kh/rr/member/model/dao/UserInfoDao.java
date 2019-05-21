@@ -248,16 +248,87 @@ public class UserInfoDao {
 			pstmt.setInt(1, bell);
 			pstmt.setInt(2, bell);
 			pstmt.setString(3, loginUser.getUserId());
+
+	public HashMap<String, Object> selectCheckEmail(Connection con, String userName, String userId, String email) {
+		
+		PreparedStatement pstmt = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("selectCheckEmail");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, email);
+			pstmt.setString(2, userName);
 			
-			result = pstmt.executeUpdate();
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				hmap = new HashMap<String, Object>();
+
+				hmap.put("email", rset.getString("EMAIL"));
+				hmap.put("userId", rset.getString("M_ID"));
+				hmap.put("userName", rset.getString("M_NAME"));
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+			close(rset);
+		}
+
+		return hmap;
+		
+	}
+
+	public int selectCheckEmailPwd(Connection con, String userName, String userId, String email) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("selectCheckEmailPwd");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, email);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userName);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 		
+		return result;
 		
+	}
+
+	public int updateCheckEmailPwd(Connection con, String userId, String newPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateCheckEmailPwd");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, userId);
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		System.out.println("dao 변경 비번:"+newPwd);
+
 		return result;
 	}
 

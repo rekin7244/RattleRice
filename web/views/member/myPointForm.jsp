@@ -206,11 +206,6 @@ a[data-toggle="collapse"] {
 	margin-right: 100px;
 }
 
-width
-:
- 
-50%;
-}
 input, textarea {
 	text-align: center;
 }
@@ -265,6 +260,9 @@ footer {
 
 tr>th, tr>td {
 	width: 10%;
+}
+.form-control {
+	width: 50%;
 }
 </style>
 
@@ -342,19 +340,18 @@ tr>th, tr>td {
 					</div>
 
 
-					<div class="container">
+					<div class="container"><br>
+					<input class="form-control" id="myInput" type="text"
+							placeholder="키워드 입력">
 						<br>
 						<table class="table table-bordered table-striped">
+						
 							<thead>
 								<tr>
-									<th>날짜 <input class="form-control" id="myInput1"
-										type="text" placeholder="날짜 검색"></th>
-									<th>금액<input class="form-control" id="myInput2"
-										type="text" placeholder="금액 검색"></th>
-									<th>분류<input class="form-control" id="myInput3"
-										type="text" placeholder="분류 검색"></th>
-									<th>상태<input class="form-control" id="myInput4"
-										type="text" placeholder="상태 검색"></th>
+									<th>날짜 </th>
+									<th>금액</th>
+									<th>분류</th>
+									<th>상태</th>
 
 								</tr>
 							</thead>
@@ -422,7 +419,7 @@ tr>th, tr>td {
 	
 	
 		$(document).ready(function(){
-		  $("#myInput1").on("keyup", function() {
+		  $("#myInput").on("keyup", function() {
 		    var value = $(this).val().toLowerCase();
 		    
 		    $("#myTable tr").filter(function() {

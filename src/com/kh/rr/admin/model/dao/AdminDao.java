@@ -10,9 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.rr.board.model.vo.Board;
+import com.kh.rr.common.model.vo.PageInfo;
 import com.kh.rr.member.model.vo.Member;
 
 public class AdminDao {
@@ -318,6 +320,7 @@ public class AdminDao {
 		return community;
 	}
 
+	//조회수 증가 메소드
 	public int updateCount(Connection con, int nbid) {
 		
 		int result = 0;
@@ -325,7 +328,7 @@ public class AdminDao {
 		
 		String query = prop.getProperty("updeteCount");
 		
-		System.out.println("카운트 dao실행 : " + nbid);
+		/*System.out.println("카운트 dao실행 : " + nbid);*/
 		
 		
 		
@@ -343,5 +346,137 @@ public class AdminDao {
 
 		return result;
 	}
+
+	//공지사항 삭제
+	public int deleteCommunity(Connection con, int nbid) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query =prop.getProperty("deleteCommunity");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, nbid);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int getCoinRecordListCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getCoinRecordListCount");
+		int listCount = 0;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return listCount;
+	}
+	
+	
+	public ArrayList<HashMap<String, Object>> coinRecord(Connection con, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("coinRecord");
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pi.getStartPage());
+			pstmt.setInt(2, pi.getEndpage());
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				HashMap<String,Object> hmap = new HashMap<String,Object>();
+				hmap.put("date", rset.getDate("TDATE"));
+				hmap.put("userId", rset.getString("M_ID"));
+				hmap.put("amount", rset.getInt("TPRICE"));
+				hmap.put("type", rset.getString("TYPE"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int searchCoinRecordListCount(Connection con, String condition, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = prop.getProperty("searchCoinRecordListCount");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, condition);
+			pstmt.setString(2, userId);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> searchCoinRecord(Connection con, PageInfo pi, String condition,
+			String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchCoinRecord");
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, condition);
+			pstmt.setString(2, userId);
+			pstmt.setInt(3, pi.getStartPage());
+			pstmt.setInt(4, pi.getEndpage());
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				HashMap<String,Object> hmap = new HashMap<String,Object>();
+				hmap.put("date", rset.getDate("TDATE"));
+				hmap.put("userId", rset.getString("M_ID"));
+				hmap.put("amount", rset.getInt("TPRICE"));
+				hmap.put("type", rset.getString("TYPE"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
 
 }

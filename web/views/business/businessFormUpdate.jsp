@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.rr.member.model.vo.*"%>
+	
 <% 
 		ArrayList<HashMap<String, Object>> list = 
 			(ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 		System.out.println("FormUpdate : " + list);
 		
+		/* StoreMenuInfo menuInfo = new StoreMenuInfo();
+		System.out.println(menuInfo);*/
+		
 		/* ArrayList<Attachment> fileList = (ArrayList<Attachment>) request.getAttribute("fileList");
 		System.out.println("fileList : " + fileList); */
-		
 %>
+
 <!DOCTYPE html>
 <html>
 
@@ -345,10 +349,10 @@ padding-bottom: 30px;
 					overflow-x: auto; overflow-y:auto;">
 					<h4 align="center">메뉴</h4>
 					<br><br>
-					<button id="menuAdd">+</button>
-					<button>적용하기</button>
+					
 					<form action="menuInfoUpdate.b" method="post">
-						<table class="table table-bordered" id="menuTable" style="min-width: 500px;">
+					<button type="submit">수정하기</button>
+						<table class="table table-bordered" id="menuTable1" style="min-width: 500px;">
 							<thead>
 								<tr style="background: lightgray">
 									<th align="center">메뉴명</th>
@@ -365,26 +369,43 @@ padding-bottom: 30px;
 									<td><input type="text" name="menu" value='<%= hmap.get("menu")%>'></td>
 									<td><input type="number" name="menuPrice" value='<%= hmap.get("price")%>'></td>
 									<td><input type="text" name="origin" value='<%=hmap.get("origin") %>'></td>
+									<input type="hidden" name="mid" value='<%=hmap.get("mId") %>'>
 								</tr>
 							<% } %>
 							</tbody>
 						</table>
 					</form>
-					<br>
-					<hr>
-					<br>
-					<from action="">
-					
-					
-					</from>
-				</div>
+						
+						<button id="menuAdd">+</button>
+						<form action="menuInfoInsert.b" method="post">
+						<button type="submit">추가하기</button>
+						<table class="table table-bordered" id="menuTable" style="min-width: 500px;">
+							<thead>
+								<tr style="background: lightgray">
+									<th align="center">메뉴명</th>
+									<th align="center">가격</th>
+									<th align="center">원산지</th>
+								</tr>
+							</thead>
+							<tbody>
+							
+								<tr>
+									<td><input type="text" name="menu"></td>
+									<td><input type="number" name="menuPrice" ></td>
+									<td><input type="text" name="origin"></td>
+									<input type="hidden" name="mid">
+								</tr>
+							
+							</tbody>
+						</table>
 				<script>
-					
-				var ctn = 0;
-				
+					var ctn = 1;
 					$("#menuAdd").click(function(){
+						
 						console.log("function동작");
 						ctn++;
+						console.log(ctn);
+						var menuArray = new Array(ctn);
 						$("#menuTable > tbody:last").append(
 								"<tr><td>" + '<input type="text" name="menu">' + "</td>"
 								+ "<td>" + '<input type="number" name="menuPrice">' + "</td>"
@@ -395,6 +416,21 @@ padding-bottom: 30px;
 						alert("매장정보가 수정되었습니다");
 					});
 				</script>
+						</form>
+						
+					
+					
+					
+					
+					
+					<br>
+					<hr>
+					<br>
+				<!--<from action="">
+					
+					
+					</from>-->
+				</div>
 				
 				
 				<div class="container col-sm-9"
@@ -417,15 +453,11 @@ padding-bottom: 30px;
 						
 						
 								 <%
-								 HashMap<String, Object> hamp = null;
-									for (int i = 0; i < list.size(); i++) {
-										hamp = list.get(i);
+								 HashMap<String, Object> hamp = list.get(0);
 								%>
 								<img id="contentImg1" src="/rr/profileImg_upload/<%=hamp.get("changeName")%>" style="
 									width:170px; align=center; ">
-								<%
-									}
-								%> 
+								
 						</div>
 						
 						<%-- <div id="contentImgArea2"

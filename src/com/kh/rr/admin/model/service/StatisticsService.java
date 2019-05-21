@@ -39,5 +39,25 @@ public class StatisticsService {
 		
 		return list;
 	}
+
+	public ArrayList<HashMap<String, Object>> statisticsCoinCharge() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new StatisticsDao().statisticsCoinCharge(con);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statisticsCoinUse() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new StatisticsDao().statisticsCoinUse(con);
+		
+		close(con);
+		
+		return list;
+	}
 	
 }

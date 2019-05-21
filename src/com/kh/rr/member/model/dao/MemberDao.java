@@ -57,9 +57,6 @@ public class MemberDao {
 				loginUser.setUserName(rset.getString("M_NAME"));
 				loginUser.setMemberType(rset.getString("M_TYPE"));
 				loginUser.setStatus(rset.getString("M_STATUS"));
-				loginUser.setEmail(rset.getString("EMAIL"));
-				loginUser.setPhone(rset.getString("PHONE"));
-				System.out.println(loginUser);
 				
 			}
 			

@@ -91,7 +91,7 @@ public class BusinessDao {
 		return result;
 	}
 
-	public int insertMenuInfo(Connection con, StoreMenuInfo storeMenuInfo, Member member) {
+	public int insertStoreInfo(Connection con, StoreMenuInfo storeMenuInfo, Member member) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		ResultSet rset = null;
@@ -125,7 +125,7 @@ public class BusinessDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, storeMenuInfo.getMenu());
-			pstmt.setInt(2, storeMenuInfo.getPrice());
+			pstmt.setString(2, storeMenuInfo.getPrice());
 			pstmt.setString(3, storeMenuInfo.getOrigin());
 			pstmt.setInt(4, (int) hmap.get("s_id"));
 			pstmt.setInt(5, (int) hmap.get("s_code"));
@@ -143,34 +143,105 @@ public class BusinessDao {
 		return result;
 	}
 
+	public int updateMenu(Connection con, StoreMenuInfo menuInfo, Member loginUser) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		/*ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		
+		String selectQuery = prop.getProperty("selectStoreInfo");
+		
+		
+		
+		try {
+			pstmt = con.prepareStatement(selectQuery);
+			pstmt.setString(1, loginUser.getUserId());
+			
+			rset= pstmt.executeQuery();
+			hmap = new HashMap<String, Object>();
+			while (rset.next()) {
+				hmap.put("s_id", rset.getInt("S_ID"));
+				hmap.put("s_code", rset.getInt("S_CODE"));
+			}
+			System.out.println("hmap : " + hmap);
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} finally {
+			//close(rset);
+		}*/
+		
+		String query = prop.getProperty("menuUpdate");
+		System.out.println(query);
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, menuInfo.getMenu());
+			pstmt.setString(2, menuInfo.getPrice());
+			pstmt.setString(3, menuInfo.getOrigin());
+			pstmt.setString(4, menuInfo.getmId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+
+	public int insertMenu(Connection con, StoreMenuInfo menuInfo, Member loginUser) {
+		System.out.println("insertMenuDao들어옴");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		
+		String selectQuery = prop.getProperty("selectStoreInfo");
+		System.out.println(selectQuery); 
+		
+		
+		try {
+			pstmt = con.prepareStatement(selectQuery);
+			pstmt.setString(1, loginUser.getUserId());
+			
+			rset= pstmt.executeQuery();
+			hmap = new HashMap<String, Object>();
+			while (rset.next()) {
+				hmap.put("s_id", rset.getInt("S_ID"));
+				hmap.put("s_code", rset.getInt("S_CODE"));
+			}
+			System.out.println("hmap : " + hmap);
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} finally {
+			//close(rset);
+		}
+		
+		String query = prop.getProperty("insertMenu");
+		System.out.println(query);
+		System.out.println(menuInfo);
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, menuInfo.getMenu());
+			pstmt.setString(2, menuInfo.getPrice());
+			pstmt.setString(3, menuInfo.getOrigin());
+			pstmt.setInt(4, (int) hmap.get("s_id"));
+			pstmt.setInt(5, (int) hmap.get("s_code"));
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		
+		return result;
+	}
+
 	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -99,4 +99,56 @@ public class StatisticsDao {
 		return list;
 	}
 
+	public ArrayList<HashMap<String, Object>> statisticsCoinCharge(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("statisticsCoinCharge");
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				HashMap<String,Object> hmap = new HashMap<String,Object>();
+				hmap.put("sales", rset.getInt("sumPrice"));
+				hmap.put("month", rset.getString("month"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statisticsCoinUse(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("statisticsCoinUse");
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				HashMap<String,Object> hmap = new HashMap<String,Object>();
+				hmap.put("sales", rset.getInt("sumPrice"));
+				hmap.put("month", rset.getString("month"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
 }

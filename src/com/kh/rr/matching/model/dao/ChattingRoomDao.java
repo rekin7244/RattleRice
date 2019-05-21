@@ -464,7 +464,7 @@ public class ChattingRoomDao {
 	}
 
 	//마감시간 설정하는 메소드
-	public int updateChattingRoom(Connection con, int rno, ChattingRoom reqCr) {
+	public int updateChattingRoom(Connection con, int dtRno, ChattingRoom reqCr) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -473,7 +473,52 @@ public class ChattingRoomDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, reqCr.getdTime());
-			pstmt.setInt(2, rno);
+			pstmt.setInt(2, dtRno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	//사용자 강퇴하는 메소드
+	public int kickUser(Connection con, String userId, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteRoomRecord");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	//마감시간이 되면 dtime을 리셋해주는 메소드
+	public int resetChattingRoom(Connection con, int dtRno, ChattingRoom reqCr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateChattingRoom");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqCr.getdTime());
+			pstmt.setInt(2, dtRno);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

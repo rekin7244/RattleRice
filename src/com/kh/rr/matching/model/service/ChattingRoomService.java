@@ -177,10 +177,42 @@ public class ChattingRoomService {
 	}
 
 	//마감시간 설정하는 메소드
-	public int updateChattingRoom(int rno, ChattingRoom reqCr) {
+	public int updateChattingRoom(int dtRno, ChattingRoom reqCr) {
 		Connection con = getConnection();
 		
-		int result = new ChattingRoomDao().updateChattingRoom(con, rno, reqCr);
+		int result = new ChattingRoomDao().updateChattingRoom(con, dtRno, reqCr);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return result;
+	}
+
+	//사용자 강퇴하는 메소드
+	public int kickUser(String userId, int rno) {
+		Connection con = getConnection();
+		
+		int result = new ChattingRoomDao().kickUser(con, userId, rno);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	//마감시간이 되면 dtime을 리셋해주는 메소드
+	public int resetChattingRoom(int dtRno, ChattingRoom reqCr) {
+		Connection con = getConnection();
+		
+		int result = new ChattingRoomDao().resetChattingRoom(con, dtRno, reqCr);
 		
 		if(result > 0) {
 			commit(con);

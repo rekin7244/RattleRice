@@ -57,7 +57,7 @@ public class UserInfoService {
 
 	public int updateProfile(UserInfo ui) {
 		Connection con = getConnection();
-		
+
 		int result = new UserInfoDao().updateProfile(con, ui);
 
 		if (result > 0) {
@@ -89,7 +89,7 @@ public class UserInfoService {
 
 	public int pointUpdate(String amount, String userId) {
 		Connection con = getConnection();
-		
+
 		int result = new UserInfoDao().updatePoint(con, amount, userId);
 
 		if (result > 0) {
@@ -102,15 +102,16 @@ public class UserInfoService {
 	}
 
 	public ArrayList<HashMap<String, Object>> selectUserPoint(String userId) {
-		
+
 		Connection con = getConnection();
-		
+
 		ArrayList<HashMap<String, Object>> list = new UserInfoDao().selectUserPoint(con, userId);
 
 		close(con);
-		
+
 		return list;
 	}
+
 
 	//벨 충전시, 보유포인트는 차감하고 벨은 증가시키는 메소드
 	public int chargeBell(int bell, Member loginUser) {
@@ -128,27 +129,38 @@ public class UserInfoService {
 		
 		return result;
 	}
+	public HashMap<String, Object> selectCheckEmail(String userName, String userId, String email) {
+		Connection con = getConnection();
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		HashMap<String, Object> hmap = new UserInfoDao().selectCheckEmail(con, userName, userId, email);
+
+		close(con);
+
+		return hmap;
+	}
+
+	public int selectCheckEmailPwd(String userName, String userId, String email) {
+		Connection con = getConnection();
+
+		int result = new UserInfoDao().selectCheckEmailPwd(con, userName, userId, email);
+
+		close(con);
+
+		return result;
+	}
+
+	public int updateCheckEmailPwd(String userId, String newPwd) {
+		Connection con = getConnection();
+
+		int result = new UserInfoDao().updateCheckEmailPwd(con, userId,newPwd);
+
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+
+		return result;
+	}
+
 }
