@@ -6,12 +6,12 @@ public class StoreMenuInfo {
 	private String price; //메뉴가격
 	private String origin; //원산지
 	private int sId;//매장정보 코드
-	private int mId; //메뉴코드
+	private String mId; //메뉴코드
 	private int sCode; //매장코드
 	
 	public StoreMenuInfo() {}
 
-	public StoreMenuInfo(String menu, String price, String origin, int sId, int mId, int sCode) {
+	public StoreMenuInfo(String menu, String price, String origin, int sId, String mId, int sCode) {
 		super();
 		this.menu = menu;
 		this.price = price;
@@ -53,11 +53,11 @@ public class StoreMenuInfo {
 		this.sId = sId;
 	}
 
-	public int getmId() {
+	public String getmId() {
 		return mId;
 	}
 
-	public void setmId(int mId) {
+	public void setmId(String mId) {
 		this.mId = mId;
 	}
 
@@ -75,5 +75,5 @@ public class StoreMenuInfo {
 				+ mId + ", sCode=" + sCode + "]";
 	}
 
-			
+				
 }
