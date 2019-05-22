@@ -55,7 +55,7 @@ $(function() {
 			type:"get",
 			success:function(data){
 				console.log(data);
-				<%-- var myId = "<%=m.getUserId()%>"; --%>
+				var myId = "<%=m.getUserId()%>";
 				
 				$chatPersonDiv = $(".chatPerson");
 				
@@ -68,7 +68,7 @@ $(function() {
 					} */
 					
 					//-> 잘못된 알고리즘2
-					<%-- var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
+					var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
 					var $imgDiv = $("<div class='profileImg' data-toggle='modal' data-target='#userProfile'>");
 					var $nameDiv = $("<div class='profileName'>");
 					var $kickDiv = $("<div style='float: right; margin-top: 8px;'>");
@@ -106,7 +106,7 @@ $(function() {
 					
 					if(now < deadLineTime){
 						$("#dTime").text(deadLineTime);
-					}else{
+					}<%-- else{
 						$("input[name=dTime]").val("25");
 						location.href = "<%= request.getContextPath()%>/deadLine.cr";
 					}
