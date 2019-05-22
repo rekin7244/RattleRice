@@ -873,6 +873,7 @@ body::-webkit-scrollbar {
 			}
 		});
 	}
+
 	//자유게시판 페이징 및 검색 ajax
 	function fbPaging(currentPage){
 		var keyword = $("#fbKeyword").val();
@@ -917,51 +918,6 @@ body::-webkit-scrollbar {
 			}
 		});
 	}
-	/* //공지사항 검색 ajax
-	function searchNotice(){
-		var keyword = $("#noticekeyword").val();
-		var condition = $("#noticeCondition").val();
-		$.ajax({
-			url:"searchNoticeBoard.bo",
-			type:"get",
-			data:{currentPage:1,keyword:keyword,condition:condition},
-			success:function(data){
-				var list = data["list"];
-				var pi = data["pi"];
-				
-				$tableBody = $("#noticeTable tbody");
-				$tableBody.html('');
-				$.each(list, function(index, value){
-					var $tr = $("<tr>");
-					var $noTd = $("<td>").text(value.nbid);
-					var $typeTd = $("<td>").text(value.target);
-					var $contentTd = $("<td>").text(value.bContent);
-					var $writerTd = $("<td>").text(value.writer);
-					var $countTd = $("<td>").text(value.bCount);
-					
-					$tr.append($noTd);
-					$tr.append($typeTd);
-					$tr.append($contentTd);
-					$tr.append($writerTd);
-					$tr.append($countTd);
-					$tableBody.append($tr);
-				});
-				
-				$paging = $("#noticePaging");
-				$paging.html('');
-				var $firstTd = $('<li><a onclick="noticePaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
-				$paging.append($firstTd);
-				for (var i = 0; i < pi.maxPage; i++) {
-					$paging.append('<li><a onclick="noticePaging('+(i+1)+');">'+(i+1)+'</a></li>');
-				}
-				var $endTd = $('<li><a onclick="noticePaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
-				$paging.append($endTd);
-			},
-			error:function(){
-				console.log("실패!");
-			}
-		});
-	} */
 	</script>
 
 </body>

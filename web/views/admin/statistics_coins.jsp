@@ -68,9 +68,11 @@
 		function loadChart(){
 			console.log("loadChart()실행")
 			if($("#optionSelect").val() == 'CH'){
+				console.log("충전 로드");
 				loadNewChart();
 				loadChargeCoinChart();
 			}else{
+				console.log("사용 로드");
 				loadNewChart();
 				loadUseCoinChart();
 			}
@@ -86,7 +88,8 @@
 					console.log(coinData);
 					removeData(coinChart);
 					for ( var key in coinData) {
-						addData(coinChart,coinData[key].month+'월',coinData[key].sales);						
+						addData(coinChart,coinData[key].month+'월',coinData[key].sales);	
+						
 					}
 				},
 				error:function(){
@@ -102,11 +105,12 @@
 				data:{},
 				success:function(data){
 					coinData = data;
-					console.log(coinData);
+					//console.log(coinData);
 					removeData(coinChart);
 					for ( var key in coinData) {
-						addData(coinChart,coinData[key].month+'월',coinData[key].sales);						
+						addData(coinChart,coinData[key].month+'월',coinData[key].sales);		
 					}
+					//console.log(coinChart.config.data.datasets);
 				},
 				error:function(){
 					console.log("로드 실패");
@@ -136,7 +140,7 @@
 				data:{
 					labels:[],
 					datasets: [{
-						label:"코인 충전양",
+						label:"코인 양",
 						data:[],
 						backgroundColor:'rgba(75,182,192,0.4)',
 						borderColor:'rgba(255,99,132,1)',

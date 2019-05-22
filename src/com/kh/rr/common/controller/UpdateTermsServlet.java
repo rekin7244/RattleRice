@@ -1,4 +1,4 @@
-package com.kh.rr.admin.controller;
+package com.kh.rr.common.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.rr.common.model.service.IndexService;
-import com.kh.rr.common.model.vo.IndexInfo;
 
 /**
- * Servlet implementation class UpdateIndexInfoServlet
+ * Servlet implementation class UpdateTermsServlet
  */
-@WebServlet("/updateSiteInfo.if")
-public class UpdateIndexInfoServlet extends HttpServlet {
+@WebServlet("/updateTerms.if")
+public class UpdateTermsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateIndexInfoServlet() {
+    public UpdateTermsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,22 +28,15 @@ public class UpdateIndexInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String contact = request.getParameter("aContact");
-		String intro = request.getParameter("aIntro");
+		String terms = request.getParameter("termsArea");
 		
-		IndexInfo info = new IndexInfo();
-		info.setContact(contact);
-		info.setsInfo(intro);
+		int result = new IndexService().updateTerms(terms);
 		
-		int result = new IndexService().updateSiteInfo(info);
-		
-		String page = "";
 		if(result > 0) {
 			response.sendRedirect("views/admin/updateMainForm.jsp");
 		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "메인페이지 정보 수정 실패!");
-			request.getRequestDispatcher(page).forward(request, response);
+			request.setAttribute("msg", "약관 수정 실패!");
+			request.getRequestDispatcher("views/common/errorPage.jsp");
 		}
 	}
 
