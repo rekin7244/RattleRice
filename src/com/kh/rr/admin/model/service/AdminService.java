@@ -22,6 +22,8 @@ public class AdminService {
 		
 		ArrayList<Member> list = new AdminDao().memberlist(con);
 		
+		System.out.println("service접근");
+		
 		close(con);
 		
 		return list;

@@ -64,9 +64,9 @@
 					<th><input type="checkbox" id="checkmember"></th>
 					<th>번호</th>
 					<th>아이디</th>
-					<th>비밀번호</th>
+					<!-- <th>비밀번호</th> -->
 					<th>이름</th>
-					<th>나이</th>
+					
 					<th>성별</th>
 					<th>휴대폰번호</th>
 					<th>등급</th>
@@ -84,11 +84,11 @@
 			<tbody align="center">
 				<tr>
 					<th><input type="checkbox" id="checkmember"></th>
-					<td>1</td>
+					<td><%= i + 1 %></td>
 					<td><%= blist.get(i).getUserId() %></td>
-					<td><%= blist.get(i).getUserPwd() %></td>
+					
 					<td><%= blist.get(i).getUserName() %></td>
-					<td>20</td>
+					
 					<td>남</td>
 					<td>010-2222-1111</td>
 					<td>level1</td>	

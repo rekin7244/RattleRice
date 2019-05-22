@@ -28,7 +28,7 @@ public class MemberlistServlet extends HttpServlet {
 		
 		ArrayList<Member> list = new AdminService().memberlist();
 		
-		/*System.out.println("servlet : " + list);*/
+		System.out.println("servlet : " + list);
 		
 		String page="";
 		if(list != null) {

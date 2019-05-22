@@ -50,15 +50,21 @@ public class AdminDao {
 			while(rset.next()) {
 
 				Member mlist = new Member();
-				mlist.setUserId(rset.getString("M_ID"));
+				/*mlist.setUserId(rset.getString("M_ID"));
 				mlist.setUserPwd(rset.getString("M_PWD"));
 				mlist.setUserName(rset.getString("M_NAME"));
 				mlist.setMemberType(rset.getString("M_TYPE"));
 				mlist.setStatus(rset.getString("M_STATUS"));
-
+				mlist.setEmail(rset.getString("EMAIL"));
+				mlist.setPhone(rset.getString("PHONE"));*/
+				
+				mlist.setUserId(rset.getString("M_ID"));
+				mlist.setUserName(rset.getString("M_NAME"));
+				mlist.setEmail(rset.getString("EMAIL"));
+				mlist.setPhone(rset.getString("PHONE"));
+				mlist.setGender(rset.getString("GENDER"));
 				memberlist.add(mlist);
-
-				/*System.out.println("관리자 dao : " + mlist );*/
+				System.out.println("관리자 dao : " + mlist );
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
