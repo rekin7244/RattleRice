@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.board.model.vo.Board"%>
 <%
 	Board community = (Board)request.getAttribute("community");
+   System.out.println(community);
 %>
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 
 <title>커뮤니티 관리</title>
@@ -111,9 +113,9 @@
 				
 				<!-- 게시판 -->
 				
-				<%-- <div class="container">
+				 <div class="container">
 					<div class="row">
-						 <form  action="<%=request.getContextPath() %>/communityUpdate.ad?nbid=<%=community.getNbid()%> '" method="post"> 
+					 
 							<table class="table table-striped" id="detail"
 								style="text-align:center; border:1px solid #dddddd">
 								<thead>
@@ -122,41 +124,61 @@
 										text-align:center;">
 										게시판 수정 페이지</th>
 									</tr>
-								</thead> --%>
+								</thead>
 								
+								<!-- <form name="updateForm" method="post"> -->
 								<tbody>
+								
+								
 							
 									<tr>
-										<td><input type="text" name="title" value="<%= community.getTitle() %>">
-										<input id="nbid" type="hidden" value="<%=community.getNbid()%>"></td>
+										<td>글 제목 : <input type="text" name="title" value="<%=community.getTitle() %> ">
+										<input id="nbid" name="nbid" type="text" value="<%=community.getNbid()%>"></td>
 										
 									</tr>
 									
 									<tr>
-										<td><textarea class="form-control"  name="content" 
-												maxlength="2048" style="height:400px; width:1000px;"><%=community.getbContent() %></textarea></td>
+										<td><textarea class="form-control"  name="content"
+												maxlength="2048" style="height:400px; width:1000px;">
+												<%=community.getbContent() %>
+											</textarea></td>
 									</tr>
 									
 												
 								</tbody>
 							</table>
-						</form>
+						 
 							
 							<div>
 								<button class="btn btn-primary pull-right" id="before" 
 									onclick="location.href='<%=request.getContextPath() %>/communitylist.ad'">이전</button>
-								<button class="btn btn-primary pull-right" id="update">완료</button>
+								<button class="btn btn-primary pull-right" onclick="complet();">완료</button>
 								
 								
 									
 							</div>
-							
+						</form>	
 						
 					</div>
 				</div>
 
 
-
+			<script>
+				function complet(){
+					
+					var nbid = $(".nbid").val();
+					
+					
+					if(confirm("수정한 내용으로 변경하시겠습니까?") == true){
+						alert("변경되었습니다.");
+						
+						
+						location.href="<%=request.getContextPath()%>/communityUpdate.ad?nbid=<%=community.getNbid()%>" ;
+					}else{
+						return;
+					} 
+				}
+			</script>
 
 
 

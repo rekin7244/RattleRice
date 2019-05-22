@@ -42,16 +42,17 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="nav navbar-nav ml-auto">
 						<li class="nav-item active"><a class="nav-link"
-							href="<%=request.getContextPath() + "/memberlist.ad"%>">회원관리</a></li>
-						<li class="nav-item"><a class="nav-link" href="community.jsp">커뮤니티</a></li>
+							href="<%=request.getContextPath() %>/memberlist.ad">회원관리</a></li>
+						<li class="nav-item"><a class="nav-link" 
+							href="<%=request.getContextPath()%>/communitylist.ad">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="calculate.jsp">정산</a></li>
-						<li class="nav-item"><a class="nav-link" href="sms.jsp">SMS</a></li>
+						<li class="nav-item"><a class="nav-link" href="views/admin/sms.jsp">SMS</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
+							href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
 					</ul>
 				</div>
 			</div>
-
+			
 		</nav>
 		<br> <br>
 
@@ -82,7 +83,7 @@
 						<th>사업자명</th>
 						<th>계좌</th>
 						<th>휴대폰번호</th>
-						<th>등급</th>
+						<th>평점</th>
 					</tr>
 
 				</thead>
@@ -99,10 +100,10 @@
 				%>
 
 
-				<tbody id="bisinesslistFrom">
+				<tbody id="bisinesslistFrom" align="center">
 					<tr>
 						<td><input type="checkbox" id="checkmember"></td>
-						<td>1</td>
+						<td><%=i+1 %></td>
 						<td><%=bisilist.get(i).getUserId()%></td>
 						<%-- <td><%= bisilist.get(i).getUserPwd() %></td> --%>
 						<td>123-456789-123456</td>
@@ -110,12 +111,9 @@
 						<td><%=bisilist.get(i).getUserName()%></td>
 						<td><button>상세보기</button></td>
 						<td>010-1111-1111</td>
-						<td><select>
-								<option>level1</option>
-								<option>level2</option>
-								<option>level3</option>
-						</select> &nbsp; &nbsp;
-							<button>수정</button></td>
+						<td>1 &nbsp;&nbsp;&nbsp;&nbsp;
+					<button>수정</button></td>
+							
 				</tbody>
 
 
@@ -177,8 +175,6 @@
 										$(blist).children('#bisinesslistFrom')
 												.remove(); 
 										
-						
-
 										for(var key in data){
 									 	var user = data[key];
 									 	console.log(user.userId);
@@ -192,7 +188,7 @@
 										$(blist).append(user.userName);
 										$(blist).append('<td><button>상세보기</button></td>');
 										$(blist).append('<td>010-1111-1111</td>');
-										$(blist).append('<td><select><option>level1</option></select></select> &nbsp; &nbsp;<button>수정</button></td>');
+										$(blist).append('<td>1 &nbsp; &nbsp;&nbsp; &nbsp;<button>수정</button></td>');
 										$(blist).append('</tr>');
 										}
 									
