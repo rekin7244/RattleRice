@@ -315,7 +315,7 @@ body::-webkit-scrollbar {
 			<p style="text-align: center">제휴를 맺읍시다.</p>
 			<br />
 		    <div class="col-md-2 col-md-offset-2">
-		      <p>Fan? Drop a note.</p>
+		      <p>제휴 인풋</p>
 		      <p><span class="glyphicon glyphicon-map-marker"></span>Chicago, US</p>
 		      <p><span class="glyphicon glyphicon-phone"></span>Phone: +00 1515151515</p>
 		      <p><span class="glyphicon glyphicon-envelope"></span>Email: mail@mail.com</p>
@@ -677,7 +677,7 @@ body::-webkit-scrollbar {
 		<br>
 
 		<div class="container-fluid">
-			<div class="row content">
+			<div class="row content fb">
 					<div class="form-group">
 						<label for="keyword" class="col-sm-2 control-label">제목 검색</label>
 						<div class="col-sm-9">
@@ -706,6 +706,11 @@ body::-webkit-scrollbar {
 					</thead>
 					<tbody></tbody>
 				</table>
+				
+				<% if(loginUser != null){ %>
+				<button id="insertfb" class="btn btn-primary" style=" float: right; width: 15%; ">게시글 작성</button>
+				<input type="hidden" value="<%=loginUser.getUserId()%>" name="fbUserId">
+				<% } %>
 				<nav style="text-align: center;">
 					<ul id="fbPaging" class="pagination"></ul>
 				</nav>
@@ -1089,6 +1094,37 @@ body::-webkit-scrollbar {
 			}
 		});
 	}
+	
+	$(function(){
+		$("#insertfb").click(function(){
+			var fbUserId = $("input[name=fbUserId]");
+			
+			$.ajax({
+				url:"freeBoardInsert.bo",
+				type:"get",
+				data:{fbUserId:fbUserId},
+				success:function(data){
+					console.log(data);
+				}
+			});	
+			
+		});
+		
+		$("#fbTable td").click(function(){
+			 var num = $(this).parent().children().eq(0).text();
+			
+			console.log(num);
+			
+			$.ajax({
+				url:"selectOne.bo",
+				type:"get",
+				data:{num:num},
+				success:function(data){
+					console.log(data);
+				}
+			});
+		});
+	});
 	</script>
 
 </body>

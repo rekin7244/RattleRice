@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<% 
+	
+%>
 <!DOCTYPE html>
 <html>
 
@@ -222,23 +225,15 @@ a.article, a.article:hover {
 			<thead>
 				<tr style="background: lightgray" align="center">
 					<th><input type="checkbox" id="checkmember"></th>
-					<th>번호</th>
-					<th>아이디</th>
-					<th>포인트</th>
+					<th>신청 번호</th>
+					<th>신청자 아이디</th>
+					<th>신청 포인트</th>
 					<th>관리</th>
 				</tr>
 			</thead>
 
-			<tbody align="center">
-				<tr>
-					<th><input type="checkbox" id="checkmember"></th>
-					<td>1</td>
-					<td>user01</td>
-					<td>15000</td>
-					<td><button>확인</button>&nbsp;<button>취소</button></td>
-				</tr>
-				</tbody>
-
+			<tbody align="center"></tbody>
+		</table>
+	</div>
 </body>
-
 </html>

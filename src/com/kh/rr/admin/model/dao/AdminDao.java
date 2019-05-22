@@ -64,7 +64,7 @@ public class AdminDao {
 				mlist.setPhone(rset.getString("PHONE"));
 				mlist.setGender(rset.getString("GENDER"));
 				memberlist.add(mlist);
-				System.out.println("관리자 dao : " + mlist );
+				/*System.out.println("관리자 dao : " + mlist );*/
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -95,16 +95,15 @@ public class AdminDao {
 				while(rset.next()) {
 
 					Member bmlist = new Member();
-
+					
 					bmlist.setUserId(rset.getString("M_ID"));
-					bmlist.setUserPwd(rset.getString("M_PWD"));
 					bmlist.setUserName(rset.getString("M_NAME"));
-					bmlist.setMemberType(rset.getString("M_TYPE"));
-					bmlist.setStatus(rset.getString("M_STATUS"));
+					bmlist.setGender(rset.getString("GENDER"));
+					bmlist.setPhone(rset.getString("PHONE"));
 
 					Nonmemberlist.add(bmlist);
 
-					/*System.out.println("관리자 dao : " + mlist );*/
+					System.out.println("탈퇴 회원 dao : " + bmlist );
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -158,7 +157,7 @@ public class AdminDao {
 	}
 
 
-	//검색어로 조회
+	//검색어로 사업자 조회
 	public ArrayList<Member> selectbisiness(Connection con, String keyField, String keyword) {
 
 		PreparedStatement pstmt = null;
@@ -542,6 +541,49 @@ public class AdminDao {
 		
 		
 		return community;
+	}
+
+	//회원 검색 기능
+	public ArrayList<Member> selectmember(Connection con, String keyField, String keyword) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Member> memberSelete = null;
+		
+		String query = prop.getProperty("selectMember");
+		
+		/*System.out.println(keyField);
+		System.out.println(keyword);*/
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, keyField);
+			pstmt.setString(2, keyword);
+			rset = pstmt.executeQuery();
+			memberSelete = new ArrayList<Member>();
+			
+			
+			if(rset !=null) {
+				while(rset.next()) {
+					System.out.println("while문 들어옴");
+					Member list = new Member();
+					list.setUserId(rset.getString("M_ID"));
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+			close(rset);
+		}
+		
+		return memberSelete;
+  }
+	public int getPointSettlementListCount() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

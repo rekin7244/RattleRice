@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.rr.admin.model.service.AdminService;
 import com.kh.rr.member.model.vo.Member;
 
-
-@WebServlet("/nonMember.ad")
-public class NonmemberServlet extends HttpServlet {
+@WebServlet("/memberSelect.ad")
+public class MemberSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public NonmemberServlet() {
+ 
+    public MemberSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,22 +26,18 @@ public class NonmemberServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Member> bmlist = new AdminService().NonMemberlist();
+		String keyField = request.getParameter("keyField");
+		String keyword = request.getParameter("keyword");
 		
-		System.out.println("servlet : " + bmlist);
+		ArrayList<Member> memberSelect = new AdminService().memberSelect(keyField, keyword);
 		
-		String page="";
-		if(bmlist != null) {
-			page="views/admin/nonMembers.jsp";
-			request.setAttribute("bmlist", bmlist);
-		}else {
-			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "실패");
-		}
+		System.out.println("memberSelect" + memberSelect);
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		request.setAttribute("memberSelect", memberSelect);
 		
-		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(memberSelect, response.getWriter());
 	}
 
 
@@ -51,4 +47,3 @@ public class NonmemberServlet extends HttpServlet {
 	}
 
 }
-

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.rr.admin.model.dao.AdminDao;
+import com.kh.rr.admin.model.vo.Settlement;
 import com.kh.rr.board.model.vo.Board;
 import com.kh.rr.common.model.vo.PageInfo;
 import com.kh.rr.member.model.vo.Member;
@@ -34,13 +35,13 @@ public class AdminService {
 
 		Connection con = getConnection();
 		
-		ArrayList<Member> blist = new AdminDao().Nonmemberlist(con);
+		ArrayList<Member> bmlist = new AdminDao().Nonmemberlist(con);
 		
-		/*System.out.println("dao : " + blist);*/
+	
 		
 		close(con);
 		
-		return blist;
+		return bmlist;
 	}
 
 	//사업자 조회
@@ -57,7 +58,7 @@ public class AdminService {
 		return bisilist;
 	}
 
-	//검색어로 회원 조회
+	//검색어로 사업자 조회
 	public ArrayList<Member> bisinessSelect(String keyField, String keyword) {
 		
 		 Connection con = getConnection();
@@ -231,6 +232,36 @@ public class AdminService {
 		
 		
 		return community;
+	}
+
+	//일반 회원 검색 기능
+	public ArrayList<Member> memberSelect(String keyField, String keyword) {
+		Connection con = getConnection();
+		 
+		 ArrayList<Member> memberSelete = new AdminDao().selectmember(con, keyField, keyword);
+		 
+		 System.out.println("멤버 서비스 : " + memberSelete);
+		 
+		 close(con);
+		 
+		System.out.println("일반 회원 검색 서비스 실행");
+		 
+		return memberSelete;
+  }
+  
+	public int getPointSettlementListCount() {
+		Connection con = getConnection();
+		
+		int listCount = new AdminDao().getPointSettlementListCount();
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<Settlement> getPointSettlementList(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
