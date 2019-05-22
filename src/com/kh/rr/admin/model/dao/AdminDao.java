@@ -579,10 +579,11 @@ public class AdminDao {
 			close(rset);
 		}
 		
-	
-		
-		
 		return memberSelete;
+  }
+	public int getPointSettlementListCount() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

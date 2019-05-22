@@ -143,7 +143,7 @@ body {
 	height: 35px;
 }
 
-#userPwd, #userPwd2, #userName, #birthday, #email {
+#userPwd, #userPwd2, #userName, #birthday, #email, #number {
 	height: 35px;
 }
 </style>
@@ -226,9 +226,14 @@ body {
 									
 								</div>
 								<div class="form-group">
-									<input type="tel" name="phone" id="phone" class="form-control" placeholder="휴대폰번호" required>
+									<input type="tel" name="phone" id="phone" class="form-control"
+										placeholder="휴대폰번호" required>
 									<button onclick="phoneCheckBtn()" type="button"
 										class="btn btn-primary" id="smsBtn">SMS인증</button>
+
+									<input type="text" name="number" id="number"
+										class="form-control" placeholder="인증번호 입력" required
+										onkeyup="checkCode()" style="border: 2px solid red;">
 								</div>
 								<div class="form-group">
 									<div class="row">
@@ -277,7 +282,8 @@ body {
 				});
 			})
 		});
-
+		
+		
 		
 		//비밀번호 체크
 		$(function() {
@@ -310,9 +316,15 @@ body {
 			});
 		});
 		
+		$(function() {
+			var number = document.getElementById("number");
+			number.type="hidden";
+		});
+
+		
 		//휴대폰 인증
-		function phoneCheckBtn() {
 			var rand = Math.floor(Math.random() * 99999) + 10001; //랜덤값 
+		function phoneCheckBtn() {
 			var phoneNumber = $("#phone").val(); // 연락처 입력 값
 			
 			/* $.ajax({
@@ -327,16 +339,27 @@ body {
 				}
 			}); */ //인증시에만 사용
 			
-			var result = window.prompt('잠시후 도착할 인증번호를 입력하세요. 임시용 : ' + rand); //회원이 입력한 값
+			alert("인증번호가 발송되었습니다. : " + rand);
 			
-			if(result == rand){
-				phoneCheck = "1";
-				alert("인증되었습니다.");
-				$("#phone").attr("readonly", "readonly");
-				$("#smsBtn").attr("disabled", "disabled");
-			}else{
-				alert("인증번호가 틀립니다.");
-			}
+			$("#smsBtn").hide();
+			var phone = document.getElementById("phone");
+			phone.type="hidden";
+			var number = document.getElementById("number");
+			number.type="text";
+
+		}
+		
+		function checkCode() {
+			
+			  var number = $("#number").val();
+			  if(rand!=number){
+				  $("#number").css("border", "solid 2px red");
+				  phoneCheck = "0";
+			  }else{
+				  $("#number").css("border", "solid 2px lightgreen");
+				   phoneCheck = "1";
+			  }
+			
 		}
 
 		//회원가입 활성화
@@ -344,6 +367,7 @@ body {
 			console.log(idCheck);
 			console.log(pwdCheck);
 			console.log(phoneCheck);
+			console.log("------------");
 			
 			
 			if (idCheck == "1" && pwdCheck == "1" && phoneCheck == "1") {

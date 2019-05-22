@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.rr.admin.model.dao.AdminDao;
+import com.kh.rr.admin.model.vo.Settlement;
 import com.kh.rr.board.model.vo.Board;
 import com.kh.rr.common.model.vo.PageInfo;
 import com.kh.rr.member.model.vo.Member;
@@ -246,6 +247,21 @@ public class AdminService {
 		System.out.println("일반 회원 검색 서비스 실행");
 		 
 		return memberSelete;
+  }
+  
+	public int getPointSettlementListCount() {
+		Connection con = getConnection();
+		
+		int listCount = new AdminDao().getPointSettlementListCount();
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<Settlement> getPointSettlementList(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
