@@ -121,8 +121,8 @@ public class AdminService {
 		
 		close(con);
 		
-		System.out.println("게시판 상세보기 서비스");
-		
+		/*System.out.println("게시판 상세보기 서비스");
+		*/
 		return community;
 	}
 	
@@ -133,6 +133,7 @@ public class AdminService {
 		Connection con = getConnection();
 		
 		int result = new AdminDao().deleteCommunity(con, nbid);
+		
 		
 		if(result>0) {
 			commit(con);
@@ -152,7 +153,7 @@ public class AdminService {
 		
 		int result = new AdminDao().updateCommunity(con, community);
 		
-		System.out.println(result);
+		System.out.println("서비스" + result);
 		
 		if(result > 0) {
 			commit(con);
@@ -205,6 +206,29 @@ public class AdminService {
 		close(con);
 		
 		return list;
+	}
+
+	//게시판 상세보기 수정용
+	public Board selectCommunity(int nbid) {
+		
+		Connection con = getConnection();
+		
+		Board community = new AdminDao().SelectCommunity(con, nbid);
+			
+		if(community != null) {
+			int result = new AdminDao().updateCount(con, community.getNbid());
+			
+			if(result>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+		
+		close(con);
+		
+		
+		return community;
 	}
 
 	

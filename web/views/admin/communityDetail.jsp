@@ -79,13 +79,16 @@
 				<iframe name='action' width="0" height="0" frameborder="0"
 					scrolling='yes'></iframe>
 
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="nav navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link" href="adminForm.jsp">회원관리</a></li>
-						<li class="nav-item active"><a class="nav-link" href="community.jsp">커뮤니티</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="<%=request.getContextPath() %>/memberlist.ad">회원관리</a></li>
+						<li class="nav-item"><a class="nav-link" 
+							href="<%=request.getContextPath()%>/communitylist.ad">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="calculate.jsp">정산</a></li>
-						<li class="nav-item"><a class="nav-link" href="sms.jsp">SMS</a></li>
-						<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
+						<li class="nav-item"><a class="nav-link" href="views/admin/sms.jsp">SMS</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
 					</ul>
 				</div>
 			</div>
@@ -128,8 +131,8 @@
 								<tbody>
 							
 									<tr>
-										<td>글제목 : <input readonly type="text" name="title" value="<%= community.getTitle() %>">
-										<input id="nbid" type="hidden" value="<%=community.getNbid()%>">
+										<td>글 제목 : <input type="text" name="title" value="<%= community.getTitle() %>" readonly>
+										<input id="nbid" name="nbid" type="hidden" value="<%=community.getNbid()%>">
 									</tr>
 									
 									<tr>
@@ -145,10 +148,8 @@
 							<div>
 								<button class="btn btn-primary pull-right" id="before" 
 									onclick="location.href='<%=request.getContextPath() %>/communitylist.ad'">이전</button>
-								<%-- <button class="btn btn-primary pull-right" id="update" 
-									onclick="location.href='<%=request.getContextPath()%>/communityUpdate.ad?nbid=<%=community.getNbid()%>'">수정</button> --%>
-								<button class="btn btn-primary pull-right" id="update"
-								onclick="location.href='views/admin/communityUpdate.jsp'">수정</button>
+							 <button class="btn btn-primary pull-right" id="update" 
+									onclick="location.href='<%=request.getContextPath()%>/communitySelect.ad?nbid=<%=community.getNbid()%>'">수정</button>
 								<button class="btn btn-primary pull-right" id="delete"
 									onclick="deleteCommunity();">삭제</button>
 								
@@ -179,6 +180,8 @@
 							return;
 						} 
 					}
+				
+				
 				
 				
 				
