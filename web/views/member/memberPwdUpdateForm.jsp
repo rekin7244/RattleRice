@@ -26,70 +26,12 @@ body {
 	width: 400px;
 }
 
-.panel-join>.panel-heading {
-	color: #00415d;
-	background-color: #fff;
-	border-color: #fff;
-	text-align: center;
-}
-
-.panel-join>.panel-heading a {
-	text-decoration: none;
-	color: #666;
-	font-weight: bold;
-	font-size: 15px;
-	-webkit-transition: all 0.1s linear;
-	-moz-transition: all 0.1s linear;
-	transition: all 0.1s linear;
-}
-
-.panel-join>.panel-heading a.active {
-	color: #ffb100;
-	font-size: 18px;
-}
-
-.panel-join>.panel-heading hr {
-	margin-top: 10px;
-	margin-bottom: 0px;
-	clear: both;
-	border: 0;
-	height: 1px;
-	background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0),
-		rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-	background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0),
-		rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-	background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0),
-		rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-	background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0),
-		rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-}
-
-.panel-join input[type="text"], .panel-join input[type="email"],
-	.panel-join input[type="password"] {
-	height: 45px;
-	border: 1px solid #ddd;
-	font-size: 16px;
-	-webkit-transition: all 0.1s linear;
-	-moz-transition: all 0.1s linear;
-	transition: all 0.1s linear;
-}
-
 .panel-join input:hover, .panel-join input:focus {
 	outline: none;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
 	border-color: #ccc;
-}
-
-.forgot-password {
-	text-decoration: underline;
-	color: #888;
-}
-
-.forgot-password:hover, .forgot-password:focus {
-	text-decoration: underline;
-	color: #666;
 }
 
 .btn-register {
@@ -110,37 +52,13 @@ body {
 	border-color: #1CA347;
 }
 
-.rows {
-	display: inline-block;
-}
-
-.btn-warning {
-	margin-bottom: 1px;
-}
-
-.btn-primary {
-	width: 70px;
-	padding: 0%;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	margin-bottom: 2px;
-}
-
 .form-control {
 	width: 300px;
 	display: inline-block;
 }
 
-.test {
-	text-align: center;
-}
 
-#userId, #tel, #curjob {
-	width: 215px;
-	height: 35px;
-}
-
-#userPwd, #userPwd2, #userName, #birthday, #email {
+#nowUserPwd, #userPwd, #checkUserPwd {
 	height: 35px;
 }
 </style>
@@ -164,13 +82,19 @@ body {
 								</div>
 								<div class="form-group">
 									<input type="password" name="userPwd" id="userPwd"
-										class="form-control" placeholder="변경할 비밀번호" required>
+										class="form-control" placeholder="변경할 비밀번호" required onkeyup="checkCode()">
 								</div>
+								<div class="form-group">
+									<input type="password" name="checkUserPwd" id="checkUserPwd"
+										class="form-control" placeholder="비밀번호 확인" required onkeyup="checkCode()">
+								</div>
+								<div id="checkCode"></div> <br>
+								
 								<div class="form-group">
 									<div class="row">
 										<input type="submit" name="register-submit"
 											id="register-submit" class="form-control btn btn-register"
-											value="변경">
+											value="변경" disabled>
 									</div>
 								</div>
 							</form>
@@ -182,4 +106,23 @@ body {
 	</div>
 
 </body>
+
+<script>
+function checkCode(){
+	  var userPwd = $("#userPwd").val();
+	  var checkUserPwd = $("#checkUserPwd").val();
+	  if(userPwd!=checkUserPwd){
+		  $("#checkUserPwd").css("border", "solid 2px red");
+		  $("#checkCode").css("color", "red");
+		   document.getElementById('checkCode').innerHTML = "비밀번호가 일치하지 않습니다.";
+		   $("#register-submit").attr("disabled", "disabled");
+	  }else{
+		  $("#checkUserPwd").css("border", "solid 2px lightgreen");
+		  $("#checkCode").css("color", "green");
+		   document.getElementById('checkCode').innerHTML = "비밀번호가 일치합니다.";
+		   $("#register-submit").removeAttr("disabled");
+	  }
+	 }
+
+</script>
 </html>
