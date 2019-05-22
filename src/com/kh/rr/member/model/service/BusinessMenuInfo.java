@@ -6,6 +6,7 @@ import static com.kh.rr.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.rr.member.model.dao.BusinessDao;
 import com.kh.rr.member.model.vo.Member;
@@ -41,16 +42,16 @@ public class BusinessMenuInfo {
 		return result;
 	}
 
-	public int menuInsert(StoreMenuInfo menuInfo, Member loginUser) {
+	public int menuInsert(Member loginUser, ArrayList<HashMap<String, Object>> menuList) {
 		Connection con = getConnection();
 		
-		ArrayList<StoreMenuInfo> list = new ArrayList();
+		/*ArrayList<StoreMenuInfo> list = new ArrayList();
 		
-		list.add(menuInfo);
+		list.add(loginUser);*/
 		
-		System.out.println(list);
+		//System.out.println(list);
 		
-		int result = new BusinessDao().insertMenu(con, menuInfo, loginUser);
+		int result = new BusinessDao().insertMenu(con, loginUser, menuList);
 		
 		if(result > 0 ) {
 			commit(con);
