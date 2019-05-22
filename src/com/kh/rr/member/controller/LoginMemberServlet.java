@@ -31,7 +31,6 @@ public class LoginMemberServlet extends HttpServlet {
 		Member loginUser = new MemberService().loginCheck(userId, userPwd);
 		System.out.println("userId : " + userId);
 		System.out.println("userPwd : " + userPwd); 
-		System.out.println("loginUser : " + loginUser.getMemberType());
 		String page ="";
 
 		//System.out.println("userId : "+userId+"\nuserPwd : "+userPwd+"\nloginUser : "+loginUser);
