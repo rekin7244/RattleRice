@@ -1,4 +1,4 @@
-package com.kh.rr.admin.controller;
+package com.kh.rr.common.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,19 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.rr.common.model.service.IndexService;
+import com.kh.rr.common.model.vo.IndexInfo;
 
 /**
- * Servlet implementation class UpdateTermsServlet
+ * Servlet implementation class selectIndexInfoServlet
  */
-@WebServlet("/updateTerms.if")
-public class UpdateTermsServlet extends HttpServlet {
+@WebServlet("/indexInfo.if")
+public class SelectIndexInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateTermsServlet() {
+    public SelectIndexInfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,15 +30,12 @@ public class UpdateTermsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String terms = request.getParameter("termsArea");
+		IndexInfo info = new IndexService().loadInfo();
 		
-		int result = new IndexService().updateTerms(terms);
-		
-		if(result > 0) {
-			response.sendRedirect("views/admin/updateMainForm.jsp");
-		}else {
-			request.setAttribute("msg", "약관 수정 실패!");
-			request.getRequestDispatcher("views/common/errorPage.jsp");
+		if(info != null) {
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			new Gson().toJson(info, response.getWriter());
 		}
 	}
 

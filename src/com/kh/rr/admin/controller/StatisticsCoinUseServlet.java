@@ -33,7 +33,7 @@ public class StatisticsCoinUseServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<HashMap<String,Object>> list = new StatisticsService().statisticsCoinUse();
-		System.out.println(list);
+		//System.out.println(list);
 		if(list != null) {
 			response.setContentType("application/json");
 			new Gson().toJson(list, response.getWriter());
