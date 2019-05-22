@@ -103,4 +103,27 @@ public class AttachmentService {
 		return userList;
 	}
 
+	public int businessUpdate(Attachment att, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		int result1 = 0, result2 = 0;
+
+		result1 = new AttachmentDao().updateStatusAttachment(con, fileList);
+
+		if (result1 > 0) {
+			result2 = new AttachmentDao().insertAttachment(con, fileList);
+
+			if (result2 > 0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+		}
+
+		close(con);
+
+		return result2;
+	}
+
+	
+
 }

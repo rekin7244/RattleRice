@@ -32,8 +32,9 @@ public class SelectProfileServlet extends HttpServlet {
 		String page ="";
 		if(list != null) {
 			if(loginUser.getMemberType().equals("2")) {
-				page = "views/business/businessFormUpdate";
-				request.setAttribute("list", list);
+				page = "/checkBusiness.me";
+				//request.getRequestDispatcher(page).forward(request, response);
+				request.setAttribute("list1", list);
 			}
 			page = "views/member/myPageForm.jsp";
 			request.setAttribute("list", list);
