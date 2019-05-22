@@ -237,18 +237,6 @@ public class UserInfoDao {
 		return result;
 	}
 
-	//벨 충전시, 보유포인트는 차감하고 벨은 증가시키는 메소드
-	public int chargeBell(Connection con, int bell, Member loginUser) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		String query = prop.getProperty("chargeBell");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, bell);
-			pstmt.setInt(2, bell);
-			pstmt.setString(3, loginUser.getUserId());
-
 	public HashMap<String, Object> selectCheckEmail(Connection con, String userName, String userId, String email) {
 		
 		PreparedStatement pstmt = null;
@@ -329,6 +317,28 @@ public class UserInfoDao {
 		
 		System.out.println("dao 변경 비번:"+newPwd);
 
+		return result;
+	}
+
+	//벨 충전 시키는 메소드
+	public int chargeBell(Connection con, int bell, Member loginUser) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("chargeBell");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bell);
+			pstmt.setInt(2, bell);
+			pstmt.setString(3, loginUser.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 

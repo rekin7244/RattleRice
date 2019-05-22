@@ -47,7 +47,6 @@ public class InsertTransactionServlet extends HttpServlet {
 			int result2 = new RefundService().insertRefund(reqTr);
 			
 			if(result > 0 && result2 > 0) {
-				System.out.println("selectAll servlet이 왜 돼?");
 				response.sendRedirect(request.getContextPath()+"/selectAll.tr");
 			}else {
 				request.getRequestDispatcher("views/common/errorPage.jsp")
