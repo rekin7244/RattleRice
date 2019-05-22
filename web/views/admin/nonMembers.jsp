@@ -2,11 +2,10 @@
 	pageEncoding="UTF-8"
 	import="com.kh.rr.member.model.vo.Member, java.util.*"%>
 <%
-	ArrayList<Member> blist = (ArrayList<Member>)request.getAttribute("blist");
+	ArrayList<Member> bmlist = (ArrayList<Member>)request.getAttribute("bmlist");
 %>
 <!DOCTYPE html>
 <html>
-
 <head>
 <title>회원 관리</title>
 </head>
@@ -66,41 +65,37 @@
 					<th>아이디</th>
 					<!-- <th>비밀번호</th> -->
 					<th>이름</th>
-					
 					<th>성별</th>
 					<th>휴대폰번호</th>
-					<th>등급</th>
+					<!-- <th>등급</th>
 					<th>마지막 접속일</th>
 					<th>탈퇴사유</th>
-					<th>상태</th>
+					<th>상태</th> -->
 				</tr>
 			</thead>
 			
-			<% System.out.println(blist); %>
-			<% if(blist != null){
-			   			for (int i = 0; i<blist.size(); i++){ 
+			<% if(bmlist != null){
+			   			for (int i = 0; i<bmlist.size(); i++){ 
 			   			%>
 
 			<tbody align="center">
 				<tr>
 					<th><input type="checkbox" id="checkmember"></th>
 					<td><%= i + 1 %></td>
-					<td><%= blist.get(i).getUserId() %></td>
-					
-					<td><%= blist.get(i).getUserName() %></td>
-					
-					<td>남</td>
-					<td>010-2222-1111</td>
-					<td>level1</td>	
+					<td><%= bmlist.get(i).getUserId() %></td>					
+					<td><%= bmlist.get(i).getUserName() %></td>					
+					<td><%=bmlist.get(i).getGender() %></td>
+					<td><%=bmlist.get(i).getPhone() %></td>
+					<!-- <td>해야함</td>	
 					<td>2019-05-08 15:02:00</td>		
 					<td>서비스 불만</td>
-					<td><button>확인</button></td>
+					<td><button>확인</button></td> -->
 				</tr>
 				<% }
 			}else{
 			   			%>
 			   			<tr>
-					<td colspan="12" align="center">저장된 값이 없습니다.</td>
+					<td colspan="6" align="center">저장된 값이 없습니다.</td>
 				</tr>
 				<%} %>
 			   		<tr>

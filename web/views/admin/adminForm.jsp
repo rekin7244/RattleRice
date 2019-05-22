@@ -3,6 +3,7 @@
 	import="com.kh.rr.member.model.vo.Member, java.util.*"%>
 <%
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	ArrayList<Member> memberSelect = (ArrayList<Member>) request.getAttribute("memberSelect");
 %>
 
 <!DOCTYPE html>
@@ -10,6 +11,8 @@
 
 <head>
 <title>회원 관리</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -54,7 +57,7 @@
 		</nav>
 		<br> <br> 
 		
-		<form > 
+		<form action="<%=request.getContextPath() %>/memberSelect.ad" > 
 			<select name="keyField" id="keyField">
 				<option value="0">정렬</option>
 				<option value="M_ID">아이디</option>
@@ -64,10 +67,10 @@
 			
 		 </form>
 
-		<form id="memberlist"
+		<form
 			action="<%= request.getContextPath() %>/memberlist.ad" method="post">
 
-			<table class="table table-bordered">
+			<table class="table table-bordered" id="memberlist">
 
 				<thead>
 					<tr style="background: lightgray" align="center">
@@ -84,7 +87,7 @@
 					</tr>
 				</thead>
 				
-				<tbody align="center">
+				<tbody align="center" id="memberlistFrom" >
 				<% if(list != null){
 			   			for (int i = 0; i<list.size(); i++){ 
 			   			%>
@@ -97,7 +100,7 @@
 					<td><%= list.get(i).getGender() %></td>
 					<td><%=list.get(i).getPhone() %></td>
 					<td><%=list.get(i).getEmail() %></td>
-					<td>1 &nbsp;&nbsp;&nbsp;&nbsp;
+					<td>해야함 &nbsp;&nbsp;&nbsp;&nbsp;
 					<button>수정</button></td>
 									
 				</tr>
@@ -116,5 +119,47 @@
 			</table>
 		</form>
 </body>
+
+<script>
+	$("#keywordclick")
+			.click(
+					function() {
+						
+					
+						var keyField = $("#keyField").val();	
+						var keyword = $("#keyword").val();	
+						var list = $("#memberlist");
+						
+						var search = {keyField:keyField, keyword:keyword};
+						console.log(search);
+						
+						$.ajax({
+									url : "memberSelect.ad",
+									data:search,
+									type:"get",
+									success : function(data) {
+
+										console.log(data);
+										$(list).children('#memberlistFrom')
+												.remove(); 
+										
+										for(var key in data){
+											var user = data[key];
+											
+											console.log(user);
+										}
+								
+										
+
+									},
+									error : function() {
+										colsole.log("실패");
+									}
+								}) 
+
+					})
+</script>
+
+</html>
 
 </html>
