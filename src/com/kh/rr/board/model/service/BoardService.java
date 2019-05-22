@@ -1,11 +1,14 @@
 package com.kh.rr.board.model.service;
 
 import static com.kh.rr.common.JDBCTemplate.close;
+import static com.kh.rr.common.JDBCTemplate.commit;
 import static com.kh.rr.common.JDBCTemplate.getConnection;
+import static com.kh.rr.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.rr.admin.model.dao.AdminDao;
 import com.kh.rr.board.model.dao.BoardDao;
 import com.kh.rr.board.model.vo.Board;
 import com.kh.rr.common.model.vo.PageInfo;
@@ -170,6 +173,45 @@ public class BoardService {
 		close(con);
 		
 		return list;
+	}
+
+	//자유게시판 상세보기
+	public Board selectOneFreeBoard(int num) {
+		Connection con = getConnection();
+		
+		Board fb = new BoardDao().selectOneFreeBoard(con, num);
+		
+		if(fb != null) {
+			//자유게시판 조회수 증가
+			int result = new BoardDao().updateFreeBoardCount(con, fb.getFbbid());
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+		
+		close(con);
+
+		return fb;
+	}
+
+	//자유게시판 게시글 등록
+	public int insertFreeBoard(Board fb) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().insertFreeBoard(con, fb);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}
 
 

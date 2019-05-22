@@ -525,5 +525,88 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	//자유게시판 상세보기
+	public Board selectOneFreeBoard(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Board fb = null;
+		
+		String query = prop.getProperty("selectOneFreeBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				fb = new Board();
+				fb.setNbid(rset.getInt("FBBID"));
+				fb.setTitle(rset.getString("TITLE"));
+				fb.setWriter(rset.getString("M_ID"));
+				fb.setbDate(rset.getDate("BDATE"));
+				fb.setbCount(rset.getInt("BCOUNT"));
+				fb.setbContent(rset.getString("BCONTENT"));			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return fb;
+	}
+
+	//자유게시판 조회수 증가
+	public int updateFreeBoardCount(Connection con, int fbbid) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateFreeBoardCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, fbbid);
+			pstmt.setInt(2, fbbid);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	//자유게시판 게시글 등록
+	public int insertFreeBoard(Connection con, Board fb) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertFreeBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			//유저 아이디 받아오기
+			pstmt.setString(1, fb.getWriter());
+			pstmt.setString(2, fb.getTitle());
+			pstmt.setString(3, fb.getbContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		 
+		
+		return result;
 	}	
 }
