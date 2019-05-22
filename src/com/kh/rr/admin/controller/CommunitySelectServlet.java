@@ -11,12 +11,12 @@ import com.kh.rr.admin.model.service.AdminService;
 import com.kh.rr.board.model.vo.Board;
 
 
-@WebServlet("/communityUpdate.ad")
-public class CommunityUpdateServlet extends HttpServlet {
+@WebServlet("/communitySelect.ad")
+public class CommunitySelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
  
-    public CommunityUpdateServlet() {
+    public CommunitySelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -24,29 +24,27 @@ public class CommunityUpdateServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int nbid=Integer.parseInt(request.getParameter("nbid"));
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
+		int nbid = Integer.parseInt(request.getParameter("nbid"));
 		
-		System.out.println("수정서블릿");
-		System.out.println(title);
-		System.out.println(content);
+		System.out.println(nbid);
+
+		Board community = new AdminService().selectCommunity(nbid);
 		
-		Board community = new Board();
 		
-		community.setTitle(title);
-		community.setbContent(content);
-		community.setNbid(nbid);
 		
-		System.out.println(community);
-		
-		int result = new AdminService().updateCommunity(community);
-		
-		if(result>0) {
-			response.sendRedirect(request.getContextPath() + "/selectOne.ad?nbid=" + community.getNbid());
+		String page = "";
+		if(community != null) {
+			page="views/admin/communityUpdate.jsp";
+			request.setAttribute("community", community);
+			
 		}else {
-			System.out.println("수정실패");
+			System.out.println("실패!!");
 		}
+	
+		request.getRequestDispatcher(page).forward(request, response);
+		
+		
+		
 		
 		
 	}

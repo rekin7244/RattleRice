@@ -27,6 +27,7 @@ public class LoginMemberServlet extends HttpServlet {
 		
 		
 		Member loginUser = new MemberService().loginCheck(userId, userPwd);
+
 		String page ="";
 
 		if(loginUser != null) {

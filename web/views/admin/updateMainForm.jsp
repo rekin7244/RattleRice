@@ -22,8 +22,8 @@ td {
 			url:"<%=request.getContextPath()%>/indexInfo.if",
 			type:"get",
 			success:function(data){
-				$("#contactTd").text(data.contact);
 				$("#introTd").text(data.sInfo);
+				$("#serviceTd").text(data.sService);
 				$("#termsArea").html(data.terms);
 			}
 		});
@@ -78,19 +78,19 @@ td {
 				<table class="table table-bordered">
 					<thead>
 						<tr align="center">
-							<th>연락처</th>
 							<th>사업체 소개</th>
+							<th>서비스 소개</th>
 							<th>수정</th>
 						</tr>
 					</thead>
 					<tr>
-						<td id="contactTd"></td>
 						<td id="introTd"></td>
+						<td id="serviceTd"></td>
 						<td></td>
 					</tr>
 					<tr>
-						<td><input type="text" name="aContact" /></td>
 						<td><input type="text" name="aIntro" /></td>
+						<td><input type="text" name="aService" /></td>
 						<td><button type="submit">수정</button></td>
 					</tr>
 				</table>

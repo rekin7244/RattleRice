@@ -306,7 +306,7 @@ body::-webkit-scrollbar {
 		  <div class="col-md-8 col-md-offset-2 contact-inner" style="background:lightblue;">
 			 <h1
 				style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">Contact</h1>
-			<p style="text-align: center">제휴를 맺읍시다</p>
+			<p style="text-align: center">제휴를 맺읍시다.</p>
 			<br />
 		    <div class="col-md-2 col-md-offset-2">
 		      <p>Fan? Drop a note.</p>
@@ -346,7 +346,7 @@ body::-webkit-scrollbar {
 	<!-- section4 : Notice  -->
 	<div class="container">
 		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">공지사항</h1>
-		<p align="center">공지사항을 읽어주세요</p>
+		<p align="center">공지사항을 읽어주세요.</p>
 		<br>
 
 		<div class="container-fluid">
@@ -355,7 +355,7 @@ body::-webkit-scrollbar {
 						<label for="keyword" class="col-sm-2 control-label">제목 검색</label>
 						<div class="col-sm-9">
 							<input type="text" name="keyword" id="noticeKeyword"
-								placeholder="키워드를 입력하세요" class="form-control">
+								placeholder="키워드를 입력하세요." class="form-control">
 						</div>
 					</div>
 
@@ -402,7 +402,7 @@ body::-webkit-scrollbar {
 	<!-- section5 : FAQ  -->
 	<div class="container">
 		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">FAQ</h1>
-		<p align="center">자주 물어보시는 질문입니다</p>
+		<p align="center">자주 물어보시는 질문입니다.</p>
 		<br>
 
 		<div class="container-fluid">
@@ -411,7 +411,7 @@ body::-webkit-scrollbar {
 						<label for="keyword" class="col-sm-2 control-label">제목 검색</label>
 						<div class="col-sm-9">
 							<input type="text" id="faqKeyword"
-								placeholder="키워드를 입력하세요" class="form-control">
+								placeholder="키워드를 입력하세요." class="form-control">
 						</div>
 					</div>
 
@@ -460,7 +460,7 @@ body::-webkit-scrollbar {
 	<!-- section6 : Review  -->
 	<div class="container">
 		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">REVIEW</h1>
-		<p align="center">후기글들입니다</p>
+		<p align="center">후기글들입니다.</p>
 		<br>
 		<div class="container-fluid">
 			<div class="row content">
@@ -468,7 +468,7 @@ body::-webkit-scrollbar {
 						<label for="keyword" class="col-sm-2 control-label">가게명 검색</label>
 						<div class="col-sm-9">
 							<input type="text" id="reviewKeyword"
-								placeholder="가게명을 입력하세요" class="form-control">
+								placeholder="가게명을 입력하세요." class="form-control">
 						</div>
 					</div>
 					<div class="pull-right">
@@ -498,6 +498,52 @@ body::-webkit-scrollbar {
 	</div>
 	<br>
 	<br>
+	
+	<!-- section7 : Free Board  -->
+	<div class="container">
+		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">자유게시판</h1>
+		<p align="center">자유롭게 소통해요.</p>
+		<br>
+
+		<div class="container-fluid">
+			<div class="row content">
+					<div class="form-group">
+						<label for="keyword" class="col-sm-2 control-label">제목 검색</label>
+						<div class="col-sm-9">
+							<input type="text" name="keyword" id="fbKeyword"
+								placeholder="키워드를 입력하세요." class="form-control">
+						</div>
+					</div>
+					<div class="pull-right">
+						<button class="btn btn-primary" value="검색"
+							onclick="fbPaging(1);" style="width: 100%;">검색</button>
+					</div>
+					
+					<br>
+					<br>
+					<br>
+				<table id="fbTable" style="width: 100%; text-align: center;"
+					class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr class="info">
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>조회수</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<nav style="text-align: center;">
+					<ul id="fbPaging" class="pagination"></ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	
 	<%if(loginUser != null){ %>
 		<div class="fixed">
 			<a
@@ -654,6 +700,45 @@ body::-webkit-scrollbar {
 			}
 		});
 	});
+	//자유게시판 조회 및 페이징
+	$.ajax({
+		url:"freeBoard.bo",
+		type:"get",
+		data:{currentPage:1},
+		success:function(data){
+			var list = data["list"];
+			var pi = data["pi"];
+			//console.log(pi);
+			
+			$tableBody = $("#fbTable tbody");
+			$tableBody.html('');
+			$.each(list, function(index, value){
+				var $tr = $("<tr>");
+				var $noTd = $("<td>").text(value.fbbid);
+				var $titleTd = $("<td>").text(value.title);
+				var $writerTd = $("<td>").text(value.writer);
+				var $dateTd = $("<td>").text(value.bDate);
+				var $countTd = $("<td>").text(value.bCount);
+				
+				$tr.append($noTd);
+				$tr.append($titleTd);
+				$tr.append($writerTd);
+				$tr.append($dateTd);
+				$tr.append($countTd);
+				$tableBody.append($tr);
+			});
+			
+			$paging = $("#fbPaging");
+			$paging.html('');
+			var $firstTd = $('<li><a onclick="fbPaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+			$paging.append($firstTd);
+			for (var i = 0; i < pi.maxPage; i++) {
+				$paging.append('<li><a onclick="fbPaging('+(i+1)+');">'+(i+1)+'</a></li>');
+			}
+			var $endTd = $('<li><a onclick="fbPaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+			$paging.append($endTd);
+		}
+	});
 	//공지사항 페이징 및 검색 ajax
 	function noticePaging(currentPage){
 		var keyword = $("#noticeKeyword").val();
@@ -788,52 +873,51 @@ body::-webkit-scrollbar {
 			}
 		});
 	}
-	
-	/* //공지사항 검색 ajax
-	function searchNotice(){
-		var keyword = $("#noticekeyword").val();
-		var condition = $("#noticeCondition").val();
+
+	//자유게시판 페이징 및 검색 ajax
+	function fbPaging(currentPage){
+		var keyword = $("#fbKeyword").val();
 		$.ajax({
-			url:"searchNoticeBoard.bo",
+			url:"searchFreeBoard.bo",
 			type:"get",
-			data:{currentPage:1,keyword:keyword,condition:condition},
+			data:{currentPage:currentPage,keyword:keyword},
 			success:function(data){
 				var list = data["list"];
 				var pi = data["pi"];
 				
-				$tableBody = $("#noticeTable tbody");
+				$tableBody = $("#fbTable tbody");
 				$tableBody.html('');
 				$.each(list, function(index, value){
 					var $tr = $("<tr>");
-					var $noTd = $("<td>").text(value.nbid);
-					var $typeTd = $("<td>").text(value.target);
-					var $contentTd = $("<td>").text(value.bContent);
+					var $noTd = $("<td>").text(value.fbbid);
+					var $titleTd = $("<td>").text(value.title);
 					var $writerTd = $("<td>").text(value.writer);
+					var $dateTd = $("<td>").text(value.bDate);
 					var $countTd = $("<td>").text(value.bCount);
 					
 					$tr.append($noTd);
-					$tr.append($typeTd);
-					$tr.append($contentTd);
+					$tr.append($titleTd);
 					$tr.append($writerTd);
+					$tr.append($dateTd);
 					$tr.append($countTd);
 					$tableBody.append($tr);
 				});
 				
-				$paging = $("#noticePaging");
+				$paging = $("#fbPaging");
 				$paging.html('');
-				var $firstTd = $('<li><a onclick="noticePaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+				var $firstTd = $('<li><a onclick="fbPaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
 				$paging.append($firstTd);
 				for (var i = 0; i < pi.maxPage; i++) {
-					$paging.append('<li><a onclick="noticePaging('+(i+1)+');">'+(i+1)+'</a></li>');
+					$paging.append('<li><a onclick="fbPaging('+(i+1)+');">'+(i+1)+'</a></li>');
 				}
-				var $endTd = $('<li><a onclick="noticePaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+				var $endTd = $('<li><a onclick="fbPaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
 				$paging.append($endTd);
 			},
 			error:function(){
 				console.log("실패!");
 			}
 		});
-	} */
+	}
 	</script>
 
 </body>

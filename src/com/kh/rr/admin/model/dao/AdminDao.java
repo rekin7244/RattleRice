@@ -50,7 +50,6 @@ public class AdminDao {
 			while(rset.next()) {
 
 				Member mlist = new Member();
-
 				mlist.setUserId(rset.getString("M_ID"));
 				mlist.setUserPwd(rset.getString("M_PWD"));
 				mlist.setUserName(rset.getString("M_NAME"));
@@ -360,6 +359,8 @@ public class AdminDao {
 			pstmt.setInt(1, nbid);
 			
 			result=pstmt.executeUpdate();
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -390,7 +391,7 @@ public class AdminDao {
 			close(pstmt);
 		}
 		
-		System.out.println(result);
+		System.out.println("dao : " + result);
 		
 		return result;
 	}
@@ -504,6 +505,37 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	//게시판 상세보기 수정용
+	public Board SelectCommunity(Connection con, int nbid) {
+		
+		Board community = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectCommunity");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, nbid);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				community = new Board();
+				community.setTitle(rset.getString("TITLE"));
+				community.setbContent(rset.getString("BCONTENT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return community;
 	}
 
 

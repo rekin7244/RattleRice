@@ -1,4 +1,4 @@
-package com.kh.rr.admin.controller;
+package com.kh.rr.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,19 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.rr.admin.model.service.StatisticsService;
+import com.kh.rr.board.model.service.BoardService;
+import com.kh.rr.board.model.vo.Board;
+import com.kh.rr.common.model.vo.PageInfo;
 
 /**
- * Servlet implementation class StatisticsSalesServlet
+ * Servlet implementation class FreeBoardSelectServlet
  */
-@WebServlet("/statisticsSales.st")
-public class StatisticsSalesServlet extends HttpServlet {
+@WebServlet("/freeBoard.bo")
+public class FreeBoardSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StatisticsSalesServlet() {
+    public FreeBoardSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +34,32 @@ public class StatisticsSalesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<HashMap<String,Object>> list = new StatisticsService().statisticsSales();
+		int currentPage;
+		int limit;
+		int maxPage;
+		int startPage;
+		int endPage;
+		
+		currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		limit = 5;
+		int listCount = new BoardService().getFreeBoardListCount();
+		maxPage = (int)((double)listCount / limit + 0.9);
+		startPage = (currentPage - 1) * limit + 1;
+		endPage = startPage + limit - 1;
+		
+		PageInfo pi = new PageInfo(currentPage,limit,maxPage,startPage,endPage);
+		ArrayList<Board> list = new BoardService().selectFreeBoardList(pi);
 		//System.out.println(list);
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("list", list);
+		hmap.put("pi", pi);
 		if(list != null) {
 			response.setContentType("application/json");
-			new Gson().toJson(list, response.getWriter());
+			response.setCharacterEncoding("utf-8");
+			new Gson().toJson(hmap, response.getWriter());
 		}
 	}
 

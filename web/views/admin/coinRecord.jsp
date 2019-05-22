@@ -101,9 +101,9 @@
 		<select id="selectOption">
 			<option value="">정렬</option>
 			<option value="CH">충전</option>
-			<option value="RE">사용</option>
+			<option value="PAY">사용</option>
 		</select>
-		<p>유저 Id 입력 : </p><input type="text" id="inputUserId" placeholder="userid">
+		아이디 검색 : <input type="text" id="inputUserId" placeholder="userid">
 		<button onclick="paging(1);">검색</button>
 		</div>
 		<div id="pagingArea" align="center">

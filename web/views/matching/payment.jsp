@@ -55,6 +55,12 @@
 	padding: 10px 15px; 
 }
 
+.bellList-inner {
+	border-bottom: 1px solid skyblue;
+	padding: 10px 15px; 
+}
+
+
 .date {
 	color: gray;
 	font-size: 12px;
@@ -109,14 +115,31 @@
 	
 	//벨 탭 클릭시 벨 관련 트랜잭션 불러오는 ajax
 	function selectBellTransaction(){
-		$.ajax({
-			url:'selectbell.tr',
-			success:function(data){
-				console.log(data);
-			},
-			error:function(){
-				console.log("실패!");	
-			}
+		
+			
+			$.ajax({
+				url:'selectbell.tr',
+				success:function(data){
+					console.log(data);
+					
+					
+						var $bellList = $(".bellList");
+						var $content = $(".bellList-inner");
+						var $date = $("<div class='date'>");
+						var $price = $("<div class='price'>");
+						
+					for(var key in data){
+						$date.text(data[key].tDate);
+						$price.text(data[key].tPrice+"벨");
+						$content.append($date);
+						$content.append($price);
+						$bellList.append($content);
+						console.log(data[key].tId);
+					}
+				},
+				error:function(){
+					console.log("실패!");	
+				}
 		})
 	}
 </script>
@@ -126,7 +149,7 @@
 
 	<div class="container bar">
 		<ul class="nav nav-tabs">
-			<li ><a data-toggle="tab" href="#bellTab" onclick="selectBellTransaction()">벨</a></li>
+			<li><a data-toggle="tab" href="#bellTab" onclick="selectBellTransaction()">벨</a></li>
 			<li class="active" style="color: #4abeca;"><a data-toggle="tab" href="#billTab">포인트</a></li>
 		</ul>
 
@@ -172,21 +195,9 @@
 		
 			<div id="bellTab" class="tab-pane fade">
 				<div class="container-fluid bellList">
-				
-						<div class="bellList-inner">
-							<div class="date">
-								
-							</div>
-							<div class="context">
-								<div class="title">
-									포인트 환불
-								</div>
-								<div class="price">
-								
-								</div>
-							</div>
-						</div>
-				
+					<div class="bellList-inner blue">
+						
+					</div>
 				</div>
 			
 			<div class="container-fluid payTab">
@@ -219,7 +230,7 @@
 					<div class="modal-footer" data-backdrop="static">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							aria-label="Close">취소</button>
-						<button type="submit" class="btn btn-default" onclick="bellCharge();">환급</button>
+						<button type="submit" class="btn btn-default" onclick="bellCharge();">충전</button>
 					</div>
 					</form>
 				</div>
@@ -238,7 +249,7 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">Refund</h4>
 					</div>
-					<form >
+					<form action="<%= request.getContextPath()%>/insert.tr" method="post">
 					<div class="modal-body" data-backdrop="static">
 						<p>환급 금액을 입력해주세요.</p>
 						<input type="text" class="form-control" id="ks"
