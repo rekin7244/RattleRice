@@ -1,5 +1,6 @@
 package com.kh.rr.member.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -43,6 +44,7 @@ public class BusinessInsertImg extends HttpServlet {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
+			
 		int maxSize = 1024 * 1024 * 10;
 		
 		String root = request.getSession().getServletContext().getRealPath("/");
@@ -88,16 +90,17 @@ public class BusinessInsertImg extends HttpServlet {
 		}
 		
 		int result = new AttachmentService().BusinessShopImg(att, fileList);
-			String page ="";
+		
 		if(result > 0) {
 			System.out.println("이미지 업로드 성공");
 			System.out.println("fileList : " + fileList);
-			page = "views/business/businessFormUpdate.jps";
-			request.getRequestDispatcher(page).forward(request, response);
-			
+			response.sendRedirect(request.getContextPath() + "/updateImg.b");
 		}else {
-			page = "views/common/errorPage.jsp";
+			for(int i = 0; i < saveFiles.size(); i++) {
+				File failedFile = new File(filePath + saveFiles.get(i));
+			}
 			request.setAttribute("msg", "사업자 페이지 조회실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 			
 			

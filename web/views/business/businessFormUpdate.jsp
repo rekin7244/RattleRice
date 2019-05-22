@@ -444,9 +444,11 @@ padding-bottom: 30px;
 				
 				<div class="container col-sm-9"
 					style="border: 0.5px solid lightgray; height: 400px;float: left; width: 33%; padding:10px;">
-					<form action="<%= request.getContextPath() %>/updateProImg" method="post"
+					<%-- <form action="<%= request.getContextPath() %>/updateProImg" method="post"
+							encType="multipart/form-data"> --%>
+						<form action="<%= request.getContextPath() %>/updateImg" method="post"
 							encType="multipart/form-data">
-					
+							
 						<h4 align="center">사진첨부</h4>
 						
 						<button type="submit" id="storeImgUpdate">적용하기</button>

@@ -4,6 +4,8 @@
  		ArrayList<HashMap<String, Object>> list = 
 				(ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 	System.out.println("FormShop : " + list);
+	
+		
 %>
 <!DOCTYPE html>
 <html>
