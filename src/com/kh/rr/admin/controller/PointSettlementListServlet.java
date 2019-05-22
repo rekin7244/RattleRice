@@ -16,7 +16,7 @@ import com.kh.rr.common.model.vo.PageInfo;
 /**
  * Servlet implementation class PointSettlementListServlet
  */
-@WebServlet("/pSettlementList.st")
+@WebServlet("/pSettlementList.ad")
 public class PointSettlementListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -50,11 +50,11 @@ public class PointSettlementListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage,limit,maxPage,startPage,endPage);
 		ArrayList<Settlement> list = new AdminService().getPointSettlementList(pi);
-		
+		System.out.println(list);
 		if(list != null) {
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
-			request.getRequestDispatcher("views/admin/p.calculate.jsp").forward(request, response);;
+			request.getRequestDispatcher("views/admin/p_calculate.jsp").forward(request, response);;
 		} else {
 			request.setAttribute("msg", "리스트 조회 실패!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);;

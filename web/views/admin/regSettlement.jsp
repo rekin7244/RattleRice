@@ -62,12 +62,13 @@
 	var authData = {
 			response_type:"code",
 			client_id:"l7xxd9be245c44cd42f6bcb18778877284a5",
-			redirect_uri:"http://localhost:8001/rr/views/admin/regSettlement.jsp",
-			scope:"login transfer inquiry",
+			redirect_uri:"http://localhost:8001/rr/views/admin/callback.jsp",
+			scope:"login inquiry transfer",
 			client_info:"testInfo"
 		};
-	
+	var accessToken = '309c2f3838844f218faf22656fa1b790';
 	var cbackWindow;
+	
 	function authorize() {
 		console.log("<%=request.getContextPath()%>");
 		$.ajax({

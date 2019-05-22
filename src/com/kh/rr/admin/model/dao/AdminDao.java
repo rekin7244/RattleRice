@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.rr.admin.model.vo.Settlement;
 import com.kh.rr.board.model.vo.Board;
 import com.kh.rr.common.model.vo.PageInfo;
 import com.kh.rr.member.model.vo.Member;
@@ -581,9 +582,77 @@ public class AdminDao {
 		
 		return memberSelete;
   }
-	public int getPointSettlementListCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getPointSettlementListCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getPointSettlementListCount");
+		int listCount = 0;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return listCount;
+	}
+
+	public ArrayList<Settlement> getPointSettlementList(Connection con, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getPointSettlementList");
+		ArrayList<Settlement> list = null;
+		System.out.println("startPage : "+pi.getStartPage());
+		System.out.println("endPage : "+pi.getEndpage());
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pi.getStartPage());
+			pstmt.setInt(2, pi.getEndpage());
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Settlement>();
+			while(rset.next()) {
+				Settlement s = new Settlement();
+				s.setRid(rset.getInt("RID"));
+				s.settDate(rset.getDate("TDATE"));
+				s.setrDate(rset.getDate("RDATE"));
+				s.setrPrice(rset.getInt("RPRICE"));
+				s.setrFees(rset.getInt("RFEES"));
+				s.setTid(rset.getInt("TID"));
+				s.setaId(rset.getString("A_ID"));
+				s.setmId(rset.getString("M_ID"));
+				s.setStatus(rset.getString("STATUS"));
+				list.add(s);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int pSettlementOne(Connection con, int tid) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateRefundOne");
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, tid);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 

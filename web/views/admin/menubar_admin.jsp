@@ -237,10 +237,10 @@ a.article, a.article:hover {
 					aria-expanded="false" class="dropdown-toggle">정산관리</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu2">
 						<li><a href="<%=request.getContextPath() %>/views/admin/coinRecord.jsp">코인 내역 조회</a></li>
-						<li><a href="<%=request.getContextPath() %>/views/admin/regSettlement.jsp">정산 설정</a></li>
-						<li><a href="<%=request.getContextPath() %>/views/admin/calculate.jsp">취소 / 환불</a></li>
+						<%-- <li><a href="<%=request.getContextPath() %>/views/admin/regSettlement.jsp">정산 설정</a></li> --%>
+						<li><a href="<%=request.getContextPath() %>/pSettlementList.ad">포인트정산</a></li>
 						<li><a href="<%=request.getContextPath() %>/views/admin/b_calculate.jsp">사업자 정산</a></li>
-						<li><a href="<%=request.getContextPath() %>/views/admin/p.calculate.jsp">포인트정산</a></li>
+						<li><a href="<%=request.getContextPath() %>/views/admin/calculate.jsp">취소 / 환불</a></li>
 					</ul>
 				</li>
 
