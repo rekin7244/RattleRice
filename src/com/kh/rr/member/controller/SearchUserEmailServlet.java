@@ -68,7 +68,7 @@ public class SearchUserEmailServlet extends HttpServlet {
 	             
 	            //메일보내기
 	            javax.mail.Transport.send(msg);
-	            System.out.println("보냄!");
+	            //System.out.println("보냄!");
 	             
 	        }catch (AddressException addr_e) {
 	            addr_e.printStackTrace();

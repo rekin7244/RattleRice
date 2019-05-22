@@ -18,10 +18,6 @@
 	})
 </script>
 <style>
-body {
-	padding-top: 90px;
-}
-
 .panel-login {
 	border-color: #ccc;
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
@@ -137,7 +133,7 @@ body {
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-6 col-md-offset-3"><h2 style="text-align: center;">딸랑밥 아이디 찾기</h2>
 				<div class="panel panel-login">
 					<div class="panel-heading">
 						<div class="row">
@@ -161,7 +157,7 @@ body {
 								}%>
 
 								<!-- 아이디 찾기 -->
-									<input type="text" readonly="readonly" name="code_check" id="code_check" value="<%=getRandom()%>" />
+									<input type="hidden" readonly="readonly" name="code_check" id="code_check" value="<%=getRandom()%>" />
 
 								<form id="login-form" method="post" role="form"
 									style="display: block;">
@@ -175,7 +171,7 @@ body {
 
 										<input type="email" name="email" id="email"
 											class="form-control" placeholder="이메일 입력"
-											style="width: 75%; display: inline-block;">
+											style="width: 68%; display: inline-block;">
 										<button type="button" class="btn btn-warning"
 											style="display: inline-block;" onclick="checkUser()">인증번호
 											발송</button>
@@ -208,7 +204,6 @@ body {
 
 </body>
 <script>
-//아이디 찾기
 var findId = null;
 
 function checkUser() {

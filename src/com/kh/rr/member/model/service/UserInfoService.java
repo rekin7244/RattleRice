@@ -114,7 +114,7 @@ public class UserInfoService {
 
 
 	//벨 충전시, 보유포인트는 차감하고 벨은 증가시키는 메소드
-	public int chargeBell(int bell, Member loginUser) {
+	/*public int chargeBell(int bell, Member loginUser) {
 		Connection con = getConnection();
 		
 		int result = new UserInfoDao().chargeBell(con, bell, loginUser);
@@ -128,7 +128,7 @@ public class UserInfoService {
 		close(con);
 		
 		return result;
-	}
+	}*/
 	public HashMap<String, Object> selectCheckEmail(String userName, String userId, String email) {
 		Connection con = getConnection();
 

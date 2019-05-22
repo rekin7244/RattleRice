@@ -189,7 +189,7 @@ width: auto;
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="text-center">
-										<a href="views/member/searchUser.jsp" target="_blank"
+										<a onclick="searchUser()"  target="_blank"
 											tabindex="5" class="forgot-password">아이디 / 비밀번호 찾기</a>
 									</div>
 								</div>
@@ -263,6 +263,17 @@ width: auto;
 						    		}
 						    	});
 						    }
+						    
+						    function searchUser() {
+								cw=450;
+								ch=500;
+								sw=screen.availWidth;
+								sh=screen.availHeight;
+								px=(sw-cw)/2;
+								py=(sh-ch)/2;
+
+								window.open('views/member/searchUser.jsp', '', 'status=no, height='+ch+', width='+cw+', left='+ px + ', top=10');
+							}
 							</script>
 						</div>
 					</form>

@@ -185,26 +185,24 @@ public class UserInfoDao {
 		ResultSet rset = null;
 
 		String query = prop.getProperty("selectUserPoint");
-		
 		try {
 			pstmt = con.prepareStatement(query);
+
 			pstmt.setString(1, userId);
 			
 			rset = pstmt.executeQuery();
 			
-
 			list = new ArrayList<HashMap<String, Object>>();
 
 			while (rset.next()) {
 				hmap = new HashMap<String, Object>();
-
 				hmap.put("point", rset.getInt("POINT"));
 				hmap.put("bell", rset.getInt("BELL"));
 				hmap.put("date", rset.getDate("TDATE"));
 				hmap.put("price", rset.getInt("TPRICE"));
 				hmap.put("type", rset.getString("TYPE"));
 				hmap.put("unit", rset.getString("UNIT"));
-
+				
 				list.add(hmap);
 			}
 			
@@ -238,7 +236,7 @@ public class UserInfoDao {
 	}
 
 	//벨 충전시, 보유포인트는 차감하고 벨은 증가시키는 메소드
-	public int chargeBell(Connection con, int bell, Member loginUser) {
+	/*public int chargeBell(Connection con, int bell, Member loginUser) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = prop.getProperty("chargeBell");
@@ -247,7 +245,7 @@ public class UserInfoDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, bell);
 			pstmt.setInt(2, bell);
-			pstmt.setString(3, loginUser.getUserId());
+			pstmt.setString(3, loginUser.getUserId());*/
 
 	public HashMap<String, Object> selectCheckEmail(Connection con, String userName, String userId, String email) {
 		
@@ -327,8 +325,6 @@ public class UserInfoDao {
 			close(pstmt);
 		}
 		
-		System.out.println("dao 변경 비번:"+newPwd);
-
 		return result;
 	}
 

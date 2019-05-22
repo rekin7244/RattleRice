@@ -11,25 +11,6 @@
 	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script>
-
-$(function() {
-
-    $('#login-form-link').click(function(e) {
-		$("#login-form").delay(100).fadeIn(100);
- 		$("#register-form").fadeOut(100);
-		$('#register-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-	$('#register-form-link').click(function(e) {
-		$("#register-form").delay(100).fadeIn(100);
- 		$("#login-form").fadeOut(100);
-		$('#login-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-
-});
 	$(function() {
 		$(window).resize(function() {
 			window.resizeTo(400, 500);
@@ -37,10 +18,6 @@ $(function() {
 	})
 </script>
 <style>
-body {
-	padding-top: 90px;
-}
-
 .panel-login {
 	border-color: #ccc;
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
@@ -156,7 +133,7 @@ body {
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-6 col-md-offset-3"><h2 style="text-align: center;">딸랑밥 비밀번호 찾기</h2>
 				<div class="panel panel-login">
 					<div class="panel-heading">
 						<div class="row">
@@ -180,7 +157,7 @@ body {
 								}%>
 
 								<!-- 아이디 찾기 -->
-									<input type="text" readonly="readonly" name="code_check" id="code_check" value="<%=getRandom()%>" />
+									<input type="hidden" readonly="readonly" name="code_check" id="code_check" value="<%=getRandom()%>" />
 
 								<form id="login-form" method="post" role="form"
 									style="display: block;">
@@ -202,9 +179,9 @@ body {
 									
 										<input type="email" name="email" id="email"
 											class="form-control" placeholder="이메일 입력"
-											style="width: 75%; display: inline-block;" value="">
+											style="width: 68%; display: inline-block;" value="">
 											
-										<button type="button" class="btn btn-warning" style="display: inline-block;" onclick="checkUserPwd()">인증번호
+											<button type="button" class="btn btn-warning" style="display: inline-block;" onclick="checkUserPwd()">인증번호
 											발송</button>
 											
 									</div>
@@ -226,9 +203,6 @@ body {
 										</div>
 									</div>
 								</form>
-
-								<!-- 인증 확인 -->
-
 							</div>
 						</div>
 					</div>
@@ -244,15 +218,36 @@ body {
 </body>
 <script>
 //비밀번호 찾기
+var userName = $("#username").val();
+var userId = $("#userId").val();
+var email = $("#email").val();
+var code = $("#code_check").val();
 var findPwd = null;
 var checkSuccess=0;
 
+console.log();
+
+$(function() {
+	$("#username").keyup(function() {
+		userName = $("#username").val(); console.log(userName);
+	})
+});
+
+$(function() {
+	$("#userId").keyup(function() {
+		userId = $("#userId").val(); console.log(userId);
+	})
+});
+
+$(function() {
+	$("#email").keyup(function() {
+		email = $("#email").val(); console.log(email);
+	})
+});
+	
 function checkUserPwd() {
 	
-	var userName = $("#username").val();
-	var userId = $("#userId").val();
-	var email = $("#email").val();
-	var code = $("#code_check").val();
+	
 	
 	
 	if(email != "" &&  userName != "" && userId != ""){
@@ -262,12 +257,9 @@ function checkUserPwd() {
 			type:"post",
 			success:function(data){
 				checkSuccess = data;
-				console.log("위 :"+checkSuccess);
+				emailSubmit();
 			}
 		});
-		
-		emailSubmit();
-		
 	}else{
 		alert("정보를 입력해 주세요!");
 	}
@@ -278,8 +270,6 @@ function checkUserPwd() {
 
 
 function emailSubmit() {
-	
-	console.log("아래 : "+checkSuccess);
 if(checkSuccess != 0){
 		
 		$.ajax({
@@ -296,6 +286,9 @@ if(checkSuccess != 0){
 		}
 	
 }
+
+
+
 
 	function checkCode(){
 		  var v1 = $("#code_check").val();
@@ -321,7 +314,7 @@ if(checkSuccess != 0){
 	}
     
     function showId() {
-		alert("새로 지정된 암호는 \" " + findPwd+" \" 입니다. 로그인후 비밀번호를 변경해 주세요!");
+		alert("새로 지정된 암호는 \" " + code +" \" 입니다. 로그인후 비밀번호를 변경해 주세요!");
 	}
 
     
