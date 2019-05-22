@@ -374,11 +374,12 @@ padding-bottom: 30px;
 							<% } %>
 							</tbody>
 						</table>
+												
+						
 					</form>
 						
 						<button id="menuAdd">+</button>
 						<form action="menuInfoInsert.b" method="post">
-						<button type="submit">추가하기</button>
 						<table class="table table-bordered" id="menuTable" style="min-width: 500px;">
 							<thead>
 								<tr style="background: lightgray">
@@ -389,33 +390,41 @@ padding-bottom: 30px;
 							</thead>
 							<tbody>
 							
-								<tr>
+								<!-- <tr>
 									<td><input type="text" name="menu"></td>
 									<td><input type="number" name="menuPrice" ></td>
 									<td><input type="text" name="origin"></td>
 									<input type="hidden" name="mid">
-								</tr>
-							
+								</tr> -->
 							</tbody>
+							
 						</table>
-				<script>
-					var ctn = 1;
+						<input type="hidden" value="0" id="lastCtn" name="lastCtn">
+				<!-- <script>
+					var ctn = 0;
 					$("#menuAdd").click(function(){
 						
 						console.log("function동작");
 						ctn++;
+						$("#lastCtn").val(ctn);
 						console.log(ctn);
-						var menuArray = new Array(ctn);
+						
+						//var menuArray = new Array(ctn);
+						
 						$("#menuTable > tbody:last").append(
-								"<tr><td>" + '<input type="text" name="menu">' + "</td>"
-								+ "<td>" + '<input type="number" name="menuPrice">' + "</td>"
-								+ "<td>" + '<input type="text" name="origin">' + "</td></tr>");
+								"<tr><td>" + '<input type="text" class=menu' + ctn + '" name=menu">' + "</td>"
+								+ "<td>" + '<input type="number" name="menuPrice' + ctn + '">' + "</td>"
+								+ "<td>" + '<input type="text" name="origin' + ctn + '">' + "</td>" + 
+								+ "<td>" + '<input type="hidden" name="count" value="'+ ctn + '" >' + "</td></tr>");
+						
+						
 					});
 					
 					$("#submitBtn1").click(function(){
 						alert("매장정보가 수정되었습니다");
 					});
-				</script>
+				</script> -->
+				<button class ="submitBtn" type="button">추가하기</button>
 						</form>
 						
 					
@@ -483,6 +492,21 @@ padding-bottom: 30px;
 	</div>
 	<script>
 	$(function(){
+			$(".submitBtn").click(function(){
+				console.log($(".menuData"));
+				
+				console.log($(".price"));
+				console.log($(".origin"));
+				var menuArr = new Array();
+				for(var i=0; i<$(".menuData").length; i++){
+					menuArr[i] = $(".menuData")[i].value + $(".price")[i].value + $(".origin")[i].value;
+				}
+				console.log(menuArr);
+				
+				location.href = "../../menuInfoInsert.b?menuArr=" + menuArr.join(",");
+				
+			});
+		
 		/* $("#fileArea").hide(); */
 			$("#thumbnailImg1").addClass("active");
 			console.log("thumbnailImg");
@@ -512,7 +536,28 @@ padding-bottom: 30px;
 			//$("#").removeAttr("disabled");
 		}
 	};
+	var ctn = 0;
+	$("#menuAdd").click(function(){
+		
+		console.log("function동작");
+		ctn++;
+		$("#lastCtn").val(ctn);
+		console.log(ctn);
+		
+		//var menuArray = new Array(ctn);
+		
+		$("#menuTable > tbody:last").append(
+				"<tr><td>" + '<input type="text" class=menuData ' + ctn + '" name=menu">' + "</td>"
+				+ "<td>" + '<input type="number" class=price name="menuPrice' + ctn + '">' + "</td>"
+				+ "<td>" + '<input type="text" class=origin name="origin' + ctn + '">' + "</td>" + 
+				+ "<td>" + '<input type="hidden"  name="count" value="'+ ctn + '" >' + "</td></tr>");
+		
+		
+	});
 	
+	$("#submitBtn1").click(function(){
+		alert("매장정보가 수정되었습니다");
+	});
 	</script>
 
 

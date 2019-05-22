@@ -20,6 +20,8 @@ public class BusinessMenuInfoServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//메뉴업데이트 서블릿
+		
 		HttpSession session = request.getSession();
 	       Member loginUser = (Member)session.getAttribute("loginUser");
 	       
@@ -28,7 +30,9 @@ public class BusinessMenuInfoServlet extends HttpServlet {
 	       String price = request.getParameter("menuPrice");
 	       String origin = request.getParameter("origin");
 	       String mid = request.getParameter("mid");
+	       //String ctn = request.getParameter("ctn");
 	       System.out.println("mid : " + mid);
+	       //System.out.println("ctn : "+ctn);
 	     
 	    	   
 	       //메뉴 업데이트

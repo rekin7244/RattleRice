@@ -2,6 +2,7 @@ package com.kh.rr.member.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import com.kh.rr.member.model.service.BusinessMenuInfo;
 import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.member.model.vo.StoreInfo;
 import com.kh.rr.member.model.vo.StoreMenuInfo;
+import com.oreilly.servlet.MultipartRequest;
 
 @WebServlet("/menuInfoInsert.b")
 public class BusinessMenuInsertServlet extends HttpServlet {
@@ -24,30 +26,43 @@ public class BusinessMenuInsertServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("메뉴인서트 서블릿");
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		ArrayList<StoreMenuInfo> list = new ArrayList();
-				
-		String menu = request.getParameter("menu");
+		System.out.println("ctn : " + request.getParameter("lastCtn"));
+		
+		int lastCtn = Integer.parseInt(request.getParameter("lastCtn"));
+		
+		System.out.println("lastCtn : " + lastCtn);
+		
+		String value = request.getParameter("menuArr");
+		System.out.println("value : " + value);
+		
+		String[] oneslice = value.split(",");
+		
+		
+		
+		/*String menu = request.getParameter("menu");
+		System.out.println(menu);
 		String price = request.getParameter("menuPrice");
-		String origin = request.getParameter("origin");
+		System.out.println(price);
+		String[] origin = request.getParameterValues("origin");
+		System.out.println("오리진" + origin);*/
 		
+		ArrayList<HashMap<String, Object>> menuList = new ArrayList<HashMap<String, Object>>();
+		for(int i = 0; i < lastCtn ; i++) {
+			HashMap<String, Object> hmap = new HashMap<String, Object>();
+			//hmap.put("menu", menu[i]);
+			//hmap.put("price", price[i]);
+			//hmap.put("origin", origin[i]);
+			
+			menuList.add(hmap);
+			
+		}
+			//System.out.println("menuList : " + menu);
  	   
-	   StoreMenuInfo menuInfoInsert = new StoreMenuInfo();
- 	   menuInfoInsert.setMenu(menu);
- 	   menuInfoInsert.setPrice(price);
- 	   menuInfoInsert.setOrigin(origin);
- 	   
- 	   int result = new BusinessMenuInfo().menuInsert(menuInfoInsert, loginUser);
-		
- 	   String page = "";
- 	   if(result >0) {
- 		   
- 	   }else {
- 		   
- 	   }
- 	   
+		int result = new BusinessMenuInfo().menuInsert(loginUser, menuList);
 		
 	}
 
