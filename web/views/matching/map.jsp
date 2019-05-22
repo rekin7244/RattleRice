@@ -296,12 +296,14 @@ function displayInfowindow(marker, title) {
 function getInfo(marker, title){
 	for(var i = 0; i < place.length; i++){
 		if(place[i].place_name == title){
+			
 			console.log(place[i].road_address_name);
+			console.log(place[i].place_name);
 			//location.href='index.jsp';
 			//position:fixed 영역 안에 폼태그와 히든 인풋을 만들어서 
 			//확정 버튼을 누르면 서블릿이 동작하게 하는건 어떨까?
 					
-			$("#locationInfo").val(place[i].road_address_name);
+			$("#locationInfo").val(place[i].road_address_name + "," + place[i].place_name);
 		}
 	}
 }

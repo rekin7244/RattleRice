@@ -102,6 +102,12 @@ img {
 	border-radius: 2em;
 	padding: 30px 0;
 }
+
+/*게시판 관련 스타일*/
+.nav-tabs>li{
+	text-align: center;
+	width: 25%;
+}
 /* 우측하단 채팅방 아이콘 고정 */
 .fixed {
 	position: fixed;
@@ -345,6 +351,23 @@ body::-webkit-scrollbar {
 	
 	<!-- section4 : Notice  -->
 	<div class="container">
+<!-- 		게시판 선택해서 들어가는 nav -->
+		<div class="bar">
+		<ul class="nav nav-tabs">
+			<li  class="active" style="color: #4abeca;"><a data-toggle="tab" href="#notice">공지사항</a></li>
+			<li><a data-toggle="tab" href="#faq">FAQ</a></li>
+			<li><a data-toggle="tab" href="#review">Review</a></li>
+			<li><a data-toggle="tab" href="#free">자유게시판</a></li>
+		</ul>
+
+	</div>
+	
+	<!-- 전체 컨텐츠가 담기는 div -->
+	<div class="tab-content">
+	
+	<!-- 공지사항 -->
+	<div id="notice" class="tab-pane fade in active">
+	
 		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">공지사항</h1>
 		<p align="center">공지사항을 읽어주세요.</p>
 		<br>
@@ -396,12 +419,11 @@ body::-webkit-scrollbar {
 			</div>
 		</div>
 	</div>
-	<br>
-	<br>
 	
-	<!-- section5 : FAQ  -->
-	<div class="container">
-		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">FAQ</h1>
+	<!-- 자주물어보는 질문 게시판 -->
+	<div id="faq" class="tab-pane fade">
+	
+			<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">FAQ</h1>
 		<p align="center">자주 물어보시는 질문입니다.</p>
 		<br>
 
@@ -454,11 +476,11 @@ body::-webkit-scrollbar {
 				</nav>
 			</div>
 		</div>
+	
 	</div>
-	<br>
-	<br>
-	<!-- section6 : Review  -->
-	<div class="container">
+	
+	<!-- 사용자 후기 -->
+	<div id="review" class="tab-pane fade">
 		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">REVIEW</h1>
 		<p align="center">후기글들입니다.</p>
 		<br>
@@ -496,11 +518,9 @@ body::-webkit-scrollbar {
 			</div>
 		</div>
 	</div>
-	<br>
-	<br>
 	
-	<!-- section7 : Free Board  -->
-	<div class="container">
+	<!-- 자유 게시판 -->
+	<div id="free" class="tab-pane fade">
 		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">자유게시판</h1>
 		<p align="center">자유롭게 소통해요.</p>
 		<br>
@@ -540,6 +560,157 @@ body::-webkit-scrollbar {
 				</nav>
 			</div>
 		</div>
+	</div>
+	<!-- tab-content -->
+	</div>
+	
+	
+	
+	</div>
+	<br>
+	<br>
+	
+	<!-- section5 : FAQ  -->
+	<div class="container">
+	<!-- 	<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">FAQ</h1>
+		<p align="center">자주 물어보시는 질문입니다.</p>
+		<br>
+
+		<div class="container-fluid">
+			<div class="row content">
+					<div class="form-group">
+						<label for="keyword" class="col-sm-2 control-label">제목 검색</label>
+						<div class="col-sm-9">
+							<input type="text" id="faqKeyword"
+								placeholder="키워드를 입력하세요." class="form-control">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="keyword" class="col-sm-2 control-label">상담 유형</label>
+						<div class="col-sm-9">
+							<select class="form-control" id="faqCondition">
+								<option value="">전체</option>
+								<option value="회원">회원</option>
+								<option value="결제">결제</option>
+								<option value="환불">환불</option>
+								<option value="정책">정책</option>
+								<option value="약관">약관</option>
+								<option value="기타">기타</option>
+							</select>
+						</div>
+					</div>
+					<br>
+					<div class="pull-right">
+						<button type="submit" class="btn btn-primary" value="검색"
+							onclick="faqPaging(1)" style="width: 100%;">검색</button>
+					</div>
+					<br>
+				<br> <br>
+				<table id="faqTable" style="width: 100%; text-align: center;"
+					class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr class="info">
+							<th>번호</th>
+							<th>상담유형</th>
+							<th>질문</th>
+							<th>작성자</th>
+							<th>조회수</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<nav style="text-align: center;">
+					<ul id="faqPaging" class="pagination"></ul>
+				</nav>
+			</div>
+		</div> -->
+	</div>
+	<br>
+	<br>
+	<!-- section6 : Review  -->
+	<div class="container">
+		<!-- <h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">REVIEW</h1>
+		<p align="center">후기글들입니다.</p>
+		<br>
+		<div class="container-fluid">
+			<div class="row content">
+					<div class="form-group">
+						<label for="keyword" class="col-sm-2 control-label">가게명 검색</label>
+						<div class="col-sm-9">
+							<input type="text" id="reviewKeyword"
+								placeholder="가게명을 입력하세요." class="form-control">
+						</div>
+					</div>
+					<div class="pull-right">
+						<button type="submit" class="btn btn-primary" value="검색"
+							onclick="reviewPaging(1);" style="width: 100%;">검색</button>
+					</div>
+					<br>
+				<br> <br>
+				<table id="reviewTable" style="width: 100%; text-align: center;"
+					class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr class="info">
+							<th>번호</th>
+							<th>가게명</th>
+							<th>후기내용</th>
+							<th>작성자</th>
+							<th>평점</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<nav style="text-align: center;">
+					<ul id="reviewPaging" class="pagination"></ul>
+				</nav>
+			</div>
+		</div> -->
+	</div>
+	<br>
+	<br>
+	
+	<!-- section7 : Free Board  -->
+	<div class="container">
+		<!-- <h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">자유게시판</h1>
+		<p align="center">자유롭게 소통해요.</p>
+		<br>
+
+		<div class="container-fluid">
+			<div class="row content">
+					<div class="form-group">
+						<label for="keyword" class="col-sm-2 control-label">제목 검색</label>
+						<div class="col-sm-9">
+							<input type="text" name="keyword" id="fbKeyword"
+								placeholder="키워드를 입력하세요." class="form-control">
+						</div>
+					</div>
+					<div class="pull-right">
+						<button class="btn btn-primary" value="검색"
+							onclick="fbPaging(1);" style="width: 100%;">검색</button>
+					</div>
+					
+					<br>
+					<br>
+					<br>
+				<table id="fbTable" style="width: 100%; text-align: center;"
+					class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr class="info">
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>조회수</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<nav style="text-align: center;">
+					<ul id="fbPaging" class="pagination"></ul>
+				</nav>
+			</div>
+		</div> -->
 	</div>
 	<br>
 	<br>

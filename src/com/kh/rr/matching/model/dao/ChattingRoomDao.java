@@ -84,7 +84,8 @@ public class ChattingRoomDao {
 			pstmt.setString(4, reqCr.getpTime());
 			pstmt.setInt(5, reqCr.getmPerson());
 			pstmt.setString(6, reqCr.getLocation());
-			pstmt.setString(7, reqCr.getrKind());
+			pstmt.setString(7, reqCr.getBrand());
+			pstmt.setString(8, reqCr.getrKind());
 			
 			result = pstmt.executeUpdate();
 			
@@ -112,10 +113,12 @@ public class ChattingRoomDao {
 			pstmt.setString(4, reqCr.getpTime());
 			pstmt.setInt(5, reqCr.getmPerson());
 			pstmt.setString(6, reqCr.getLocation());
-			pstmt.setString(7, reqCr.getrKind());
-			pstmt.setString(8, reqCr.getsRatio());
-			pstmt.setString(9, reqCr.getJob());
-			pstmt.setInt(10, reqCr.getAge());
+			pstmt.setString(7, reqCr.getBrand());
+			
+			pstmt.setString(8, reqCr.getrKind());
+			pstmt.setString(9, reqCr.getsRatio());
+			pstmt.setString(10, reqCr.getJob());
+			pstmt.setInt(11, reqCr.getAge());
 			
 			result = pstmt.executeUpdate();
 			

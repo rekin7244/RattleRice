@@ -315,7 +315,7 @@ body {
 			var rand = Math.floor(Math.random() * 99999) + 10001; //랜덤값 
 			var phoneNumber = $("#phone").val(); // 연락처 입력 값
 			
-			/* $.ajax({
+			 $.ajax({
 				url : "/rr/telCheck",
 				type : "post",
 				data : {rand : rand , phoneNumber : phoneNumber},
@@ -325,9 +325,9 @@ body {
 				error : function() {
 					console.log("문자 보내기 성공");
 				}
-			}); */ //인증시에만 사용
+			});  //인증시에만 사용
 			
-			var result = window.prompt('잠시후 도착할 인증번호를 입력하세요. 임시용 : ' + rand); //회원이 입력한 값
+			var result = window.prompt('잠시후 도착할 인증번호를 입력하세요.'); //회원이 입력한 값
 			
 			if(result == rand){
 				phoneCheck = "1";

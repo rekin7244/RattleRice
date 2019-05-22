@@ -30,11 +30,12 @@ public class InsertPremiumChattingRoomServlet extends HttpServlet {
 		String valArr[] = allVal.split(",");
 		
 		String location = valArr[0];
-		Date pDate = Date.valueOf(valArr[1]);
-		String pTime = valArr[2];
-		int mPerson = Integer.parseInt(valArr[3]);
-		String rTitle = valArr[4];
-		int cNum = Integer.parseInt(valArr[5]);
+		String brand = valArr[1];
+		Date pDate = java.sql.Date.valueOf(valArr[2]);
+		String pTime = valArr[3];
+		int mPerson = Integer.parseInt(valArr[4]);
+		String rTitle = valArr[5];
+		int cNum = Integer.parseInt(valArr[6]);
 		
 		//카테고리 처리
 		String category = ""; 
@@ -57,7 +58,8 @@ public class InsertPremiumChattingRoomServlet extends HttpServlet {
 		reqCr.setpTime(pTime);
 		reqCr.setmPerson(mPerson);
 		reqCr.setLocation(location);
-		reqCr.setrKind("프리미엄");
+		reqCr.setBrand(brand);
+		reqCr.setrKind("pre");
 		//성비는 남자성비/여자성비 형태로 삽입한다.
 		reqCr.setsRatio(male + " / " + female);
 		reqCr.setJob(job);

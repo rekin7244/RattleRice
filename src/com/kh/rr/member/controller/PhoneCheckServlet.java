@@ -29,7 +29,7 @@ public class PhoneCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	
-		String api_key = "NCSBWER7HGSJGFAEE";
+		String api_key = "NCSBWER7HGSJGFAE";
 		String api_secret = "VE4YYCDBKVITIJMO0TY6NIWZ09A6GOVS";
 		Coolsms coolsms = new Coolsms(api_key, api_secret);
 		
