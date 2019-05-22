@@ -88,7 +88,7 @@ $(function() {
 						
 					}else{
 						var userId = data[key].userId;
-						$nameDiv.append("<p>" + data[key].nickName + "</p>");		
+						$nameDiv.append("<p>" + data[key].nickName + "</p>");
 						
 						//$(".kickBtn").css({visibility:"visible"});
 						if(data[key].type === "USER"){

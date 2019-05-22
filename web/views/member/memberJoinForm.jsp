@@ -337,8 +337,9 @@ body {
 				error : function() {
 					console.log("문자 보내기 성공");
 				}
-			}); */ //인증시에만 사용
+			});*/  //인증시에만 사용
 			
+
 			alert("인증번호가 발송되었습니다. : " + rand);
 			
 			$("#smsBtn").hide();

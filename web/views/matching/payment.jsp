@@ -55,9 +55,31 @@
 	padding: 10px 15px; 
 }
 
-.bellList-inner {
-	border-bottom: 1px solid skyblue;
+/* 벨 사용 내역 테이블 스타일 */
+#bellList-inner {
+	margin: 0 auto;
+	width: 95%;
 	padding: 10px 15px; 
+}
+
+#bellList-inner>tbody>.dateTr{
+    color: gray;
+    font-size: 12px;
+    margin-bottom: 10px;
+	height: 30px;
+}
+
+#bellList-inner>tbody>.priceTr {
+	font-weight: bold;
+	font-size: 16px;
+	height: 37px;
+	border-bottom: 1px solid lightblue;
+}
+
+#bellList-inner>tbody>.priceTr>td:last-child {
+	color: skyblue;
+	font-weight: normal;
+	text-align: right;
 }
 
 
@@ -120,22 +142,36 @@
 			$.ajax({
 				url:'selectbell.tr',
 				success:function(data){
-					console.log(data);
-					
-					
-						var $bellList = $(".bellList");
-						var $content = $(".bellList-inner");
-						var $date = $("<div class='date'>");
-						var $price = $("<div class='price'>");
+						//넣어줄 최종 테이블 선언
+						$tableBody = $("#bellList-inner tbody");
+						//에이잭스 동작 할때 마다 초기화 하고 새로 다시 뿌려준다
+						$tableBody.html('');
 						
-					for(var key in data){
-						$date.text(data[key].tDate);
-						$price.text(data[key].tPrice+"벨");
-						$content.append($date);
-						$content.append($price);
-						$bellList.append($content);
-						console.log(data[key].tId);
-					}
+						for(var key in data){
+							//날짜 값 넣어 줄 tr
+							var $dateTr = $("<tr class='dateTr'>");
+							var $dateTd = $("<td>").text(data[key].tDate);
+							
+							//충전인지 사용인지, 금액이 얼마나 되는지 넣어줄 tr
+							var $priceTr = $("<tr class='priceTr'>")
+							var $chOrPayTd = $("<td>");
+							var $priceTd = $("<td>").text(data[key].tPrice + "벨");
+							
+							//충전일 경우
+							if(data[key].type == 'CH'){
+								$chOrPayTd.text("딸랑벨 충전");
+							//소비일 경우
+							}else{
+								$chOrPayTd.text("방생성");
+							}
+							//날짜값 넣기
+							$dateTr.append($dateTd);
+							//충전/소비, 단위 넣기
+							$priceTr.append($chOrPayTd);
+							$priceTr.append($priceTd);
+							$tableBody.append($dateTr);
+							$tableBody.append($priceTr);
+						}
 				},
 				error:function(){
 					console.log("실패!");	
@@ -195,9 +231,9 @@
 		
 			<div id="bellTab" class="tab-pane fade">
 				<div class="container-fluid bellList">
-					<div class="bellList-inner blue">
-						
-					</div>
+					<table id="bellList-inner">
+						<tbody></tbody>
+					</table>
 				</div>
 			
 			<div class="container-fluid payTab">

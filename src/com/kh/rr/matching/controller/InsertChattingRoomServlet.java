@@ -29,7 +29,11 @@ public class InsertChattingRoomServlet extends HttpServlet {
 		String rTitle = request.getParameter("rTitle");
 		String date = request.getParameter("pTime");
 		int mPerson = Integer.parseInt(request.getParameter("mPerson"));
-		String location = request.getParameter("location");
+		//위치정보 처리
+		String locationString = request.getParameter("location");
+		String locationArr [] = locationString.split(",");
+		String location = locationArr[0];
+		String brand = locationArr[1];
 		int cNum = Integer.parseInt(request.getParameter("category"));
 		
 		//카테고리 처리
@@ -53,8 +57,10 @@ public class InsertChattingRoomServlet extends HttpServlet {
 		reqCr.setpTime(pTime);
 		reqCr.setmPerson(mPerson);
 		reqCr.setLocation(location);
-		reqCr.setrKind("일반");
+		reqCr.setBrand(brand);
+		reqCr.setrKind("nor");
 		
+		System.out.println(reqCr);
 		int result = new ChattingRoomService().insertChattingRoom(reqCr);
 		if(result > 0) {
 			//채팅방 생성시 생성한 사람을 방장으로 하여 RoomRecord 테이블에 기록
