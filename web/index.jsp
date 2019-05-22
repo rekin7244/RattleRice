@@ -309,7 +309,7 @@ body::-webkit-scrollbar {
 			<p style="text-align: center">제휴를 맺읍시다.</p>
 			<br />
 		    <div class="col-md-2 col-md-offset-2">
-		      <p>Fan? Drop a note.</p>
+		      <p>제휴 인풋</p>
 		      <p><span class="glyphicon glyphicon-map-marker"></span>Chicago, US</p>
 		      <p><span class="glyphicon glyphicon-phone"></span>Phone: +00 1515151515</p>
 		      <p><span class="glyphicon glyphicon-envelope"></span>Email: mail@mail.com</p>

@@ -544,5 +544,10 @@ public class AdminDao {
 		return community;
 	}
 
+	public int getPointSettlementListCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }
