@@ -33,7 +33,6 @@ public class MemberDao {
 	}
 
 	public Member loginCheck(Connection con, String userId, String userPwd) {
-		System.out.println("dao 실행");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
