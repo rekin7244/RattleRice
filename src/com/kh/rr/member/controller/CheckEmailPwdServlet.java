@@ -34,18 +34,14 @@ public class CheckEmailPwdServlet extends HttpServlet {
     	result = new UserInfoService().selectCheckEmailPwd(userName, userId, email);
     	
     	if(result > 0 ) {
-    		System.out.println("서블릿 result1 :"+result);
     		result2 = new UserInfoService().updateCheckEmailPwd(userId,newPwd);
     		
     		if(result2 > 0) {
-    			System.out.println("서블릿 result2 :"+result2);
     			response.getWriter().print(result2);
     		}else {
-    			System.out.println("서블릿 result2 :"+result2);
     			response.getWriter().print(result2);
     		}
     	}else {
-    		System.out.println("서블릿 result1 :"+result);
     		response.getWriter().print(result);
     	}
     	

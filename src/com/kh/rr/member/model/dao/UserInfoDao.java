@@ -185,26 +185,24 @@ public class UserInfoDao {
 		ResultSet rset = null;
 
 		String query = prop.getProperty("selectUserPoint");
-		
 		try {
 			pstmt = con.prepareStatement(query);
+
 			pstmt.setString(1, userId);
 			
 			rset = pstmt.executeQuery();
 			
-
 			list = new ArrayList<HashMap<String, Object>>();
 
 			while (rset.next()) {
 				hmap = new HashMap<String, Object>();
-
 				hmap.put("point", rset.getInt("POINT"));
 				hmap.put("bell", rset.getInt("BELL"));
 				hmap.put("date", rset.getDate("TDATE"));
 				hmap.put("price", rset.getInt("TPRICE"));
 				hmap.put("type", rset.getString("TYPE"));
 				hmap.put("unit", rset.getString("UNIT"));
-
+				
 				list.add(hmap);
 			}
 			
@@ -236,6 +234,7 @@ public class UserInfoDao {
 		}
 		return result;
 	}
+
 
 	public HashMap<String, Object> selectCheckEmail(Connection con, String userName, String userId, String email) {
 		
@@ -315,8 +314,6 @@ public class UserInfoDao {
 			close(pstmt);
 		}
 		
-		System.out.println("dao 변경 비번:"+newPwd);
-
 		return result;
 	}
 
