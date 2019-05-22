@@ -11,6 +11,7 @@ public class Member implements java.io.Serializable {
 	private String status;
 	private String email;
 	private String phone;
+	private String gender;
 
 	public Member() {
 	}
@@ -32,7 +33,7 @@ public class Member implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "Member [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", memberType="
-				+ memberType + ", status=" + status + ", email=" + email + ", phone=" + phone + "]";
+				+ memberType + ", status=" + status + ", email=" + email + ", phone=" + phone + ",gender=" + gender + "]";
 	}
 	
 	
@@ -43,6 +44,14 @@ public class Member implements java.io.Serializable {
 
 	public String getPhone() {
 		return phone;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public void setEmail(String email) {

@@ -94,9 +94,9 @@
 					<td><%= list.get(i).getUserId() %></td>
 					<%-- <td><%= list.get(i).getUserPwd() %></td> --%>
 					<td><%= list.get(i).getUserName() %></td>
-					<td>남</td>
-					<td>010-1234-1111</td>
-					<td>email</td>
+					<td><%= list.get(i).getGender() %></td>
+					<td><%=list.get(i).getPhone() %></td>
+					<td><%=list.get(i).getEmail() %></td>
 					<td>1 &nbsp;&nbsp;&nbsp;&nbsp;
 					<button>수정</button></td>
 									
@@ -105,7 +105,7 @@
 			   	}else{
 				%>
 				<tr>
-					<td colspan="9" align="center">저장된 값이 없습니다.</td>
+					<td colspan="8" align="center">저장된 값이 없습니다.</td>
 				</tr>
 				<%} %>
 				
