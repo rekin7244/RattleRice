@@ -3,7 +3,7 @@
 	import="com.kh.rr.member.model.vo.Member, java.util.*"%>
 <%
 	ArrayList<Member> bisilist = (ArrayList<Member>) request.getAttribute("bisilist");
-	ArrayList<Member> bisiSelect = (ArrayList<Member>) request.getAttribute("bisiSelect");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -77,12 +77,11 @@
 						<th><input type="checkbox" id="checkmember"></th>
 						<th>번호</th>
 						<th>아이디</th>
-						<!-- <th>비밀번호</th> -->
 						<th>사업자번호</th>
 						<th>상호명</th>
-						<th>사업자명</th>
+						<th>예금주</th>
 						<th>계좌</th>
-						<th>휴대폰번호</th>
+						<th>연락처</th>
 						<th>평점</th>
 					</tr>
 
@@ -102,16 +101,25 @@
 
 				<tbody id="bisinesslistFrom" align="center">
 					<tr>
+					
+						<!-- <th>번호</th>
+						<th>아이디</th>
+						<th>사업자번호</th>
+						<th>상호명</th>
+						<th>예금주</th>
+						<th>계좌</th>
+						<th>연락처</th>
+						<th>평점</th> -->
+						
 						<td><input type="checkbox" id="checkmember"></td>
-						<td><%=i+1 %></td>
+						<td><%=i+1%></td>
 						<td><%=bisilist.get(i).getUserId()%></td>
-						<%-- <td><%= bisilist.get(i).getUserPwd() %></td> --%>
-						<td>123-456789-123456</td>
-						<td>홍콩반점</td>
-						<td><%=bisilist.get(i).getUserName()%></td>
-						<td><button>상세보기</button></td>
-						<td>010-1111-1111</td>
-						<td>1 &nbsp;&nbsp;&nbsp;&nbsp;
+						<td>사업자번호</td>
+						<td>상호명</td>
+						<td>예금주</td>
+						<td>계좌번호</td>
+						<td>연락처</td>
+						<td>해야함 &nbsp;&nbsp;&nbsp;&nbsp;
 					<button>수정</button></td>
 							
 				</tbody>
@@ -182,10 +190,10 @@
 									 	$(blist).append('<tr>');
 									 	$(blist).append('<td><input type="checkbox" id="checkmember"></td>');
 										$(blist).append('<td>1</td>');
-										$(blist).append(user.userId);
+										$(blist).append('<td>' + user.userId + '</td>');
 										$(blist).append('<td>123-456789-123456</td>');
 										$(blist).append('<td>홍콩반점</td>');
-										$(blist).append(user.userName);
+										$(blist).append('<td>' + user.userName + '</td>');
 										$(blist).append('<td><button>상세보기</button></td>');
 										$(blist).append('<td>010-1111-1111</td>');
 										$(blist).append('<td>1 &nbsp; &nbsp;&nbsp; &nbsp;<button>수정</button></td>');

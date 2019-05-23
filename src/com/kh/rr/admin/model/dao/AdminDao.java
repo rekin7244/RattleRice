@@ -550,27 +550,44 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		ArrayList<Member> memberSelete = null;
+		ArrayList<Member> memberSelect = null;
 		
 		String query = prop.getProperty("selectMember");
 		
 		/*System.out.println(keyField);
 		System.out.println(keyword);*/
 		
+		if(keyword != null) {
+			query += " AND " + keyField + " LIKE '%" + keyword.trim() + "%' ";
+			/*System.out.println("회원검색쿼리" + query);*/
+					
+		}
+		
 		try {
 			pstmt=con.prepareStatement(query);
-			pstmt.setString(1, keyField);
-			pstmt.setString(2, keyword);
 			rset = pstmt.executeQuery();
-			memberSelete = new ArrayList<Member>();
 			
+			memberSelect = new ArrayList<Member>();
 			
-			if(rset !=null) {
+			System.out.println(query);
+			
+			if(rset != null) {
 				while(rset.next()) {
-					System.out.println("while문 들어옴");
 					Member list = new Member();
-					list.setUserId(rset.getString("M_ID"));
+					
+					System.out.println("while문");
+					
+					list.setUserId(rset.getString("M_ID"));			
+					list.setUserName(rset.getString("M_NAME"));
+					list.setGender(rset.getString("GENDER"));
+					list.setPhone(rset.getString("PHONE"));
+					list.setEmail(rset.getString("EMAIL"));
+					
+					memberSelect.add(list);
 				}
+				
+			}else {
+				System.out.println("rset null");
 			}
 			
 		} catch (SQLException e) {
@@ -580,7 +597,7 @@ public class AdminDao {
 			close(rset);
 		}
 		
-		return memberSelete;
+		return memberSelect;
   }
 	public int getPointSettlementListCount(Connection con) {
 		Statement stmt = null;
