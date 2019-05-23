@@ -687,8 +687,7 @@ public class AdminDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("getPointSettlementList");
 		ArrayList<Settlement> list = null;
-		System.out.println("startPage : "+pi.getStartPage());
-		System.out.println("endPage : "+pi.getEndpage());
+		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, pi.getStartPage());
@@ -717,14 +716,14 @@ public class AdminDao {
 		return list;
 	}
 
-	public int pSettlementOne(Connection con, int tid) {
+	public int pSettlementOne(Connection con, int rid) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateRefundOne");
 		int result = 0;
 
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, tid);
+			pstmt.setInt(1, rid);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -760,6 +759,29 @@ public class AdminDao {
 
 				list.add(paylist);
 				System.out.println("관리자 dao : " + list );
+    	}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+	  }
+		return list;
+	}
+  
+	public int getPointSettleSearchCount(Connection con, String condition, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getPointSettleSearchCount");
+		int listCount = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, condition);
+			pstmt.setString(2, keyword);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				listCount = rset.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -767,11 +789,47 @@ public class AdminDao {
 			close(rset);
 			close(pstmt);
 		}
+		return listCount;
+	}
 
+	public ArrayList<Settlement> getPointSettleSearchList(Connection con, PageInfo pi, String condition,
+			String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getPointSettleSearchList");
+		ArrayList<Settlement> list = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, condition);
+			pstmt.setString(2, keyword);
+			pstmt.setInt(3, pi.getStartPage());
+			pstmt.setInt(4, pi.getEndpage());
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Settlement>();
+			while(rset.next()) {
+				Settlement s = new Settlement();
+				s.setRid(rset.getInt("RID"));
+				s.settDate(rset.getDate("TDATE"));
+				s.setrDate(rset.getDate("RDATE"));
+				s.setrPrice(rset.getInt("RPRICE"));
+				s.setrFees(rset.getInt("RFEES"));
+				s.setTid(rset.getInt("TID"));
+				s.setaId(rset.getString("A_ID"));
+				s.setmId(rset.getString("M_ID"));
+				s.setStatus(rset.getString("STATUS"));
+				list.add(s);
 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
 		return list;
 	}
-	
 
 
 }

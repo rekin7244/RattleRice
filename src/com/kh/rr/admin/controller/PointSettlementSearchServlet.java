@@ -14,16 +14,16 @@ import com.kh.rr.admin.model.vo.Settlement;
 import com.kh.rr.common.model.vo.PageInfo;
 
 /**
- * Servlet implementation class PointSettlementListServlet
+ * Servlet implementation class PointSettlementSearchServlet
  */
-@WebServlet("/pSettlementList.ad")
-public class PointSettlementListServlet extends HttpServlet {
+@WebServlet("/pSettlementSearch.ad")
+public class PointSettlementSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PointSettlementListServlet() {
+    public PointSettlementSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,6 +32,9 @@ public class PointSettlementListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String condition = request.getParameter("searchCondition");
+		String keyword = request.getParameter("searchKeyword");
+		
 		int currentPage;
 		int limit;
 		int maxPage;
@@ -43,14 +46,14 @@ public class PointSettlementListServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		limit = 7;
-		int listCount = new AdminService().getPointSettlementListCount();
+		int listCount = new AdminService().getPointSettleSearchCount(condition,keyword);
 		maxPage = (int)((double)listCount/limit + 0.9);
 		startPage = (currentPage - 1) * limit + 1;
 		endPage = startPage + limit - 1;
 		
 		PageInfo pi = new PageInfo(currentPage,limit,maxPage,startPage,endPage);
-		ArrayList<Settlement> list = new AdminService().getPointSettlementList(pi);
-		//System.out.println(list);
+		ArrayList<Settlement> list = new AdminService().getPointSettleSearchList(pi,condition,keyword);
+		//System.out.println(pi);
 		if(list != null) {
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);

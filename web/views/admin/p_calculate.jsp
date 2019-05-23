@@ -219,15 +219,20 @@ a.article, a.article:hover {
 	
 	
 	<br><br> 
-		<select>
-			<option>정렬</option>
-		</select> <input type="text">
-		<button>검색</button>
+	<form method="post" id="formAction">
+		<select id="searchCondition" name="searchCondition">
+			<option value="">정렬</option>
+			<option value="N">미정산</option>
+			<option value="Y">정산완료</option>
+		</select>
+		<input type="text" id="searchKeyword" name="searchKeyword" placeholder="신청자 아이디">
+		<button onclick="paging(1)">검색</button>
+
 		<table class="table table-bordered">
 
 			<thead>
 				<tr style="background: lightgray" align="center">
-					<th>선택</th>
+					<th><input type="checkbox" id="selectAll" /></th>
 					<th>신청 일자</th>
 					<th>신청자 아이디</th>
 					<th>신청 포인트</th>
@@ -241,7 +246,8 @@ a.article, a.article:hover {
 				<tr>
 					<td>
 					<% if(s.getStatus().equals("N")){ %>
-					<input type="checkbox" id="checkMember"/>
+					<input type="checkbox" class="checkMember"/>
+					<input type="hidden" id="rid" value="<%=s.getRid()%>"/>
 					<% }else{ %>
 					<input type="checkbox" id="" disabled />
 					<% } %>
@@ -258,9 +264,9 @@ a.article, a.article:hover {
 					</td>
 					<td>
 					<% if(s.getStatus().equals("N")){ %>
-					<button onclick="settlement(<%=s.getTid()%>)">정산</button>
+					<button onclick="settlement(<%=s.getRid()%>)">정산</button>
 					<% }else{ %>
-					<%=s.getrDate() %> 정산완료
+					<%=s.getrDate() %>
 					<% } %>
 					</td>	
 				</tr>
@@ -270,52 +276,73 @@ a.article, a.article:hover {
 		
 		<%-- 페이징 --%>
 		<div class="pagingArea" align="center">
-		<button onclick="location.href='<%=request.getContextPath()%>/pSettlementList.ad?currentPage=1'"><<</button>
+		<input type="hidden" id="currentPage" name="currentPage" value="<%=currentPage%>"/>
+		<button onclick="paging(1)"><<</button>
 		<% if(currentPage <= 1){ %>
 		<button disabled><</button>
 		<% } else { %>
-		<button onclick="location.href='<%=request.getContextPath()%>/pSettlementList.ad?currentPage=<%=currentPage - 1%>'"><</button>
+		<button onclick="paging(<%=currentPage - 1%>)"><</button>
 		<% } %>
 		
 		<% for(int i = 1; i <= maxPage; i++) { 
 				if(currentPage != i){ %>
-		<a href="<%=request.getContextPath()%>/pSettlementList.ad?currentPage=<%=i%>"><%=i%></a> &nbsp;
+		<button onclick="paging(<%=i%>)"><%=i%></button> &nbsp;
 			<% }else{ %>
-		<a><%=i%></a>&nbsp;
+		<button disabled><%=i%></button>&nbsp;
 		<% 	   } %>
 		<% } %>
 		
 		<% if(currentPage >= maxPage){ %>
 		<button disabled>></button>
 		<% } else { %>
-		<button onclick="location.href='<%=request.getContextPath()%>/pSettlementList.ad?currentPage=<%=currentPage + 1%>'">></button>
+		<button onclick="paging(<%=currentPage + 1%>)">></button>
 		<% } %>
-		<button onclick="location.href='<%=request.getContextPath()%>/pSettlementList.ad?currentPage=<%=maxPage%>'">>></button>
+		<button onclick="paging(<%=maxPage%>)">>></button>
 		</div>
 		<div class="container-fluid full-width">
 		<button onclick="pSettlementChecked()" class="btn pull-left">정산</button>
 		</div>
+		</form>
 	</div>
 	
 	<script>
-		function settlement(tid){
-			location.href="<%=request.getContextPath()%>/pSettlementOne.ad?num="+tid;
+		function settlement(rid){
+			location.href="<%=request.getContextPath()%>/pSettlementOne.ad?num="+rid;
 		}
 		
 		function pSettlementChecked(){
+			var str = "";
+			
+			$('.checkMember:checked').each(function(){
+				console.log($(this).siblings().val());
+				if(str == ""){
+					str+=$(this).siblings().val();					
+				}else{
+					str+=","+$(this).siblings().val();
+				}
+			});
+			console.log(str);
+			
+			location.href="<%=request.getContextPath()%>/pSettleChecked.ad?arr="+str;
 			
 		}
 		
-		function reload(){
-			$.ajax({
-				url:"pSettlementListonCon.ad",
-				data:{},
-				type:"post",
-				success:function(data){
-					
-				}
-			});
+		function paging(nextPage){
+			$("#currentPage").val(nextPage);
+			$("#formAction").attr("action","<%=request.getContextPath()%>/pSettlementSearch.ad").submit();
 		}
+		
+		$("#selectAll").change(function(){
+			if($(this).is(":checked")){
+				$('.checkMember').each(function(){
+					$(this).attr("checked", true);
+				});
+			}else{
+				$('.checkMember').each(function(){
+					$(this).attr("checked", false);
+				});
+			}			
+		});
 	</script>
 </body>
 </html>

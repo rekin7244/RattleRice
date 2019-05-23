@@ -43,8 +43,7 @@
 		<ul class="list-unstyled components">
 			<li><a id="profile" onclick="goProfile()"
 				style="cursor: pointer;">마이페이지</a></li>
-			<li><a id="write"
-				href="<%=request.getContextPath()%>/views/member/myWriteForm.jsp">작성글
+			<li><a id="write" onclick="gotBoard()" style="cursor: pointer;">작성글
 					조회</a></li>
 			<li><a id="point" onclick="goPoint()" style="cursor: pointer;">포인트</a></li>
 		</ul>
@@ -54,9 +53,9 @@
 	function goProfile() {
 		location.href = "/rr/selectPro";
 	};
-	/* function goProfile() {
-		location.href = "/rr/selectPro";
-	}; */
+	 function gotBoard() {
+		location.href = "/rr/selectWrite";
+	}; 
 	function goPoint() {
 		location.href = "/rr/selectPoint";
 	};
