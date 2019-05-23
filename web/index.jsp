@@ -119,6 +119,7 @@ img {
 	font-size: 3em;
 }
 
+/*스크롤 바 삭제*/
 body::-webkit-scrollbar { 
     display: none; 
 }

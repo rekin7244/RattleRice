@@ -44,10 +44,10 @@ $(function() {
    $(window).resize(function() {
       window.resizeTo(410, 600);
    });
-
+   var deadLineTime = "";
    $("#chatP").click(function(){
 	   var rno = $("input[name=rno]").val();
-	   console.log("chatp 선택");
+// 	   console.log("chatp 선택");
 	   
 		$.ajax({
 			url:"<%=request.getContextPath()%>/chatPerson.cr",
@@ -57,7 +57,8 @@ $(function() {
 				console.log(data);
 				var myId = "<%=m.getUserId()%>";
 				
-				$chatPersonDiv = $(".chatPerson");
+				var $chatPersonDiv = $(".chatPerson");
+				$chatPersonDiv.html('');
 				
 				for (var key in data) {
 					console.log(data[key].type);
@@ -71,8 +72,9 @@ $(function() {
 					var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
 					var $imgDiv = $("<div class='profileImg' data-toggle='modal' data-target='#userProfile'>");
 					var $nameDiv = $("<div class='profileName'>");
-					var $kickDiv = $("<div style='float: right; margin-top: 8px;'>");
-					var deadLineTime = data[key].dTime;
+					
+					//var $kickDiv = $("<div style='float: right; margin-top: 8px;'>");
+					deadLineTime = data[key].dTime;
 					//alert(typeof(data[key].dTime)); // ->String
 					
 					$imgDiv.append("<img src='/rr/profileImg_upload/"+ data[key].changeName +"' style='width:100%; border-radius:6em;'>");
@@ -83,7 +85,7 @@ $(function() {
 						
 						if(data[key].type === "MASTER"){
 							//내가 방장일 경우
-							$("#deadLineI").append("<i class='fas fa-stopwatch' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>");
+ 							$("#deadLineI").append("<i class='fas fa-stopwatch' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>");
 						}
 						
 					}else{
@@ -93,19 +95,22 @@ $(function() {
 						//$(".kickBtn").css({visibility:"visible"});
 						if(data[key].type === "USER"){
 							/* $("#deadLineI").append("<i class='fas fa-credit-card' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>"); */
-							$kickDiv.append("<button type='button' class='btn btn-danger kickBtn'>강퇴</button><input type='hidden' value='<%= rno%>' name='rno'>");
+							<%-- $kickDiv.append("<button type='button' class='btn btn-danger kickBtn'>강퇴</button><input type='hidden' value='<%= rno%>' name='rno'>"); --%>
 						}
 						
 					}
 					
 					$div.append($imgDiv);
 					$div.append($nameDiv);
-					$div.append($kickDiv);
+					//$div.append($kickDiv);
 					
 					$chatPersonDiv.append($div);
 					
-					if(now < deadLineTime){
-						$("#dTime").text(deadLineTime);
+					console.log(data[key].dTime);
+					console.log($("#dTime").text());
+					$("#dTime").text(data[key].dTime);
+					if(<%= now%> < deadLineTime){
+						console.log("마감시간 설정");
 					}<%-- else{
 						$("input[name=dTime]").val("25");
 						location.href = "<%= request.getContextPath()%>/deadLine.cr";
@@ -164,11 +169,11 @@ $(function() {
 					} */
 								
 				
-				$(".close").click(function(){
+			 	$(".close").click(function(){
 					$(".divArea").remove();
 					$(".fa-stopwatch").remove();
 					console.log("지운다.")
-				});
+				}); 
 				
 			}
 				
@@ -176,22 +181,25 @@ $(function() {
 	});
    
    $("#dt").click(function(){
-	   
+	   console.log('dt 클릳=ㄱ됌');
 	   var dTime = $("input[name=dTime]").val();
 	   var dtRno = $("input[name=dtRno]").val();
-	   
+	   alert("마감 시간이 설정되었습니다!");
 	   $.ajax({
 			url:"<%=request.getContextPath()%>/deadLine.cr",
 			data:{dTime:dTime, dtRno:dtRno},
 			type:"get",
 			success:function(data){
-				console.log(data);
-				/* $("#dTime").text(data); */
+				 /* $("#dTime").text(deadLineTime); */
+			},
+			error:function(){
 			}
 			
 			
 	   });
    });
+   
+   
    
 });
 </script>
@@ -497,7 +505,7 @@ body::-webkit-scrollbar {
 								<h4>마감시간</h4>
 							</div>
 							<div id="deadLineI" style=" display: inline-block; margin-left: 10%; ">
-								<p id="dTime" style="float: right; margin-left: 14px; font-size: 16px; "></p>
+								<p id="dTime" style="float: right; margin-left: 14px; font-size: 16px;">마감시간</p>
 							</div>
 						</div>
 						
@@ -566,9 +574,7 @@ body::-webkit-scrollbar {
 
 		</div>
 	</div>
-	<script>
-	$("input[name=dTime]").val('<%=getTime%>');
-	</script>
+	
 	
 	<!-- 사용자 평가 모달 컨텐츠 -->
    <div class="container">

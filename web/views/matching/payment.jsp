@@ -49,7 +49,9 @@
 .tab-content label {
 	margin-top : 12px;
 }
-
+.transactionList {
+	margin-bottom: 24%;
+}
 .transactionList-inner{
 	border-bottom: 1px solid skyblue;
 	padding: 10px 15px; 
@@ -289,14 +291,14 @@
 					<div class="modal-body" data-backdrop="static">
 						<p>환급 금액을 입력해주세요.</p>
 						<input type="text" class="form-control" id="ks"
-							placeholder="3000빌 이상부터 환급가능합니다." name="point"> <br> <label><i
+							placeholder="3000포인트 이상부터 환급가능합니다." name="point"> <br> <label><i
 							class="money bill alternate icon" style="color: gold"></i>보유 Point
-						</label> <label><span style="color: #4abeca;"><%=hmap.get("point") %></span></label>
+						</label> <label><span style="color: #4abeca;" id="point"><%=hmap.get("point") %></span></label>
 					</div>
 					<div class="modal-footer" data-backdrop="static">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							aria-label="Close">취소</button>
-						<button type="submit" class="btn btn-default" >환급</button>
+						<button type="submit" class="btn btn-default" id="refundBtn" disabled>환급</button>
 					</div>
 					</form>
 				</div>
@@ -304,6 +306,22 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		$(function(){
+			setInterval(function(){
+				var $reqPoint = $("#ks").val();
+				var $point = $("#point").text();
+				
+				if($reqPoint <= $point && $reqPoint != ''){
+					console.log("가능");
+					$("#refundBtn").removeAttr("disabled");
+				}else{
+					$("#refundBtn").attr('disabled', 'disabled');
+				}
+			}, 500);
+		})
+		
+	</script>
 
 	<%@ include file="menubar.jsp"%>
 </body>

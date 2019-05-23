@@ -283,8 +283,6 @@ body {
 			})
 		});
 		
-		
-		
 		//비밀번호 체크
 		$(function() {
 			$("#userPwd").keyup(function() {
@@ -360,9 +358,8 @@ body {
 				  $("#number").css("border", "solid 2px lightgreen");
 				   phoneCheck = "1";
 			  }
-			
 		}
-
+		
 		//회원가입 활성화
 		setInterval(function() {
 			console.log(idCheck);

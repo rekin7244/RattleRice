@@ -148,6 +148,26 @@
 	</script>
 	<div class="mainContent" align="center">
 			<div class="cr-content text" style="width: 100%;">
+								<script>
+									$(function(){
+										/* setInterval(function(){
+											console.log("셋 인터벌 실행");
+										}, 500) */
+									/* 	$("#entBtn").click(function(){
+											var test = $(this).parent().siblings(".chatInfo").children("#person").text();
+											var pperson = test.split("/")[1];
+											var mperson = test.split("/")[2];
+											console.log(pperson + "," +mperson);
+										}); */
+										
+										var $entBtn = $(".entBtn");
+										var pperson = $entBtn.parent().siblings
+										
+										if()
+										
+										
+									})
+								</script>
 				<%if(list != null) {
 					for(ChattingRoom cr : list){ %>
 						<form action="<%= request.getContextPath()%>/selectOne.cr?rno=<%=cr.getRno() %>" method="post">
@@ -166,11 +186,12 @@
 								</div>
 								<div class="cr-contents chatInfo">
 									<p id="title"><%=cr.getrTitle() %></p>
-									<p id="person">모집인원 <%=cr.getpPerson() %>/<%=cr.getmPerson() %></p>
+									<p id="person">모집인원 /<%=cr.getpPerson() %>/<%=cr.getmPerson() %></p>
 									
 								</div>
+								
 								<div class="cr-contents btn">
-									<button class="btn btn-warning" type="submit" onclick="window.confirm('입장하시겠습니까?')">입장하기</button>
+									<button class="btn btn-warning entBtn" type="submit" onclick="window.confirm('입장하시겠습니까?')" >입장하기</button>
 								</div>
 							</div>
 						</form>

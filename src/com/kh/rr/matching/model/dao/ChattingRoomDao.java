@@ -533,6 +533,48 @@ public class ChattingRoomDao {
 		return result;
 	}
 
+	//사용자 입장 시 현재 인원 수 증가시켜주는 메소드
+	public int updatePperson(Connection con, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updatePperson");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	//사용자 퇴장 시 현재 인원 수 1 감소 
+	public int decreasePperson(Connection con, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("decreasePperson");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }
 
 
