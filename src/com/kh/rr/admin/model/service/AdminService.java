@@ -13,6 +13,7 @@ import com.kh.rr.admin.model.vo.Settlement;
 import com.kh.rr.board.model.vo.Board;
 import com.kh.rr.common.model.vo.PageInfo;
 import com.kh.rr.member.model.vo.Member;
+import com.kh.rr.transaction.model.vo.Transaction;
 
 public class AdminService {
 
@@ -45,21 +46,32 @@ public class AdminService {
 	}
 
 	//사업자 조회
-	public ArrayList<Member> bisinesslist() {
+	public ArrayList<HashMap<String, Object>> bisinesslist() {
 		
 		Connection con = getConnection();
 		
-		ArrayList<Member> bisilist = new AdminDao().bisinesslist(con);
+		ArrayList<HashMap<String, Object>> bisilist = new AdminDao().bisinesslist(con);
 		
 		close(con);
-		
-		
+
 		
 		return bisilist;
 	}
 
 	//검색어로 사업자 조회
-	public ArrayList<Member> bisinessSelect(String keyField, String keyword) {
+	public ArrayList<HashMap<String, Object>> bisinessSelect(String keyField, String keyword) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> bisilist = new AdminDao().bisinessSelect(con, keyField, keyword);
+		
+		close(con);
+
+		
+		return bisilist;
+	}
+	
+/*	public ArrayList<Member> bisinessSelect(String keyField, String keyword) {
 		
 		 Connection con = getConnection();
 		 
@@ -67,10 +79,10 @@ public class AdminService {
 		 
 		 close(con);
 		
-		/* System.out.println("서비스 실행");*/
+		 System.out.println("서비스 실행");
 		 
 		return bisilist;
-	}
+	}*/
 
 	//공지사항 목록조회
 	public ArrayList<Board> communitylist() {
@@ -282,6 +294,20 @@ public class AdminService {
 		return result;
 	}
 
+	//결제내역조회
+	public ArrayList<Transaction> paymentlist() {
+		
+		Connection con = getConnection();
+		
+		ArrayList<Transaction> list = new AdminDao().paymentlist(con);
+		
+		System.out.println("service접근");
+  
+		close(con);
+		
+		return list;
+	}
+  
 	public int pSettleChecked(String[] arr) {
 		Connection con = getConnection();
 

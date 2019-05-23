@@ -17,6 +17,7 @@ import com.kh.rr.admin.model.vo.Settlement;
 import com.kh.rr.board.model.vo.Board;
 import com.kh.rr.common.model.vo.PageInfo;
 import com.kh.rr.member.model.vo.Member;
+import com.kh.rr.transaction.model.vo.Transaction;
 
 public class AdminDao {
 
@@ -58,7 +59,7 @@ public class AdminDao {
 				mlist.setStatus(rset.getString("M_STATUS"));
 				mlist.setEmail(rset.getString("EMAIL"));
 				mlist.setPhone(rset.getString("PHONE"));*/
-				
+
 				mlist.setUserId(rset.getString("M_ID"));
 				mlist.setUserName(rset.getString("M_NAME"));
 				mlist.setEmail(rset.getString("EMAIL"));
@@ -78,63 +79,78 @@ public class AdminDao {
 		return memberlist;
 	}
 
-	
+
 	//탈퇴 회원목록 조회
-		public ArrayList<Member> Nonmemberlist(Connection con) {
-
-			PreparedStatement pstmt = null;
-			ResultSet rset = null;
-
-			ArrayList<Member> Nonmemberlist = null;
-
-			String query = prop.getProperty("Nonmemberlist");
-			try {		
-				pstmt=con.prepareStatement(query);
-				rset = pstmt.executeQuery();
-				Nonmemberlist = new ArrayList<Member>();
-
-				while(rset.next()) {
-
-					Member bmlist = new Member();
-					
-					bmlist.setUserId(rset.getString("M_ID"));
-					bmlist.setUserName(rset.getString("M_NAME"));
-					bmlist.setGender(rset.getString("GENDER"));
-					bmlist.setPhone(rset.getString("PHONE"));
-
-					Nonmemberlist.add(bmlist);
-
-					System.out.println("탈퇴 회원 dao : " + bmlist );
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(rset);
-				close(pstmt);
-			}
-
-
-			return Nonmemberlist;
-		}
-	//사업자 정보조회
-	public ArrayList<Member> bisinesslist(Connection con) {
+	public ArrayList<Member> Nonmemberlist(Connection con) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		ArrayList<Member> bisilist = null;
+		ArrayList<Member> Nonmemberlist = null;
+
+		String query = prop.getProperty("Nonmemberlist");
+		try {		
+			pstmt=con.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			Nonmemberlist = new ArrayList<Member>();
+
+			while(rset.next()) {
+
+				Member bmlist = new Member();
+
+				bmlist.setUserId(rset.getString("M_ID"));
+				bmlist.setUserName(rset.getString("M_NAME"));
+				bmlist.setGender(rset.getString("GENDER"));
+				bmlist.setPhone(rset.getString("PHONE"));	
+				bmlist.setEmail(rset.getString("EMAIL"));
+				
+
+				Nonmemberlist.add(bmlist);
+
+				System.out.println("탈퇴 회원 dao : " + bmlist );
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+
+		return Nonmemberlist;
+	}
+	//사업자 정보조회
+	public ArrayList<HashMap<String, Object>> bisinesslist(Connection con) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<HashMap<String, Object>> bisilist = null;
+		HashMap<String, Object> hmap = null;
+
 
 		String query = prop.getProperty("bisinesslist");
 
 		try {
 			pstmt = con.prepareStatement(query);
 			rset = pstmt.executeQuery();
-			bisilist = new ArrayList<Member>();
+			bisilist = new ArrayList<HashMap<String, Object>>();
 
 			while(rset.next()) {
-				Member blist = new Member();
 
-				blist.setUserId(rset.getString("M_ID"));
+				hmap = new HashMap<String, Object>();
+				hmap.put("userId", rset.getString("M_ID"));
+				hmap.put("bcode", rset.getString("BCODE"));
+				hmap.put("holder", rset.getString("HOLDER"));
+				hmap.put("account", rset.getString("ACCOUNT"));
+				hmap.put("brand", rset.getString("BRAND"));
+				hmap.put("contact", rset.getString("CONTACT"));
+
+				bisilist.add(hmap);
+
+
+
+				/*		blist.setUserId(rset.getString("M_ID"));
 				blist.setUserPwd(rset.getString("M_PWD"));
 				blist.setUserName(rset.getString("M_NAME"));
 				blist.setMemberType(rset.getString("M_TYPE"));
@@ -142,7 +158,7 @@ public class AdminDao {
 
 				bisilist.add(blist);
 
-				/*System.out.println(blist);*/
+				System.out.println(blist);*/
 
 			}
 
@@ -159,7 +175,53 @@ public class AdminDao {
 
 
 	//검색어로 사업자 조회
-	public ArrayList<Member> selectbisiness(Connection con, String keyField, String keyword) {
+
+	public ArrayList<HashMap<String, Object>> bisinessSelect(Connection con, String keyField, String keyword) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<HashMap<String, Object>> bisilist = null;
+		HashMap<String, Object> hmap = null;
+
+
+		String query = prop.getProperty("selectbisiness");
+
+		if(keyword != null) {
+			query += " AND " +  keyField.trim()+" LIKE '%" + keyword.trim() + "%' ";
+			//trim 문자열 공백제거
+
+			try {
+				pstmt = con.prepareStatement(query);
+				rset = pstmt.executeQuery();
+				bisilist = new ArrayList<HashMap<String, Object>>();
+
+				while(rset.next()) {
+
+					hmap = new HashMap<String, Object>();
+					hmap.put("userId", rset.getString("M_ID"));
+					hmap.put("bcode", rset.getString("BCODE"));
+					hmap.put("holder", rset.getString("HOLDER"));
+					hmap.put("account", rset.getString("ACCOUNT"));
+					hmap.put("brand", rset.getString("BRAND"));
+					hmap.put("contact", rset.getString("CONTACT"));
+
+					bisilist.add(hmap);
+
+				}
+
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+		}
+
+		return bisilist;
+	}
+	/*public ArrayList<Member> selectbisiness(Connection con, String keyField, String keyword) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -167,7 +229,7 @@ public class AdminDao {
 		ArrayList<Member> bisilist = null;
 
 		String query = prop.getProperty("selectbisiness"); 
-		
+
 		if(keyword != null) {
 			query += " AND " +  keyField.trim()+" LIKE '%" + keyword.trim() + "%' ";
 			//trim 문자열 공백제거
@@ -188,10 +250,10 @@ public class AdminDao {
 				blist.setUserName(rset.getString("M_NAME"));
 				blist.setMemberType(rset.getString("M_TYPE"));
 				blist.setStatus(rset.getString("M_STATUS"));
-								
+
 				bisilist.add(blist);
-				
-			
+
+
 
 			}
 		}catch (SQLException e) {
@@ -204,26 +266,26 @@ public class AdminDao {
 
 
 		return bisilist;
-	}
+	}*/
 
 	//공지사항 리스트 조회
 	public ArrayList<Board> communitylist(Connection con) {
-		
+
 		ArrayList<Board> list = null;
 		Statement stmt = null;
 		ResultSet rset = null;
-		
+
 		String query = prop.getProperty("communitylist"); 
-		
+
 		try {
 			stmt = con.createStatement();
-			
+
 			rset = stmt.executeQuery(query);
 			/*System.out.println(query);*/
 			list = new ArrayList<Board>();
-			
+
 			while(rset.next()) {
-				
+
 				Board clist = new Board();
 				clist.setBid(rset.getInt("BID"));
 				clist.setFbid(rset.getInt("FBID"));
@@ -243,20 +305,20 @@ public class AdminDao {
 				//S_COD
 				clist.setfCategory(rset.getString("F_CATEGORY"));
 				//STATUS
-				
+
 				list.add(clist);
-				
+
 				/*System.out.println(list);*/
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(stmt);
 		}
-		
-		
+
+
 		return list;
 	}
 
@@ -265,25 +327,25 @@ public class AdminDao {
 
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("insertCommunity");
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, community.getTitle());
 			pstmt.setString(2, community.getbContent());
 			pstmt.setString(3, community.getTarget());
-			
+
 			result = pstmt.executeUpdate();
-			
+
 			/*System.out.println(result);*/
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
-		 
-		
+
+
 		return result;
 	}
 
@@ -293,15 +355,15 @@ public class AdminDao {
 		Board community = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+
 		String query = prop.getProperty("selectOne");
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, num);
-			
+
 			rset= pstmt.executeQuery();
-			
+
 			if(rset.next()) {
 				community = new Board();
 				community.setNbid(rset.getInt("NBID"));
@@ -310,39 +372,39 @@ public class AdminDao {
 				community.setWriter(rset.getString("M_ID"));
 				community.setbCount(rset.getInt("BCOUNT"));
 				community.setbDate(rset.getDate("BDATE"));
-			
-			
+
+
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		
-		
+
+
 		return community;
 	}
 
 	//조회수 증가 메소드
 	public int updateCount(Connection con, int nbid) {
-		
+
 		int result = 0;
 		PreparedStatement pstmt = null;
-		
+
 		String query = prop.getProperty("updeteCount");
-		
+
 		/*System.out.println("카운트 dao실행 : " + nbid);*/
-		
-		
-		
+
+
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, nbid);
 			pstmt.setInt(2, nbid);
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -354,26 +416,26 @@ public class AdminDao {
 
 	//공지사항 삭제
 	public int deleteCommunity(Connection con, int nbid) {
-		
+
 		int result = 0;
 		PreparedStatement pstmt = null;
-		
+
 		String query =prop.getProperty("deleteCommunity");
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, nbid);
-			
+
 			result=pstmt.executeUpdate();
-			
-			
+
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-		
+
 			close(pstmt);
 		}
-		
+
 		return result;
 	}
 
@@ -381,24 +443,24 @@ public class AdminDao {
 	public int updateCommunity(Connection con, Board community) {
 		int result =  0;
 		PreparedStatement pstmt = null;
-		
+
 		String query = prop.getProperty("updateCommunity");
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, community.getTitle());
 			pstmt.setString(2, community.getbContent());
 			pstmt.setInt(3, community.getNbid());
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
+
 		System.out.println("dao : " + result);
-		
+
 		return result;
 	}
 
@@ -407,7 +469,7 @@ public class AdminDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("getCoinRecordListCount");
 		int listCount = 0;
-		
+
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(sql);
@@ -422,20 +484,20 @@ public class AdminDao {
 		}
 		return listCount;
 	}
-	
-	
+
+
 	public ArrayList<HashMap<String, Object>> coinRecord(Connection con, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("coinRecord");
 		ArrayList<HashMap<String,Object>> list = null;
-		
+
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, pi.getStartPage());
 			pstmt.setInt(2, pi.getEndpage());
 			rset = pstmt.executeQuery();
-			
+
 			list = new ArrayList<HashMap<String,Object>>();
 			while(rset.next()) {
 				HashMap<String,Object> hmap = new HashMap<String,Object>();
@@ -443,7 +505,7 @@ public class AdminDao {
 				hmap.put("userId", rset.getString("M_ID"));
 				hmap.put("amount", rset.getInt("TPRICE"));
 				hmap.put("type", rset.getString("TYPE"));
-				
+
 				list.add(hmap);
 			}
 		} catch (SQLException e) {
@@ -460,13 +522,13 @@ public class AdminDao {
 		ResultSet rset = null;
 		int listCount = 0;
 		String sql = prop.getProperty("searchCoinRecordListCount");
-		
+
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, condition);
 			pstmt.setString(2, userId);
 			rset = pstmt.executeQuery();
-			
+
 			while(rset.next()) {
 				listCount = rset.getInt(1);
 			}
@@ -485,7 +547,7 @@ public class AdminDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("searchCoinRecord");
 		ArrayList<HashMap<String,Object>> list = null;
-		
+
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, condition);
@@ -493,7 +555,7 @@ public class AdminDao {
 			pstmt.setInt(3, pi.getStartPage());
 			pstmt.setInt(4, pi.getEndpage());
 			rset = pstmt.executeQuery();
-			
+
 			list = new ArrayList<HashMap<String,Object>>();
 			while(rset.next()) {
 				HashMap<String,Object> hmap = new HashMap<String,Object>();
@@ -501,7 +563,7 @@ public class AdminDao {
 				hmap.put("userId", rset.getString("M_ID"));
 				hmap.put("amount", rset.getInt("TPRICE"));
 				hmap.put("type", rset.getString("TYPE"));
-				
+
 				list.add(hmap);
 			}
 		} catch (SQLException e) {
@@ -515,19 +577,19 @@ public class AdminDao {
 
 	//게시판 상세보기 수정용
 	public Board SelectCommunity(Connection con, int nbid) {
-		
+
 		Board community = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+
 		String query = prop.getProperty("selectCommunity");
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, nbid);
-			
+
 			rset = pstmt.executeQuery();
-			
+
 			if(rset.next()) {
 				community = new Board();
 				community.setTitle(rset.getString("TITLE"));
@@ -539,8 +601,8 @@ public class AdminDao {
 			close(rset);
 			close(pstmt);
 		}
-		
-		
+
+
 		return community;
 	}
 
@@ -549,62 +611,62 @@ public class AdminDao {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+
 		ArrayList<Member> memberSelect = null;
-		
+
 		String query = prop.getProperty("selectMember");
-		
+
 		/*System.out.println(keyField);
 		System.out.println(keyword);*/
-		
+
 		if(keyword != null) {
 			query += " AND " + keyField + " LIKE '%" + keyword.trim() + "%' ";
 			/*System.out.println("회원검색쿼리" + query);*/
-					
+
 		}
-		
+
 		try {
 			pstmt=con.prepareStatement(query);
 			rset = pstmt.executeQuery();
-			
+
 			memberSelect = new ArrayList<Member>();
-			
+
 			System.out.println(query);
-			
+
 			if(rset != null) {
 				while(rset.next()) {
 					Member list = new Member();
-					
+
 					System.out.println("while문");
-					
+
 					list.setUserId(rset.getString("M_ID"));			
 					list.setUserName(rset.getString("M_NAME"));
 					list.setGender(rset.getString("GENDER"));
 					list.setPhone(rset.getString("PHONE"));
 					list.setEmail(rset.getString("EMAIL"));
-					
+
 					memberSelect.add(list);
 				}
-				
+
 			}else {
 				System.out.println("rset null");
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally{
 			close(pstmt);
 			close(rset);
 		}
-		
+
 		return memberSelect;
-  }
+	}
 	public int getPointSettlementListCount(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("getPointSettlementListCount");
 		int listCount = 0;
-		
+
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(sql);
@@ -658,7 +720,7 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateRefundOne");
 		int result = 0;
-		
+
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, rid);
@@ -671,6 +733,42 @@ public class AdminDao {
 		return result;
 	}
 
+	//거래내역조회
+	public ArrayList<Transaction> paymentlist(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<Transaction> list = null;
+
+		String query = prop.getProperty("paymentlist");
+		
+		try {		
+			pstmt=con.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Transaction>();
+
+			while(rset.next()) {
+
+				Transaction paylist = new Transaction();
+		
+				paylist.settDate(rset.getDate("TDATE"));
+				paylist.settPrice(rset.getInt("TPICE"));
+				paylist.setType(rset.getString("TYPE"));
+				paylist.setUnit(rset.getString("UNIT"));
+				paylist.setUserId(rset.getString("M_ID"));
+
+				list.add(paylist);
+				System.out.println("관리자 dao : " + list );
+    	}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+	  }
+		return list;
+	}
+  
 	public int getPointSettleSearchCount(Connection con, String condition, String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -722,6 +820,7 @@ public class AdminDao {
 				s.setmId(rset.getString("M_ID"));
 				s.setStatus(rset.getString("STATUS"));
 				list.add(s);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

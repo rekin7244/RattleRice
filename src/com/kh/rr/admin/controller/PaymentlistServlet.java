@@ -2,8 +2,6 @@ package com.kh.rr.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,40 +9,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.rr.admin.model.service.AdminService;
-import com.kh.rr.member.model.vo.Member;
+import com.kh.rr.transaction.model.vo.Transaction;
 
 
-@WebServlet("/bisinessSelect.ad")
-public class BisinessSelectServlet extends HttpServlet {
+@WebServlet("/paymentlist.ad")
+public class PaymentlistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public BisinessSelectServlet() {
+  
+    public PaymentlistServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String keyField = request.getParameter("keyField");
-		String keyword = request.getParameter("keyword");
 		
-		ArrayList<HashMap<String, Object>> bisiSelect = new AdminService().bisinessSelect(keyField, keyword);
+		ArrayList<Transaction> list = new AdminService().paymentlist();
 		
-		System.out.println(bisiSelect);
+		System.out.println("servlet");
 		
-		request.setAttribute("bisiSelect", bisiSelect);
 		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(bisiSelect, response.getWriter());
 		
-	
-	
-	
+		
+		
 	}
 
 	
