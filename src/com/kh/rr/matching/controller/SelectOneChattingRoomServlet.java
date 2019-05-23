@@ -50,6 +50,15 @@ public class SelectOneChattingRoomServlet extends HttpServlet {
 				ArrayList<HashMap<String, Object>> list = 
 						new AttachmentService().selectAttachmentlList(loginUser.getUserId());
 				
+				//사용자가 입장 시 해당 방의 현재 인원 수 를 늘려주는 메소드
+				int result3 = new ChattingRoomService().updatePperson(rno);
+				
+				if(result3 > 0) {
+					System.out.println("인원 수 증가 성공");
+				}else {
+					System.out.println("인원 수 증가 실패!");
+				}
+				
 				request.setAttribute("list", list);
 				request.getSession().setAttribute("rno", rno);
 				request.getRequestDispatcher("views/matching/chatting.jsp?rno=" + rno).forward(request, response);
@@ -59,8 +68,6 @@ public class SelectOneChattingRoomServlet extends HttpServlet {
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}
-
-
 
 	}
 

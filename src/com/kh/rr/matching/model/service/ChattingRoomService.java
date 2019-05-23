@@ -221,5 +221,58 @@ public class ChattingRoomService {
 		}
 		
 		return result;
+	}
+
+	//사용자 입장 시 현재 인원 수 증가시켜주는 메소드
+	public int updatePperson(int rno) {
+		Connection con = getConnection();
+		
+		int result = new ChattingRoomDao().updatePperson(con, rno);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	//사용자 퇴장 시 현재 인원 수 1 감소 
+	public int decreasePperson(int rno) {
+		Connection con = getConnection();
+		
+		int result = new ChattingRoomDao().decreasePperson(con, rno);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

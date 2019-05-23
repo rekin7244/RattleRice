@@ -61,8 +61,16 @@ public class LeaveChattingRoomServlet extends HttpServlet {
 			System.out.println("방장이 아닌 경우");
 			//방장 아니라면
 			//이사람과 관련된 룸레코드만 지운다
-			
 			int result = new ChattingRoomService().deleteRoomRecord(loginUser, rno);
+			
+			//채팅방의 현재 인원 수 1 감소 
+			int result2 = new ChattingRoomService().decreasePperson(rno);
+			
+			if(result2 > 0) {
+				System.out.println("현재인원 수 감소 성공!");
+			}else {
+				System.out.println("현재인원 수 감소 실패!");
+			}
 			
 			if(result > 0) {
 				System.out.println("방장 아닌 경우 룸레코드 삭제 성공");

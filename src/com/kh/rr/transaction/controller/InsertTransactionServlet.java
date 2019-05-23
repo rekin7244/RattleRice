@@ -44,9 +44,9 @@ public class InsertTransactionServlet extends HttpServlet {
 			//방금 추가한 transaction을 가져옴
 			Transaction reqTr = new TransactionService().selectLatestTransaction();
 			//refund 테이블에 컬럼 추가
-			int result2 = new RefundService().insertRefund(reqTr);
+//			int result2 = new RefundService().insertRefund(reqTr);
 			
-			if(result > 0 && result2 > 0) {
+			if(result > 0) {
 				response.sendRedirect(request.getContextPath()+"/selectAll.tr");
 			}else {
 				request.getRequestDispatcher("views/common/errorPage.jsp")

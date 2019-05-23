@@ -105,13 +105,13 @@
 			<div class="coin pay">
 				<label><i class="bell icon"
 						style="color: gold"></i>보유 bell </label> <label><span
-						style="color: #4abeca;">10</span>벨</label>
+						style="color: #4abeca;"><%=hmap.get("bell") %></span>벨</label>
 				
 			</div>
 			<div class="point pay">
 				<label><i
-						class="money bill alternate icon" style="color: gold"></i>보유 bill
-				</label> <label><span style="color: #4abeca;">10000</span>빌</label>
+						class="money bill alternate icon" style="color: gold"></i>보유 Point
+				</label> <label><span style="color: #4abeca;"><%=hmap.get("point") %></span>포인트</label>
 				
 			</div>
 		</div>
