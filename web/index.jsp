@@ -34,6 +34,24 @@ img {
 	width: 100% !important;
 }
 
+/*네비바 스타일*/
+.navbar-inverse .navbar-nav>li>a:hover {
+	cursor: pointer;
+}
+
+.navbar-inverse {
+	opacity: 0.9;
+	background: #F4AC8A;
+	border: none;
+	font-weight: bold;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: black;
+}
+
+
+/*메인 배경 스타일*/
 #bg-img {
 	height: 650px;
 	background-image: url('images/main.jpg');
@@ -65,35 +83,10 @@ img {
 		0px 0px 10px #000, 0px 0px 10px #000;
 }
 
-#siteIntroDiv {
-	margin:0 auto;
-}
-
-.navbar-inverse .navbar-nav>li>a:hover {
-	cursor: pointer;
-}
-
-.navbar-inverse {
-	opacity: 0.9;
-	background: #F4AC8A;
-	border: none;
-	font-weight: bold;
-}
-
-.navbar-inverse .navbar-nav>li>a {
-	color: black;
-}
-
+/*섹션별 제목 관련 스타일*/
 .content > .content-inner {
 	display: table-cell;
 	vertical-align: middle;
-}
-
-.contact-form {
-	margin: 0 auto;
-	padding: 10px;
-	text-align: center;
-	background: yellowgreen;
 }
 
 /*contact 페이지 스타일*/
@@ -103,10 +96,17 @@ img {
 	padding: 30px 0;
 }
 
+.contact-form {
+	margin: 0 auto;
+	padding: 10px;
+	text-align: center;
+	background: yellowgreen;
+}
+
 /*게시판 관련 스타일*/
 .nav-tabs>li{
 	text-align: center;
-	width: 25%;
+	width: 20%;
 }
 /* 우측하단 채팅방 아이콘 고정 */
 .fixed {
@@ -193,10 +193,6 @@ body::-webkit-scrollbar {
 		</div>
 	</div>
 
-	<!-- Sign up 모달 -->
-	<div class="container">
-		<!-- Modal -->
-	</div>
 	<br>
 	<br>
 	<div id="div1" class="container-fluid"></div>
@@ -309,11 +305,11 @@ body::-webkit-scrollbar {
 			
 		<div id="contact" class="container" >
 		  <div class="row">
-		  <div class="col-md-8 col-md-offset-2 contact-inner" style="background:lightblue;">
 			 <h1
 				style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">Contact</h1>
 			<p style="text-align: center">제휴를 맺읍시다.</p>
 			<br />
+		  <div class="col-md-8 col-md-offset-2 contact-inner" style="background:lightblue;">
 		    <div class="col-md-2 col-md-offset-2">
 		      <p>제휴 인풋</p>
 		      <p><span class="glyphicon glyphicon-map-marker"></span>Chicago, US</p>
@@ -329,7 +325,7 @@ body::-webkit-scrollbar {
 		          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
 		        </div>
 		      </div>
-		      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea>
+		      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5" style="resize:none;"></textarea>
 		      <br>
 		      <div class="row">
 		        <div class="col-md-12 form-group">
@@ -349,8 +345,12 @@ body::-webkit-scrollbar {
 	<br>
 	<br>
 	
-	<!-- section4 : Notice  -->
-	<div class="container">
+	<!-- section4 : Board  -->
+	<div class="container-fluid">
+		<div class="title">
+			<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">딸랑밥 게시판</h1>
+		</div>
+		
 <!-- 		게시판 선택해서 들어가는 nav -->
 		<div class="bar">
 		<ul class="nav nav-tabs">
@@ -358,6 +358,7 @@ body::-webkit-scrollbar {
 			<li><a data-toggle="tab" href="#faq">FAQ</a></li>
 			<li><a data-toggle="tab" href="#review">Review</a></li>
 			<li><a data-toggle="tab" href="#free">자유게시판</a></li>
+			<li><a data-toggle="tab" href="#job">직업게시판</a></li>
 		</ul>
 
 	</div>
@@ -561,6 +562,71 @@ body::-webkit-scrollbar {
 			</div>
 		</div>
 	</div>
+	<!-- 직업 게시판 -->
+	<div id="job" class="tab-pane fade">
+		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">직업 게시판</h1>
+		<p align="center">직업별 게시판입니다</p>
+		<br>
+
+		<div class="container-fluid">
+			<div class="row content">
+					<div class="form-group">
+						<label for="keyword" class="col-sm-2 control-label">직업 : </label>
+						<div class="col-sm-9">
+							<select class="form-control" style="border-radius: 3px 3px 3px 3px; border: 1px solid lightgray;"
+										id="job" name="curjob">
+										<option value="10">직업을 선택해주세요</option>
+										<option value="무직">무직</option>
+										<option value="학생">학생</option>
+										<option value="IT">IT</option>
+										<option value="언론">언론</option>
+										<option value="공무원">공무원</option>
+										<option value="군인">군인</option>
+										<option value="서비스업">서비스업</option>
+										<option value="교육">교육</option>
+										<option value="금융/증권/보험업">금융/증권/보험업</option>
+										<option value="유통업">유통업</option>
+										<option value="예술">예술</option>
+										<option value="의료">의료</option>
+										<option value="법률">법률</option>
+										<option value="건설업">건설업</option>
+										<option value="제조업">제조업</option>
+										<option value="부동산업">부동산업</option>
+										<option value="운송업">운송업</option>
+										<option value="농/수/임/광산업">농/수/임/광산업</option>
+										<option value="가사">가사</option>
+										<option value="기타">기타</option>
+									</select>
+						</div>
+					</div>
+					<div class="pull-right">
+						<button class="btn btn-primary" value="검색"
+							onclick="fbPaging(1);" style="width: 100%;">검색</button>
+					</div>
+					
+					<br>
+					<br>
+					<br>
+				<table id="fbTable" style="width: 100%; text-align: center;"
+					class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr class="info">
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>조회수</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<nav style="text-align: center;">
+					<ul id="fbPaging" class="pagination"></ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+	
 	<!-- tab-content -->
 	</div>
 	
@@ -915,6 +981,18 @@ body::-webkit-scrollbar {
 			$paging.append($endTd);
 		}
 	});
+	
+	//직군 게시판 조회 및 페이징
+	$.ajax({
+		url:"jobBoard.bo",
+		data:{currntPage:1},
+		success:function(data){
+			console.log(data);
+		},
+		error:function(data){
+			console.log("실패!");
+		}
+	})
 	//공지사항 페이징 및 검색 ajax
 	function noticePaging(currentPage){
 		var keyword = $("#noticeKeyword").val();
