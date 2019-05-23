@@ -64,6 +64,7 @@
 					<th>이름</th>
 					<th>성별</th>
 					<th>휴대폰번호</th>
+					<th>이메일</th>
 					<!-- <th>등급</th>
 					<th>마지막 접속일</th>
 					<th>탈퇴사유</th>
@@ -83,6 +84,7 @@
 					<td><%= bmlist.get(i).getUserName() %></td>					
 					<td><%=bmlist.get(i).getGender() %></td>
 					<td><%=bmlist.get(i).getPhone() %></td>
+					<td><%=bmlist.get(i).getEmail() %>
 					<!-- <td>해야함</td>	
 					<td>2019-05-08 15:02:00</td>		
 					<td>서비스 불만</td>

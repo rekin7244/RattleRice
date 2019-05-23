@@ -147,7 +147,7 @@
 										
 										for(var key in data){
 											var user = data[key];
-											
+										
 										$(list).append('<tr>');
 										$(list).append('<td><input type="checkbox" id="checkmember"></td>');
 										$(list).append('<td>1</td>');

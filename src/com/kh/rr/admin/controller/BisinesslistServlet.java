@@ -2,6 +2,7 @@ package com.kh.rr.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,9 +26,7 @@ public class BisinesslistServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		ArrayList<Member> bisilist = new AdminService().bisinesslist();
-			
-		/*System.out.println("사업자 servlet : " + bisilist);*/
+		ArrayList<HashMap<String, Object>> bisilist = new AdminService().bisinesslist();
 		
 		String page = "";
 		
@@ -37,6 +36,8 @@ public class BisinesslistServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
+		
+		
 	}
 
 
