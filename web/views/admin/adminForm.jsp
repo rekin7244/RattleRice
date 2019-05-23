@@ -3,7 +3,7 @@
 	import="com.kh.rr.member.model.vo.Member, java.util.*"%>
 <%
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
-	ArrayList<Member> memberSelect = (ArrayList<Member>) request.getAttribute("memberSelect");
+	
 %>
 
 <!DOCTYPE html>
@@ -87,11 +87,12 @@
 					</tr>
 				</thead>
 				
-				<tbody align="center" id="memberlistFrom" >
+				
 				<% if(list != null){
 			   			for (int i = 0; i<list.size(); i++){ 
 			   			%>
-				<tr>
+			   <tbody align="center" id="memberlistFrom" >
+				<tr id="tr">
 					<td><input type="checkbox" id="checkmember"></td>
 					<td><%=i+1%></td>
 					<td><%= list.get(i).getUserId() %></td>
@@ -130,6 +131,7 @@
 						var keyword = $("#keyword").val();	
 						var list = $("#memberlist");
 						
+						
 						var search = {keyField:keyField, keyword:keyword};
 						console.log(search);
 						
@@ -146,8 +148,19 @@
 										for(var key in data){
 											var user = data[key];
 											
-											console.log(user);
+										$(list).append('<tr>');
+										$(list).append('<td><input type="checkbox" id="checkmember"></td>');
+										$(list).append('<td>1</td>');
+										$(list).append('<td>' + user.userId + '</td>');
+										$(list).append('<td>' + user.userName + '</td>');
+										$(list).append('<td>' + user.gender + '</td>');
+										$(list).append('<td>' + user.phone + '</td>');
+										$(list).append('<td>' + user.email + '</td>');
+										$(list).append('<td>해야함 &nbsp;&nbsp;&nbsp;&nbsp;<button>수정</button></td>');
+								
+											
 										}
+										
 								
 										
 

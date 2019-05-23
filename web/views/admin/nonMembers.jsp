@@ -49,10 +49,7 @@
 
 		</nav>
 		<br> <br> 
-		<select>
-			<option>정렬</option>
-		</select> <input type="text">
-		<button>검색</button>
+		
 		<table class="table table-bordered">
 		
 		<form id="NonMemberlist"

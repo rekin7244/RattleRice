@@ -238,15 +238,15 @@ public class AdminService {
 	public ArrayList<Member> memberSelect(String keyField, String keyword) {
 		Connection con = getConnection();
 		 
-		 ArrayList<Member> memberSelete = new AdminDao().selectmember(con, keyField, keyword);
+		 ArrayList<Member> memberSelect = new AdminDao().selectmember(con, keyField, keyword);
 		 
-		 System.out.println("멤버 서비스 : " + memberSelete);
+		 System.out.println("멤버 서비스 : " + memberSelect);
 		 
 		 close(con);
 		 
 		System.out.println("일반 회원 검색 서비스 실행");
 		 
-		return memberSelete;
+		return memberSelect;
   }
   
 	public int getPointSettlementListCount() {
