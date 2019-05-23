@@ -47,8 +47,6 @@ public class BusinessUpdateFormServlet extends HttpServlet {
 			System.out.println("list : " + list);
 			page = "views/business/businessFormUpdate.jsp";
 			request.setAttribute("list", list);
-			
-			
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "사업자 페이지 조회실패");

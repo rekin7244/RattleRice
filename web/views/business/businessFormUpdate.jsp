@@ -424,7 +424,7 @@ padding-bottom: 30px;
 						alert("매장정보가 수정되었습니다");
 					});
 				</script> -->
-				<button class ="submitBtn" type="button">추가하기</button>
+				<button class ="submitBtn2" type="button">추가하기</button>
 						</form>
 					
 					<br>
@@ -477,7 +477,7 @@ padding-bottom: 30px;
 				console.log($(".origin"));
 				var menuArr = new Array();
 				for(var i=0; i<$(".menuData").length; i++){
-					menuArr[i] = $(".menuData")[i].value +" "+ $(".price")[i].value +" "+ $(".origin")[i].value;
+					menuArr[i] = $(".menuData")[i].value +"/"+ $(".price")[i].value +"/"+ $(".origin")[i].value;
 				}
 				console.log(menuArr);
 				
