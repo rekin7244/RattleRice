@@ -346,12 +346,12 @@ body::-webkit-scrollbar {
 	<br>
 	
 	<!-- section4 : Board  -->
-	<div class="container-fluid">
+	<div class="container">
 		<div class="title">
 			<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">딸랑밥 게시판</h1>
 		</div>
-		
-<!-- 		게시판 선택해서 들어가는 nav -->
+		<br><br>
+		<!-- 게시판 선택해서 들어가는 nav -->
 		<div class="bar">
 		<ul class="nav nav-tabs">
 			<li  class="active" style="color: #4abeca;"><a data-toggle="tab" href="#notice">공지사항</a></li>
@@ -369,7 +369,8 @@ body::-webkit-scrollbar {
 	<!-- 공지사항 -->
 	<div id="notice" class="tab-pane fade in active">
 	
-		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">공지사항</h1>
+		<!-- <h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">공지사항</h1> -->
+		<br><br>
 		<p align="center">공지사항을 읽어주세요.</p>
 		<br>
 
@@ -424,7 +425,8 @@ body::-webkit-scrollbar {
 	<!-- 자주물어보는 질문 게시판 -->
 	<div id="faq" class="tab-pane fade">
 	
-			<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">FAQ</h1>
+		<!-- <h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">FAQ</h1> -->
+		<br><br>
 		<p align="center">자주 물어보시는 질문입니다.</p>
 		<br>
 
@@ -482,7 +484,8 @@ body::-webkit-scrollbar {
 	
 	<!-- 사용자 후기 -->
 	<div id="review" class="tab-pane fade">
-		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">REVIEW</h1>
+		<!-- <h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">REVIEW</h1> -->
+		<br><br>
 		<p align="center">후기글들입니다.</p>
 		<br>
 		<div class="container-fluid">
@@ -522,12 +525,13 @@ body::-webkit-scrollbar {
 	
 	<!-- 자유 게시판 -->
 	<div id="free" class="tab-pane fade">
-		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">자유게시판</h1>
+		<!-- <h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">자유게시판</h1> -->
+		<br><br>
 		<p align="center">자유롭게 소통해요.</p>
 		<br>
 
 		<div class="container-fluid">
-			<div class="row content">
+			<div class="row content fb">
 					<div class="form-group">
 						<label for="keyword" class="col-sm-2 control-label">제목 검색</label>
 						<div class="col-sm-9">
@@ -556,22 +560,32 @@ body::-webkit-scrollbar {
 					</thead>
 					<tbody></tbody>
 				</table>
+				
+				<% if(loginUser != null){ %>
+				<div class="pull-right">
+					<button id="insertfb" class="btn btn-primary" style="width: 100%;" value="글 작성" onclick="insertfb();">글 작성</button>
+				</div>
+				<br><br>
+				<% } %>
+				
 				<nav style="text-align: center;">
 					<ul id="fbPaging" class="pagination"></ul>
 				</nav>
 			</div>
 		</div>
 	</div>
+	
 	<!-- 직업 게시판 -->
 	<div id="job" class="tab-pane fade">
-		<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">직업 게시판</h1>
+		<!-- <h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">직업 게시판</h1> -->
+		<br><br>
 		<p align="center">직업별 게시판입니다</p>
 		<br>
 
 		<div class="container-fluid">
 			<div class="row content">
 					<div class="form-group">
-						<label for="keyword" class="col-sm-2 control-label">직업 : </label>
+						<label for="keyword" class="col-sm-2 control-label">직업 검색</label>
 						<div class="col-sm-9">
 							<select class="form-control" style="border-radius: 3px 3px 3px 3px; border: 1px solid lightgray;"
 										id="job" name="curjob">
@@ -620,6 +634,7 @@ body::-webkit-scrollbar {
 					</thead>
 					<tbody></tbody>
 				</table>
+				
 				<nav style="text-align: center;">
 					<ul id="fbPaging" class="pagination"></ul>
 				</nav>
@@ -803,6 +818,7 @@ body::-webkit-scrollbar {
 	function goProfile(){
 		location.href="/rr/selectPro";
 	}
+	
 	$(function(){
 		//메인페이지 정보 불러오기
 		$.ajax({
@@ -941,8 +957,38 @@ body::-webkit-scrollbar {
 				console.log("실패!");
 			}
 		});
+		
+		fbLoad();
+		
+		jbLoad();
 	});
+	
+	//->onload function 끝
+	
+	//자유게시판 틀
+	function fbContainer(){
+		$fbDiv = $(".fb");
+		$fbDiv.html("");
+		
+		$fbformgroup = $("<div class='form-group'><label for='keyword' class='col-sm-2 control-label'>제목 검색</label><div class='col-sm-9'><input type='text' name='keyword' id='fbKeyword' placeholder='키워드를 입력하세요.' class='form-control'></div></div>");
+		$fbpullright = $("<div class='pull-right'><button class='btn btn-primary' value='검색' onclick='fbPaging(1);' style='width: 100%;'>검색</button></div><br><br><br>");
+		$fbtable = $("<table id='fbTable' style='width: 100%; text-align: center;' class='table table-striped table-bordered table-hover'><thead><tr class='info'><th>번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr></thead><tbody></tbody></table>");
+		$fbinsertDiv = $("<div class='pull-right'><button id='insertfb' class='btn btn-primary' style='width: 100%;' value='글 작성' onclick='insertfb();'>글 작성</button></div><br><br>");
+		$fbnav = $("<nav style='text-align: center;'><ul id='fbPaging' class='pagination'></ul></nav>");
+		
+		$fbDiv.append($fbformgroup);
+		$fbDiv.append($fbpullright);
+		$fbDiv.append($fbtable);
+		
+		<% if(loginUser != null){ %>
+		$fbDiv.append($fbinsertDiv);
+		<% } %>
+		
+		$fbDiv.append($fbnav);
+	}
+	
 	//자유게시판 조회 및 페이징
+	function fbLoad(){
 	$.ajax({
 		url:"freeBoard.bo",
 		type:"get",
@@ -981,8 +1027,11 @@ body::-webkit-scrollbar {
 			$paging.append($endTd);
 		}
 	});
+ 	}
+	
 	
 	//직군 게시판 조회 및 페이징
+	function jbLoad(){
 	$.ajax({
 		url:"jobBoard.bo",
 		data:{currntPage:1},
@@ -992,7 +1041,9 @@ body::-webkit-scrollbar {
 		error:function(data){
 			console.log("실패!");
 		}
-	})
+	});
+	}
+	
 	//공지사항 페이징 및 검색 ajax
 	function noticePaging(currentPage){
 		var keyword = $("#noticeKeyword").val();
@@ -1173,25 +1224,104 @@ body::-webkit-scrollbar {
 		});
 	}
 	
-	$(function(){
-		$("#insertfb").click(function(){
-			var fbUserId = $("input[name=fbUserId]");
+	//자유게시판 글등록 및 조회
+
+		//게시글 작성 버튼 눌렀을 때
+		function insertfb(){
+			var $fbDiv = $(".fb");
 			
-			$.ajax({
-				url:"freeBoardInsert.bo",
-				type:"get",
-				data:{fbUserId:fbUserId},
-				success:function(data){
-					console.log(data);
-				}
-			});	
+			$fbDiv.html("");
 			
-		});
+			var $insertfbTable = $("<table class='table table-striped table-bordered' id='insertfbT' style='width: 100%; text-align: center;'>");
+			var $fbTh = $("<thead><tr><th colspan='2' style='background-color:#eeeeee; text-align:center;'>자유게시판 게시글 등록</th></tr></thead>");
+			var $fbTb = $("<tbody><tr><td><input type='text' class='form-control' placeholder='제목' name='fbTitle' maxlength='50'></td></tr><tr><td><textarea class='form-control' placeholder='내용' name='fbContent' maxlength='2048' style='height:200px;'></textarea></td></tr></tbody>");
+			
+			$insertfbTable.append($fbTh);
+			$insertfbTable.append($fbTb);
+
+			var $fbbtnDiv = $("<div style='text-align: right;'>");
+			<% if(loginUser != null) { %>
+			var $fbUser = $("<input type='hidden' value='<%=loginUser.getUserId()%>' name='fbUserId'>");
+			$fbbtnDiv.append($fbUser);
+			<% } %>
+			var $fbbackBtn = $("<button class='btn btn-primary' value='이전' id='fbBackBtn' style='width: 9%;' onclick='fbBackBtn()'>이전</button>");
+			var $fbinsertBtn = $("<button class='btn btn-primary' value='등록' id='fbInsertBtn' style=' margin-left: 7px; width: 9%;' onclick='fbInsertBtn()'>등록</button>");
+			
+			$fbbtnDiv.append($fbbackBtn);
+			$fbbtnDiv.append($fbinsertBtn);
+			
+			$fbDiv.append($insertfbTable);
+			$fbDiv.append($fbbtnDiv);
 		
-		$("#fbTable td").click(function(){
-			 var num = $(this).parent().children().eq(0).text();
+		}
+		
+		//게시글 등록버튼 눌렀을 때 
+		function fbInsertBtn(){
+				console.log("게시글 등록 버튼 눌렸어용!");
+				var fbUserId = $("input[name=fbUserId]").val();
+				var fbTitle = $("input[name=fbTitle]").val();
+				var fbContent = $("textarea[name=fbContent]").val();
+				console.log(fbTitle);
+				console.log(fbContent);
+				if(fbTitle != "" && fbContent != ""){
+				$.ajax({
+					url:"<%= request.getContextPath()%>/freeBoardInsert.bo",
+					type:"get",
+					data:{fbUserId:fbUserId, fbTitle:fbTitle, fbContent:fbContent},
+					success:function(data){
+						console.log("게시글 등록 성공!");
+					}
+				});	
+					fbContainer();
+					fbLoad();
+			 	}else{
+					alert("게시글 등록에 실패하셨습니다.");
+					fbContainer();
+					fbLoad();
+				}
+		}		
+	
+		//게시글 작성에서 이전 버튼 눌렀을 때
+		function fbBackBtn(){
+			console.log("게시글 등록에서 이전 버튼 눌렸어용!");
+			fbContainer();
+			fbLoad();
+		}		
+		//-> 자유게시판 게시글 작성 기능 끝
+		
+		//자유게시판 상세보기
+		//-> 수정많이 해야함
+		$("#fbTable tbody").click(function(){
+			 var num = $(this).children().children().eq(0).text();
 			
 			console.log(num);
+			
+			var $fbDiv = $(".fb");
+			
+			$fbDiv.html("");
+			
+			var $insertfbTable = $("<table class='table table-striped table-bordered' id='insertfbT' style='width: 100%; text-align: center;'>");
+			var $fbTh = $("<thead><tr><th colspan='2' style='background-color:#eeeeee; text-align:center;'>자유게시판 게시글</th></tr></thead>");
+			var $fbTb = $("<tbody><tr><td><input type='text' class='form-control' placeholder='제목' name='fbTitle' maxlength='50'></td></tr><tr colspan='2'><td><input type='text' class='form-control' placeholder='작성자' name='fbWriter'></td><td><input type='text' class='form-control' placeholder='조회수' name='fbCount'></td></tr><tr><td><textarea class='form-control' placeholder='내용' name='fbContent' maxlength='2048' style='height:200px;'></textarea></td></tr></tbody>");
+			
+			$insertfbTable.append($fbTh);
+			$insertfbTable.append($fbTb);
+
+			var $fbbtnDiv = $("<div style='text-align: right;'>");
+			<% if(loginUser != null) { %>
+			var $fbUser = $("<input type='hidden' value='<%=loginUser.getUserId()%>' name='fbUserId'>");
+			$fbbtnDiv.append($fbUser);
+			<% } %>
+			var $fbbackBtn = $("<button class='btn btn-primary' value='이전' id='fbBackBtn' style='width: 9%;' onclick='fbBackBtn()'>이전</button>");
+			var $fbinsertBtn = $("<button class='btn btn-primary' value='수정' id='fbUpdateBtn' style=' margin-left: 7px; width: 9%;' onclick='fbUpdateBtn()'>수정</button>");
+			var $fbinsertBtn = $("<button class='btn btn-primary' value='삭제' id='fbDeleteBtn' style=' margin-left: 7px; width: 9%;' onclick='fbDeleteBtn()'>삭제</button>");
+			
+			$fbbtnDiv.append($fbbackBtn);
+			$fbbtnDiv.append($UpdateBtn);
+			$fbbtnDiv.append($fbDeleteBtn);
+			
+			$fbDiv.append($insertfbTable);
+			$fbDiv.append($fbbtnDiv);
 			
 			$.ajax({
 				url:"selectOne.bo",
@@ -1199,10 +1329,12 @@ body::-webkit-scrollbar {
 				data:{num:num},
 				success:function(data){
 					console.log(data);
+					
+					
 				}
 			});
 		});
-	});
+
 	</script>
 
 </body>

@@ -438,6 +438,7 @@ public class BoardDao {
 				b.setbContent(rset.getString("BCONTENT"));
 				list.add(b);
 			}
+			System.out.println("freeBoardList : " + list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

@@ -32,8 +32,8 @@ public class InsertFreeBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("fbUserId");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
+		String title = request.getParameter("fbTitle");
+		String content = request.getParameter("fbContent");
 		
 		System.out.println("유저아이디 : " + userId);
 		System.out.println("제목 : " + title);		
@@ -47,12 +47,8 @@ public class InsertFreeBoardServlet extends HttpServlet {
 		
 		int result = new BoardService().insertFreeBoard(fb);
 		 
-		
-		String page = "";
 		if(result > 0) {
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
-			new Gson().toJson(fb, response.getWriter());
+			System.out.println("게시글 등록 성공!!");
 		}else {
 			System.out.println("게시글 등록 실패!");
 		}
