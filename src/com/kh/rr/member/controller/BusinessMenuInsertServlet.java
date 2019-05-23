@@ -36,16 +36,50 @@ public class BusinessMenuInsertServlet extends HttpServlet {
 		
 		//System.out.println("lastCtn : " + lastCtn);
 		
+		int fResult = 0;
+		
+		int result1 = 0;
+		
 		String value = request.getParameter("menuArr");
 		System.out.println("value : " + value);
 		
 		String[] oneslice = value.split(",");
-		System.out.println("oneslice.length : " + oneslice.length);
-		for(int i = 0; i < oneslice.length; i++) {
-			String[] menuInfo = oneslice[i].split(" ");
-		}
-		//System.out.println("menuInfo : " + menuInfo[0]);
 		
+		System.out.println("oneslice.length : " + oneslice.length);
+		
+		String[][] menu = new String [oneslice.length][3]; 
+		
+		for(int i = 0; i < oneslice.length; i++) {
+			
+			String[] test = oneslice[i].split("/");
+			
+System.out.println("test : "+ test); //3번 돌아야함
+			
+			for(int j = 0; j < 3; j++) {
+				menu[i][j] = test[j];
+				
+System.out.println("menu["+i+"]["+j+"] : "+ menu[i][j]); //
+			
+			}
+			StoreMenuInfo menuInfo = new StoreMenuInfo();
+			
+			menuInfo.setMenu(menu[i][0]);
+			menuInfo.setPrice(menu[i][1]);
+			menuInfo.setOrigin(menu[i][2]);
+			
+			int result = new BusinessMenuInfo().menuInsert(loginUser, menuInfo);
+		
+			fResult = result1 + result;
+		}
+		
+		String page = "";
+		if(fResult > 0) {
+			page = "/checkBusiness.me";
+			request.getRequestDispatcher(page).forward(request, response);
+		}else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "사업자 페이지 조회실패");
+		}
 		
 		
 		/*String menu = request.getParameter("menu");
@@ -55,7 +89,7 @@ public class BusinessMenuInsertServlet extends HttpServlet {
 		String[] origin = request.getParameterValues("origin");
 		System.out.println("오리진" + origin);*/
 		
-		ArrayList<HashMap<String, Object>> menuList = new ArrayList<HashMap<String, Object>>();
+		//ArrayList<HashMap<String, Object>> menuList = new ArrayList<HashMap<String, Object>>();
 		/*for(int i = 0; i < lastCtn ; i++) {
 			HashMap<String, Object> hmap = new HashMap<String, Object>();
 			//hmap.put("menu", menu[i]);
@@ -67,7 +101,6 @@ public class BusinessMenuInsertServlet extends HttpServlet {
 		}*/
 			//System.out.println("menuList : " + menu);
  	   
-		int result = new BusinessMenuInfo().menuInsert(loginUser, menuList);
 		
 	}
 

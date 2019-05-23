@@ -42,7 +42,7 @@ public class BusinessMenuInfo {
 		return result;
 	}
 
-	public int menuInsert(Member loginUser, ArrayList<HashMap<String, Object>> menuList) {
+	public int menuInsert(Member loginUser, StoreMenuInfo menuInfo) {
 		Connection con = getConnection();
 		
 		/*ArrayList<StoreMenuInfo> list = new ArrayList();
@@ -51,7 +51,7 @@ public class BusinessMenuInfo {
 		
 		//System.out.println(list);
 		
-		int result = new BusinessDao().insertMenu(con, loginUser, menuList);
+		int result = new BusinessDao().insertMenu(con, loginUser, menuInfo);
 		
 		if(result > 0 ) {
 			commit(con);

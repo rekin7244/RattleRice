@@ -205,7 +205,7 @@ a.article, a.article:hover {
 
 			<ul class="list-unstyled components">
 				<p>
-					<b><%= loginUser.getUserName() %> 사업자 님 환영합니다.</b>
+					<b><%= loginUser.getUserName() %> 님 환영합니다.</b>
 				</p>
 				<li class="active"><a href="#homeSubmenu"
 					data-toggle="collapse" aria-expanded="false"

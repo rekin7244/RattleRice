@@ -22,7 +22,7 @@ public class BusinessMenuInfoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//메뉴업데이트 서블릿
 		
-		HttpSession session = request.getSession();
+		   HttpSession session = request.getSession();
 	       Member loginUser = (Member)session.getAttribute("loginUser");
 	       
 	       String menu = request.getParameter("menu");
@@ -48,10 +48,11 @@ public class BusinessMenuInfoServlet extends HttpServlet {
 	    	   String page = "";
 	    	   
 	    	   if(result > 0) {
-	    		   page = "/views/business/businessFormShop.jsp";
-	    		   //request.setAttribute(arg0, arg1);
+	    		   page = "/checkBusiness.me";
+	   			request.getRequestDispatcher(page).forward(request, response);
 	    	   }else {
-	    		   
+	    		   page = "views/common/errorPage.jsp";
+	   			request.setAttribute("msg", "사업자 페이지 조회실패");
 	    	   }
 	      
 			

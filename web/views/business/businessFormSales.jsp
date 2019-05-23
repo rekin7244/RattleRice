@@ -1,19 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-<%
-		ArrayList<HashMap<String, Object>> list = 
-		(ArrayList<HashMap<String, Object>>) request.getAttribute("list");
-		System.out.println("FormSales : " + list);
 
+<%
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	System.out.println("FormSales : " + list);
 %>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	google.charts.load('current', {
+		'packages' : [ 'corechart' ]
+	});
+	google.charts.setOnLoadCallback(drawVisualization);
+</script>
+
 
 <title>사업자 페이지</title>
 
@@ -178,7 +185,6 @@ a.article, a.article:hover {
 	width: 100%;
 }
 
-
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -200,172 +206,99 @@ a.article, a.article:hover {
 	}
 }
 
- #topMenu li{
-	float:left;
-	margin-left:20px;
-}	
-
-
+#topMenu li {
+	float: left;
+	margin-left: 20px;
+}
 </style>
 </head>
 
 <body>
-	
-	<%@ include file="menubar_business.jsp" %>
-		<div id="content">
 
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<div class="container-fluid">
+	<%@ include file="menubar_business.jsp"%>
+	<div id="content">
 
-					<button type="button" id="sidebarCollapse" class="btn btn-info">
-						<i class="fas fa-align-left"></i> <span>menu</span>
-					</button>
-					<button class="btn btn-dark d-inline-block d-lg-none ml-auto"
-						type="button" data-toggle="collapse"
-						data-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<i class="fas fa-align-justify"></i>
-					</button>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
 
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="reservationForm.jsp">예약관리</a>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="businessFormShop.jsp">매장관리</a></li>
-							 <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
-							
-						</ul>
-					</div>
+				<button type="button" id="sidebarCollapse" class="btn btn-info">
+					<i class="fas fa-align-left"></i> <span>menu</span>
+				</button>
+				<button class="btn btn-dark d-inline-block d-lg-none ml-auto"
+					type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<i class="fas fa-align-justify"></i>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="nav navbar-nav ml-auto">
+						<li class="nav-item active"><a class="nav-link"
+							href="reservationForm.jsp">예약관리</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="businessFormShop.jsp">매장관리</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
+
+					</ul>
 				</div>
-			</nav>
+			</div>
+		</nav>
 
-			<div class="col-md-8">
-				<p style="font-weight:bold">매출분석</p>
-				<ul id="topMenu" style="list-style:none; diplay:flex;">
+		<div class="col-md-8">
+			<p style="font-weight: bold">매출분석</p>
+			<ul id="topMenu" style="list-style: none; diplay: flex;">
 				<%
-					if(list != null){
-						HashMap<String, Object> hmap = null;	
+					if (list != null) {
+						HashMap<String, Object> hmap = null;
 						hmap = list.get(0);
 				%>
-					<li><h2><%=hmap.get("brand")  %></h2></li>
-					
+				<li><h2><%=hmap.get("brand")%></h2></li>
+
 				<%
 					}
 				%>
-					<li><label>기준년월 : <input type="date"></label>
-					<li><button>검색하기</button></li>
-					<li class="li2"><button>엑셀다운로드</button></li>
-					</ul>
-				</div>
-			<div class="col-sm-9">
-				<table class="table table-bordered">
-					<thead>
-						<tr style="background: lightgray">
-							<th>구분</th>
-							<th>18.11</th>
-							<th>18.12</th>
-							<th>19.01</th>
-							<th>19.02</th>
-							<th>19.03</th>
-							<th>19.04</th>
-							<th>19.05</th>
-							<th>19.06</th>
-							<th>합계</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>목표</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-						</tr>
-						<tr>
-							<td>합계</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-						</tr>
-						<tr>
-							<td>전액</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-						</tr>
-						<tr>
-							<td>주문</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-							<td>0.0</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="col-sm-9"
-					style="border: 0.5px solid lightgray; width: 95%; height: 90%;">
-					<h3>그래프 들어갈 부분</h3>
-				</div>
-			</div>
+			</ul>
 		</div>
-			<div class="col-sm-3 col-md-3"
-				style="border: 0.5px solid lightgray; width: 20%; height: 80%; 
-				background: gray; float:right; position:absolute; right:25px; top:125px;">
-				<br>
-				<h3 align="center">정산 금액</h3>
-				<br>
-				<h2 align="center">Day-4</h2>
-				<h3 align="center">85,664원</h3>
-				<p>영원히 투명하되 때까지 돋고, 실로 인류의 가슴이 그들은 것이다. 과실이 눈이 고 행을 실현에 주며,
-					사막이다. 곳으로 그들의 얼마나 방황하였으며, 낙원을 우리의 꽃이 보는 위하여 사막이다. 무엇을 살았으며, 같은 보라.
-					청춘은 이 상의 내려온 있으며, 그들은 위하여, 피고 어디 위하여, 아니다. 발휘하기 대한 두손을 인간이 때문이다.
-					웅대한 생명을 뭇 사막이다. 그것을 소담스러운 인도하겠 다는 스며들어 힘있다.</p>
-			</div>
+		<div class="col-sm-9" id="graph"
+			style="border: 0.5px solid lightgray; width: 70%; height: 70%; left: 2%; position: absolute; bottom:3.5%;">
+			
+		</div>
+	</div>
+	<div class="col-sm-3 col-md-3"
+		style="border: 0.5px solid lightgray; width: 20%; height: 80%; background: gray; float: right; position: absolute; right: 25px; top: 125px;">
+		<br>
+		<h3 align="center">정산 금액</h3>
+		<br>
+		<h3 align="center">85,664원</h3>
+		<p>영원히 투명하되 때까지 돋고, 실로 인류의 가슴이 그들은 것이다. 과실이 눈이 고 행을 실현에 주며, 사막이다.
+			곳으로 그들의 얼마나 방황하였으며, 낙원을 우리의 꽃이 보는 위하여 사막이다. 무엇을 살았으며, 같은 보라. 청춘은 이 상의
+			내려온 있으며, 그들은 위하여, 피고 어디 위하여, 아니다. 발휘하기 대한 두손을 인간이 때문이다. 웅대한 생명을 뭇
+			사막이다. 그것을 소담스러운 인도하겠 다는 스며들어 힘있다.</p>
+	</div>
 
 
 
 
 
-		<!-- jQuery CDN - Slim version (=without AJAX) -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-			crossorigin="anonymous"></script>
-		<!-- Popper.JS -->
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-			integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-			crossorigin="anonymous"></script>
-		<!-- Bootstrap JS -->
-		<script
-			src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-			integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-			crossorigin="anonymous"></script>
-		<!-- jQuery Custom Scroller CDN -->
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<!-- Popper.JS -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+		integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+		integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+		crossorigin="anonymous"></script>
+	<!-- jQuery Custom Scroller CDN -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
 </body>
 

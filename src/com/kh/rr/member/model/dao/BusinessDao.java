@@ -188,7 +188,7 @@ public class BusinessDao {
 	}
 	
 
-	public int insertMenu(Connection con, Member loginUser, ArrayList<HashMap<String, Object>> menuList) {
+	public int insertMenu(Connection con, Member loginUser, StoreMenuInfo menuInfo) {
 		System.out.println("insertMenuDao들어옴");
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -217,16 +217,15 @@ public class BusinessDao {
 			//close(rset);
 		}
 		
-		for(int i = 0; i < menuList.size(); i++) {
 		
 		String query = prop.getProperty("insertMenu");
 		System.out.println(query);
 		System.out.println(loginUser);
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, (String)menuList.get(i).get("menu"));
-			pstmt.setString(2, (String)menuList.get(i).get("price"));
-			pstmt.setString(3, (String)menuList.get(i).get("origin"));
+			pstmt.setString(1, menuInfo.getMenu());
+			pstmt.setString(2, menuInfo.getPrice());
+			pstmt.setString(3, menuInfo.getOrigin());
 			pstmt.setInt(4, (int) hmap.get("s_id"));
 			pstmt.setInt(5, (int) hmap.get("s_code"));
 			
@@ -235,11 +234,9 @@ public class BusinessDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			//close(pstmt);
+			close(pstmt);
 		}
-				
-		
-	  }
+	  
 		return result;
 	}
 	
