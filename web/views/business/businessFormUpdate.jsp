@@ -426,26 +426,17 @@ padding-bottom: 30px;
 				</script> -->
 				<button class ="submitBtn" type="button">추가하기</button>
 						</form>
-						
-					
-					
-					
-					
 					
 					<br>
 					<hr>
 					<br>
-				<!--<from action="">
-					
-					
-					</from>-->
+				
 				</div>
 				
 				
 				<div class="container col-sm-9"
 					style="border: 0.5px solid lightgray; height: 400px;float: left; width: 33%; padding:10px;">
-					<%-- <form action="<%= request.getContextPath() %>/updateProImg" method="post"
-							encType="multipart/form-data"> --%>
+				
 						<form action="<%= request.getContextPath() %>/updateImg" method="post"
 							encType="multipart/form-data">
 							
@@ -454,37 +445,22 @@ padding-bottom: 30px;
 						<button type="submit" id="storeImgUpdate">적용하기</button>
 						
 						<!-- 이미지첨부 -->
-						<div id="contentImgArea1"
+						<div id="contentImgArea"
 							style="border: 0.5px solid lightgray; margin 0 auto; height: 150px;">
 							
 							<div id="fileArea">
 							<input type="file" id="contentImg" name="contentImg" 
-									onchnage="loadImg(this)">
+									onchange="loadImg(this)">
 						    </div>
 						
-						
-								 <%
+								<%
 								 HashMap<String, Object> hamp = list.get(0);
 								%>
-								<img id="contentImg1" src="/rr/profileImg_upload/<%=hamp.get("changeName")%>" style="
+								<img id="contentImg" src="/rr/profileImg_upload/<%=hamp.get("changeName")%>" style="
 									width:170px; align=center; ">
 								
 						</div>
-						
-						<%-- <div id="contentImgArea2"
-							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
-								
-								<img id="contentImg2" src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" width="120" height="100">
-								
-						</div>
-						
-						<div id="contentImgArea3"
-							style="border: 0.5px solid lightgray; margin 0 auto; height: 100px;">
-								
-								<img id="contentImg3" src="/rr/profileImg_upload/<%=hmap.get("changeName")%>" width="120" height="100">
-								
-						</div> --%>
-						
+					
 					</form>
 					
 				</div>
@@ -501,41 +477,35 @@ padding-bottom: 30px;
 				console.log($(".origin"));
 				var menuArr = new Array();
 				for(var i=0; i<$(".menuData").length; i++){
-					menuArr[i] = $(".menuData")[i].value + $(".price")[i].value + $(".origin")[i].value;
+					menuArr[i] = $(".menuData")[i].value +" "+ $(".price")[i].value +" "+ $(".origin")[i].value;
 				}
 				console.log(menuArr);
 				
-				location.href = "../../menuInfoInsert.b?menuArr=" + menuArr.join(",");
+				location.href = "menuInfoInsert.b?menuArr=" + menuArr.join(",");
 				
 			});
 		
 		/* $("#fileArea").hide(); */
-			$("#thumbnailImg1").addClass("active");
+			$("#thumbnailImg").addClass("active");
 			console.log("thumbnailImg");
 			
-		$("#contentImgArea1").click(function(){
+		$("#contentImgArea").click(function(){
 			console.log("contentImgArea");
 			$('#contentImg').click();			
 			
 		});
-		/* $("#contentImgArea2").click(function(){
-			$("#thumbnailImg2").click();
-		});
-		$("#contentImgArea3").click(function(){
-			$("#thumbnailImg3").click();
-		}); */
+		
 	});
-	
-	function loadImg(value, num){
+	//이미지 업로드
+	function loadImg(value){
 		if(value.files && value.files[0]){
 			var reader = new FileReader();
 			reader.onload = function(e){
-				 $("#contentImg1").removeAttr("src");
-					$("#contentImg1").attr("scr", e.target.result);
+				 $("#contentImg").removeAttr("src");
+					$("#contentImg").attr("src", e.target.result);
 					}
 			
 			reader.readAsDataURL(value.files[0]);
-			//$("#").removeAttr("disabled");
 		}
 	};
 	var ctn = 0;

@@ -32,14 +32,19 @@ public class BusinessMenuInsertServlet extends HttpServlet {
 		
 		System.out.println("ctn : " + request.getParameter("lastCtn"));
 		
-		int lastCtn = Integer.parseInt(request.getParameter("lastCtn"));
+		//int lastCtn = Integer.parseInt(request.getParameter("lastCtn"));
 		
-		System.out.println("lastCtn : " + lastCtn);
+		//System.out.println("lastCtn : " + lastCtn);
 		
 		String value = request.getParameter("menuArr");
 		System.out.println("value : " + value);
 		
 		String[] oneslice = value.split(",");
+		System.out.println("oneslice.length : " + oneslice.length);
+		for(int i = 0; i < oneslice.length; i++) {
+			String[] menuInfo = oneslice[i].split(" ");
+		}
+		//System.out.println("menuInfo : " + menuInfo[0]);
 		
 		
 		
@@ -51,7 +56,7 @@ public class BusinessMenuInsertServlet extends HttpServlet {
 		System.out.println("오리진" + origin);*/
 		
 		ArrayList<HashMap<String, Object>> menuList = new ArrayList<HashMap<String, Object>>();
-		for(int i = 0; i < lastCtn ; i++) {
+		/*for(int i = 0; i < lastCtn ; i++) {
 			HashMap<String, Object> hmap = new HashMap<String, Object>();
 			//hmap.put("menu", menu[i]);
 			//hmap.put("price", price[i]);
@@ -59,7 +64,7 @@ public class BusinessMenuInsertServlet extends HttpServlet {
 			
 			menuList.add(hmap);
 			
-		}
+		}*/
 			//System.out.println("menuList : " + menu);
  	   
 		int result = new BusinessMenuInfo().menuInsert(loginUser, menuList);
