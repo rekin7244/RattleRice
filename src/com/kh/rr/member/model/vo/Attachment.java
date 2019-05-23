@@ -2,8 +2,7 @@ package com.kh.rr.member.model.vo;
 
 import java.sql.Date;
 
-//직렬화
-public class Attachment/* 첨부파일 */ implements java.io.Serializable {
+public class Attachment implements java.io.Serializable {
 	private int fid;
 	private String filePath;
 	private String originName;
@@ -13,7 +12,6 @@ public class Attachment/* 첨부파일 */ implements java.io.Serializable {
 	private String type;
 	private String userId;
 
-	// 기본생성자
 	public Attachment() {
 	}
 

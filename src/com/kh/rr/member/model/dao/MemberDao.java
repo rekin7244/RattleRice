@@ -346,7 +346,7 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, "1000");
+			pstmt.setString(1, "10");
 			pstmt.setString(2, userId);
 
 			result = pstmt.executeUpdate();

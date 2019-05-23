@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="com.kh.rr.member.model.vo.Member ,java.util.*"%>
+	import="com.kh.rr.member.model.vo.Member, com.kh.rr.board.model.vo.Board, com.kh.rr.common.model.vo.PageInfo ,java.util.*"%>
 
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
-	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	ArrayList<Board> bList = (ArrayList<Board>) request.getAttribute("bList");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+    int currentPage = pi.getCurrentPage();
+    int maxPage = pi.getMaxPage();
+    int startPage = pi.getStartPage();
+    int endPage = pi.getEndpage();
 %>
 <!DOCTYPE html>
 <html>
@@ -220,6 +225,24 @@ footer {
 		height: auto;
 	}
 }
+
+/* .Small{
+width: 6%
+}
+.middle{
+width: 9%;
+} */
+
+tr>th:nth-child(1),tr>td:nth-child(1),tr>th:nth-child(6),tr>td:nth-child(6) {
+   width: 6%
+}
+tr>th:nth-child(2),tr>td:nth-child(2),tr>th:nth-child(5),tr>td:nth-child(5) {
+   width: 15%
+}
+tr>th:nth-child(4),tr>td:nth-child(4) {
+   width: 10%
+}
+
 </style>
 
 </head>
@@ -281,38 +304,108 @@ footer {
 					<div class="container">
 						<input class="form-control" id="myInput" type="text"
 							placeholder="키워드 검색"> <br>
-						<table class="table table-bordered table-striped">
+						
+							<%if(bList.size() !=0){%>
+						<table class="table table-bordered table-striped" id="listArea">
 							<thead>
 								<tr>
-									<th>Firstname</th>
-									<th>Lastname</th>
-									<th>Email</th>
+									<th>글 번호</th>
+									<th>타입</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성일</th>
+									<th>조회수</th>
 								</tr>
 							</thead>
 							<tbody id="myTable">
+
+								<%
+									for (int i = 0; i < bList.size(); i++) {
+											Board board = bList.get(i);
+								%>
 								<tr>
-									<td>John</td>
-									<td>Doe</td>
-									<td>john@example.com</td>
+									<td><%=board.getBid()%></td>
+									<%
+										if (board.getbType().equals("JOB")) {
+									%>
+									<td>직업게시판</td>
+									<%
+										} else if (board.getbType().equals("FREE")) {
+									%>
+									<td>자유 게시판</td>
+									<%
+										} else if (board.getbType().equals("REVIEW")) {
+									%>
+									<td>Review</td>
+									<%
+										} else {
+									%>
+									<td>FAQ</td>
+									<%
+										}
+									%>
+
+									<td><%=board.getTitle()%></td>
+									<td><%=board.getWriter()%></td>
+									<td><%=board.getbDate()%></td>
+									<td><%=board.getbCount()%></td>
 								</tr>
-								<tr>
-									<td>Mary</td>
-									<td>Moe</td>
-									<td>mary@mail.com</td>
-								</tr>
-								<tr>
-									<td>July</td>
-									<td>Dooley</td>
-									<td>july@greatstuff.com</td>
-								</tr>
-								<tr>
-									<td>Anja</td>
-									<td>Ravendale</td>
-									<td>a_r@test.com</td>
-								</tr>
+
+								<%
+									}
+								%>
 							</tbody>
 						</table>
+						<%
+							} else {
+						%>
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th class="Small">글 번호</th>
+									<th class="middle">타입</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성일</th>
+									<th class="Small">조회수</th>
+								</tr>
+							</thead>
+						</table>
+						<h5>작성된 글이 없습니다.</h5>
+						<%
+							}
+						%>
 						<br>
+						<div class="pagingArea" align="center">
+			<button
+				onclick="location.href='<%= request.getContextPath()%>/selectWrite?currentPage=1'"><<</button>
+			<%if(currentPage <= 1){ %>
+			<button disabled><</button>
+
+			<%}else{ %>
+			<button
+				onclick="location.href='<%= request.getContextPath()%>/selectWrite?currentPage=<%= currentPage - 1%>'"><</button>
+			<%} %>
+
+			<% for(int p = startPage; p<=endPage; p++){
+               if(p == currentPage){%>
+			<button disabled><%=p %></button>
+			<%      }else{%>
+			<button
+				onclick="location.href='<%=request.getContextPath()%>/selectWrite?currentPage=<%=p%>'"><%=p %></button>
+			<%      } %>
+
+			<%} %>
+
+			<%if(currentPage >= maxPage){ %>
+			<button disabled>></button>
+			<%}else{ %>
+			<button
+				onclick="location.href='<%= request.getContextPath()%>/selectWrite?currentPage=<%=currentPage + 1%>'">></button>
+			<%} %>
+			<button
+				onclick="location.href='<%= request.getContextPath()%>/selectWrite?currentPage=<%=maxPage%>'">>></button>
+		</div>
 					</div>
 				</div>
 			</div>
@@ -335,6 +428,14 @@ $(document).ready(function(){
   });
 });
 
+
+$(function(){
+	$("#listArea td").mouseenter(function(){
+		$(this).parent().css({"color":"darkgray", "cursor":"pointer"});
+	}).mouseout(function(){
+		$(this).parent().css({"color":"black"});
+	});
+});
 
 </script>
 

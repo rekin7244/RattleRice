@@ -2,7 +2,7 @@ package com.kh.rr.member.model.vo;
 
 import java.sql.Date;
 
-public class StoreInfo {
+public class StoreInfo implements java.io.Serializable{
 	//store
 	private String cotact; //연락처
 	private String location; //위치

@@ -1,6 +1,6 @@
 package com.kh.rr.member.model.vo;
 
-public class StoreMenuInfo {
+public class StoreMenuInfo implements java.io.Serializable{
 	//menu
 	private String menu; //메뉴명
 	private String price; //메뉴가격

@@ -124,6 +124,7 @@ public class MemberService {
 		} else {
 			rollback(con);
 		}
+		close(con);
 
 		return result;
 
