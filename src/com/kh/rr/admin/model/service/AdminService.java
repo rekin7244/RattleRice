@@ -282,6 +282,43 @@ public class AdminService {
 		return result;
 	}
 
+	public int pSettleChecked(String[] arr) {
+		Connection con = getConnection();
+
+		int result = 0;
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println("arr"+i+" : "+arr[i]);
+			result += new AdminDao().pSettlementOne(con, Integer.parseInt(arr[i]));
+		}
+		System.out.println("result : "+result);
+		if(result == arr.length) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return result;
+	}
+
+	public int getPointSettleSearchCount(String condition, String keyword) {
+		Connection con = getConnection();
+		
+		int listCount = new AdminDao().getPointSettleSearchCount(con,condition,keyword);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<Settlement> getPointSettleSearchList(PageInfo pi, String condition, String keyword) {
+		Connection con = getConnection();
+		
+		ArrayList<Settlement> list = new AdminDao().getPointSettleSearchList(con,pi,condition,keyword);
+		
+		close(con);
+		
+		return list;
+	}
+
 	
 
 
