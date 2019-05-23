@@ -362,7 +362,19 @@ tr>th, tr>td {
 								%>
 								<tr>
 									<td><%=hmap.get("date")%></td>
+
+									<%
+										if (hmap.get("unit").equals("PO")) {
+									%>
 									<td><%=hmap.get("price")%>원</td>
+									<%
+										} else {
+									%>
+									<td><%=hmap.get("price")%>벨</td>
+									<%
+										}
+									%>
+
 									<%
 										if (hmap.get("unit").equals("PO")) {
 									%>
@@ -462,12 +474,10 @@ tr>th, tr>td {
 						data: {amount:selectAmount, userId:userId},
 						type:"post",
 						success:function(){
-							console.log("ajax성공!");
 							alert("테스트 결제 성공");
 							window.location.reload();
 						},
 						error:function(data){
-							console.log("ajax실패!");
 							alert("테스트 결제 실패");
 						}
 					});

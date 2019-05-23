@@ -6,17 +6,18 @@ import static com.kh.rr.common.JDBCTemplate.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.ArrayList;
 import java.util.Properties;
 
-import com.kh.rr.member.model.vo.Attachment;
+import com.kh.rr.board.model.vo.Board;
+import com.kh.rr.common.model.vo.PageInfo;
 import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.member.model.vo.UserInfo;
 
@@ -337,6 +338,73 @@ public class UserInfoDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Board> SelectMyWrite(Connection con, String userId, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ArrayList<Board> list = null;
+		Board board = null;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("selectMyWrite");
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			
+			while (rset.next()) {
+				board = new Board();
+				
+				board.setBid(rset.getInt("BID"));
+				board.setbType(rset.getString("BTYPE"));
+				board.setTitle(rset.getString("TITLE"));
+				board.setWriter(rset.getString("M_ID"));
+				board.setbDate(rset.getDate("BDATE"));
+				board.setbCount(rset.getInt("BCOUNT"));
+				
+				list.add(board);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return list;
+		
+	}
+
+	public int getListCount(Connection con, String userId) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("listCount");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
 	}
 
 	

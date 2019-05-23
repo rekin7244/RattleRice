@@ -1,14 +1,13 @@
 package com.kh.rr.member.model.service;
 
-import static com.kh.rr.common.JDBCTemplate.close;
-import static com.kh.rr.common.JDBCTemplate.commit;
-import static com.kh.rr.common.JDBCTemplate.getConnection;
-import static com.kh.rr.common.JDBCTemplate.rollback;
+import static com.kh.rr.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.rr.board.model.vo.Board;
+import com.kh.rr.common.model.vo.PageInfo;
 import com.kh.rr.member.model.dao.MemberDao;
 import com.kh.rr.member.model.dao.UserInfoDao;
 import com.kh.rr.member.model.vo.Member;
@@ -30,7 +29,7 @@ public class UserInfoService {
 		int result = new UserInfoDao().insertUserInfo(con, reqUserInfo);
 		int result2 = new MemberDao().defaultPointCharge(con, reqUserInfo.getUserId());
 
-		if (result > 0) {
+		if (result > 0 && result2>0) {
 			commit(con);
 		} else {
 			rollback(con);
@@ -97,6 +96,8 @@ public class UserInfoService {
 		} else {
 			rollback(con);
 		}
+		
+		close(con);
 
 		return result;
 	}
@@ -159,8 +160,30 @@ public class UserInfoService {
 		} else {
 			rollback(con);
 		}
+		close(con);
 
 		return result;
+	}
+
+	public ArrayList<Board> SelectMyWrite(String userId, PageInfo pi) {
+		
+		Connection con = getConnection();
+		 
+		ArrayList<Board> bList = new UserInfoDao().SelectMyWrite(con, userId,pi);
+		
+		close(con);
+		
+		return bList;
+	}
+
+	public int getListCount(String userId) {
+		Connection con = getConnection();
+
+		int listCount = new UserInfoDao().getListCount(con,userId);
+
+		close(con);
+
+		return listCount;
 	}
 
 }

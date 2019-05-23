@@ -31,7 +31,7 @@ public class PointChargeServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String amount = request.getParameter("amount");
 		String userId = request.getParameter("userId");
-//System.out.println("서블릿시작");
+
 		int result = new MemberService().pointCharge(amount, userId);
 		int result2 = new UserInfoService().pointUpdate(amount,userId);
 
