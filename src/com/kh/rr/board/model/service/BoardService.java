@@ -214,6 +214,27 @@ public class BoardService {
 		return result;
 	}
 
+	//직업 게시판 개수 조회하는 메소드
+	public int getJobBoardListCount() {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().getJobBoardListCount(con);
+		
+		close(con);
+		
+		return result;
+	}
+
+	//직업 게시판 목록 조회하는 메소드
+	public ArrayList<Board> selectJobBoardList(PageInfo pi) {
+		Connection con = getConnection();
+		ArrayList<Board> list = new BoardDao().selectJobBoardList(con, pi);
+		
+		close(con);
+		
+		return list;
+	}
+
 
 	
 }

@@ -4,9 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
 <script>
 	$(function() {
 		$(window).resize(function() {
@@ -187,11 +184,11 @@
 							<div class="center"></div>
 							<div class="one">사업자 등록증을 소지한 사업자</div>
 							<div class="one">
-								<img src="images/user.PNG" class="selectImg">
+								<img src="images/user.PNG" class="selectImg" style="width:auto !important;">
 							</div>
 							<div class="center">or</div>
 							<div class="one">
-								<img src="images/bUser.PNG" class="selectImg">
+								<img src="images/bUser.PNG" class="selectImg" style="width:auto !important;">
 							</div>
 						</div>
 

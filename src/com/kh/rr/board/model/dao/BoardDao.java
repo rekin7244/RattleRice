@@ -608,5 +608,79 @@ public class BoardDao {
 		 
 		
 		return result;
+	}
+	
+	//직업 게시판 개수 조회하는 메소드
+	public int getJobBoardListCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String query = prop.getProperty("getJobBoardListCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	//직업 게시판 목록 조회하는 메소드
+	public ArrayList<Board> selectJobBoardList(Connection con, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		String query = prop.getProperty("selectJobBoardList");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pi.getStartPage());
+			pstmt.setInt(2, pi.getEndpage());
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+				
+			while(rset.next()){
+				Board b = new Board();
+				b.setJbbid(rset.getInt("JBBID"));
+				b.setTitle(rset.getString("TITLE"));
+				b.setWriter(rset.getString("M_NAME"));
+				b.setbDate(rset.getDate("BDATE"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setbContent(rset.getString("BCONTENT"));
+				list.add(b);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
 	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
