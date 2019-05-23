@@ -244,10 +244,16 @@ a.article, a.article:hover {
 					<td>954,300</td>
 					<td>0</td>
 					<td>954,300</td>
-					<td><button>확인</button>&nbsp;<button>취소</button></td>
+					<td><button onclick="settlement();">수동 정산</button>&nbsp;<button>취소</button></td>
 				</tr>
 				</tbody>
-
+		</table>
+	</div>
+	<script>
+		function settlement(){
+			
+		}
+	</script>
 </body>
 
 </html>

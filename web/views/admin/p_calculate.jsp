@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<% 
-	
+	pageEncoding="UTF-8" import="java.util.*,com.kh.rr.admin.model.vo.Settlement,com.kh.rr.common.model.vo.PageInfo"%>
+<%
+	ArrayList<Settlement> list = (ArrayList<Settlement>) request.getAttribute("list");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndpage();
 %>
 <!DOCTYPE html>
 <html>
@@ -18,8 +23,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
 	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
 	crossorigin="anonymous">
-<!-- Our Custom CSS -->
-<link rel="stylesheet" href="style2.css">
 <!-- Scrollbar Custom CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
@@ -224,16 +227,95 @@ a.article, a.article:hover {
 
 			<thead>
 				<tr style="background: lightgray" align="center">
-					<th><input type="checkbox" id="checkmember"></th>
-					<th>신청 번호</th>
+					<th>선택</th>
+					<th>신청 일자</th>
 					<th>신청자 아이디</th>
 					<th>신청 포인트</th>
+					<th>발생 수수료</th>
+					<th>정산 여부</th>
 					<th>관리</th>
 				</tr>
 			</thead>
-
-			<tbody align="center"></tbody>
+			<tbody id="tableTbody" align="center">
+				<% for(Settlement s : list){ %>
+				<tr>
+					<td>
+					<% if(s.getStatus().equals("N")){ %>
+					<input type="checkbox" id="checkMember"/>
+					<% }else{ %>
+					<input type="checkbox" id="" disabled />
+					<% } %>
+					</td>
+					<td><%=s.gettDate() %></td>
+					<td><%=s.getmId() %></td>
+					<td><%=s.getrPrice() %></td>
+					<td><%=s.getrFees() %></td>
+					<td><% if(s.getStatus().equals("N")){ %>
+						미정산
+						<% } else { %>
+						정산완료
+						<% } %>
+					</td>
+					<td>
+					<% if(s.getStatus().equals("N")){ %>
+					<button onclick="settlement(<%=s.getTid()%>)">정산</button>
+					<% }else{ %>
+					<%=s.getrDate() %> 정산완료
+					<% } %>
+					</td>	
+				</tr>
+				<% } %>
+			</tbody>
 		</table>
+		
+		<%-- 페이징 --%>
+		<div class="pagingArea" align="center">
+		<button onclick="location.href='<%=request.getContextPath()%>/pSettlementList.ad?currentPage=1'"><<</button>
+		<% if(currentPage <= 1){ %>
+		<button disabled><</button>
+		<% } else { %>
+		<button onclick="location.href='<%=request.getContextPath()%>/pSettlementList.ad?currentPage=<%=currentPage - 1%>'"><</button>
+		<% } %>
+		
+		<% for(int i = 1; i <= maxPage; i++) { 
+				if(currentPage != i){ %>
+		<a href="<%=request.getContextPath()%>/pSettlementList.ad?currentPage=<%=i%>"><%=i%></a> &nbsp;
+			<% }else{ %>
+		<a><%=i%></a>&nbsp;
+		<% 	   } %>
+		<% } %>
+		
+		<% if(currentPage >= maxPage){ %>
+		<button disabled>></button>
+		<% } else { %>
+		<button onclick="location.href='<%=request.getContextPath()%>/pSettlementList.ad?currentPage=<%=currentPage + 1%>'">></button>
+		<% } %>
+		<button onclick="location.href='<%=request.getContextPath()%>/pSettlementList.ad?currentPage=<%=maxPage%>'">>></button>
+		</div>
+		<div class="container-fluid full-width">
+		<button onclick="pSettlementChecked()" class="btn pull-left">정산</button>
+		</div>
 	</div>
+	
+	<script>
+		function settlement(tid){
+			location.href="<%=request.getContextPath()%>/pSettlementOne.ad?num="+tid;
+		}
+		
+		function pSettlementChecked(){
+			
+		}
+		
+		function reload(){
+			$.ajax({
+				url:"pSettlementListonCon.ad",
+				data:{},
+				type:"post",
+				success:function(data){
+					
+				}
+			});
+		}
+	</script>
 </body>
 </html>

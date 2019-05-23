@@ -252,7 +252,7 @@ public class AdminService {
 	public int getPointSettlementListCount() {
 		Connection con = getConnection();
 		
-		int listCount = new AdminDao().getPointSettlementListCount();
+		int listCount = new AdminDao().getPointSettlementListCount(con);
 		
 		close(con);
 		
@@ -260,8 +260,26 @@ public class AdminService {
 	}
 
 	public ArrayList<Settlement> getPointSettlementList(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = getConnection();
+		
+		ArrayList<Settlement> list = new AdminDao().getPointSettlementList(con,pi);
+		
+		close(con);
+		
+		return list;
+	}
+	//포인트 한 건 정산 처리
+	public int pSettlementOne(int tid) {
+		Connection con = getConnection();
+		//REFUND 테이블 update
+		int result = new AdminDao().pSettlementOne(con,tid);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return result;
 	}
 
 	
