@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	import="com.kh.rr.member.model.vo.Reservation ,java.util.*"%>
+
+<%
+	ArrayList<Reservation> list = (ArrayList<Reservation>) request.getAttribute("list");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -230,7 +235,7 @@ a.article, a.article:hover {
 						aria-controls="navbarSupportedContent" aria-expanded="false"
 						aria-label="Toggle navigation">
 						<i class="fas fa-align-justify"></i>
-					</button>
+					</button>	
 
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav ml-auto">
@@ -246,56 +251,42 @@ a.article, a.article:hover {
 				</div>
 			</nav>
 
+		<div class="container col-sm-9 table">
+			<ul>
+				<li>예약 신청 현황</li>
+				<li class="li2"><button>예약 막기</button></li>
+				<li class="li2"><button>예약 등록</button></li>
+			</ul>
 
-			<div class="container col-sm-9 table">
-				<ul>
-					<li>예약 신청 현황</li>
-					<li class="li2"><button>예약 막기</button></li>
-					<li class="li2"><button>예약 등록</button></li>
-				</ul>
-
-				<table class="table table-bordered">
-					<thead>
-						<tr style="background: lightgray">
-							<th>예약자</th>
-							<th>예약시간</th>
-							<th>인원</th>
-							<th>예약선택</th>
-							<th>특이사항</th>
-
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>홍길동</td>
-							<td>19.04.25<br>18:00
-							</td>
-							<td>4명</td>
-							<td>수락</td>
-							<td>진행중</td>
-						</tr>
-						<tr>
-							<td>김난지</td>
-							<td>19.04.25<br>18:00
-							</td>
-							<td>3명</td>
-							<td>수락</td>
-							<td>진행중</td>
-						</tr>
-						<tr>
-							<td>박호세</td>
-							<td>19.04.25<br>18:00
-							</td>
-							<td>6명</td>
-							<td>수락</td>
-							<td>진행중</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			<table class="table table-bordered">
+				<thead>
+					<tr style="background: lightgray">
+						<th>예약자 이름</th>
+						<th>예약시간</th>
+						<th>인원</th>
+						<th>금액</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+						for (int i = 0; i < list.size(); i++) {
+							Reservation res = list.get(i);
+					%>
+					<tr>
+						<td><%=res.getUserName()%></td>
+						<td><%=res.getrTime()%></td>
+						<td><%=res.getmCount()%></td>
+						<td><%=res.getPrice() %></td>
+					</tr>
+					<%
+						}
+					%>
+				</tbody>
+			</table>
+		</div>
 
 
-			<!-- jQuery CDN - Slim version (=without AJAX) -->
+		<!-- jQuery CDN - Slim version (=without AJAX) -->
 			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 				integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 				crossorigin="anonymous"></script>
