@@ -439,30 +439,7 @@ public class AdminDao {
 		return result;
 	}
 
-	//공지사항 수정
-	public int updateCommunity(Connection con, Board community) {
-		int result =  0;
-		PreparedStatement pstmt = null;
-
-		String query = prop.getProperty("updateCommunity");
-
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, community.getTitle());
-			pstmt.setString(2, community.getbContent());
-			pstmt.setInt(3, community.getNbid());
-			result = pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-
-		System.out.println("dao : " + result);
-
-		return result;
-	}
+	
 
 	public int getCoinRecordListCount(Connection con) {
 		Statement stmt = null;
@@ -594,6 +571,7 @@ public class AdminDao {
 				community = new Board();
 				community.setTitle(rset.getString("TITLE"));
 				community.setbContent(rset.getString("BCONTENT"));
+				community.setNbid(nbid);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -687,7 +665,8 @@ public class AdminDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("getPointSettlementList");
 		ArrayList<Settlement> list = null;
-		
+		System.out.println("startPage : "+pi.getStartPage());
+		System.out.println("endPage : "+pi.getEndpage());
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, pi.getStartPage());
@@ -716,14 +695,14 @@ public class AdminDao {
 		return list;
 	}
 
-	public int pSettlementOne(Connection con, int rid) {
+	public int pSettlementOne(Connection con, int tid) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateRefundOne");
 		int result = 0;
 
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, rid);
+			pstmt.setInt(1, tid);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -768,113 +747,82 @@ public class AdminDao {
 	  }
 		return list;
 	}
-  
-	public int getPointSettleSearchCount(Connection con, String condition, String keyword) {
+	//공지사항수정
+	public int updateNotice(Connection con, Board community) {
+		int result = 0;
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("getPointSettleSearchCount");
-		int listCount = 0;
+		
+		String query = prop.getProperty("updateCommunity");
 		
 		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, condition);
-			pstmt.setString(2, keyword);
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				listCount = rset.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return listCount;
-	}
-
-	public ArrayList<Settlement> getPointSettleSearchList(Connection con, PageInfo pi, String condition,
-			String keyword) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("getPointSettleSearchList");
-		ArrayList<Settlement> list = null;
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, condition);
-			pstmt.setString(2, keyword);
-			pstmt.setInt(3, pi.getStartPage());
-			pstmt.setInt(4, pi.getEndpage());
-			rset = pstmt.executeQuery();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, community.getTitle());
+			pstmt.setString(2, community.getbContent());
+			pstmt.setInt(3, community.getNbid());
 			
-			list = new ArrayList<Settlement>();
-			while(rset.next()) {
-				Settlement s = new Settlement();
-				s.setRid(rset.getInt("RID"));
-				s.settDate(rset.getDate("TDATE"));
-				s.setrDate(rset.getDate("RDATE"));
-				s.setrPrice(rset.getInt("RPRICE"));
-				s.setrFees(rset.getInt("RFEES"));
-				s.setTid(rset.getInt("TID"));
-				s.setaId(rset.getString("A_ID"));
-				s.setmId(rset.getString("M_ID"));
-				s.setStatus(rset.getString("STATUS"));
-				list.add(s);
-
-			}
+			result = pstmt.executeUpdate();
+			
+			System.out.println(result);
+			
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
 		} finally {
-			close(rset);
 			close(pstmt);
 		}
-		return list;
+		
+		
+		
+		
+		return result;
 	}
 
 	//거래내역 필터 - 사용
-	public ArrayList<Transaction> paymentSelect(Connection con) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+		public ArrayList<Transaction> paymentSelect(Connection con) {
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
 
-		ArrayList<Transaction> list = null;
+			ArrayList<Transaction> list = null;
 
-		String query = prop.getProperty("selectpaytype");
+			String query = prop.getProperty("selectpaytype");
 
-	
-		try {
-			pstmt=con.prepareStatement(query);
-			rset = pstmt.executeQuery();
+		
+			try {
+				pstmt=con.prepareStatement(query);
+				rset = pstmt.executeQuery();
 
-			list = new ArrayList<Transaction>();
+				list = new ArrayList<Transaction>();
 
-			if(rset != null) {
-				while(rset.next()) {
-					Transaction paylist = new Transaction();
+				if(rset != null) {
+					while(rset.next()) {
+						Transaction paylist = new Transaction();
 
-					paylist.settDate(rset.getDate("TDATE"));
-					paylist.settPrice(rset.getInt("TPRICE"));
-					paylist.setType(rset.getString("TYPE"));
-					paylist.setUnit(rset.getString("UNIT"));
-					paylist.setUserId(rset.getString("M_ID"));
+						paylist.settDate(rset.getDate("TDATE"));
+						paylist.settPrice(rset.getInt("TPRICE"));
+						paylist.setType(rset.getString("TYPE"));
+						paylist.setUnit(rset.getString("UNIT"));
+						paylist.setUserId(rset.getString("M_ID"));
 
-					list.add(paylist);
-					
-					System.out.println(list);
+						list.add(paylist);
+						
+						System.out.println(list);
+					}
+
+				}else {
+					System.out.println("rset null");
 				}
 
-			}else {
-				System.out.println("rset null");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+				close(rset);
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally{
-			close(pstmt);
-			close(rset);
+			return list;
 		}
 
-		return list;
-	}
+	
 
 
 }

@@ -161,27 +161,6 @@ public class AdminService {
 		return result;
 	}
 
-	//공지사항 수정
-	public int updateCommunity(Board community) {
-		
-		Connection con = getConnection();
-		
-		int result = new AdminDao().updateCommunity(con, community);
-		
-		System.out.println("서비스" + result);
-		
-		if(result > 0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		
-		close(con);
-		
-		
-		return result;
-	
-	}
   	//코인 내역 전체 카운트 조회
 	public int getCoinRecordListCount() {
 		Connection con = getConnection();
@@ -307,59 +286,41 @@ public class AdminService {
 		
 		return list;
 	}
-  
-	public int pSettleChecked(String[] arr) {
-		Connection con = getConnection();
 
-		int result = 0;
-		for (int i = 0; i < arr.length; i++) {
-			System.out.println("arr"+i+" : "+arr[i]);
-			result += new AdminDao().pSettlementOne(con, Integer.parseInt(arr[i]));
-		}
-		System.out.println("result : "+result);
-		if(result == arr.length) {
+	//공지사항수정
+	public int updateNotice(Board community) {
+		Connection con = getConnection();
+		
+		int result = new AdminDao().updateNotice(con, community);
+		
+		System.out.println("공지사항 수정 : " + result);
+		
+		if(result > 0) {
 			commit(con);
 		}else {
 			rollback(con);
 		}
+		
+		close(con);
+		
 		return result;
 	}
 
-	public int getPointSettleSearchCount(String condition, String keyword) {
-		Connection con = getConnection();
-		
-		int listCount = new AdminDao().getPointSettleSearchCount(con,condition,keyword);
-		
-		close(con);
-		
-		return listCount;
-	}
-
-	public ArrayList<Settlement> getPointSettleSearchList(PageInfo pi, String condition, String keyword) {
-		Connection con = getConnection();
-		
-		ArrayList<Settlement> list = new AdminDao().getPointSettleSearchList(con,pi,condition,keyword);
-		
-		close(con);
-		
-		return list;
-	}
 
 	//거래내역 필터 조회
-	public ArrayList<Transaction> paymentSelect() {
-		Connection con = getConnection();
-		 
-		 ArrayList<Transaction> list = new AdminDao().paymentSelect(con);
-		 
-		 close(con);
-		 
-		System.out.println("거래내역 필터 서비스 실행");
-		 
-		return list;
-	}
-
-	
+		public ArrayList<Transaction> paymentSelect() {
+			Connection con = getConnection();
+			 
+			 ArrayList<Transaction> list = new AdminDao().paymentSelect(con);
+			 
+			 close(con);
+			 
+			System.out.println("거래내역 필터 서비스 실행");
+			 
+			return list;
+		}
 
 
 
 }
+
