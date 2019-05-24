@@ -248,6 +248,22 @@ a.article, a.article:hover {
 		</table>
 	</div>
 	<script>
+		$(function(){
+			$.ajax({
+				url:"reserveSettleList.ad",
+				type:"post",
+				success:function(data){
+					setList(data);
+				}
+			});
+		});
+	
+		function setList(data){
+			var list = data["list"];
+			var pi = data["pi"];
+			
+		}
+		
 		function settlement(){
 			
 		}
