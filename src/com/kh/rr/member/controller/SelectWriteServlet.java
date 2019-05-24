@@ -30,8 +30,6 @@ public class SelectWriteServlet extends HttpServlet {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		String userId = loginUser.getUserId();
 		
-		
-		
 		int currentPage; 
 		int limit;			
 		int maxPage;		
@@ -50,8 +48,6 @@ public class SelectWriteServlet extends HttpServlet {
 		
 		//전체 목록 갯수 리턴
 		int listCount = new UserInfoService().getListCount(userId);
-		
-		System.out.println("listCount : " + listCount);
 		
 		//총 페이지 수 계산
 		maxPage = (int)((double)listCount / limit + 0.9);

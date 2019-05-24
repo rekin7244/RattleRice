@@ -226,13 +226,6 @@ footer {
 	}
 }
 
-/* .Small{
-width: 6%
-}
-.middle{
-width: 9%;
-} */
-
 tr>th:nth-child(1),tr>td:nth-child(1),tr>th:nth-child(6),tr>td:nth-child(6) {
    width: 6%
 }
@@ -241,6 +234,9 @@ tr>th:nth-child(2),tr>td:nth-child(2),tr>th:nth-child(5),tr>td:nth-child(5) {
 }
 tr>th:nth-child(4),tr>td:nth-child(4) {
    width: 10%
+}
+.table{
+margin-bottom:0; 
 }
 
 </style>
@@ -285,7 +281,6 @@ tr>th:nth-child(4),tr>td:nth-child(4) {
 		</div>
 	</nav>
 
-	<!-- 내용 -->
 	<br>
 	<br>
 	<br>
@@ -294,8 +289,6 @@ tr>th:nth-child(4),tr>td:nth-child(4) {
 		<%@ include file="myPageMenubar.jsp"%>
 	</div>
 
-
-
 	<div class="container-fluid text-center">
 		<div class="row content" style="border-bottom: 0px;">
 			<div class="col-sm-12 form1 well">
@@ -303,9 +296,12 @@ tr>th:nth-child(4),tr>td:nth-child(4) {
 					<h2>내가 작성한 글</h2><br>
 					<div class="container">
 						<input class="form-control" id="myInput" type="text"
-							placeholder="키워드 검색"> <br>
-						
-							<%if(bList.size() !=0){%>
+							placeholder="제목으로 검색" style="display: inline-block;">&nbsp;&nbsp; <input type="button" value="검색"
+							style="display: inline-block;" class="btn" onclick="searchTitle()"> <br> <br>
+
+						<%
+							if (bList.size() != 0) {
+						%>
 						<table class="table table-bordered table-striped" id="listArea">
 							<thead>
 								<tr>
@@ -375,37 +371,33 @@ tr>th:nth-child(4),tr>td:nth-child(4) {
 						<%
 							}
 						%>
-						<br>
-						<div class="pagingArea" align="center">
-			<button
-				onclick="location.href='<%= request.getContextPath()%>/selectWrite?currentPage=1'"><<</button>
-			<%if(currentPage <= 1){ %>
-			<button disabled><</button>
 
-			<%}else{ %>
-			<button
-				onclick="location.href='<%= request.getContextPath()%>/selectWrite?currentPage=<%= currentPage - 1%>'"><</button>
-			<%} %>
+						<div class="container">
+							<ul class="pagination" style="cursor: pointer;">
+								<li><a
+									onclick="location.href='<%=request.getContextPath()%>/selectWrite?currentPage=1'">«</a></li>
+								<%
+									for (int p = startPage; p <= endPage; p++) {
+										if (p == currentPage) {
+								%>
+								<li class="active"><a disabled><%=p%></a></li>
+								<%
+									} else {
+								%>
+								<li
+									onclick="location.href='<%=request.getContextPath()%>/selectWrite?currentPage=<%=p%>'"><a><%=p%></a></li>
+								<%
+									}
+								%>
+								<%
+									}
+								%>
+								<li><a
+									onclick="location.href='<%= request.getContextPath()%>/selectWrite?currentPage=<%=maxPage%>'">»</a></li>
+							</ul>
+						</div>
 
-			<% for(int p = startPage; p<=endPage; p++){
-               if(p == currentPage){%>
-			<button disabled><%=p %></button>
-			<%      }else{%>
-			<button
-				onclick="location.href='<%=request.getContextPath()%>/selectWrite?currentPage=<%=p%>'"><%=p %></button>
-			<%      } %>
 
-			<%} %>
-
-			<%if(currentPage >= maxPage){ %>
-			<button disabled>></button>
-			<%}else{ %>
-			<button
-				onclick="location.href='<%= request.getContextPath()%>/selectWrite?currentPage=<%=currentPage + 1%>'">></button>
-			<%} %>
-			<button
-				onclick="location.href='<%= request.getContextPath()%>/selectWrite?currentPage=<%=maxPage%>'">>></button>
-		</div>
 					</div>
 				</div>
 			</div>
@@ -416,8 +408,13 @@ tr>th:nth-child(4),tr>td:nth-child(4) {
 
 $(function() {
 	$('#write').addClass('active');
+	
+	$("#listArea td").mouseenter(function(){
+		$(this).parent().css({"color":"darkgray", "cursor":"pointer"});
+	}).mouseout(function(){
+		$(this).parent().css({"color":"black"});
+	});
 });
-
 
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
@@ -426,15 +423,6 @@ $(document).ready(function(){
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
-});
-
-
-$(function(){
-	$("#listArea td").mouseenter(function(){
-		$(this).parent().css({"color":"darkgray", "cursor":"pointer"});
-	}).mouseout(function(){
-		$(this).parent().css({"color":"black"});
-	});
 });
 
 </script>
