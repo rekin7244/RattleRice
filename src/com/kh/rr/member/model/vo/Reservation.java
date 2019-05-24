@@ -8,10 +8,12 @@ public class Reservation implements java.io.Serializable{
 	private String rTime; //예약시감
 	private String status;	//status
 	private String mType;	//회원구분
+	private int mCount; //예약자 수
 	
 	public Reservation() {}
 
-	public Reservation(String mid, int price, String sId, String sCode, String rTime, String status, String mType) {
+	public Reservation(String mid, int price, String sId, String sCode, String rTime, String status, String mType,
+			int mCount) {
 		super();
 		this.mid = mid;
 		this.price = price;
@@ -20,6 +22,7 @@ public class Reservation implements java.io.Serializable{
 		this.rTime = rTime;
 		this.status = status;
 		this.mType = mType;
+		this.mCount = mCount;
 	}
 
 	public String getMid() {
@@ -78,12 +81,20 @@ public class Reservation implements java.io.Serializable{
 		this.mType = mType;
 	}
 
+	public int getmCount() {
+		return mCount;
+	}
+
+	public void setmCount(int mCount) {
+		this.mCount = mCount;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [mid=" + mid + ", price=" + price + ", sId=" + sId + ", sCode=" + sCode + ", rTime=" + rTime
-				+ ", status=" + status + ", mType=" + mType + "]";
+				+ ", status=" + status + ", mType=" + mType + ", mCount=" + mCount + "]";
 	}
-	
-	
+
+		
 	
 }

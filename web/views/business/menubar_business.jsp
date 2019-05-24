@@ -211,7 +211,7 @@ a.article, a.article:hover {
 					data-toggle="collapse" aria-expanded="false"
 					class="dropdown-toggle">예약관리</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
-						<li><a href="reservationForm.jsp">예약 신청 현황</a></li>
+						<li><a href="<%=request.getContextPath() + "/reservation.b"%>">예약 신청 현황</a></li>
 						<li><a href="pastReservationForm.jsp">지난 예약 기록</a></li>
 						
 					</ul></li>
