@@ -275,10 +275,18 @@ public class ChattingRoomService {
 		ArrayList<ArrayList> resList = new ArrayList<ArrayList>();
 		
 		//유저정보 불러오기
-		ArrayList userList = new ChattingRoomDao().resUserList(con);
+		ArrayList userList = new ChattingRoomDao().resUserList(con, rno);
 		
-		if(userList != null) {
+		//메뉴정보 불러오기
+		ArrayList<HashMap<String, Object>> menuList = new ChattingRoomDao().resMenuList(con, rno);
+		
+		if(userList != null && menuList != null) {
+			System.out.println(userList);
+			System.out.println(menuList);
 			resList.add(userList);
+			
+			System.out.println(resList);
+			resList.add(menuList);
 		}else {
 			System.out.println("유저정보 조회 실패!");
 		}
