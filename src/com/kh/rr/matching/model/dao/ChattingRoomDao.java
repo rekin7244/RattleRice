@@ -576,10 +576,61 @@ public class ChattingRoomDao {
 	}
 
 	//유저정보 가져오기
-	public ArrayList resUserList(Connection con) {
+	public ArrayList resUserList(Connection con, int rno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList userList = null;
+		String query = prop.getProperty("resUserList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			
+			rset = pstmt.executeQuery();
+			
+			userList = new ArrayList();
+			while(rset.next()) {
+				userList.add(rset.getString("M_ID"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
 		
 		
-		return null;
+		return userList;
+	}
+
+	//메뉴정보 불러오기
+	public ArrayList<HashMap<String, Object>> resMenuList(Connection con, int rno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> menuList = null;
+		String query = prop.getProperty("resMenuList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			
+			rset = pstmt.executeQuery();
+			menuList = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				
+				hmap.put("menu", rset.getString("MENU"));
+				hmap.put("price", rset.getInt("PRICE"));
+				menuList.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return menuList;
 	}
 
 	//방 번호를 받아와서 식당 메뉴정보, 상호명, 위치 가져오는 메소드
