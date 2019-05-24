@@ -575,6 +575,51 @@ public class ChattingRoomDao {
 		return result;
 	}
 
+	//유저정보 가져오기
+	public ArrayList resUserList(Connection con) {
+		
+		
+		return null;
+	}
+
+	//방 번호를 받아와서 식당 메뉴정보, 상호명, 위치 가져오는 메소드
+//	public ArrayList<ArrayList> selectStoreInfo(Connection con, int rno) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		ArrayList<ArrayList> resList = null;
+//		String query = prop.getProperty("selectStoreInfo");
+//		
+//		try {
+//			pstmt = con.prepareStatement(query);
+//			pstmt.setInt(1, rno);
+//			
+//			rset = pstmt.executeQuery();
+//			resList = new ArrayList<ArrayList>();
+//			
+//			while(rset.next()) {
+////				HashMap<String, Object> map = new HashMap<String, Object>();
+////				map.put("menu", rset.getString("MENU"));
+////				map.put("price", rset.getInt("PRICE"));
+////				map.put("brand", rset.getString("BRAND"));
+////				map.put("location", rset.getString("LOCATION"));
+////				
+////				resList.add(map);
+//				
+//				
+//				
+//			}
+//			
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(pstmt);
+//			close(rset);
+//		}
+//		
+//		return resList;
+//	}
+
 }
 
 

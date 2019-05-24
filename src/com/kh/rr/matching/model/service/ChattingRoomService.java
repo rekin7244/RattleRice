@@ -255,6 +255,36 @@ public class ChattingRoomService {
 		close(con);
 		
 		return result;
+	}
+
+//	//방 번호를 받아와서 식당 메뉴정보, 상호명, 위치 가져오는 메소드
+//	public ArrayList<ArrayList> selectStoreInfo(int rno) {
+//		Connection con = getConnection();
+//		ArrayList<ArrayList> resList = new ChattingRoomDao().selectStoreInfo(con, rno);
+//		
+//		close(con);
+//		
+//		return resList;
+//	}
+
+	
+	//방 번호를 받아와서 식당 메뉴정보, 유저정보 가져오는 메소드
+	public ArrayList<ArrayList> reservation(int rno) {
+		Connection con = getConnection();
+		
+		ArrayList<ArrayList> resList = new ArrayList<ArrayList>();
+		
+		//유저정보 불러오기
+		ArrayList userList = new ChattingRoomDao().resUserList(con);
+		
+		if(userList != null) {
+			resList.add(userList);
+		}else {
+			System.out.println("유저정보 조회 실패!");
+		}
+		
+		
+		return resList;
 	}	
 	
 	
