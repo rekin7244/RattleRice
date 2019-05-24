@@ -168,10 +168,10 @@
 												var $pperson = $num.split("/")[1];
 												var $mperson = $num.split("/")[2];
 												
-												if($pperson <= $mperson){
-													$(this).removeAttr('disabled');
+												if($pperson == $mperson){
+													$(this).attr('disabled', 'disabled');
 												}else{
-													$(this).attr('disabled': 'disabled');
+													$(this).removeAttr('disabled');
 												}
 												console.log($num + "," +$pperson + "," + $mperson);
 											});
@@ -202,7 +202,7 @@
 								</div>
 								
 								<div class="cr-contents ">
-									<button class="btn btn-warning entBtn" type="submit"  disabled>입장하기</button>
+									<button class="btn btn-warning entBtn" type="submit" onclick="window.reload();" disabled>입장하기</button>
 								</div>
 							</div>
 						</form>

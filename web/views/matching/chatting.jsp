@@ -179,9 +179,9 @@ $(function() {
 				
 		});
 	});
-   
+
+   //마감시간 설정 시 값 설정, 예약 모달 띄우는 함수
    $("#dt").click(function(){
-	   console.log('dt 클릳=ㄱ됌');
 	   var dTime = $("input[name=dTime]").val();
 	   var dtRno = $("input[name=dtRno]").val();
 	   alert("마감 시간이 설정되었습니다!");
@@ -190,14 +190,51 @@ $(function() {
 			data:{dTime:dTime, dtRno:dtRno},
 			type:"get",
 			success:function(data){
-				 /* $("#dTime").text(deadLineTime); */
+				var $reservation = window.confirm('예약 신청 해주세요!');
+				 if($reservation){
+					 console.log('예약');
+					 $("#reservation").css({"display":"block","opacity":1});
+				 }
 			},
 			error:function(){
 			}
-			
-			
 	   });
+	   //예약확인 모달창에 식당 메뉴 및 정보 불러오는 ajax
+	    $.ajax({
+		 url:"selectInfo.st",
+		 data:{dtRno:dtRno},
+		 type:"get",
+		 success:function(data){
+			 
+			 $resTable = $("#resTable tbody");
+			 $resTable.html('');
+			 console.log(data);
+			 for(var key in data){
+				 var $tr1 = $("<tr>");
+				 var $tr2 = $("<tr>");
+				 var $tr3 = $("<tr>");
+				 var $brandTd = $("<td>").text(data[key].brand);
+				 var $locationTd = $("<td>").text(data[key].location);
+				 var $menuTd = $("<td>").text(data[key].menu);
+				 var $priceTd = $("<td>").text(data[key].price);
+				 $tr1.append($brandTd);
+				 $tr2.append($locationTd);
+				 $tr3.append($menuTd);
+				 $tr3.append($priceTd);
+				 $resTable.append($tr3);
+			 }
+			 
+			  
+		 },
+		 error:function(){
+			 
+		 }
+	   }) 
+	   
+	   
    });
+   
+  
    
    
    
@@ -434,6 +471,10 @@ body::-webkit-scrollbar {
     margin: auto;
     text-align: center;
 }
+/*모달 컨텐츠 스크롤바 없애기*/
+.modal-open .modal {
+	overflow-y: hidden;
+}
 </style>
 </head>
 <body>
@@ -505,7 +546,7 @@ body::-webkit-scrollbar {
 								<h4>마감시간</h4>
 							</div>
 							<div id="deadLineI" style=" display: inline-block; margin-left: 10%; ">
-								<p id="dTime" style="float: right; margin-left: 14px; font-size: 16px;">마감시간</p>
+								<p id="dTime" style="float: right; margin-left: 14px; font-size: 16px;"></p>
 							</div>
 						</div>
 						
@@ -634,6 +675,35 @@ body::-webkit-scrollbar {
 
 		</div>
 	</div>
+<!-- 예약 작성폼 모달 컨텐츠 -->
+   <div class="container">
+		<!-- Modal -->
+		<div class="modal fade in" id="reservation" role="dialog"
+			data-backdrop="static">
+			<div class="modal-dialog modal-sm" data-backdrop="static">
+				<!-- Modal content-->
+				<div class="modal-content" data-backdrop="static" style=' height: 500px; '>
+					<div class="modal-header" data-backdrop="static">
+						<h4 class="modal-title" style=' text-align:center '>예약</h4>
+					</div>
+					<div class="modal-body" data-backdrop="static" style="padding: 0; height: 375px;">
+						<table id="resTable">
+							<tbody>
+								
+							</tbody>
+						</table>
+					
+								
+					</div>
+					<div class="modal-footer" data-backdrop="static">
+						<button type="button" class="btn btn-default">확인</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
    
 </body>
 
@@ -712,9 +782,9 @@ function onMessage(event) {
 			$("#messageWindow").append("<p id='cs'>" + userId + message + "</p>");
 			
 			<%-- 방 나가지는 기능 --%>
-			if(message.includes("나가셨습니다.")){
+			<%-- if(message.includes("나가셨습니다.")){
 				location.href = "<%= request.getContextPath()%>/leave.cr";
-			}
+			} --%>
 		}
 	}
 	
