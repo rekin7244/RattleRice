@@ -5,6 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>매장 통계</title>
+<script src="http://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=gisMapJs&key=라이선스키"></script>
+<script>
+var map = L.map('map', {
+	 continuousWorld: true
+	 ,worldCopyJump: false
+	 ,zoomControl: false
+	 ,zoomAnimation: true
+	 ,fadeAnimation : true
+	 ,inertia : false
+	 ,closePopupOnClick : false
+	 ,attributionControl : true
+	 }); 
+</script>
 </head>
 <body>
 	<%@ include file="menubar_statistics.jsp"%>
@@ -47,7 +60,8 @@
 		
 		<!-- content -->
 		<div class="outer">
-			<canvas id="firstChart" height="300px"></canvas>
+			
+			<canvas id="firstChart" height="30px"></canvas>
 		</div>
 	</div>
 	<script>
