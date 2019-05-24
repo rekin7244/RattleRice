@@ -83,13 +83,20 @@
 						<th>성별</th>
 						<th>휴대폰번호</th>
 						<th>이메일</th>
-						<th>평점</th>
+						
 					</tr>
 				</thead>
 				
 				
 				<% if(list != null){
 			   			for (int i = 0; i<list.size(); i++){ 
+			   				
+			   				 String gender = "";
+							 if(list.get(i).getGender().equals("F")){
+							 gender="여자";
+							 }else{
+							 gender="남자";}
+			   			
 			   			%>
 			   <tbody align="center" id="memberlistFrom" >
 				<tr id="tr">
@@ -98,11 +105,11 @@
 					<td><%= list.get(i).getUserId() %></td>
 					<%-- <td><%= list.get(i).getUserPwd() %></td> --%>
 					<td><%= list.get(i).getUserName() %></td>
-					<td><%= list.get(i).getGender() %></td>
+					
+					<td><%= gender %></td>
 					<td><%=list.get(i).getPhone() %></td>
 					<td><%=list.get(i).getEmail() %></td>
-					<td>해야함 &nbsp;&nbsp;&nbsp;&nbsp;
-					<button>수정</button></td>
+					
 									
 				</tr>
 				<% }
@@ -130,7 +137,7 @@
 						var keyField = $("#keyField").val();	
 						var keyword = $("#keyword").val();	
 						var list = $("#memberlist");
-						
+						var gender="";
 						
 						var search = {keyField:keyField, keyword:keyword};
 						console.log(search);
@@ -147,17 +154,21 @@
 										
 										for(var key in data){
 											var user = data[key];
+											if(user.gender == "F"){
+												gender="여자";
+											}else{
+												gender="남자";
+											}
 										
 										$(list).append('<tr>');
 										$(list).append('<td><input type="checkbox" id="checkmember"></td>');
 										$(list).append('<td>1</td>');
 										$(list).append('<td>' + user.userId + '</td>');
 										$(list).append('<td>' + user.userName + '</td>');
-										$(list).append('<td>' + user.gender + '</td>');
+										$(list).append('<td>' + gender + '</td>');
 										$(list).append('<td>' + user.phone + '</td>');
-										$(list).append('<td>' + user.email + '</td>');
-										$(list).append('<td>해야함 &nbsp;&nbsp;&nbsp;&nbsp;<button>수정</button></td>');
-								
+										$(list).append('<td>' + user.email + '</td>,');
+										
 											
 										}
 										

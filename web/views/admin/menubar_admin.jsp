@@ -220,7 +220,7 @@ a.article, a.article:hover {
 						<li><a href="<%=request.getContextPath() + "/memberlist.ad"%>">회원 정보 조회</a></li>
 						<li><a href="<%=request.getContextPath() + "/bisinesslist.ad"%>">사업자 정보 조회</a></li>
 						<li><a href="<%=request.getContextPath() + "/nonMember.ad"%>">탈퇴 회원 조회</a></li>
-						<li><a href="<%=request.getContextPath() %>/views/admin/payment.jsp">결제 내역 조회</a></li>
+						<li><a href="<%=request.getContextPath() + "/paymentlist.ad"%>">결제 내역 조회</a></li>
 					</ul></li>
 
 				<li><a href="#pageSubmenu" data-toggle="collapse"

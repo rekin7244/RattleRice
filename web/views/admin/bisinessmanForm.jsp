@@ -82,7 +82,7 @@
 						<th>예금주</th>
 						<th>계좌번호</th>
 						<th>연락처</th>
-						<th>평점</th>
+						
 					</tr>
 
 				</thead>
@@ -116,8 +116,7 @@
 						<td><%=hmap.get("holder") %></td>
 						<td><%=hmap.get("account") %></td>
 						<td><%=hmap.get("contact") %></td>
-						<td>해야함 &nbsp;&nbsp;&nbsp;&nbsp;
-					<button>수정</button></td> 
+						
 				</tbody>
 
  
@@ -192,8 +191,7 @@
 										$(blist).append('<td>' + user.holder + '</td>');
 										$(blist).append('<td>' + user.account + '</td>');
 										$(blist).append('<td>' + user.contact + '</td>');
-										$(blist).append('<td>해야함 &nbsp; &nbsp;&nbsp; &nbsp;<button>수정</button></td>');
-										$(blist).append('</tr>');
+										
 										}
 							
 										

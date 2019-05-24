@@ -50,7 +50,17 @@
 		</nav>
 		<br> <br> 
 		
-		<table class="table table-bordered">
+		<form action="<%=request.getContextPath() %>/memberSelect.ad" > 
+			<select name="keyField" id="keyField">
+				<option value="0">정렬</option>
+				<option value="M_ID">아이디</option>
+				<option value="M_NAME">이름</option>
+			</select> <input type="text" placeholder="검색어 입력" id="keyword" name="keyword">
+			<button type="button" id="keywordclick">검색</button>
+			
+		 </form>
+		
+		<table class="table table-bordered" id="memberlist">
 		
 		<form id="NonMemberlist"
 			action="<%= request.getContextPath() %>/nonMember.ad" method="post">
@@ -74,15 +84,22 @@
 			
 			<% if(bmlist != null){
 			   			for (int i = 0; i<bmlist.size(); i++){ 
+			   				
+			   			 String gender = "";
+						 if(bmlist.get(i).getGender().equals("F")){
+						 gender="여자";
+						 }else{
+						 gender="남자";}
+						 
 			   			%>
 
-			<tbody align="center">
+			<tbody align="center"  id="memberlistFrom">
 				<tr>
 					<th><input type="checkbox" id="checkmember"></th>
 					<td><%= i + 1 %></td>
 					<td><%= bmlist.get(i).getUserId() %></td>					
 					<td><%= bmlist.get(i).getUserName() %></td>					
-					<td><%=bmlist.get(i).getGender() %></td>
+					<td><%=gender %></td>
 					<td><%=bmlist.get(i).getPhone() %></td>
 					<td><%=bmlist.get(i).getEmail() %>
 					<!-- <td>해야함</td>	
@@ -102,5 +119,61 @@
 			</tbody>
 		</table>
 </body>
+
+<script>
+	$("#keywordclick")
+			.click(
+					function() {
+						
+					
+						var keyField = $("#keyField").val();	
+						var keyword = $("#keyword").val();	
+						var list = $("#memberlist");
+						var gender="";
+						
+						var search = {keyField:keyField, keyword:keyword};
+						console.log(search);
+						
+						$.ajax({
+									url : "memberSelect.ad",
+									data:search,
+									type:"get",
+									success : function(data) {
+
+										console.log(data);
+										$(list).children('#memberlistFrom')
+												.remove(); 
+										
+										for(var key in data){
+											var user = data[key];
+											if(user.gender == "F"){
+												gender="여자";
+											}else{
+												gender="남자";
+											}
+										
+										$(list).append('<tr>');
+										$(list).append('<td><input type="checkbox" id="checkmember"></td>');
+										$(list).append('<td>1</td>');
+										$(list).append('<td>' + user.userId + '</td>');
+										$(list).append('<td>' + user.userName + '</td>');
+										$(list).append('<td>' + gender + '</td>');
+										$(list).append('<td>' + user.phone + '</td>');
+										$(list).append('<td>' + user.email + '</td>,');
+										
+											
+										}
+										
+								
+										
+
+									},
+									error : function() {
+										colsole.log("실패");
+									}
+								}) 
+
+					})
+</script>
 
 </html>

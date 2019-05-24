@@ -9,41 +9,44 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.rr.admin.model.service.AdminService;
+import com.kh.rr.member.model.vo.Member;
 import com.kh.rr.transaction.model.vo.Transaction;
 
-
-@WebServlet("/paymentlist.ad")
-public class PaymentlistServlet extends HttpServlet {
+/**
+ * Servlet implementation class PaytypeSelectServlet
+ */
+@WebServlet("/paytypeSelect.ad")
+public class PaytypeSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-  
-    public PaymentlistServlet() {
+
+    public PaytypeSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String type = request.getParameter("radio");
 		
-		ArrayList<Transaction> list = new AdminService().paymentlist();
+		System.out.println(type);
 		
-		System.out.println("servlet" + list);
+		ArrayList<Transaction> list = new AdminService().paymentSelect(); 
 		
-		String page="";
 		
-		if(list != null) {
-			page="views/admin/payment.jsp";
-			request.setAttribute("list", list);
-		}else {
-			System.out.println("결제내역 조회실패");
-		}
+		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(list, response.getWriter());
+		
+		
+		
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

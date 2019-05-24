@@ -3,13 +3,62 @@
 	import="java.util.*, com.kh.rr.transaction.model.vo.Transaction"%>
 <%
 	ArrayList<Transaction> list = (ArrayList<Transaction>) request.getAttribute("list");
+	System.out.println(list);
 %>
 <!DOCTYPE html>
 <html>
 
 <head>
 <title>회원 관리</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<style>
+input[type="radio"] {
+	display: none;
+}
+
+input[type="radio"]+label {
+	font-weight: 400;
+	font-size: 14px;
+}
+
+input[type="radio"]+label span {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	margin: -2px 10px 0 0;
+	vertical-align: middle;
+	cursor: pointer;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	border: 3px solid #ffffff;
+}
+
+input[type="radio"]+label span {
+	background-color: #fff;
+}
+
+input[type="radio"]:checked+label {
+	color: #333;
+	font-weight: 700;
+}
+
+input[type="radio"]:checked+label span {
+	background-color: #ff8800;
+	border: 2px solid #ffffff;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, .1);
+}
+
+input[type="radio"]+label span, input[type="radio"]:checked+label span {
+	-webkit-transition: background-color 0.24s linear;
+	-o-transition: background-color 0.24s linear;
+	-moz-transition: background-color 0.24s linear;
+	transition: background-color 0.24s linear;
+}
+</style>
+
 </head>
+
 
 <body>
 	<%@ include file="menubar_admin.jsp"%>
@@ -55,6 +104,24 @@
 		</nav>
 		<br> <br>
 
+		<form action="<%=request.getContextPath()%>/paytypeSelect.ad">
+			<div id="paytype">
+				<input class="radiobox" id="option-one" name="radio" value="전체"
+					type="radio"> <label for="option-one"> <span></span>
+					전체
+				</label> <input class="radiobox" id="option-two" name="radio" value="충전"
+					type="radio"> <label for="option-two"> <span></span>
+					충전
+				</label> <input class="radiobox" id="option-three" name="radio" value="사용"
+					type="radio"> <label for="option-three"> <span></span>
+					사용
+				</label> <input class="radiobox" id="option-four" name="radio" value="환불"
+					type="radio"> <label for="option-four"> <span></span>
+					환불
+				</label>
+			</div>
+		</form>
+
 		<form action="<%=request.getContextPath()%>/paymentlist.ad"
 			method="post">
 
@@ -66,26 +133,42 @@
 						<th>아이디</th>
 						<th>거래일시</th>
 						<th>거래금액</th>
-						<th>구분</th>
 						<th>상태</th>
+						<th>구분</th>
 					</tr>
 				</thead>
 
 				<%
 					if (list != null) {
 						for (int i = 0; i < list.size(); i++) {
+
+							String type = "";
+							if (list.get(i).getType().equals("CH")) {
+								type = "충전";
+							} else if (list.get(i).getType().equals("PAY")) {
+								type = "사용";
+							} else {
+								type = "환불";
+							}
+
+							String unit = "";
+							if (list.get(i).getUnit().equals("BE")) {
+								unit = "bell";
+							} else {
+								unit = "point";
+							} ;
 				%>
 
-				<tbody align="center">
+				<tbody align="center" id="paylistFrom">
 					<tr>
 						<th><input type="checkbox"></th>
 						<td><%=i + 1%></td>
 						<td><%=list.get(i).getUserId()%></td>
 						<td><%=list.get(i).gettDate()%></td>
 						<td><%=list.get(i).gettPrice()%></td>
-						<td><%=list.get(i).getType()%></td>
-						<td><%=list.get(i).getUnit()%></td>
-						<td style="color: orange;">결제완료</td>
+						<td><%=type%></td>
+						<td><%=unit%></td>
+
 					</tr>
 					<%
 						}
@@ -101,6 +184,123 @@
 				</tbody>
 			</table>
 		</form>
+
+		<script>
+		
+		
+	 	 $(document).ready(function () {
+       		 $('.radiobox').click(function () {
+         
+        	  var type = $('input[name="radio"]:checked').val();
+         	 console.log(type);
+         	 
+          	var list = $("#paylist");
+          	/* var type=""; */
+          
+         	 
+         	 if(type == "사용"){
+         		 console.log("사용 들어옴");
+         		 
+         		 $.ajax({
+         			 url : "paytypeSelect.ad",
+         			 success:function(data){
+         				$(list).children('#paylistFrom')
+						.remove(); 
+         				
+         				for(var key in data){
+         					
+						var ptype = data[key];
+						var type="사용";
+						
+						
+					
+         				$(list).append('<tr>');
+						$(list).append('<td><input type="checkbox" id="checkmember"></td>');
+						$(list).append('<td>'+ key++ +'</td>');
+						$(list).append('<td>' + ptype.userId + '</td>');
+						$(list).append('<td>' + ptype.tDate + '</td>');
+						$(list).append('<td>' + ptype.tPrice + '</td>');
+						$(list).append('<td>' + type + '</td>');
+						$(list).append('<td>' + ptype.unit + '</td>');
+         				
+         				}
+         			 },
+         			error : function() {
+						colsole.log("실패");
+					}
+				}) 
+         			 
+     
+         	 }else if(type=="환불"){
+         		 console.log("환불 들어옴");
+         		 
+          		 $.ajax({
+         			 url : "paytypeSelect.ad",
+         			 success:function(data){
+         				$(list).children('#paylistFrom')
+						.remove(); 
+         				
+         				for(var key in data){
+         					
+						var ptype = data[key];
+						var type="환불";
+						
+						
+					
+         				$(list).append('<tr>');
+						$(list).append('<td><input type="checkbox" id="checkmember"></td>');
+						$(list).append('<td>'+ key++ +'</td>');
+						$(list).append('<td>' + ptype.userId + '</td>');
+						$(list).append('<td>' + ptype.tDate + '</td>');
+						$(list).append('<td>' + ptype.tPrice + '</td>');
+						$(list).append('<td>' + type + '</td>');
+						$(list).append('<td>' + ptype.unit + '</td>');
+         				
+         				}
+         			 },
+         			error : function() {
+						colsole.log("실패");
+					}
+				})
+         		 
+         		 
+         	 }else if(type=="충전"){
+				 console.log("충전 들어옴");
+         		 
+          		 $.ajax({
+         			 url : "paytypeSelect.ad",
+         			 success:function(data){
+         				$(list).children('#paylistFrom')
+						.remove(); 
+         				
+         				for(var key in data){
+         					
+						var ptype = data[key];
+						var type="충전";
+						
+						
+					
+         				$(list).append('<tr>');
+						$(list).append('<td><input type="checkbox" id="checkmember"></td>');
+						$(list).append('<td>'+ key++ +'</td>');
+						$(list).append('<td>' + ptype.userId + '</td>');
+						$(list).append('<td>' + ptype.tDate + '</td>');
+						$(list).append('<td>' + ptype.tPrice + '</td>');
+						$(list).append('<td>' + type + '</td>');
+						$(list).append('<td>' + ptype.unit + '</td>');
+         				
+         				}
+         			 },
+         			error : function() {
+						colsole.log("실패");
+					}
+     
+        })
+	 	 }
+       		 })
+       		 });
+		
+		</script>
 </body>
 
 </html>
