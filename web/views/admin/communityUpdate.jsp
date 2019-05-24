@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.board.model.vo.Board"%>
 <%
 	Board community = (Board)request.getAttribute("community");
-   System.out.println(community);
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -116,6 +116,8 @@
 				 <div class="container">
 					<div class="row">
 					 
+					<form action="<%=request.getContextPath()%>/communityUpdate.ad" method="post">
+					
 							<table class="table table-striped" id="detail"
 								style="text-align:center; border:1px solid #dddddd">
 								<thead>
@@ -126,14 +128,13 @@
 									</tr>
 								</thead>
 								
-								<!-- <form name="updateForm" method="post"> -->
+						
 								<tbody>
 								
 								
-							
 									<tr>
 										<td>글 제목 : <input type="text" name="title" value="<%=community.getTitle() %> ">
-										<input id="nbid" name="nbid" type="text" value="<%=community.getNbid()%>"></td>
+										<input id="nbid" name="nbid" type="hidden" value="<%=community.getNbid()%>"></td>
 										
 									</tr>
 									
@@ -147,18 +148,17 @@
 												
 								</tbody>
 							</table>
-						 
 							
 							<div>
 								<button class="btn btn-primary pull-right" id="before" 
 									onclick="location.href='<%=request.getContextPath() %>/communitylist.ad'">이전</button>
 								<button class="btn btn-primary pull-right" onclick="complet();">완료</button>
 								
-								
+						
 									
 							</div>
-						</form>	
 						
+						  		</form>
 					</div>
 				</div>
 
@@ -166,14 +166,12 @@
 			<script>
 				function complet(){
 					
-					var nbid = $(".nbid").val();
-					
-					
+				
 					if(confirm("수정한 내용으로 변경하시겠습니까?") == true){
 						alert("변경되었습니다.");
 						
-						
-						location.href="<%=request.getContextPath()%>/communityUpdate.ad?nbid=<%=community.getNbid()%>" ;
+					<%-- 	location.href="<%=request.getContextPath()%>/communityUpdate.ad?nbid=<%=community.getNbid()%>" ; --%>
+				
 					}else{
 						return;
 					} 

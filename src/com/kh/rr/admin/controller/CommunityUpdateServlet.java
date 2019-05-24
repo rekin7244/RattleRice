@@ -24,28 +24,30 @@ public class CommunityUpdateServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int nbid=Integer.parseInt(request.getParameter("nbid"));
+		
 		String title = request.getParameter("title");
+		int nbid = Integer.parseInt(request.getParameter("nbid"));
 		String content = request.getParameter("content");
 		
-		System.out.println("수정서블릿");
-		System.out.println(title);
-		System.out.println(content);
+		System.out.println("제목 : " + title);
+		System.out.println(nbid);
+		System.out.println("내용 : " + content);
+		
 		
 		Board community = new Board();
-		
 		community.setTitle(title);
-		community.setbContent(content);
 		community.setNbid(nbid);
+		community.setbContent(content);
 		
-		System.out.println(community);
+		System.out.println("공지사항수정서블릿");
 		
-		int result = new AdminService().updateCommunity(community);
+		int result = new AdminService().updateNotice(community);
 		
-		if(result>0) {
-			response.sendRedirect(request.getContextPath() + "/selectOne.ad?nbid=" + community.getNbid());
+		if(result > 0) {
+			response.sendRedirect(request.getContextPath() + "/selectOne.ad?num=" + community.getNbid());
 		}else {
-			System.out.println("수정실패");
+			System.out.println("공지사항수정실패");
+	
 		}
 		
 		
