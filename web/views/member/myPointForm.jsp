@@ -326,7 +326,7 @@ tr>th, tr>td {
 					
 						<h2>보유 Point : <%=pointHmap.get("point")%>&nbsp;P</h2>
 						<h2>보유 Bell : <%=pointHmap.get("bell")%>&nbsp;B</h2>
-						<select id="pointSelect">
+						<select id="pointSelect" class="form-control" style="width: 7%;display: inline-block;">
 							<option value="2000">2,000p</option>
 							<option value="5000">5,000p</option>
 							<option value="10000">10,000p</option>
@@ -334,16 +334,16 @@ tr>th, tr>td {
 							<option value="20000">20,000p</option>
 							<option value="25000">25,000p</option>
 							<option value="30000">30,000p</option>
-						</select>
+						</select> &nbsp;&nbsp;
 						<button type="button" class="btn btn-warning"
-							onclick="pointCharge()">포인트 충전</button>
+							onclick="pointCharge()" style="display: inline-block;">포인트 충전</button>
 					</div>
 
 
 					<div class="container"><br>
 					<input class="form-control" id="myInput" type="text"
-							placeholder="키워드 입력">
-						<br>
+							placeholder="키워드 입력" style="display: inline-block;">
+						<br><br>
 						<table class="table table-bordered table-striped">
 						
 							<thead>

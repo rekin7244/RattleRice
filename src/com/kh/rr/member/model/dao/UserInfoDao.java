@@ -343,21 +343,27 @@ public class UserInfoDao {
 	public ArrayList<Board> SelectMyWrite(Connection con, String userId, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ArrayList<Board> list = null;
-		Board board = null;
+		
 		ResultSet rset = null;
 
 		String query = prop.getProperty("selectMyWrite");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
 		try {
 			pstmt = con.prepareStatement(query);
 
 			pstmt.setString(1, userId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<Board>();
 			
 			while (rset.next()) {
-				board = new Board();
+				Board board = new Board();
 				
 				board.setBid(rset.getInt("BID"));
 				board.setbType(rset.getString("BTYPE"));
@@ -406,9 +412,6 @@ public class UserInfoDao {
 
 		return listCount;
 	}
-
-	
-	
 	
 
 }

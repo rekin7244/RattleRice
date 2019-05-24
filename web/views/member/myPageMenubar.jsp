@@ -37,14 +37,15 @@
 </head>
 <body>
 	<div id="jb-header">
-		<h1>내 정보</h1>
+		<h1>마이페이지</h1>
 	</div>
 	<nav id="sidebar">
 		<ul class="list-unstyled components">
-			<li><a id="profile" onclick="goProfile()"
-				style="cursor: pointer;">마이페이지</a></li>
+			
 			<li><a id="write" onclick="gotBoard()" style="cursor: pointer;">작성글
 					조회</a></li>
+					<li><a id="profile" onclick="goProfile()"
+				style="cursor: pointer;">프로필</a></li>
 			<li><a id="point" onclick="goPoint()" style="cursor: pointer;">포인트</a></li>
 		</ul>
 	</nav>
