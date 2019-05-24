@@ -8,14 +8,15 @@ import java.util.HashMap;
 
 import com.kh.rr.member.model.dao.ReservationDao;
 import com.kh.rr.member.model.vo.Member;
+import com.kh.rr.member.model.vo.Reservation;
 
 public class ReservationService {
 
-	public ArrayList<HashMap<String, Object>> selectReservation(Member loginUser) {
+	public ArrayList<Reservation> selectReservation(Member loginUser) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> list = new ReservationDao().selectReservation(con, loginUser);
-				
+		ArrayList<Reservation>  list = new ReservationDao().selectReservation(con, loginUser);
+		
 		close(con);
 		
 		return list;

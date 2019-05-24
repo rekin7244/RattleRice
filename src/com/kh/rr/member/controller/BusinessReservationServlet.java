@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,9 +27,19 @@ public class BusinessReservationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member) session.getAttribute("loginUser");
-		System.out.println("사업자 로그인 체크 : " + loginUser.getUserId());
 		
-		ArrayList<HashMap<String, Object>> list = new ReservationService().selectReservation(loginUser);
+		ArrayList<Reservation> list = new ReservationService().selectReservation(loginUser);
+		
+		String page ="";
+		if(list != null) {
+			page = "views/business/reservationForm.jsp";
+			request.setAttribute("list", list);
+		}else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "예약내역 조회 실패!");
+		}
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		view.forward(request, response);
 		
 		
 	}

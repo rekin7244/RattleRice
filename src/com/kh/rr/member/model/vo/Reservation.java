@@ -9,11 +9,12 @@ public class Reservation implements java.io.Serializable{
 	private String status;	//status
 	private String mType;	//회원구분
 	private int mCount; //예약자 수
+	private String userName;
 	
 	public Reservation() {}
 
 	public Reservation(String mid, int price, String sId, String sCode, String rTime, String status, String mType,
-			int mCount) {
+			int mCount, String userName) {
 		super();
 		this.mid = mid;
 		this.price = price;
@@ -23,78 +24,87 @@ public class Reservation implements java.io.Serializable{
 		this.status = status;
 		this.mType = mType;
 		this.mCount = mCount;
+		this.userName = userName;
+	}
+
+	@Override
+	public String toString() {
+		return "Reservation [mid=" + mid + ", price=" + price + ", sId=" + sId + ", sCode=" + sCode + ", rTime=" + rTime
+				+ ", status=" + status + ", mType=" + mType + ", mCount=" + mCount + ", userName=" + userName + "]";
 	}
 
 	public String getMid() {
 		return mid;
 	}
 
-	public void setMid(String mid) {
-		this.mid = mid;
-	}
-
 	public int getPrice() {
 		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
 	}
 
 	public String getsId() {
 		return sId;
 	}
 
-	public void setsId(String sId) {
-		this.sId = sId;
-	}
-
 	public String getsCode() {
 		return sCode;
-	}
-
-	public void setsCode(String sCode) {
-		this.sCode = sCode;
 	}
 
 	public String getrTime() {
 		return rTime;
 	}
 
-	public void setrTime(String rTime) {
-		this.rTime = rTime;
-	}
-
 	public String getStatus() {
 		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public String getmType() {
 		return mType;
 	}
 
-	public void setmType(String mType) {
-		this.mType = mType;
-	}
-
 	public int getmCount() {
 		return mCount;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setMid(String mid) {
+		this.mid = mid;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public void setsId(String sId) {
+		this.sId = sId;
+	}
+
+	public void setsCode(String sCode) {
+		this.sCode = sCode;
+	}
+
+	public void setrTime(String rTime) {
+		this.rTime = rTime;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setmType(String mType) {
+		this.mType = mType;
 	}
 
 	public void setmCount(int mCount) {
 		this.mCount = mCount;
 	}
 
-	@Override
-	public String toString() {
-		return "Reservation [mid=" + mid + ", price=" + price + ", sId=" + sId + ", sCode=" + sCode + ", rTime=" + rTime
-				+ ", status=" + status + ", mType=" + mType + ", mCount=" + mCount + "]";
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-
-		
 	
+	
+
 }
