@@ -345,6 +345,19 @@ public class AdminService {
 		return list;
 	}
 
+	//거래내역 필터 조회
+	public ArrayList<Transaction> paymentSelect() {
+		Connection con = getConnection();
+		 
+		 ArrayList<Transaction> list = new AdminDao().paymentSelect(con);
+		 
+		 close(con);
+		 
+		System.out.println("거래내역 필터 서비스 실행");
+		 
+		return list;
+	}
+
 	
 
 

@@ -752,7 +752,7 @@ public class AdminDao {
 				Transaction paylist = new Transaction();
 		
 				paylist.settDate(rset.getDate("TDATE"));
-				paylist.settPrice(rset.getInt("TPICE"));
+				paylist.settPrice(rset.getInt("TPRICE"));
 				paylist.setType(rset.getString("TYPE"));
 				paylist.setUnit(rset.getString("UNIT"));
 				paylist.setUserId(rset.getString("M_ID"));
@@ -828,6 +828,51 @@ public class AdminDao {
 			close(rset);
 			close(pstmt);
 		}
+		return list;
+	}
+
+	//거래내역 필터 - 사용
+	public ArrayList<Transaction> paymentSelect(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<Transaction> list = null;
+
+		String query = prop.getProperty("selectpaytype");
+
+	
+		try {
+			pstmt=con.prepareStatement(query);
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<Transaction>();
+
+			if(rset != null) {
+				while(rset.next()) {
+					Transaction paylist = new Transaction();
+
+					paylist.settDate(rset.getDate("TDATE"));
+					paylist.settPrice(rset.getInt("TPRICE"));
+					paylist.setType(rset.getString("TYPE"));
+					paylist.setUnit(rset.getString("UNIT"));
+					paylist.setUserId(rset.getString("M_ID"));
+
+					list.add(paylist);
+					
+					System.out.println(list);
+				}
+
+			}else {
+				System.out.println("rset null");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+			close(rset);
+		}
+
 		return list;
 	}
 
