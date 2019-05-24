@@ -183,7 +183,7 @@ public class BoardService {
 		
 		if(fb != null) {
 			//자유게시판 조회수 증가
-			int result = new BoardDao().updateFreeBoardCount(con, fb.getFbbid());
+			int result = new BoardDao().updateFreeBoardCount(con, num);
 			
 			if(result > 0) {
 				commit(con);
@@ -235,6 +235,38 @@ public class BoardService {
 		return list;
 	}
 
+	//자유게시판 게시글 삭제하는 메소드
+	public int deleteFreeBoard(int num) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().deleteFreeBoard(con, num);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
 
+	//자유게시판 게시글 수정하는 메소드
+	public int updateFreeBoard(int num, Board fb) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().updateFreeBoard(con, num, fb);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
 	
 }

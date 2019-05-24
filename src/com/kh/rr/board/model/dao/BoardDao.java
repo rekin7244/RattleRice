@@ -544,7 +544,7 @@ public class BoardDao {
 			
 			if(rset.next()) {
 				fb = new Board();
-				fb.setNbid(rset.getInt("FBBID"));
+				fb.setFbbid(rset.getInt("FBBID"));
 				fb.setTitle(rset.getString("TITLE"));
 				fb.setWriter(rset.getString("M_ID"));
 				fb.setbDate(rset.getDate("BDATE"));
@@ -564,7 +564,7 @@ public class BoardDao {
 	}
 
 	//자유게시판 조회수 증가
-	public int updateFreeBoardCount(Connection con, int fbbid) {
+	public int updateFreeBoardCount(Connection con, int num) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -572,8 +572,8 @@ public class BoardDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, fbbid);
-			pstmt.setInt(2, fbbid);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, num);
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -582,6 +582,7 @@ public class BoardDao {
 			close(pstmt);
 		}
 
+		System.out.println("자유게시판 조회수 증가!");
 		return result;
 	}
 
@@ -669,19 +670,51 @@ public class BoardDao {
 		
 		
 		return list;
+	}
+
+	//자유게시판 게시글 삭제하는 메소드
+	public int deleteFreeBoard(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteFreeBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
+
+	//자유게시판 게시글 수정하는 메소드
+	public int updateFreeBoard(Connection con, int num, Board fb) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateFreeBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, fb.getTitle());
+			pstmt.setString(2, fb.getbContent());
+			pstmt.setInt(3, num);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return result;
 	}	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

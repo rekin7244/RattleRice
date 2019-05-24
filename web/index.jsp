@@ -1002,7 +1002,7 @@ body::-webkit-scrollbar {
 			$tableBody = $("#fbTable tbody");
 			$tableBody.html('');
 			$.each(list, function(index, value){
-				var $tr = $("<tr>");
+				var $tr = $("<tr onclick='selectOneFb(this)'>");
 				var $noTd = $("<td>").text(value.fbbid);
 				var $titleTd = $("<td>").text(value.title);
 				var $writerTd = $("<td>").text(value.writer);
@@ -1291,37 +1291,35 @@ body::-webkit-scrollbar {
 		//-> 자유게시판 게시글 작성 기능 끝
 		
 		//자유게시판 상세보기
-		//-> 수정많이 해야함
-		$("#fbTable tbody").click(function(){
-			 var num = $(this).children().children().eq(0).text();
+		function selectOneFb(tr){
+ 			var num = tr.childNodes[0].innerHTML;
+			console.log(tr.childNodes[0].innerHTML);
+			//console.log(tr);
 			
-			console.log(num);
+			console.log(num + "번째 게시글 보기!");
 			
 			var $fbDiv = $(".fb");
 			
 			$fbDiv.html("");
 			
-			var $insertfbTable = $("<table class='table table-striped table-bordered' id='insertfbT' style='width: 100%; text-align: center;'>");
-			var $fbTh = $("<thead><tr><th colspan='2' style='background-color:#eeeeee; text-align:center;'>자유게시판 게시글</th></tr></thead>");
-			var $fbTb = $("<tbody><tr><td><input type='text' class='form-control' placeholder='제목' name='fbTitle' maxlength='50'></td></tr><tr colspan='2'><td><input type='text' class='form-control' placeholder='작성자' name='fbWriter'></td><td><input type='text' class='form-control' placeholder='조회수' name='fbCount'></td></tr><tr><td><textarea class='form-control' placeholder='내용' name='fbContent' maxlength='2048' style='height:200px;'></textarea></td></tr></tbody>");
+			var $selectfbTable = $("<table class='table table-striped table-bordered' id='selectfbT' style='width: 100%; text-align: center;'>");
+			var $fbTh = $("<thead><tr><th colspan='3' style='background-color:#eeeeee; text-align:center;'>자유게시판 게시글</th></tr></thead>");
+			var $fbTb = $("<tbody><tr><td colspan='3'><label style=' width: 10%; display: inline-block; '>제목</label><input type='text' class='form-control' name='fbT' maxlength='50' readonly style=' width: 90%; display: inline-block; '></td></tr><tr><td><label style=' width: 28%; display: inline-block; '>작성자</label><input type='text' class='form-control' name='fbW' readonly style=' width: 66%; display: inline-block; '></td><td><label style=' width: 28%; display: inline-block; '>작성일</label><input type='text' class='form-control' name='fbD' readonly style=' width: 66%; display: inline-block; '></td><td><label style=' width: 28%; display: inline-block; '>조회수</label><input type='text' class='form-control' name='fbCnt' readonly style=' width: 66%; display: inline-block; '></td></tr><tr><td colspan='3'><textarea class='form-control' name='fbCon' maxlength='2048' style='height:200px;' readonly></textarea></td></tr></tbody>");
 			
-			$insertfbTable.append($fbTh);
-			$insertfbTable.append($fbTb);
+			$selectfbTable.append($fbTh);
+			$selectfbTable.append($fbTb);
 
 			var $fbbtnDiv = $("<div style='text-align: right;'>");
-			<% if(loginUser != null) { %>
-			var $fbUser = $("<input type='hidden' value='<%=loginUser.getUserId()%>' name='fbUserId'>");
-			$fbbtnDiv.append($fbUser);
-			<% } %>
+			
+			var $fbNum = $("<input type='hidden' value='" + num + "' name='fbNum'>");
 			var $fbbackBtn = $("<button class='btn btn-primary' value='이전' id='fbBackBtn' style='width: 9%;' onclick='fbBackBtn()'>이전</button>");
-			var $fbinsertBtn = $("<button class='btn btn-primary' value='수정' id='fbUpdateBtn' style=' margin-left: 7px; width: 9%;' onclick='fbUpdateBtn()'>수정</button>");
-			var $fbinsertBtn = $("<button class='btn btn-primary' value='삭제' id='fbDeleteBtn' style=' margin-left: 7px; width: 9%;' onclick='fbDeleteBtn()'>삭제</button>");
+			var $fbUpdateBtn = $("<button class='btn btn-primary' value='수정' id='fbUpdateBtn' style=' margin-left: 7px; width: 9%;' onclick='fbUpdateBtn()'>수정</button>");
+			var $fbDeleteBtn = $("<button class='btn btn-primary' value='삭제' id='fbDeleteBtn' style=' margin-left: 7px; width: 9%;' onclick='fbDeleteBtn()'>삭제</button>");
 			
+			$fbbtnDiv.append($fbNum);
 			$fbbtnDiv.append($fbbackBtn);
-			$fbbtnDiv.append($UpdateBtn);
-			$fbbtnDiv.append($fbDeleteBtn);
 			
-			$fbDiv.append($insertfbTable);
+			$fbDiv.append($selectfbTable);
 			$fbDiv.append($fbbtnDiv);
 			
 			$.ajax({
@@ -1329,13 +1327,63 @@ body::-webkit-scrollbar {
 				type:"get",
 				data:{num:num},
 				success:function(data){
+					<% if(loginUser != null) { %>
+						var me = '<%=loginUser.getUserId()%>';						
+						console.log("지금 로그인한 사용자 : " + me);
+					<% } %>
+					
+					console.log("글 작성자 : " + data.writer);
 					console.log(data);
+					$("input[name=fbT]").val(data.title);
+					$("input[name=fbW]").val(data.writer);
+					$("input[name=fbCnt]").val(data.bCount);
+					$("textarea[name=fbCon]").text(data.bContent);
+					$("input[name=fbD]").val(data.bDate);
 					
-					
+					<% if(loginUser != null) { %>
+					if(data.writer === me){
+						$fbbtnDiv.append($fbUpdateBtn);
+						$fbbtnDiv.append($fbDeleteBtn);
+						$("input[name=fbT]").removeAttr("readonly");
+						$("textarea[name=fbCon]").removeAttr("readonly");
+					}										
+					<% } %>
 				}
 			});
-		});
+		}		
 
+		function fbUpdateBtn(){
+			var num = $("input[name=fbNum]").val();
+			var fbT = $("input[name=fbT]").val();
+			var fbCon = $("textarea[name=fbCon]").text();
+			
+			$.ajax({
+				url:"freeBoardUpdate.bo",
+				type:"get",
+				data:{num:num, fbT:fbT, fbCon:fbCon},
+				success:function(data){
+					console.log("게시글 수정 완료!!");
+					alert("게시글이 수정되었습니다!");
+					selectOneFb(tr);
+				}
+			});
+		}
+		
+		function fbDeleteBtn(){
+			var num = $("input[name=fbNum]").val();
+			
+			$.ajax({
+				url:"freeBoardDelete.bo",
+				type:"get",
+				data:{num:num},
+				success:function(data){
+					console.log("게시글 삭제 완료!!");
+					alert("게시글이 삭제되었습니다!");
+					fbContainer();
+					fbLoad();
+				}
+			});
+		}
 	</script>
 
 </body>
