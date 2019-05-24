@@ -162,9 +162,20 @@
 										
 										var $entBtn = $(".entBtn");
 										var pperson = $entBtn.parent().siblings
-										
-										if()
-										
+										setInterval(function(){
+											$entBtn.each(function(){
+												var $num = $(this).parent().siblings(".chatInfo").children("#person").text();
+												var $pperson = $num.split("/")[1];
+												var $mperson = $num.split("/")[2];
+												
+												if($pperson <= $mperson){
+													$(this).removeAttr('disabled');
+												}else{
+													$(this).attr('disabled': 'disabled');
+												}
+												console.log($num + "," +$pperson + "," + $mperson);
+											});
+										})
 										
 									})
 								</script>
@@ -190,8 +201,8 @@
 									
 								</div>
 								
-								<div class="cr-contents btn">
-									<button class="btn btn-warning entBtn" type="submit" onclick="window.confirm('입장하시겠습니까?')" >입장하기</button>
+								<div class="cr-contents ">
+									<button class="btn btn-warning entBtn" type="submit"  disabled>입장하기</button>
 								</div>
 							</div>
 						</form>
