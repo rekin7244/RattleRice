@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.rr.admin.model.dao.AdminDao;
+import com.kh.rr.admin.model.vo.SMS;
 import com.kh.rr.admin.model.vo.Settlement;
 import com.kh.rr.board.model.vo.Board;
 import com.kh.rr.common.model.vo.PageInfo;
@@ -307,7 +308,7 @@ public class AdminService {
 	}
 
 
-	//거래내역 필터 조회
+	//거래내역 필터 조회 - 사용
 		public ArrayList<Transaction> paymentSelect() {
 			Connection con = getConnection();
 			 
@@ -318,6 +319,120 @@ public class AdminService {
 			System.out.println("거래내역 필터 서비스 실행");
 			 
 			return list;
+		}
+
+	//sms 내역 조회
+		public ArrayList<SMS> smslist() {
+			
+			Connection con = getConnection();
+			
+			ArrayList<SMS> smslist = new AdminDao().smslist(con);
+			
+			System.out.println("sms list service접근");
+			
+			close(con);
+			
+			return smslist;
+		}
+
+		//sms 내역 추가
+		public int insertSmslist(SMS smslist) {
+			Connection con = getConnection();
+			
+			int result = new AdminDao().insertSmslist(con, smslist);
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+			close(con);
+			
+			return result;
+		}
+		
+		
+		//거래내역 필터 조회 - 환불
+		public ArrayList<Transaction> refundtSelect() {
+			Connection con = getConnection();
+			 
+			 ArrayList<Transaction> list = new AdminDao().refundtSelect(con);
+			 
+			 close(con);
+			 
+			System.out.println("거래내역 필터 서비스 실행");
+			 
+			return list;
+		}
+
+		//거래내역 필터 조회 - 충전
+		public ArrayList<Transaction> chargetSelect() {
+			Connection con = getConnection();
+			 
+			 ArrayList<Transaction> list = new AdminDao().chargetSelect(con);
+			 
+			 close(con);
+			 
+			System.out.println("거래내역 필터 서비스 실행");
+			 
+			return list;
+		}
+
+		//FAQ list
+		public ArrayList<Board> FAQlist() {
+
+			Connection con = getConnection();
+			
+			ArrayList<Board> list = new AdminDao().FAQlist(con);
+			
+			close(con);
+			
+			/*System.out.println("서비스실행 : " + list);*/
+			
+			return list;
+		}
+
+		//FAQ 상세보기
+		public Board FAQselectOne(int num) {
+			
+			Connection con = getConnection();
+			
+			Board FAQ = new AdminDao().FAQselectOne(con, num);
+			
+			if(FAQ != null) {
+				
+				int result = new AdminDao().FAQCount(con, FAQ.getFbid());
+				
+				if(result>0) {
+					commit(con);
+				}else {
+					rollback(con);
+				}
+			}
+			
+			close(con);
+			
+			return FAQ;
+		}
+
+		//FAQ 수정
+		public int updateFAQ(Board FAQ) {
+			Connection con = getConnection();
+			
+			int result = new AdminDao().updateFAQ(con, FAQ);
+			
+			System.out.println("공지사항 수정 : " + result);
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+			close(con);
+			
+			return result;
 		}
 
 

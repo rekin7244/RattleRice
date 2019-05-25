@@ -184,122 +184,154 @@ input[type="radio"]+label span, input[type="radio"]:checked+label span {
 				</tbody>
 			</table>
 		</form>
+		
 
-		<script>
+		 <script>
 		
 		
-	 	 $(document).ready(function () {
-       		 $('.radiobox').click(function () {
-         
-        	  var type = $('input[name="radio"]:checked').val();
-         	 console.log(type);
-         	 
-          	var list = $("#paylist");
-          	/* var type=""; */
-          
-         	 
-         	 if(type == "사용"){
-         		 console.log("사용 들어옴");
-         		 
-         		 $.ajax({
-         			 url : "paytypeSelect.ad",
-         			 success:function(data){
-         				$(list).children('#paylistFrom')
-						.remove(); 
-         				
-         				for(var key in data){
-         					
-						var ptype = data[key];
-						var type="사용";
-						
-						
-					
-         				$(list).append('<tr>');
-						$(list).append('<td><input type="checkbox" id="checkmember"></td>');
-						$(list).append('<td>'+ key++ +'</td>');
-						$(list).append('<td>' + ptype.userId + '</td>');
-						$(list).append('<td>' + ptype.tDate + '</td>');
-						$(list).append('<td>' + ptype.tPrice + '</td>');
-						$(list).append('<td>' + type + '</td>');
-						$(list).append('<td>' + ptype.unit + '</td>');
-         				
-         				}
-         			 },
-         			error : function() {
-						colsole.log("실패");
-					}
-				}) 
-         			 
-     
-         	 }else if(type=="환불"){
-         		 console.log("환불 들어옴");
-         		 
-          		 $.ajax({
-         			 url : "paytypeSelect.ad",
-         			 success:function(data){
-         				$(list).children('#paylistFrom')
-						.remove(); 
-         				
-         				for(var key in data){
-         					
-						var ptype = data[key];
-						var type="환불";
-						
-						
-					
-         				$(list).append('<tr>');
-						$(list).append('<td><input type="checkbox" id="checkmember"></td>');
-						$(list).append('<td>'+ key++ +'</td>');
-						$(list).append('<td>' + ptype.userId + '</td>');
-						$(list).append('<td>' + ptype.tDate + '</td>');
-						$(list).append('<td>' + ptype.tPrice + '</td>');
-						$(list).append('<td>' + type + '</td>');
-						$(list).append('<td>' + ptype.unit + '</td>');
-         				
-         				}
-         			 },
-         			error : function() {
-						colsole.log("실패");
-					}
-				})
-         		 
-         		 
-         	 }else if(type=="충전"){
-				 console.log("충전 들어옴");
-         		 
-          		 $.ajax({
-         			 url : "paytypeSelect.ad",
-         			 success:function(data){
-         				$(list).children('#paylistFrom')
-						.remove(); 
-         				
-         				for(var key in data){
-         					
-						var ptype = data[key];
-						var type="충전";
-						
-						
-					
-         				$(list).append('<tr>');
-						$(list).append('<td><input type="checkbox" id="checkmember"></td>');
-						$(list).append('<td>'+ key++ +'</td>');
-						$(list).append('<td>' + ptype.userId + '</td>');
-						$(list).append('<td>' + ptype.tDate + '</td>');
-						$(list).append('<td>' + ptype.tPrice + '</td>');
-						$(list).append('<td>' + type + '</td>');
-						$(list).append('<td>' + ptype.unit + '</td>');
-         				
-         				}
-         			 },
-         			error : function() {
-						colsole.log("실패");
-					}
-     
-        })
-	 	 }
-       		 })
-       		 });
-		
+		 $(document).ready(function(){
+			    $("#paytype").change(function(){
+			        if($("#option-three").is(":checked")){
+			            /* alert("사용 체크했음!"); */
+			            
+			        	var list = $("#paylist");
+			         
+			            $.ajax({
+		         			 url : "paytypeSelect.ad",
+		         			 success:function(data){
+		         				$(list).children('#paylistFrom')
+								.remove(); 
+		         				
+		         				for(var key in data){
+		         					
+								var ptype = data[key];
+								var type="사용";
+								var unit = "";
+									
+								if(ptype.unit == "BE"){
+									unit="bell";
+								}else{
+									unit="point";
+								}
+								
+
+		         				$(list).append('<tr>');
+								$(list).append('<td><input type="checkbox" id="checkmember"></td>');
+								$(list).append('<td style="TEXT-ALIGN: center">'+ key++ +'</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + ptype.userId + '</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + ptype.tDate + '</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + ptype.tPrice + '</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + type + '</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + unit + '</td>');
+		         				
+		         				}
+		         			 },
+		         			error : function() {
+								colsole.log("실패");
+							}
+						}) 
+			            
+			            
+			        }
+			    });
+			});
+		 
+		 
+		 $(document).ready(function(){
+			    $("#paytype").change(function(){
+			        if($("#option-four").is(":checked")){
+			           /*  alert("환불 체크했음!"); */
+			            
+			        	var list = $("#paylist");
+			            $.ajax({
+		         			 url : "refundtypeSelect.ad",
+		         			 success:function(data){
+		         				$(list).children('#paylistFrom')
+								.remove(); 
+		         				
+		         				for(var key in data){
+		         					
+								var ptype = data[key];
+								var type="환불";
+								var unit = "";
+								
+								if(ptype.unit == "BE"){
+									unit="bell";
+								}else{
+									unit="point";
+								}
+								
+								
+								
+
+		         				$(list).append('<tr>');
+								$(list).append('<td><input type="checkbox" id="checkmember"></td>');
+								$(list).append('<td style="TEXT-ALIGN: center">'+ key++ +'</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + ptype.userId + '</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + ptype.tDate + '</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + ptype.tPrice + '</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + type + '</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + unit + '</td>');
+		         				}
+		         			 },
+		         			error : function() {
+								colsole.log("실패");
+							}
+						}) 
+			            
+			            
+			        }
+			    });
+			});
+		 
+		 $(document).ready(function(){
+			    $("#paytype").change(function(){
+			        if($("#option-two").is(":checked")){
+			            /* alert("충전 체크했음!"); */
+			            
+			        	var list = $("#paylist");
+			            $.ajax({
+		         			 url : "chargetypeSelect.ad",
+		         			 success:function(data){
+		         				$(list).children('#paylistFrom')
+								.remove(); 
+		         				
+		         				for(var key in data){
+		         					
+								var ptype = data[key];
+								var type="충전";
+								
+								var unit = "";
+								
+								if(ptype.unit == "BE"){
+									unit="bell";
+								}else{
+									unit="point";
+								}
+								
+								
+							
+		         				$(list).append('<tr>');
+								$(list).append('<td><input type="checkbox" id="checkmember"></td>');
+								$(list).append('<td style="TEXT-ALIGN: center">'+ key++ +'</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + ptype.userId + '</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + ptype.tDate + '</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + ptype.tPrice + '</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + type + '</td>');
+								$(list).append('<td style="TEXT-ALIGN: center">' + unit + '</td>');
+		         				
+		         				}
+		         			 },
+		         			error : function() {
+								colsole.log("실패");
+							}
+						}) 
+			            
+			            
+			        }
+			    });
+			});
+                 	 
 		</script>
 </body>
 

@@ -228,7 +228,7 @@ a.article, a.article:hover {
 					<ul class="collapse list-unstyled" id="pageSubmenu">
 						<li><a href="<%=request.getContextPath() %>/views/admin/updateMainForm.jsp">메인페이지 관리</a></li>
 						<li><a href="<%=request.getContextPath() + "/communitylist.ad"%>">공지사항</a></li>
-						<li><a href="<%=request.getContextPath() %>/views/admin/FAQ.jsp">Q & A</a></li>
+						<li><a href="<%=request.getContextPath() + "/FAQlist.ad"%>">FAQ</a></li>
 						<li><a href="<%=request.getContextPath() %>/views/admin/visit.jsp">후기게시판</a></li>
 					</ul>
 				</li>
@@ -248,7 +248,7 @@ a.article, a.article:hover {
 					aria-expanded="false" class="dropdown-toggle">SMS관리</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu3">
 						<li><a href="<%=request.getContextPath() %>/views/admin/sms.jsp">SMS 발송</a></li>
-						<li><a href="#">내역 조회</a></li>
+						<li><a href="<%=request.getContextPath() %>/smslist.ad">내역 조회</a></li>
 					</ul>
 				</li>
 				
