@@ -105,7 +105,7 @@
 					<button id="update"
 					onclick = "location.href='views/admin/communityInsert.jsp'">글 등록</button>
 						
-					<%--  <form action="<%=request.getContextPath()%>/communitylist.ad" method="post">  --%>
+					<%--  <form action="<%=request.getContextPath()%>/communitylist.ad" method="post"> --%>
 						<!-- 공지사항 리스트  -->
 						<table class="table table-hover" id="listArea">
 						

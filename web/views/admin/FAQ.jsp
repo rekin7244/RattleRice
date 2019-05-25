@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.board.model.vo.Board"%>
+<%
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 
@@ -9,6 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>커뮤니티 관리</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
 /* ---------------------------------------------------
     CONTENT STYLE
@@ -35,14 +39,10 @@
 }
 
 #update{
-	margin-left:1500px;
+	
 	padding:10px;
 }
 
-#img{
-	width:20px;
-	height:20px;
-}
 
 </style>
 </head>
@@ -69,7 +69,7 @@
 				</button>
 				&nbsp; &nbsp;
 				<div id="mainbar">
-					<a>Q & A</a>
+					<a>FAQ</a>
 				</div>
 
 				<iframe name='action' width="0" height="0" frameborder="0"
@@ -77,11 +77,14 @@
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="nav navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link" href="adminForm.jsp">회원관리</a></li>
-						<li class="nav-item active"><a class="nav-link" href="community.jsp">커뮤니티</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="<%=request.getContextPath() %>/memberlist.ad">회원관리</a></li>
+						<li class="nav-item"><a class="nav-link" 
+							href="<%=request.getContextPath()%>/communitylist.ad">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="calculate.jsp">정산</a></li>
-						<li class="nav-item"><a class="nav-link" href="sms.jsp">SMS</a></li>
-						<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
+						<li class="nav-item"><a class="nav-link" href="views/admin/sms.jsp">SMS</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
 					</ul>
 				</div>
 			</div>
@@ -90,56 +93,62 @@
 		
 	<br><br>
 	
-	    <button id="update">글 등록</button>
-		
+	    
 		<div class="page-wrapper">
 			<div class="container-fluid">
 				<div class="col-lg-8">
-					<!--게시판 넓이 -->
-
+ 					<!--게시판 넓이 -->
+ 	
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<table class="table table-hover">
-							<thead>
+					<button id="update"
+					onclick = "location.href='views/admin/FAQInsert.jsp'">글 등록</button>
+						
+				
+						<table class="table table-hover" id="listArea">
+						
+							
 								<tr>
 									<th>글번호</th>
+									<th>구분</th>
 									<th>제목</th>
 									<th>작성자</th>
 									<th>작성일</th>
 									<th>조회수</th>
 								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>포인트 환불받을 수 있나요?</td>
-									<td>user01</td>
-									<td>2018-03-01 19:31</td>
-									<td>196</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td><img id="img" src="../../images/enter-arrow.png"> 포인트 환불받을 수 있나요?</td>
-									<td>관리자</td>
-									<td>2019-03-02 12:10</td>
-									<td>56</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>방이 안들어가져요</td>
-									<td>loveje</td>
-									<td>2019-05-09 11:11</td>
-									<td>18</td>
-								</tr>
-							</tbody>
+							
+							
+							
+							 <% for(int i = 0; i<list.size(); i++){ %>
+							<tr>
+								<td><%=list.get(i).getFbid() %></td>
+								<td><%=list.get(i).getfCategory()%></td>
+								<td><%=list.get(i).getTitle() %></td>
+								<td><%=list.get(i).getWriter() %></td>
+								<td><%=list.get(i).getbDate() %></td>
+								<td><%=list.get(i).getbCount() %></td>
+							</tr>
+							<% } %> 
+					
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
+	
+<script>
+	$(function(){
+		$("#listArea td").click(function(){
+			 var num = $(this).parent().children().eq(0).text();
+			
+			console.log(num);
+			
+			location.href = "<%=request.getContextPath()%>/FAQselectOne.ad?num=" + num;
+		})
+	})
+</script>
 
 </body>
 

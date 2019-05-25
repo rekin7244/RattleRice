@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.rr.admin.model.vo.SMS;
 import com.kh.rr.admin.model.vo.Settlement;
 import com.kh.rr.board.model.vo.Board;
 import com.kh.rr.common.model.vo.PageInfo;
@@ -822,6 +823,251 @@ public class AdminDao {
 			return list;
 		}
 
+		//sms 내역조회
+		public ArrayList<SMS> smslist(Connection con) {
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+
+			ArrayList<SMS> smslist = null;
+
+			String query = prop.getProperty("smslist");
+			try {		
+				pstmt=con.prepareStatement(query);
+				rset = pstmt.executeQuery();
+				smslist = new ArrayList<SMS>();
+
+				while(rset.next()) {
+
+					SMS slist = new SMS();
+					
+
+					slist.setSms_id(rset.getInt("SMS_ID"));
+					slist.setDate(rset.getDate("SMS_DATE"));
+					slist.setContent(rset.getString("SMS_CONTENT"));
+					slist.setAid(rset.getString("A_ID"));
+					slist.setMid(rset.getString("M_ID"));
+					slist.setPhone(rset.getString("PHONE"));
+
+					smslist.add(slist);
+					/*System.out.println("관리자 dao : " + mlist );*/
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+
+
+			return smslist;
+		}
+
+		//sms 내역 추가
+		public int insertSmslist(Connection con, SMS smslist) {
+			PreparedStatement pstmt = null;
+			int result = 0;
+
+			String query = prop.getProperty("insertsmslist");
+
+			try {
+				pstmt = con.prepareStatement(query);
+			
+				
+				pstmt.setString(1, smslist.getContent());
+				pstmt.setString(2, smslist.getPhone());
+				
+				result = pstmt.executeUpdate();
+
+				System.out.println(result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+
+
+			return result;
+		}
+
+		//거래내역조회 - 환불
+		public ArrayList<Transaction> refundtSelect(Connection con) {
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+
+			ArrayList<Transaction> list = null;
+
+			String query = prop.getProperty("refundtype");
+
+		
+			try {
+				pstmt=con.prepareStatement(query);
+				rset = pstmt.executeQuery();
+
+				list = new ArrayList<Transaction>();
+
+				if(rset != null) {
+					while(rset.next()) {
+						Transaction paylist = new Transaction();
+
+						paylist.settDate(rset.getDate("TDATE"));
+						paylist.settPrice(rset.getInt("TPRICE"));
+						paylist.setType(rset.getString("TYPE"));
+						paylist.setUnit(rset.getString("UNIT"));
+						paylist.setUserId(rset.getString("M_ID"));
+
+						list.add(paylist);
+						
+						System.out.println(list);
+					}
+
+				}else {
+					System.out.println("rset null");
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+				close(rset);
+			}
+
+			return list;
+		}
+
+		//거래내역조회 - 충전
+		public ArrayList<Transaction> chargetSelect(Connection con) {
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+
+			ArrayList<Transaction> list = null;
+
+			String query = prop.getProperty("chargetype");
+
+		
+			try {
+				pstmt=con.prepareStatement(query);
+				rset = pstmt.executeQuery();
+
+				list = new ArrayList<Transaction>();
+
+				if(rset != null) {
+					while(rset.next()) {
+						Transaction paylist = new Transaction();
+
+						paylist.settDate(rset.getDate("TDATE"));
+						paylist.settPrice(rset.getInt("TPRICE"));
+						paylist.setType(rset.getString("TYPE"));
+						paylist.setUnit(rset.getString("UNIT"));
+						paylist.setUserId(rset.getString("M_ID"));
+
+						list.add(paylist);
+						
+						System.out.println(list);
+					}
+
+				}else {
+					System.out.println("rset null");
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+				close(rset);
+			}
+
+			return list;
+		}
+
+		//FAQ list
+		public ArrayList<Board> FAQlist(Connection con) {
+			ArrayList<Board> list = null;
+			Statement stmt = null;
+			ResultSet rset = null;
+
+			String query = prop.getProperty("FAQlist"); 
+
+			try {
+				stmt = con.createStatement();
+
+				rset = stmt.executeQuery(query);
+				/*System.out.println(query);*/
+				list = new ArrayList<Board>();
+
+				while(rset.next()) {
+
+					Board clist = new Board();
+					clist.setBid(rset.getInt("BID"));
+					clist.setFbid(rset.getInt("FBID"));
+					clist.setNbid(rset.getInt("NBID"));
+					clist.setRbid(rset.getInt("RBID"));
+					clist.setRefBid(rset.getInt("REF_BID"));
+					clist.setWriter(rset.getString("M_ID"));
+					clist.setbType(rset.getString("BTYPE"));
+					clist.setTitle(rset.getString("TITLE"));
+					clist.setbDate(rset.getDate("BDATE"));
+					clist.setType(rset.getInt("TYPE"));
+					clist.setbContent(rset.getString("BCONTENT"));
+					clist.setTarget(rset.getString("TARGET"));
+					//S_ID
+					clist.setGrade(rset.getInt("GRADE"));
+					clist.setbCount(rset.getInt("BCOUNT"));
+					//S_COD
+					clist.setfCategory(rset.getString("F_CATEGORY"));
+					//STATUS
+
+					list.add(clist);
+
+					/*System.out.println(list);*/
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(stmt);
+			}
+
+
+			return list;
+		}
+
+		//FAQ상세보기
+		public Board FAQselectOne(Connection con, int num) {
+			Board FAQ = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+
+			String query = prop.getProperty("FAQselectOne");
+
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, num);
+
+				rset= pstmt.executeQuery();
+
+				if(rset.next()) {
+					FAQ = new Board();
+					FAQ.setFbid(rset.getInt("FBID"));
+					FAQ.setTitle(rset.getString("TITLE"));
+					FAQ.setbContent(rset.getString("BCONTENT"));
+					FAQ.setWriter(rset.getString("M_ID"));
+					FAQ.setbCount(rset.getInt("BCOUNT"));
+					FAQ.setbDate(rset.getDate("BDATE"));
+					FAQ.setfCategory(rset.getString("F_CATEGORY"));
+
+					System.out.println(FAQ);
+
+				}
+        } catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+      return FAQ;
+		}
+=======
 		public int getPointSettleSearchCount(Connection con, String condition, String keyword) {
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
@@ -843,6 +1089,58 @@ public class AdminDao {
 				close(pstmt);
 			}
 			return listCount;
+		}
+			
+
+		public int FAQCount(Connection con, int fbid) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+
+			String query = prop.getProperty("FAQCount");
+
+
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, fbid);
+				pstmt.setInt(2, fbid);
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return result;
+		}
+
+		public int updateFAQ(Connection con, Board FAQ) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String query = prop.getProperty("updateFAQ");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, FAQ.getTitle());
+				pstmt.setString(2, FAQ.getbContent());
+				pstmt.setInt(3, FAQ.getFbid());
+				
+				result = pstmt.executeUpdate();
+				
+				System.out.println(result);
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			
+			
+			
+			return result;
 		}
 
 		public ArrayList<Settlement> getPointSettleSearchList(Connection con, PageInfo pi, String condition,

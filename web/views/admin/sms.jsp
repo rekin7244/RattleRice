@@ -63,7 +63,6 @@
 
 .smsform {
 	margin: 100px;
-	
 }
 
 .smsform #btn button {
@@ -76,41 +75,40 @@
 }
 
 /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-    
-        /* Modal Content/Box */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%; /* Could be more or less, depending on screen size */                          
-        }
-        /* The Close Button */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
 
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%; /* Could be more or less, depending on screen size */
+}
+/* The Close Button */
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
 </style>
 </head>
 
@@ -139,14 +137,15 @@
 					<a>SMS 발송</a>
 				</div>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="nav navbar-nav ml-auto">
 						<li class="nav-item active"><a class="nav-link"
 							href="<%=request.getContextPath() %>/memberlist.ad">회원관리</a></li>
-						<li class="nav-item"><a class="nav-link" 
+						<li class="nav-item"><a class="nav-link"
 							href="<%=request.getContextPath()%>/communitylist.ad">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="calculate.jsp">정산</a></li>
-						<li class="nav-item"><a class="nav-link" href="views/admin/sms.jsp">SMS</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="views/admin/sms.jsp">SMS</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
 					</ul>
@@ -154,63 +153,69 @@
 			</div>
 		</nav>
 
+		<br> <br>
+
+	<form action="<%=request.getContextPath() %>/smslistInsert.ad"
+			method="post">
+		<h3>
+			<b>문자 보내기</b>
+		</h3>
 		<br>
-		<br>
 
-		<%-- <form action="<%=request.getContextPath() %>/smslistInsert.ad"
-			method="post"> --%>
-			<h3>
-				<b>문자 보내기</b>
-			</h3>
-			<br>
+		<div class="smsform">
 
-			<div class="smsform">
-				
-				<img id="phone" src="../../images/smartphone.png" width="320px"
-					height="600px">
+			<img id="phone" src="../../images/smartphone.png" width="320px"
+				height="600px">
 
-				<div class="sms-text">
-					<textarea autofocus cols="30" rows="10" name="content"></textarea>
+			<div class="sms-text">
+				<textarea autofocus cols="30" rows="10" name="content"></textarea>
+			</div>
+
+			<div id="btn">
+				<button type="reset">재작성</button>
+
+
+				<!-- Trigger/Open The Modal -->
+				<button id="myBtn" type="submit">보내기</button>
+
+				<!-- The Modal -->
+				<div id="myModal" class="modal">
+
+					<!-- Modal content -->
+					<div class="modal-content">
+						<span class="close">&times;</span>
+						<p>전송 중 입니다. 잠시만 기다려 주세요...</p>
+					</div>
+
 				</div>
 
-				<div id="btn">
-					<button type="reset">재작성</button>
-					
-						
-<!-- Trigger/Open The Modal -->
-    <button id="myBtn">보내기</button>
- 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
- 
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="close">&times;</span>                                                               
-        <p>전송 중 입니다. 잠시만 기다려 주세요...</p>
-      </div>
- 
-    </div>
 
 
-	  
-	  
-				</div>
-
-				<div id="smsinput">
-					<label>제목</label> <input type="text" placeholder="필수 입력 값이 아닙니다.">
-					<br> <label>회신번호</label> <select>
-						<option name="from">010-2993-3144</option>
-					</select><br> <label>받는사람</label> <input name="to" type="text"
-						placeholder="전화번호('-'제외)">
-					<button>추가</button>
-					<br>
-					<textarea cols="40" rows="10"></textarea>
-				</div>
 
 			</div>
+
+			<div id="smsinput">
+				<label>제목</label> <input type="text" placeholder="필수 입력 값이 아닙니다.">
+				<br> <label>회신번호</label> <select>
+					<option name="from">딸랑밥</option>
+				</select><br> 
+				
+			
+				<label>받는사람</label> 
+				<input name="to" type="text" placeholder="전화번호('-'제외)">			
+				<button name="insert" onclick="addpn()">추가</button>
+				<br>
+				<textarea cols="40" rows="10" name="result"></textarea>
+			
+			
+			</div>
+
+		</div>
 	</div>
+		</form>
 </body>
-<!-- </form> -->
+
+
 
 <script>
 
@@ -239,6 +244,17 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+function addpn(){
+	
+	var resultStr = "";
+	resultStr = document.testForm.to.value + "\n";
+	
+	console.log(resultStr);
+	
+	document.testForm.result.value = resultStr;
+}
+
 
 </script>
 

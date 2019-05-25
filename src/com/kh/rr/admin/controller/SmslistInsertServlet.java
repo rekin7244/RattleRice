@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 
 import com.kh.rr.admin.model.service.AdminService;
 import com.kh.rr.admin.model.vo.Coolsms;
+import com.kh.rr.admin.model.vo.SMS;
 
 
 
@@ -31,8 +32,9 @@ public class SmslistInsertServlet extends HttpServlet {
 		
 		System.out.println("sms servlet");
 		
-		String api_key = "NCSZ4MM65FVKSVIC";
-		String api_secret = "Q4LYRVIP2JOYJDDDAIHB8M4EGTTMD6EF";
+		String api_key = "NCSXE6TMZXOSNUXS";
+		String api_secret = "0GLHGAT4DSF68BUBPLJ3GW9KNSOCYTWF";
+		
 		Coolsms coolsms = new Coolsms(api_key, api_secret);
 		
 		String to = request.getParameter("to");
@@ -40,7 +42,7 @@ public class SmslistInsertServlet extends HttpServlet {
 		
 		HashMap<String, String> set = new HashMap<String, String>();
 		set.put("to", to); // 수신번호    
-		set.put("from", "01029933144"); // 발신번호 
+		set.put("from", "01071299363"); // 발신번호 
 		set.put("text", text); // 문자내용
 		set.put("type", "sms"); // 문자 타입
 		//set.put("datetime", "201401151230"); // 예약전송시 날짜 설정	
@@ -50,11 +52,10 @@ public class SmslistInsertServlet extends HttpServlet {
 		
 		System.out.println(text);
 		
-		String page = "";
+		
 		JSONObject result = coolsms.send(set); // 보내기&전송결과받기
-		if ((Boolean) result.get("status") == true) {
+	/*	if ((Boolean) result.get("status") == true) {
 			// 메시지 보내기 성공 및 전송결과 출력
-			page="views/admin/adminForm.jsp";
 			System.out.println("성공");            
 			System.out.println(result.get("group_id")); // 그룹아이디
 			System.out.println(result.get("result_code")); // 결과코드
@@ -66,8 +67,27 @@ public class SmslistInsertServlet extends HttpServlet {
 			System.out.println("실패");
 			System.out.println(result.get("code")); // REST API 에러코드
 			System.out.println(result.get("message")); // 에러메시지
-		}        
+		}    */
+		
+		
+		SMS smslist = new SMS();
+		
+		smslist.setPhone(to);
+		smslist.setContent(text);
+		
+		
+		int content = new AdminService().insertSmslist(smslist);
+		
+		String Page = "";
+		if(content >0) {
+			response.sendRedirect("/rr/smslist.ad");
+		}else {
+			
+			System.out.println("추가 실패");
+		}
 	}    
+	
+		
 	
 	
 	
