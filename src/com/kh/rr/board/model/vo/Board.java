@@ -18,6 +18,7 @@ public class Board implements java.io.Serializable{
 	private String bContent;//BCONTENT
 	private String target;	//TARGET
 	private String fCategory;	//F_CATEGORY FAQ 상담유형
+	private String jCategory;	//J_CATEGORY JOB 직군유형
 	private Date bDate;		//BDATE
 	private int bCount;		//BCOUNT
 	private int grade;		//GRADE
@@ -25,8 +26,8 @@ public class Board implements java.io.Serializable{
 	public Board() {}
 
 	public Board(int bid, int fbid, int nbid, int rbid, int fbbid, int jbbid, int refBid, int type, String title,
-			String writer, String brand, String bType, String bContent, String target, String fCategory, Date bDate,
-			int bCount, int grade) {
+			String writer, String brand, String bType, String bContent, String target, String fCategory,
+			String jCategory, Date bDate, int bCount, int grade) {
 		super();
 		this.bid = bid;
 		this.fbid = fbid;
@@ -43,6 +44,7 @@ public class Board implements java.io.Serializable{
 		this.bContent = bContent;
 		this.target = target;
 		this.fCategory = fCategory;
+		this.jCategory = jCategory;
 		this.bDate = bDate;
 		this.bCount = bCount;
 		this.grade = grade;
@@ -52,140 +54,148 @@ public class Board implements java.io.Serializable{
 		return bid;
 	}
 
-	public int getFbid() {
-		return fbid;
-	}
-
-	public int getNbid() {
-		return nbid;
-	}
-
-	public int getRbid() {
-		return rbid;
-	}
-
-	public int getFbbid() {
-		return fbbid;
-	}
-
-	public int getJbbid() {
-		return jbbid;
-	}
-
-	public int getRefBid() {
-		return refBid;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public String getBrand() {
-		return brand;
-	}
-
-	public String getbType() {
-		return bType;
-	}
-
-	public String getbContent() {
-		return bContent;
-	}
-
-	public String getTarget() {
-		return target;
-	}
-
-	public String getfCategory() {
-		return fCategory;
-	}
-
-	public Date getbDate() {
-		return bDate;
-	}
-
-	public int getbCount() {
-		return bCount;
-	}
-
-	public int getGrade() {
-		return grade;
-	}
-
 	public void setBid(int bid) {
 		this.bid = bid;
+	}
+
+	public int getFbid() {
+		return fbid;
 	}
 
 	public void setFbid(int fbid) {
 		this.fbid = fbid;
 	}
 
+	public int getNbid() {
+		return nbid;
+	}
+
 	public void setNbid(int nbid) {
 		this.nbid = nbid;
+	}
+
+	public int getRbid() {
+		return rbid;
 	}
 
 	public void setRbid(int rbid) {
 		this.rbid = rbid;
 	}
 
+	public int getFbbid() {
+		return fbbid;
+	}
+
 	public void setFbbid(int fbbid) {
 		this.fbbid = fbbid;
+	}
+
+	public int getJbbid() {
+		return jbbid;
 	}
 
 	public void setJbbid(int jbbid) {
 		this.jbbid = jbbid;
 	}
 
+	public int getRefBid() {
+		return refBid;
+	}
+
 	public void setRefBid(int refBid) {
 		this.refBid = refBid;
+	}
+
+	public int getType() {
+		return type;
 	}
 
 	public void setType(int type) {
 		this.type = type;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getWriter() {
+		return writer;
 	}
 
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
 
+	public String getBrand() {
+		return brand;
+	}
+
 	public void setBrand(String brand) {
 		this.brand = brand;
+	}
+
+	public String getbType() {
+		return bType;
 	}
 
 	public void setbType(String bType) {
 		this.bType = bType;
 	}
 
+	public String getbContent() {
+		return bContent;
+	}
+
 	public void setbContent(String bContent) {
 		this.bContent = bContent;
+	}
+
+	public String getTarget() {
+		return target;
 	}
 
 	public void setTarget(String target) {
 		this.target = target;
 	}
 
+	public String getfCategory() {
+		return fCategory;
+	}
+
 	public void setfCategory(String fCategory) {
 		this.fCategory = fCategory;
+	}
+
+	public String getjCategory() {
+		return jCategory;
+	}
+
+	public void setjCategory(String jCategory) {
+		this.jCategory = jCategory;
+	}
+
+	public Date getbDate() {
+		return bDate;
 	}
 
 	public void setbDate(Date bDate) {
 		this.bDate = bDate;
 	}
 
+	public int getbCount() {
+		return bCount;
+	}
+
 	public void setbCount(int bCount) {
 		this.bCount = bCount;
+	}
+
+	public int getGrade() {
+		return grade;
 	}
 
 	public void setGrade(int grade) {
@@ -197,6 +207,7 @@ public class Board implements java.io.Serializable{
 		return "Board [bid=" + bid + ", fbid=" + fbid + ", nbid=" + nbid + ", rbid=" + rbid + ", fbbid=" + fbbid
 				+ ", jbbid=" + jbbid + ", refBid=" + refBid + ", type=" + type + ", title=" + title + ", writer="
 				+ writer + ", brand=" + brand + ", bType=" + bType + ", bContent=" + bContent + ", target=" + target
-				+ ", fCategory=" + fCategory + ", bDate=" + bDate + ", bCount=" + bCount + ", grade=" + grade + "]";
+				+ ", fCategory=" + fCategory + ", jCategory=" + jCategory + ", bDate=" + bDate + ", bCount=" + bCount
+				+ ", grade=" + grade + "]";
 	}
 }

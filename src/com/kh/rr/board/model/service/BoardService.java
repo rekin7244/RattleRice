@@ -7,6 +7,7 @@ import static com.kh.rr.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.rr.admin.model.dao.AdminDao;
 import com.kh.rr.board.model.dao.BoardDao;
@@ -214,27 +215,6 @@ public class BoardService {
 		return result;
 	}
 
-	//직업 게시판 개수 조회하는 메소드
-	public int getJobBoardListCount() {
-		Connection con = getConnection();
-		
-		int result = new BoardDao().getJobBoardListCount(con);
-		
-		close(con);
-		
-		return result;
-	}
-
-	//직업 게시판 목록 조회하는 메소드
-	public ArrayList<Board> selectJobBoardList(PageInfo pi) {
-		Connection con = getConnection();
-		ArrayList<Board> list = new BoardDao().selectJobBoardList(con, pi);
-		
-		close(con);
-		
-		return list;
-	}
-
 	//자유게시판 게시글 삭제하는 메소드
 	public int deleteFreeBoard(int num) {
 		Connection con = getConnection();
@@ -267,6 +247,159 @@ public class BoardService {
 		close(con);
 		
 		return result;
+	}
+	
+	//직업 게시판 개수 조회하는 메소드
+	public int getJobBoardListCount() {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().getJobBoardListCount(con);
+		
+		close(con);
+		
+		return result;
+	}
+
+	//직업 게시판 목록 조회하는 메소드
+	public ArrayList<Board> selectJobBoardList(PageInfo pi) {
+		Connection con = getConnection();
+		ArrayList<Board> list = new BoardDao().selectJobBoardList(con, pi);
+		
+		close(con);
+		
+		return list;
+	}
+	
+	public int getSearchJobListCount(String condition) {
+		Connection con = getConnection();
+		
+		int listCount = new BoardDao().getSearchJobListCount(con, condition);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> searchJobList(PageInfo pi, String condition) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().searchJobList(con,pi,condition);
+		
+		close(con);
+		
+		return list;
+	}
+
+	//직군게시판 게시글 등록 메소드
+	public int insertJobBoard(Board jb) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().insertJobBoard(con, jb);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	//직군게시판 상세보기
+	public Board selectOneJobBoard(int num) {
+		Connection con = getConnection();
+		
+		Board jb = new BoardDao().selectOneJobBoard(con, num);
+		
+		if(jb != null) {
+			//자유게시판 조회수 증가
+			int result = new BoardDao().updateJobBoardCount(con, num);
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+		
+		close(con);
+
+		return jb;
+	}
+
+	//직군게시판 게시글 수정 메소드
+	public int updateJobBoard(int num, Board jb) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().updateJobBoard(con, num, jb);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	//직군게시판 게시글 삭제 메소드
+	public int deleteJobBoard(int num) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().deleteJobBoard(con, num);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	//게시판의 BID 가져오는 메소드
+	public int selectfbBid(int num) {
+		Connection con = getConnection();
+		
+		int bid = new BoardDao().selectfbBid(con, num);
+		
+		close(con);
+		
+		return bid;
+	}
+
+	//게시판에 댓글 달기
+	public int insertFBR(HashMap<String, Object> hmap) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().insertFBR(con, hmap);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	//게시판 댓글 가져오기
+	public ArrayList<HashMap<String, Object>> selectReply(int bid) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new BoardDao().selectReply(con, bid);
+		
+		close(con);
+		
+		return list;
 	}
 	
 }

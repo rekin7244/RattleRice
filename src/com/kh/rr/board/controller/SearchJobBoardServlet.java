@@ -15,15 +15,27 @@ import com.kh.rr.board.model.service.BoardService;
 import com.kh.rr.board.model.vo.Board;
 import com.kh.rr.common.model.vo.PageInfo;
 
-@WebServlet("/jobBoard.bo")
-public class JobBoardSelectServlet extends HttpServlet {
+/**
+ * Servlet implementation class SearchJobBoardServlet
+ */
+@WebServlet("/searchJobBoard.bo")
+public class SearchJobBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public JobBoardSelectServlet() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SearchJobBoardServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String condition = request.getParameter("condition");
+		
 		int currentPage;
 		int limit;
 		int maxPage;
@@ -35,13 +47,14 @@ public class JobBoardSelectServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		limit = 5;
-		int listCount = new BoardService().getJobBoardListCount();
+		int listCount = new BoardService().getSearchJobListCount(condition);
 		maxPage = (int)((double)listCount / limit + 0.9);
 		startPage = (currentPage - 1) * limit + 1;
 		endPage = startPage + limit - 1;
 		
 		PageInfo pi = new PageInfo(currentPage,limit,maxPage,startPage,endPage);
-		ArrayList<Board> list = new BoardService().selectJobBoardList(pi);
+		//System.out.println(pi);
+		ArrayList<Board> list = new BoardService().searchJobList(pi, condition);
 		//System.out.println(list);
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("list", list);
@@ -50,10 +63,14 @@ public class JobBoardSelectServlet extends HttpServlet {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 			new Gson().toJson(hmap, response.getWriter());
-		}		
+		}
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
