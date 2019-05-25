@@ -293,6 +293,49 @@ public class ChattingRoomService {
 		
 		
 		return resList;
+	}
+
+	//예약 내역 추가하는 메소드
+	public int insertReservation(int rno) {
+		Connection con = getConnection();
+		
+		int result = new ChattingRoomDao().insertReservation(con, rno);
+		
+		if(result > 0) {
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	//reservation 테이블 시퀀스 번호 가져오는 메소드
+	public int getReservationCurrval(int rno) {
+		Connection con = getConnection();
+		int currval = new ChattingRoomDao().getReservationCurrval(con, rno);
+		
+		close(con);
+		
+		return currval;
+	}
+
+	//reservation_member 테이블에 맴버 수 만큼 컬럼 추가
+	public int insertReservationMember(HashMap<String, Object> hmap) {
+		Connection con = getConnection();
+		int result = new ChattingRoomDao().insertReservationMember(con, hmap);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}	
 	
 	
