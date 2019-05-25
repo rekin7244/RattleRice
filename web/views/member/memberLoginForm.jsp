@@ -190,7 +190,7 @@ width: auto;
 								<div class="col-lg-12">
 									<div class="text-center">
 										<a onclick="searchUser()"  target="_blank"
-											tabindex="5" class="forgot-password">아이디 / 비밀번호 찾기</a>
+											tabindex="5" class="forgot-password" style="cursor: pointer;">아이디 / 비밀번호 찾기</a>
 									</div>
 								</div>
 							</div>
