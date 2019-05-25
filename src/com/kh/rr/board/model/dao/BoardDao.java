@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.rr.board.model.vo.Board;
@@ -469,6 +470,7 @@ public class BoardDao {
 		return listCount;
 	}
 
+	//자유게시판 등록된 게시글 개수 카운트하는 메소드
 	public int getSearchFreeBoardListCount(Connection con, String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -492,6 +494,7 @@ public class BoardDao {
 		return listCount;
 	}
 
+	//자유게시판 키워드 검색 메소드
 	public ArrayList<Board> searchFreeBoardList(Connection con, PageInfo pi, String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -611,66 +614,6 @@ public class BoardDao {
 		
 		return result;
 	}
-	
-	//직업 게시판 개수 조회하는 메소드
-	public int getJobBoardListCount(Connection con) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		int listCount = 0;
-		String query = prop.getProperty("getJobBoardListCount");
-		
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-			if(rset.next()) {
-				listCount = rset.getInt(1);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(stmt);
-			close(rset);
-		}
-		
-		return listCount;
-	}
-
-	//직업 게시판 목록 조회하는 메소드
-	public ArrayList<Board> selectJobBoardList(Connection con, PageInfo pi) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Board> list = null;
-		String query = prop.getProperty("selectJobBoardList");
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, pi.getStartPage());
-			pstmt.setInt(2, pi.getEndpage());
-			rset = pstmt.executeQuery();
-			
-			list = new ArrayList<Board>();
-				
-			while(rset.next()){
-				Board b = new Board();
-				b.setJbbid(rset.getInt("JBBID"));
-				b.setTitle(rset.getString("TITLE"));
-				b.setWriter(rset.getString("M_NAME"));
-				b.setbDate(rset.getDate("BDATE"));
-				b.setbCount(rset.getInt("BCOUNT"));
-				b.setbContent(rset.getString("BCONTENT"));
-				list.add(b);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		
-		return list;
-	}
 
 	//자유게시판 게시글 삭제하는 메소드
 	public int deleteFreeBoard(Connection con, int num) {
@@ -716,5 +659,354 @@ public class BoardDao {
 		}
 				
 		return result;
-	}	
+	}
+	
+	//직업 게시판 개수 조회하는 메소드
+	public int getJobBoardListCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = prop.getProperty("getJobBoardListCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	//직업 게시판 목록 조회하는 메소드
+	public ArrayList<Board> selectJobBoardList(Connection con, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		String query = prop.getProperty("selectJobBoardList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pi.getStartPage());
+			pstmt.setInt(2, pi.getEndpage());
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBid(rset.getInt("BID"));
+				if(rset.getString("JBBID")!=null) {
+					b.setJbbid(rset.getInt("JBBID"));
+				}
+				b.setjCategory(rset.getString("J_CATEGORY"));
+				b.setTitle(rset.getString("TITLE"));
+				b.setWriter(rset.getString("M_NAME"));
+				b.setbDate(rset.getDate("BDATE"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setbContent(rset.getString("BCONTENT"));
+				list.add(b);
+			}
+			System.out.println("JobBoardList : " + list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int getSearchJobListCount(Connection con, String condition) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = "";
+		sql = prop.getProperty("getSearchJobListCount");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, condition);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+
+	public ArrayList<Board> searchJobList(Connection con, PageInfo pi, String condition) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		String sql = "";
+		if(!condition.equals("")) {
+			sql = prop.getProperty("searchJobList");
+		}else {
+			sql = prop.getProperty("searchJobListAll");
+		}
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			if(!condition.equals("")) {
+				pstmt.setString(1, condition);
+				pstmt.setInt(2, pi.getStartPage());
+				pstmt.setInt(3, pi.getEndpage());
+			}else {
+				pstmt.setInt(1, pi.getStartPage());
+				pstmt.setInt(2, pi.getEndpage());
+			}
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBid(rset.getInt("BID"));
+				if(rset.getString("JBBID")!=null) {
+					b.setJbbid(rset.getInt("JBBID"));
+				}
+				b.setjCategory(rset.getString("J_CATEGORY"));
+				b.setTitle(rset.getString("TITLE"));
+				b.setWriter(rset.getString("M_NAME"));
+				b.setbDate(rset.getDate("BDATE"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setbContent(rset.getString("BCONTENT"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	//직군게시판 게시글 등록 메소드
+	public int insertJobBoard(Connection con, Board jb) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertJobBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			//유저 아이디 받아오기
+			pstmt.setString(1, jb.getWriter());
+			pstmt.setString(2, jb.getTitle());
+			pstmt.setString(3, jb.getbContent());
+			pstmt.setString(4, jb.getjCategory());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+			
+		return result;
+	}
+
+	//직군게시판 조회수 증가 메소드
+	public int updateJobBoardCount(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateJobBoardCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, num);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		System.out.println("직군게시판 조회수 증가!");
+		return result;
+	}
+
+	//직군게시판 상세보기
+	public Board selectOneJobBoard(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Board jb = null;
+		
+		String query = prop.getProperty("selectOneJobBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				jb = new Board();
+				jb.setJbbid(rset.getInt("JBBID"));
+				jb.setjCategory(rset.getString("J_CATEGORY"));
+				jb.setTitle(rset.getString("TITLE"));
+				jb.setWriter(rset.getString("M_ID"));
+				jb.setbDate(rset.getDate("BDATE"));
+				jb.setbCount(rset.getInt("BCOUNT"));
+				jb.setbContent(rset.getString("BCONTENT"));			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return jb;
+	}
+
+	//직군게시판 게시글 수정 메소드
+	public int updateJobBoard(Connection con, int num, Board jb) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateJobBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, jb.getTitle());
+			pstmt.setString(2, jb.getbContent());
+			pstmt.setInt(3, num);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
+
+	//직군게시판 게시글 삭제 메소드
+	public int deleteJobBoard(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteJobBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
+
+	//게시판의 BID 가져오는 메소드
+	public int selectfbBid(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int bid = 0;
+		
+		String query = prop.getProperty("selectfbBid");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bid = rset.getInt("BID");			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return bid;
+	}
+
+	//게시판에 댓글 달기
+	public int insertFBR(Connection con, HashMap<String, Object> hmap) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertFBR");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, (int) hmap.get("bid"));
+			pstmt.setString(2, (String) hmap.get("writer"));
+			pstmt.setString(3, (String) hmap.get("content"));
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
+
+	//게시판 댓글 가져오기
+	public ArrayList<HashMap<String, Object>> selectReply(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		String query = prop.getProperty("selectReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				
+				hmap.put("reid", rset.getInt("REID"));
+				hmap.put("bid", rset.getInt("BID"));
+				hmap.put("rwriter", rset.getString("RWRITER"));
+				hmap.put("rcontent", rset.getString("RCONTENT"));
+				hmap.put("rdate", rset.getString("RDATE"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return list;
+	}
 }

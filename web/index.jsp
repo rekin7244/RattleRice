@@ -584,13 +584,12 @@ body::-webkit-scrollbar {
 		<br>
 
 		<div class="container-fluid">
-			<div class="row content">
+			<div class="row content jb">
 					<div class="form-group">
 						<label for="keyword" class="col-sm-2 control-label">직업 검색</label>
 						<div class="col-sm-9">
-							<select class="form-control" style="border-radius: 3px 3px 3px 3px; border: 1px solid lightgray;"
-										id="job" name="curjob">
-										<option value="10">직업을 선택해주세요</option>
+							<select class="form-control" style="border-radius: 3px 3px 3px 3px; border: 1px solid lightgray;" id="jbCondition">
+										<option value="">직업을 선택해주세요</option>
 										<option value="무직">무직</option>
 										<option value="학생">학생</option>
 										<option value="IT">IT</option>
@@ -616,28 +615,35 @@ body::-webkit-scrollbar {
 					</div>
 					<div class="pull-right">
 						<button class="btn btn-primary" value="검색"
-							onclick="fbPaging(1);" style="width: 100%;">검색</button>
+							onclick="jbPaging(1);" style="width: 100%;">검색</button>
 					</div>
 					
 					<br>
 					<br>
 					<br>
-				<table id="fbTable" style="width: 100%; text-align: center;"
+				<table id="jbTable" style="width: 100%; text-align: center;"
 					class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr class="info">
 							<th>번호</th>
+							<th>카테고리</th>
 							<th>제목</th>
 							<th>작성자</th>
-							<th>작성일</th>
 							<th>조회수</th>
 						</tr>
 					</thead>
 					<tbody></tbody>
 				</table>
 				
+				<% if(loginUser != null){ %>
+				<div class="pull-right">
+					<button id="insertjb" class="btn btn-primary" style="width: 100%;" value="글 작성" onclick="insertjb();">글 작성</button>
+				</div>
+				<br><br>
+				<% } %>
+				
 				<nav style="text-align: center;">
-					<ul id="fbPaging" class="pagination"></ul>
+					<ul id="jbPaging" class="pagination"></ul>
 				</nav>
 			</div>
 		</div>
@@ -648,156 +654,6 @@ body::-webkit-scrollbar {
 	
 	
 	
-	</div>
-	<br>
-	<br>
-	
-	<!-- section5 : FAQ  -->
-	<div class="container">
-	<!-- 	<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">FAQ</h1>
-		<p align="center">자주 물어보시는 질문입니다.</p>
-		<br>
-
-		<div class="container-fluid">
-			<div class="row content">
-					<div class="form-group">
-						<label for="keyword" class="col-sm-2 control-label">제목 검색</label>
-						<div class="col-sm-9">
-							<input type="text" id="faqKeyword"
-								placeholder="키워드를 입력하세요." class="form-control">
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="keyword" class="col-sm-2 control-label">상담 유형</label>
-						<div class="col-sm-9">
-							<select class="form-control" id="faqCondition">
-								<option value="">전체</option>
-								<option value="회원">회원</option>
-								<option value="결제">결제</option>
-								<option value="환불">환불</option>
-								<option value="정책">정책</option>
-								<option value="약관">약관</option>
-								<option value="기타">기타</option>
-							</select>
-						</div>
-					</div>
-					<br>
-					<div class="pull-right">
-						<button type="submit" class="btn btn-primary" value="검색"
-							onclick="faqPaging(1)" style="width: 100%;">검색</button>
-					</div>
-					<br>
-				<br> <br>
-				<table id="faqTable" style="width: 100%; text-align: center;"
-					class="table table-striped table-bordered table-hover">
-					<thead>
-						<tr class="info">
-							<th>번호</th>
-							<th>상담유형</th>
-							<th>질문</th>
-							<th>작성자</th>
-							<th>조회수</th>
-						</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
-				<nav style="text-align: center;">
-					<ul id="faqPaging" class="pagination"></ul>
-				</nav>
-			</div>
-		</div> -->
-	</div>
-	<br>
-	<br>
-	<!-- section6 : Review  -->
-	<div class="container">
-		<!-- <h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">REVIEW</h1>
-		<p align="center">후기글들입니다.</p>
-		<br>
-		<div class="container-fluid">
-			<div class="row content">
-					<div class="form-group">
-						<label for="keyword" class="col-sm-2 control-label">가게명 검색</label>
-						<div class="col-sm-9">
-							<input type="text" id="reviewKeyword"
-								placeholder="가게명을 입력하세요." class="form-control">
-						</div>
-					</div>
-					<div class="pull-right">
-						<button type="submit" class="btn btn-primary" value="검색"
-							onclick="reviewPaging(1);" style="width: 100%;">검색</button>
-					</div>
-					<br>
-				<br> <br>
-				<table id="reviewTable" style="width: 100%; text-align: center;"
-					class="table table-striped table-bordered table-hover">
-					<thead>
-						<tr class="info">
-							<th>번호</th>
-							<th>가게명</th>
-							<th>후기내용</th>
-							<th>작성자</th>
-							<th>평점</th>
-						</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
-				<nav style="text-align: center;">
-					<ul id="reviewPaging" class="pagination"></ul>
-				</nav>
-			</div>
-		</div> -->
-	</div>
-	<br>
-	<br>
-	
-	<!-- section7 : Free Board  -->
-	<div class="container">
-		<!-- <h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">자유게시판</h1>
-		<p align="center">자유롭게 소통해요.</p>
-		<br>
-
-		<div class="container-fluid">
-			<div class="row content fb">
-					<div class="form-group">
-						<label for="keyword" class="col-sm-2 control-label">제목 검색</label>
-						<div class="col-sm-9">
-							<input type="text" name="keyword" id="fbKeyword"
-								placeholder="키워드를 입력하세요." class="form-control">
-						</div>
-					</div>
-					<div class="pull-right">
-						<button class="btn btn-primary" value="검색"
-							onclick="fbPaging(1);" style="width: 100%;">검색</button>
-					</div>
-					
-					<br>
-					<br>
-					<br>
-				<table id="fbTable" style="width: 100%; text-align: center;"
-					class="table table-striped table-bordered table-hover">
-					<thead>
-						<tr class="info">
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>조회수</th>
-						</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
-				
-				<% if(loginUser != null){ %>
-				<button id="insertfb" class="btn btn-primary" style=" float: right; width: 15%; ">게시글 작성</button>
-				<input type="hidden" value="<%=loginUser.getUserId()%>" name="fbUserId">
-				<% } %>
-				<nav style="text-align: center;">
-					<ul id="fbPaging" class="pagination"></ul>
-				</nav>
-			</div>
-		</div> -->
 	</div>
 	<br>
 	<br>
@@ -959,9 +815,9 @@ body::-webkit-scrollbar {
 			}
 		});
 		
-		fbLoad();
-		
+		fbLoad();		
 		jbLoad();
+		
 	});
 	
 	//->onload function 끝
@@ -1030,16 +886,67 @@ body::-webkit-scrollbar {
 	});
  	}
 	
+	//직군게시판 틀
+	function jbContainer(){
+		$jbDiv = $(".jb");
+		$jbDiv.html("");
+		
+		$jbformgroup = $("<div class='form-group'><label for='keyword' class='col-sm-2 control-label'>직업 검색</label><div class='col-sm-9'><select class='form-control' style='border-radius: 3px 3px 3px 3px; border: 1px solid lightgray;' id='jbCondition'><option value=''>직업을 선택해주세요</option><option value='무직'>무직</option><option value='학생'>학생</option><option value='IT'>IT</option><option value='언론'>언론</option><option value='공무원'>공무원</option><option value='군인'>군인</option><option value='서비스업'>서비스업</option><option value='교육'>교육</option><option value='금융/증권/보험업'>금융/증권/보험업</option><option value='유통업'>유통업</option><option value='예술'>예술</option><option value='의료'>의료</option><option value='법률'>법률</option><option value='건설업'>건설업</option><option value='제조업'>제조업</option><option value='부동산업'>부동산업</option><option value='운송업'>운송업</option><option value='농/수/임/광산업'>농/수/임/광산업</option><option value='가사'>가사</option><option value='기타'>기타</option></select></div></div>");
+		$jbpullright = $("<div class='pull-right'><button class='btn btn-primary' value='검색' onclick='jbPaging(1);' style='width: 100%;'>검색</button></div><br><br><br>");
+		$jbtable = $("<table id='jbTable' style='width: 100%; text-align: center;' class='table table-striped table-bordered table-hover'><thead><tr class='info'><th>번호</th><th>카테고리</th><th>제목</th><th>작성자</th><th>조회수</th></tr></thead><tbody></tbody></table>");
+		$jbinsertDiv = $("<div class='pull-right'><button id='insertjb' class='btn btn-primary' style='width: 100%;' value='글 작성' onclick='insertjb();'>글 작성</button></div><br><br>");
+		$jbnav = $("<nav style='text-align: center;'><ul id='jbPaging' class='pagination'></ul></nav>");
+		
+		$jbDiv.append($jbformgroup);
+		$jbDiv.append($jbpullright);
+		$jbDiv.append($jbtable);
+		
+		<% if(loginUser != null){ %>
+		$jbDiv.append($jbinsertDiv);
+		<% } %>
+		
+		$jbDiv.append($jbnav);
+	}
 	
-	//직군 게시판 조회 및 페이징
+	//직군게시판 조회 및 페이징
 	function jbLoad(){
 	$.ajax({
 		url:"jobBoard.bo",
-		data:{currntPage:1},
+		data:{currentPage:1},
 		success:function(data){
-			console.log(data);
+			var list = data["list"];
+			var pi = data["pi"];
+			console.log(pi);
+			
+			$tableBody = $("#jbTable tbody");
+			$tableBody.html('');
+			$.each(list, function(index, value){
+				var $tr = $("<tr onclick='selectOneJb(this)'>");
+				var $noTd = $("<td>").text(value.jbbid);
+				var $categoryTd = $("<td>").text(value.jCategory);
+				var $titleTd = $("<td>").text(value.title);
+				var $writerTd = $("<td>").text(value.writer);
+				var $countTd = $("<td>").text(value.bCount);
+				
+				$tr.append($noTd);
+				$tr.append($categoryTd);
+				$tr.append($titleTd);
+				$tr.append($writerTd);
+				$tr.append($countTd);
+				$tableBody.append($tr);
+			});
+			
+			$paging = $("#jbPaging");
+			$paging.html('');
+			var $firstTd = $('<li><a onclick="jbPaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+			$paging.append($firstTd);
+			for (var i = 0; i < pi.maxPage; i++) {
+				$paging.append('<li><a onclick="jbPaging('+(i+1)+');">'+(i+1)+'</a></li>');
+			}
+			var $endTd = $('<li><a onclick="jbPaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+			$paging.append($endTd);
 		},
-		error:function(data){
+		error:function(){
 			console.log("실패!");
 		}
 	});
@@ -1194,7 +1101,7 @@ body::-webkit-scrollbar {
 				$tableBody = $("#fbTable tbody");
 				$tableBody.html('');
 				$.each(list, function(index, value){
-					var $tr = $("<tr>");
+					var $tr = $("<tr onclick='selectOneFb(this)'>");
 					var $noTd = $("<td>").text(value.fbbid);
 					var $titleTd = $("<td>").text(value.title);
 					var $writerTd = $("<td>").text(value.writer);
@@ -1235,7 +1142,7 @@ body::-webkit-scrollbar {
 			
 			var $insertfbTable = $("<table class='table table-striped table-bordered' id='insertfbT' style='width: 100%; text-align: center;'>");
 			var $fbTh = $("<thead><tr><th colspan='2' style='background-color:#eeeeee; text-align:center;'>자유게시판 게시글 등록</th></tr></thead>");
-			var $fbTb = $("<tbody><tr><td><input type='text' class='form-control' placeholder='제목' name='fbTitle' maxlength='50'></td></tr><tr><td><textarea class='form-control' placeholder='내용' name='fbContent' maxlength='2048' style='height:200px;'></textarea></td></tr></tbody>");
+			var $fbTb = $("<tbody><tr><td><input type='text' class='form-control' placeholder='제목' name='fbTitle' maxlength='50'></td></tr><tr><td><textarea class='form-control' placeholder='내용' name='fbContent' maxlength='2048' style='height:200px; resize: none;'></textarea></td></tr></tbody>");
 			
 			$insertfbTable.append($fbTh);
 			$insertfbTable.append($fbTb);
@@ -1288,7 +1195,6 @@ body::-webkit-scrollbar {
 			fbContainer();
 			fbLoad();
 		}		
-		//-> 자유게시판 게시글 작성 기능 끝
 		
 		//자유게시판 상세보기
 		function selectOneFb(tr){
@@ -1304,7 +1210,7 @@ body::-webkit-scrollbar {
 			
 			var $selectfbTable = $("<table class='table table-striped table-bordered' id='selectfbT' style='width: 100%; text-align: center;'>");
 			var $fbTh = $("<thead><tr><th colspan='3' style='background-color:#eeeeee; text-align:center;'>자유게시판 게시글</th></tr></thead>");
-			var $fbTb = $("<tbody><tr><td colspan='3'><label style=' width: 10%; display: inline-block; '>제목</label><input type='text' class='form-control' name='fbT' maxlength='50' readonly style=' width: 90%; display: inline-block; '></td></tr><tr><td><label style=' width: 28%; display: inline-block; '>작성자</label><input type='text' class='form-control' name='fbW' readonly style=' width: 66%; display: inline-block; '></td><td><label style=' width: 28%; display: inline-block; '>작성일</label><input type='text' class='form-control' name='fbD' readonly style=' width: 66%; display: inline-block; '></td><td><label style=' width: 28%; display: inline-block; '>조회수</label><input type='text' class='form-control' name='fbCnt' readonly style=' width: 66%; display: inline-block; '></td></tr><tr><td colspan='3'><textarea class='form-control' name='fbCon' maxlength='2048' style='height:200px;' readonly></textarea></td></tr></tbody>");
+			var $fbTb = $("<tbody><tr><td colspan='3'><label style=' width: 10%; display: inline-block; '>제목</label><input type='text' class='form-control' name='fbT' maxlength='50' readonly style=' width: 90%; display: inline-block; '></td></tr><tr><td><label style=' width: 28%; display: inline-block; '>작성자</label><input type='text' class='form-control' name='fbW' readonly style=' width: 66%; display: inline-block; '></td><td><label style=' width: 28%; display: inline-block; '>작성일</label><input type='text' class='form-control' name='fbD' readonly style=' width: 66%; display: inline-block; '></td><td><label style=' width: 28%; display: inline-block; '>조회수</label><input type='text' class='form-control' name='fbCnt' readonly style=' width: 66%; display: inline-block; '></td></tr><tr><td colspan='3'><textarea class='form-control' name='fbCon' maxlength='2048' style='height:200px; resize: none;' readonly></textarea></td></tr></tbody>");
 			
 			$selectfbTable.append($fbTh);
 			$selectfbTable.append($fbTb);
@@ -1316,14 +1222,40 @@ body::-webkit-scrollbar {
 			var $fbUpdateBtn = $("<button class='btn btn-primary' value='수정' id='fbUpdateBtn' style=' margin-left: 7px; width: 9%;' onclick='fbUpdateBtn()'>수정</button>");
 			var $fbDeleteBtn = $("<button class='btn btn-primary' value='삭제' id='fbDeleteBtn' style=' margin-left: 7px; width: 9%;' onclick='fbDeleteBtn()'>삭제</button>");
 			
+			var $fbReplyDiv = $("<div class='fbReplyArea'>");	
+			
+			var $fbSRDiv = $("<div id='showFbReply'>");
+			var $fbSRT = $("<table class='table table-striped table-bordered' id='fbSRT' style='width: 100%; text-align: center;'>");
+			var $fbSRTb = $("<tbody id='fbSRTb'></tbody>");
+			
+			$fbSRT.append($fbSRTb);
+			$fbSRDiv.append($fbSRT);
+			
+			var $fbWriteRDiv = $("<div class='writeFbReply'>");
+			var $fbWRT = $("<table class='table table-striped table-bordered' id='fbWRT' style='width: 100%; text-align: center;'>");
+			var $fbWRTb = $("<tbody><tr><td><textarea rows='3' cols='80' class='form-control' name='fbWR' placeholder='댓글을 남겨주세요.' id='fbWR' style='resize: none;'></textarea></td><td><button class='btn btn-primary' value='등록' id='fbWRBtn' style='margin-top: 20px;width: 100%' onclick='fbWRBtn()' disabled>등록</button></td></tr></tbody>");
+			
+			$fbWRT.append($fbWRTb);
+			$fbWriteRDiv.append($fbWRT);
+			
+			$fbReplyDiv.append($fbSRDiv);
+			$fbReplyDiv.append($fbWriteRDiv);
+			
+			//-> 댓글 공간
+		
 			$fbbtnDiv.append($fbNum);
 			$fbbtnDiv.append($fbbackBtn);
 			
 			$fbDiv.append($selectfbTable);
+			$fbDiv.append($fbReplyDiv);
 			$fbDiv.append($fbbtnDiv);
 			
+			<% if(loginUser != null) { %>
+				$("#fbWRBtn").removeAttr("disabled");
+			<% } %>
+
 			$.ajax({
-				url:"selectOne.bo",
+				url:"selectOneFb.bo",
 				type:"get",
 				data:{num:num},
 				success:function(data){
@@ -1345,7 +1277,6 @@ body::-webkit-scrollbar {
 						$fbbtnDiv.append($fbUpdateBtn);
 						$fbbtnDiv.append($fbDeleteBtn);
 						$("input[name=fbT]").removeAttr("readonly");
-						$("textarea[name=fbCon]").removeAttr("readonly");
 					}										
 					<% } %>
 				}
@@ -1355,7 +1286,7 @@ body::-webkit-scrollbar {
 		function fbUpdateBtn(){
 			var num = $("input[name=fbNum]").val();
 			var fbT = $("input[name=fbT]").val();
-			var fbCon = $("textarea[name=fbCon]").text();
+			var fbCon = $("textarea[name=fbCon]").val();
 			
 			$.ajax({
 				url:"freeBoardUpdate.bo",
@@ -1384,6 +1315,255 @@ body::-webkit-scrollbar {
 				}
 			});
 		}
+		
+		//자유게시판 댓글달기
+		function fbWRBtn(){
+			<% if(loginUser != null) { %>
+			var writer = <%=loginUser.getUserId()%>;
+			<% } %>
+			var num = $("input[name=fbNum]").val();
+			var content = $("#fbWR").val();
+			
+			$.ajax({
+				url:"insertFbReply.bo",
+				data:{writer:writer,content:content,num:num},
+				type:"get",
+				success:function(data){
+					var $replySelectTable = $("#fbSRTb");
+					$replySelectTable.html('');
+					
+					for(var key in data){
+						var $tr = $("<tr>");
+						var $writerTd = $("<td>")
+											.text(data[key].rwriter)
+											.css("width", "100px");
+						var $contentTd = $("<td>")
+											.text(data[key].rcontent)
+											.css("width", "400px");
+						var $dateTd = $("<td>")
+											.text(data[key].rdate)
+											.css("width", "200px");
+						
+						$tr.append($writerTd);
+						$tr.append($contentTd);
+						$tr.append($dateTd);
+						$replySelectTable.append($tr);
+					}
+				},
+				error:function(){
+					console.log("실패");
+				}
+			});
+		}
+		//-> 자유게시판 끝
+		
+		//직군게시판 페이징 및 검색 ajax
+		function jbPaging(currentPage){
+			var condition = $("#jbCondition").val();
+			
+			$.ajax({
+				url:"searchJobBoard.bo",
+				type:"get",
+				data:{currentPage:currentPage,condition:condition},
+				success:function(data){
+					var list = data["list"];
+					var pi = data["pi"];
+					
+					$tableBody = $("#jbTable tbody");
+					$tableBody.html('');
+					$.each(list, function(index, value){
+						var $tr = $("<tr onclick='selectOneJb(this)'>");
+						var $noTd = $("<td>").text(value.jbbid);
+						var $categoryTd = $("<td>").text(value.jCategory);
+						var $titleTd = $("<td>").text(value.title);
+						var $writerTd = $("<td>").text(value.writer);
+						var $countTd = $("<td>").text(value.bCount);
+						
+						$tr.append($noTd);
+						$tr.append($categoryTd);
+						$tr.append($titleTd);
+						$tr.append($writerTd);
+						$tr.append($countTd);
+						$tableBody.append($tr);
+					});
+					
+					$paging = $("#jbPaging");
+					$paging.html('');
+					var $firstTd = $('<li><a onclick="jbPaging(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+					$paging.append($firstTd);
+					for (var i = 0; i < pi.maxPage; i++) {
+						$paging.append('<li><a onclick="jbPaging('+(i+1)+');">'+(i+1)+'</a></li>');
+					}
+					var $endTd = $('<li><a onclick="jbPaging('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+					$paging.append($endTd);
+				},
+				error:function(){
+					console.log("실패!");
+				}
+			});
+		}
+		
+		//직군게시판 글등록 및 조회
+
+			//게시글 작성 버튼 눌렀을 때
+			function insertjb(){
+				var $jbDiv = $(".jb");
+				
+				$jbDiv.html("");
+				
+				var $insertjbTable = $("<table class='table table-striped table-bordered' id='insertjbT' style='width: 100%; text-align: center;'>");
+				var $jbTh = $("<thead><tr><th colspan='2' style='background-color:#eeeeee; text-align:center;'>자유게시판 게시글 등록</th></tr></thead>");
+				var $jbTb = $("<tbody><tr><td style=' width: 39%; '><label style=' width: 24%; margin-top: 7px; float: left; margin-right: 7px;'>카테고리</label><div><select class='form-control' style='width: 73%; border-radius: 3px 3px 3px 3px; border: 1px solid lightgray;' id='jbCondition'><option value=''>직업을 선택해주세요</option><option value='무직'>무직</option><option value='학생'>학생</option><option value='IT'>IT</option><option value='언론'>언론</option><option value='공무원'>공무원</option><option value='군인'>군인</option><option value='서비스업'>서비스업</option><option value='교육'>교육</option><option value='금융/증권/보험업'>금융/증권/보험업</option><option value='유통업'>유통업</option><option value='예술'>예술</option><option value='의료'>의료</option><option value='법률'>법률</option><option value='건설업'>건설업</option><option value='제조업'>제조업</option><option value='부동산업'>부동산업</option><option value='운송업'>운송업</option><option value='농/수/임/광산업'>농/수/임/광산업</option><option value='가사'>가사</option><option value='기타'>기타</option></select></div></td><td colspan='3'><input type='text' class='form-control' placeholder='제목' name='jbTitle' maxlength='50'></td></tr><tr><td colspan='5'><textarea class='form-control' placeholder='내용' name='jbContent' maxlength='2048' style='height:200px; resize: none;'></textarea></td></tr></tbody>");
+				
+				$insertjbTable.append($jbTh);
+				$insertjbTable.append($jbTb);
+
+				var $jbbtnDiv = $("<div style='text-align: right;'>");
+				<% if(loginUser != null) { %>
+				var $fbUser = $("<input type='hidden' value='<%=loginUser.getUserId()%>' name='jbUserId'>");
+				$jbbtnDiv.append($fbUser);
+				<% } %>
+				var $jbbackBtn = $("<button class='btn btn-primary' value='이전' id='jbBackBtn' style='width: 9%;' onclick='jbBackBtn()'>이전</button>");
+				var $jbinsertBtn = $("<button class='btn btn-primary' value='등록' id='jbInsertBtn' style=' margin-left: 7px; width: 9%;' onclick='jbInsertBtn()'>등록</button>");
+				
+				$jbbtnDiv.append($jbbackBtn);
+				$jbbtnDiv.append($jbinsertBtn);
+				
+				$jbDiv.append($insertjbTable);
+				$jbDiv.append($jbbtnDiv);
+			
+			}
+			
+			//게시글 등록버튼 눌렀을 때 
+			function jbInsertBtn(){
+					console.log("게시글 등록 버튼 눌렸어용!");
+					var jbUserId = $("input[name=jbUserId]").val();
+					var jbTitle = $("input[name=jbTitle]").val();
+					var jbContent = $("textarea[name=jbContent]").val();
+					var jbCategory = $("#jbCondition").val();
+					console.log(jbTitle);
+					console.log(jbContent);
+					console.log(jbCategory);
+					if(jbTitle != "" && jbContent != ""){
+					$.ajax({
+						url:"<%= request.getContextPath()%>/JobBoardInsert.bo",
+						type:"get",
+						data:{jbUserId:jbUserId, jbTitle:jbTitle, jbContent:jbContent, jbCategory:jbCategory},
+						success:function(data){
+							console.log("게시글 등록 성공!");
+						}
+					});	
+						jbContainer();
+						jbLoad();
+				 	}else{
+						alert("게시글 등록에 실패하셨습니다.");
+						jbContainer();
+						jbLoad();
+					}
+			}		
+		
+			//게시글 작성에서 이전 버튼 눌렀을 때
+			function jbBackBtn(){
+				console.log("게시글 등록에서 이전 버튼 눌렸어용!");
+				jbContainer();
+				jbLoad();
+			}		
+			
+			//직군게시판 상세보기
+			function selectOneJb(tr){
+	 			var num = tr.childNodes[0].innerHTML;
+				console.log(tr.childNodes[0].innerHTML);
+				//console.log(tr);
+				
+				console.log(num + "번째 게시글 보기!");
+				
+				var $jbDiv = $(".jb");
+				
+				$jbDiv.html("");
+				
+				var $selectjbTable = $("<table class='table table-striped table-bordered' id='selectjbT' style='width: 100%; text-align: center;'>");
+				var $jbTh = $("<thead><tr><th colspan='3' style='background-color:#eeeeee; text-align:center;'>직군게시판 게시글</th></tr></thead>");
+				var $jbTb = $("<tbody><tr><td colspan='1'><label style=' width: 28%; display: inline-block; '>카테고리</label><input type='text' class='form-control' name='jbCat' readonly style=' width: 66%; display: inline-block; '></td><td colspan='2'><label style=' width: 14%; display: inline-block; '>제목</label><input type='text' class='form-control' name='jbT' maxlength='50' readonly style=' width: 83%; display: inline-block; '></td></tr><tr><td><label style=' width: 28%; display: inline-block; '>작성자</label><input type='text' class='form-control' name='jbW' readonly style=' width: 66%; display: inline-block; '></td><td><label style=' width: 28%; display: inline-block; '>작성일</label><input type='text' class='form-control' name='jbD' readonly style=' width: 66%; display: inline-block; '></td><td><label style=' width: 28%; display: inline-block; '>조회수</label><input type='text' class='form-control' name='jbCnt' readonly style=' width: 66%; display: inline-block; '></td></tr><tr><td colspan='3'><textarea class='form-control' name='jbCon' maxlength='2048' style='height:200px; resize: none;' readonly></textarea></td></tr></tbody>");
+				
+				$selectjbTable.append($jbTh);
+				$selectjbTable.append($jbTb);
+
+				var $jbbtnDiv = $("<div style='text-align: right;'>");
+				
+				var $jbNum = $("<input type='hidden' value='" + num + "' name='jbNum'>");
+				var $jbbackBtn = $("<button class='btn btn-primary' value='이전' id='jbBackBtn' style='width: 9%;' onclick='jbBackBtn()'>이전</button>");
+				var $jbUpdateBtn = $("<button class='btn btn-primary' value='수정' id='jbUpdateBtn' style=' margin-left: 7px; width: 9%;' onclick='jbUpdateBtn()'>수정</button>");
+				var $jbDeleteBtn = $("<button class='btn btn-primary' value='삭제' id='jbDeleteBtn' style=' margin-left: 7px; width: 9%;' onclick='jbDeleteBtn()'>삭제</button>");
+				
+				$jbbtnDiv.append($jbNum);
+				$jbbtnDiv.append($jbbackBtn);
+				
+				$jbDiv.append($selectjbTable);
+				$jbDiv.append($jbbtnDiv);
+				
+				$.ajax({
+					url:"selectOneJb.bo",
+					type:"get",
+					data:{num:num},
+					success:function(data){
+						<% if(loginUser != null) { %>
+							var me = '<%=loginUser.getUserId()%>';						
+							console.log("지금 로그인한 사용자 : " + me);
+						<% } %>
+						
+						console.log("글 작성자 : " + data.writer);
+						console.log(data);
+						$("input[name=jbCat]").val(data.jCategory);
+						$("input[name=jbT]").val(data.title);
+						$("input[name=jbW]").val(data.writer);
+						$("input[name=jbCnt]").val(data.bCount);
+						$("textarea[name=jbCon]").text(data.bContent);
+						$("input[name=jbD]").val(data.bDate);
+						
+						<% if(loginUser != null) { %>
+						if(data.writer === me){
+							$jbbtnDiv.append($jbUpdateBtn);
+							$jbbtnDiv.append($jbDeleteBtn);
+							$("input[name=jbT]").removeAttr("readonly");
+							$("textarea[name=jbCon]").removeAttr("readonly");
+						}										
+						<% } %>
+					}
+				});
+			}		
+
+			function jbUpdateBtn(){
+				var num = $("input[name=jbNum]").val();
+				var jbT = $("input[name=jbT]").val();
+				var jbCon = $("textarea[name=jbCon]").val();
+				
+				$.ajax({
+					url:"jobBoardUpdate.bo",
+					type:"get",
+					data:{num:num, jbT:jbT, jbCon:jbCon},
+					success:function(data){
+						console.log("게시글 수정 완료!!");
+						alert("게시글이 수정되었습니다!");
+						selectOneJb(tr);
+					}
+				});
+			}
+			
+			function jbDeleteBtn(){
+				var num = $("input[name=jbNum]").val();
+				
+				$.ajax({
+					url:"jobBoardDelete.bo",
+					type:"get",
+					data:{num:num},
+					success:function(data){
+						console.log("게시글 삭제 완료!!");
+						alert("게시글이 삭제되었습니다!");
+						jbContainer();
+						jbLoad();
+					}
+				});
+			}
 	</script>
 
 </body>

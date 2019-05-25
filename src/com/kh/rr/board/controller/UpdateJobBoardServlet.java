@@ -1,48 +1,54 @@
 package com.kh.rr.board.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.rr.board.model.service.BoardService;
 import com.kh.rr.board.model.vo.Board;
 
 /**
- * Servlet implementation class SelectOneFreeBoardServlet
+ * Servlet implementation class UpdateJobBoardServlet
  */
-@WebServlet("/selectOneFb.bo")
-public class SelectOneFreeBoardServlet extends HttpServlet {
+@WebServlet("/jobBoardUpdate.bo")
+public class UpdateJobBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SelectOneFreeBoardServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UpdateJobBoardServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
-
-		Board fb = new BoardService().selectOneFreeBoard(num);
+		String title = request.getParameter("jbT");
+		String content = request.getParameter("jbCon");
 		
-		if(fb != null) {
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
-			new Gson().toJson(fb, response.getWriter());
+		System.out.println("게시글 번호 : " + num);
+		System.out.println("제목 : " + title);		
+		System.out.println("내용 : " + content);
+		
+		Board jb = new Board();
+		
+		jb.setTitle(title);
+		jb.setbContent(content);
+		
+		int result = new BoardService().updateJobBoard(num, jb);
+		
+		if(result > 0) {
+			System.out.println("게시글 수정 성공!!");
 		}else {
-			System.out.println("게시글 상세보기 실패!");
+			System.out.println("게시글 수정 실패!");
 		}
-		
 	}
 
 	/**
