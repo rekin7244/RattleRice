@@ -633,43 +633,76 @@ public class ChattingRoomDao {
 		return menuList;
 	}
 
-	//방 번호를 받아와서 식당 메뉴정보, 상호명, 위치 가져오는 메소드
-//	public ArrayList<ArrayList> selectStoreInfo(Connection con, int rno) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		ArrayList<ArrayList> resList = null;
-//		String query = prop.getProperty("selectStoreInfo");
-//		
-//		try {
-//			pstmt = con.prepareStatement(query);
-//			pstmt.setInt(1, rno);
-//			
-//			rset = pstmt.executeQuery();
-//			resList = new ArrayList<ArrayList>();
-//			
-//			while(rset.next()) {
-////				HashMap<String, Object> map = new HashMap<String, Object>();
-////				map.put("menu", rset.getString("MENU"));
-////				map.put("price", rset.getInt("PRICE"));
-////				map.put("brand", rset.getString("BRAND"));
-////				map.put("location", rset.getString("LOCATION"));
-////				
-////				resList.add(map);
-//				
-//				
-//				
-//			}
-//			
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(pstmt);
-//			close(rset);
-//		}
-//		
-//		return resList;
-//	}
+	//예약 내역 추가하는 메소드
+	public int insertReservation(Connection con, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertReservation");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			pstmt.setInt(2, rno);
+			pstmt.setInt(3, rno);
+			pstmt.setInt(4, rno);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	//reservation 테이블 시퀀스 번호 가져오는 메소드
+	public int getReservationCurrval(Connection con, int rno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int currval = 0;
+		String query = prop.getProperty("getReservationCurrval");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				currval = rset.getInt("RID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return currval;
+	}
+	
+	//reservation_member 테이블에 맴버 수 만큼 컬럼 추가
+	public int insertReservationMember(Connection con, HashMap<String, Object> hmap) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertReservationMember");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, (int) hmap.get("rid"));
+			pstmt.setString(2, (String) hmap.get("user"));
+			pstmt.setInt(3, (int) hmap.get("price"));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 }
 

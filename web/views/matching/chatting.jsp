@@ -190,11 +190,9 @@ $(function() {
 			data:{dTime:dTime, dtRno:dtRno},
 			type:"get",
 			success:function(data){
-				var $reservation = window.confirm('예약 신청 해주세요!');
-				 if($reservation){
-					 console.log('예약');
+				
 					 $("#reservation").css({"display":"block","opacity":1});
-				 }
+				 
 			},
 			error:function(){
 			}
@@ -206,34 +204,74 @@ $(function() {
 		 type:"get",
 		 success:function(data){
 			 
-			 $resTable = $("#resTable tbody");
+			 var $resTable = $("#resTable tbody");
+			 var $selectTable = $("#selectTable tbody");
 			 $resTable.html('');
+			 console.log("userList"+data[0]);
+			 console.log("menuList"+data[1]);
 			 console.log(data);
-			 for(var key in data){
-				 var $tr1 = $("<tr>");
-				 var $tr2 = $("<tr>");
-				 var $tr3 = $("<tr>");
-				 var $brandTd = $("<td>").text(data[key].brand);
-				 var $locationTd = $("<td>").text(data[key].location);
-				 var $menuTd = $("<td>").text(data[key].menu);
-				 var $priceTd = $("<td>").text(data[key].price);
-				 $tr1.append($brandTd);
-				 $tr2.append($locationTd);
-				 $tr3.append($menuTd);
-				 $tr3.append($priceTd);
-				 $resTable.append($tr3);
+			 //식당 메뉴, 가격 정보 출력하는 부분
+			 for(var i = 0; i < data[1].length;i++){
+				 var $tr = $("<tr>");
+				 var $menuTd = $("<td>").text(data[1][i].menu);
+				 var $priceTd = $("<td>").text(data[1][i].price);
+				 $tr.append($menuTd);
+				 $tr.append($priceTd);
+				 $resTable.append($tr);
+				 
+				 console.log(data[1][i].price);
 			 }
-			 
-			  
-		 },
-		 error:function(){
-			 
+			 //현재 방에있는 사용자 별로 선택할 수 있는 폼 출력하는 부분
+			  for(var i = 0; i < data[0].length; i++){
+				 var $tr2 = $("<tr class='res'>");
+				 var $userTd = $("<td class='resUser'>").text(data[0][i]);
+				 var $select = $("<select class='resMenu'>");
+				 for(var j = 0; j < data[1].length; j++){
+					 console.log(data[1][j]);
+					 $select.append("<option value='" + data[1][j].price + "'>"+
+							 data[1][j].menu+"</option>");
+				 }
+				 var $qtt = $("<input class='qtt' type='number'>");
+				 $tr2.append($userTd);
+				 $tr2.append($select);
+				 $tr2.append($qtt);
+				 $selectTable.append($tr2);
+			 } 
 		 }
 	   }) 
-	   
-	   
    });
    
+   
+   //예약 모달에서 확인 버튼 눌렀을때
+   $("#resBtn").click(function(){
+	   console.log("resBtn 클릭");
+	   var $selectTable = $("#selectTable tbody");
+	   var users = "";
+	   var menus = "";
+	   var qtts = "";
+	   var rno = $("input[name=dtRno]").val();
+	   $(".res").each(function(){
+		   users += $(this).children(".resUser").text() + ",";
+		   menus += $(this).children(".resMenu").val() + ",";
+		   qtts += $(this).children(".qtt").val() + ",";
+	   })	   
+	   console.log(users);
+	   console.log(menus);
+	   console.log(qtts);
+	   $.ajax({
+		   url:"<%=request.getContextPath()%>/insert.res",
+		   data:{users:users,menus:menus,qtts:qtts, rno:rno},
+		   type:"post",
+		   success:function(){
+			   $("#reservation").css({"display":"none","opacity":0});
+			   alert('예약에 성공했습니다! 매장의 연락을 기다려 주세요^^');
+		   },
+		   error:function(){
+			   console.log("실패!");
+		   }
+	   })
+	   
+   })
   
    
    
@@ -692,11 +730,16 @@ body::-webkit-scrollbar {
 								
 							</tbody>
 						</table>
+						<table id="selectTable">
+							<tbody>
+								
+							</tbody>
+						</table>
 					
 								
 					</div>
 					<div class="modal-footer" data-backdrop="static">
-						<button type="button" class="btn btn-default">확인</button>
+						<button type="button" class="btn btn-default" id="resBtn">확인</button>
 					</div>
 				</div>
 			</div>
