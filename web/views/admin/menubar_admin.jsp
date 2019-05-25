@@ -198,7 +198,7 @@ a.article, a.article:hover {
 	<%
 		if (loginUser == null || !loginUser.getUserId().equals("admin")) {
 			request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
-			request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
+			request.getRequestDispatcher("../common/error-500.jsp").forward(request, response);
 		}
 	%>
 
@@ -240,7 +240,7 @@ a.article, a.article:hover {
 						<%-- <li><a href="<%=request.getContextPath() %>/views/admin/regSettlement.jsp">정산 설정</a></li> --%>
 						<li><a href="<%=request.getContextPath() %>/pSettlementList.ad">포인트정산</a></li>
 						<li><a href="<%=request.getContextPath() %>/views/admin/b_calculate.jsp">사업자 정산</a></li>
-						<li><a href="<%=request.getContextPath() %>/views/admin/calculate.jsp">취소 / 환불</a></li>
+						<%-- <li><a href="<%=request.getContextPath() %>/views/admin/calculate.jsp">취소 / 환불</a></li> --%>
 					</ul>
 				</li>
 

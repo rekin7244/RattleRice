@@ -201,8 +201,7 @@ a.article, a.article:hover {
 						<li class="nav-item"><a class="nav-link" href="community.jsp">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="calculate.jsp">정산</a></li>
 						<li class="nav-item"><a class="nav-link" href="sms.jsp">SMS</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
+						<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
 					</ul>
 				</div>
 			</div>
@@ -215,42 +214,30 @@ a.article, a.article:hover {
 			<option>정렬</option>
 		</select> <input type="text">
 		<button>검색</button>
-		<table class="table table-bordered">
+		<table class="table table-bordered" id="tableId">
 
 			<thead>
 				<tr style="background: lightgray" align="center">
 					<th><input type="checkbox" id="checkmember"></th>
-					<th>번호</th>
 					<th>사업자번호</th>
 					<th>상호명</th>
-					<th>휴대폰번호</th>
+					<th>은행</th>
+					<th>계좌번호</th>
 					<th>카드 매출</th>
-					<th>입금</th>
-					<th>총잔액</th>
-
 					<th>관리</th>
 				</tr>
 			</thead>
 
-			<tbody align="center">
-				<tr>
-					<th><input type="checkbox" id="checkmember"></th>
-					<td>1</td>
-					<td>12345-678910</td>
-					<td>홍콩반점</td>
-					<td>010-0000-0000</td>
-					<td>954,300</td>
-					<td>0</td>
-					<td>954,300</td>
-					<td><button onclick="settlement();">수동 정산</button>&nbsp;<button>취소</button></td>
-				</tr>
-				</tbody>
+			<tbody align="center"></tbody>
 		</table>
+		<div id="pagingArea" align="center">
+			<ul id="paging" class="pagination"></ul>
+		</div>
 	</div>
 	<script>
 		$(function(){
 			$.ajax({
-				url:"reserveSettleList.ad",
+				url:"<%=request.getContextPath()%>/reserveSettleList.ad",
 				type:"post",
 				success:function(data){
 					setList(data);
@@ -262,12 +249,77 @@ a.article, a.article:hover {
 			var list = data["list"];
 			var pi = data["pi"];
 			
+			$tableBody = $("#tableId tbody");
+			$tableBody.html('');
+			$.each(list, function(index, value){
+				console.log(value);
+				var $tr = $("<tr>");
+				var $checkInput = $("<input type='checkbox' id='checkid'>");
+				var $checkTd = $("<td>");
+				var $idTd = $("<td>").text(value.sid);
+				var $brandTd = $("<td>").text(value.brand);
+				var $bankTd = $("<td>").text("KH은행");
+				var str = '';
+				for(var i=0;i<15;i++){
+					if(i!=3 && i!= 7){
+						str+=Math.floor(Math.random()*10);
+					}else{
+						str+='-';
+					}
+				}
+				var $accountTd = $("<td>").text(str);
+				var status = value.status;
+				var $sumTd = $("<td>").text(value.sum+'원');
+				if(status == 'Y'){
+					var $button = $("<button onclick='settle'>").text('수동정산');
+					var $adminTd = $("<td>");
+				}else{
+					var $button = '정산완료';
+					var $adminTd = $("<td>").css("background","lightgrey");
+				}
+				
+				$checkTd.append($checkInput);
+				$tr.append($checkTd);
+				$tr.append($idTd);
+				$tr.append($brandTd);
+				$tr.append($bankTd);
+				$tr.append($accountTd);
+				$tr.append($sumTd);
+				$adminTd.append($button);
+				$tr.append($adminTd);
+				$tableBody.append($tr);
+			});
+			$paging = $("#paging");
+			$paging.html('');
+			var $firstLi = $('<li><button onclick="paging(1)">&laquo;</button></li>');
+			$paging.append($firstLi);
+			for (var i = 0; i < pi.maxPage; i++) {
+				$paging.append('<li><button onclick="paging('+(i+1)+');">'+(i+1)+'</button></li>');
+			}
+			var $endLi = $('<li><button onclick="paging('+pi.maxPage+');">&raquo;</button></li>');
+			$paging.append($endLi);
 		}
 		
 		function settlement(){
-			
+			location.href="<%=request.getContextPath()%>/reserveSettle.ad?num="+idx;
 		}
+		
+		$("#selectAll").change(function(){
+			if($(this).is(":checked")){
+				$('.checkMember').each(function(){
+					$(this).attr("checked", true);
+				});
+			}else{
+				$('.checkMember').each(function(){
+					$(this).attr("checked", false);
+				});
+			}			
+		});
+		
+		
 	</script>
+	
+	
 </body>
 
 </html>

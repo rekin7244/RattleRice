@@ -32,9 +32,13 @@ public class ReservationDao {
 		ResultSet rset = null;
 		Reservation reservation = null;
 		ArrayList<Reservation> list = null;
+//		System.out.println("loginUser : "  + loginUser.getUserId());
 		
+
 		
+						
 		String query = prop.getProperty("reservation");
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			
@@ -43,26 +47,24 @@ public class ReservationDao {
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<Reservation>();
-					
 			
 			while(rset.next()) {
 				reservation = new Reservation();
 				
 				reservation.setUserName(rset.getString("M_NAME"));
+				reservation.setrTime(rset.getString("R_TIME"));
 				reservation.setmCount(rset.getInt("COUNT"));
 				reservation.setPrice(rset.getInt("PRICE"));
-				reservation.setrTime(rset.getString("R_TIME"));
 				
 				list.add(reservation);
 			}
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			close(rset);
 			close(pstmt);
 		}
+		
 		
 		return list;
 	}

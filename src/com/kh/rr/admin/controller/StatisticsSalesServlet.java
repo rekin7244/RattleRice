@@ -33,10 +33,15 @@ public class StatisticsSalesServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<HashMap<String,Object>> list = new StatisticsService().statisticsSales();
-		//System.out.println(list);
+		ArrayList<HashMap<String,Object>> list2 = new StatisticsService().statisticsSettle();
+		ArrayList<HashMap<String,Object>> list3 = new StatisticsService().statisticsRefund();
+		HashMap<String,Object> hmap = new HashMap<String,Object>();
+		hmap.put("list", list);
+		hmap.put("list2", list2);
+		hmap.put("list3", list3);
 		if(list != null) {
 			response.setContentType("application/json");
-			new Gson().toJson(list, response.getWriter());
+			new Gson().toJson(hmap, response.getWriter());
 		}
 	}
 

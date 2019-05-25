@@ -18,6 +18,9 @@
 	})
 </script>
 <style>
+body {
+    background: #f5f5f5;
+}
 .panel-login {
 	border-color: #ccc;
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
@@ -43,7 +46,7 @@
 }
 
 .panel-login>.panel-heading a.active {
-	color: #029f5b;
+	color: #ffb100;
 	font-size: 18px;
 }
 

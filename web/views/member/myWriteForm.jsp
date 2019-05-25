@@ -341,7 +341,8 @@ margin-bottom:0;
 										}
 									%>
 
-									<td><%=board.getTitle()%></td>
+									<td><%=board.getTitle()%>&nbsp; <img src="images/comment.png"
+										style="width: 13px; height: 15px;"></td>
 									<td><%=board.getWriter()%></td>
 									<td><%=board.getbDate()%></td>
 									<td><%=board.getbCount()%></td>

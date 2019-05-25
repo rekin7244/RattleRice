@@ -130,7 +130,7 @@ body::-webkit-scrollbar {
 
 	<div id="bg-img">
 		<div class="context" id="bgtext">
-			<p>딸랑 밥</p>
+			<p>Rattle Rice</p>
 			<h4>혼밥 매칭서비스</h4>
 		</div>
 	</div>

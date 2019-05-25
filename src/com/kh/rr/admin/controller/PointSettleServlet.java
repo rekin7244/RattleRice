@@ -29,15 +29,15 @@ public class PointSettleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int tid = Integer.parseInt(request.getParameter("num"));
-		
-		int result = new AdminService().pSettlementOne(tid);
+		int rid = Integer.parseInt(request.getParameter("num"));
+		//System.out.println(rid);
+		int result = new AdminService().pSettlementOne(rid);
 		
 		if(result > 0) {
 			response.sendRedirect("pSettlementList.ad");
 		}else {
 			request.setAttribute("msg", "정산 실패!");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);;
+			request.getRequestDispatcher("views/common/error-500.jsp").forward(request, response);;
 		}
 	}
 
