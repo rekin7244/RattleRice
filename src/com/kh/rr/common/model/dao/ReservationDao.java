@@ -1,5 +1,7 @@
 package com.kh.rr.common.model.dao;
 
+import static com.kh.rr.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,14 +14,12 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.rr.common.model.vo.PageInfo;
-import com.kh.rr.common.model.vo.Reservation;
-import static com.kh.rr.common.JDBCTemplate.*;
 
 public class ReservationDao {
 	private Properties prop = new Properties();
 	
 	public ReservationDao() {
-		String fileName = ReservationDao.class.getResource("/sql/commom/reserve-query.properteis").getPath();
+		String fileName = ReservationDao.class.getResource("/sql/common/reserve-query.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (IOException e) {

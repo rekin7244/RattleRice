@@ -1,6 +1,7 @@
 package com.kh.rr.admin.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,7 +58,6 @@ public class FAQupdateServlet extends HttpServlet {
 		
 	}
 
-	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

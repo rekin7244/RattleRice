@@ -1067,7 +1067,7 @@ public class AdminDao {
 			}
       return FAQ;
 		}
-=======
+		
 		public int getPointSettleSearchCount(Connection con, String condition, String keyword) {
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
