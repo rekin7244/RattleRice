@@ -1181,4 +1181,21 @@ public class AdminDao {
 			return list;
 		}
 
+		public int reserveSettleOne(Connection con, int rid) {
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("reserveSettleOne");
+			int result = 0;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, rid);
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
+
 }

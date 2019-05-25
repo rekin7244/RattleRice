@@ -1,10 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*,java.sql.*,java.io.*,com.kh.rr.admin.model.service.*"%>
+<%
+//places.csv 세팅
+request.setCharacterEncoding("utf-8");	//한글 인코딩
+String fullPath = "C:/Users/rekin/git/RattleRice/web/files";
+int resultCount = 0;
+
+try {
+	ArrayList<HashMap<String,Object>> list = new StatisticsService().getStores();
+	BufferedWriter fw = new BufferedWriter(new FileWriter(fullPath+"/places.csv",true));
+	
+	for (HashMap<String, Object> h : list) {
+		fw.write(h.get("brand")+","+h.get("lat")+","+h.get("lon"));
+		fw.newLine();
+		resultCount++;
+		if(resultCount % 100 == 0) {
+			//log.info("resultCount : "+ resultCount + "/" + list.size());
+		}		
+	}
+	fw.flush();
+	fw.close();
+} catch (IOException e) {
+	e.printStackTrace();
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>매장 통계</title>
+<title>제휴 매장 분포도</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
@@ -65,7 +89,7 @@ svg circle {
 				</button>
 				&nbsp; &nbsp;
 				<div id="mainbar">
-					<a>매장 분석</a>
+					<a>제휴 매장 분포</a>
 				</div>
 
 				<iframe name='action' width="0" height="0" frameborder="0"
@@ -99,7 +123,7 @@ $(function(){
 		type:"post",
 		data:{},
 		success:function(data){
-			console.log(storeData);
+			console.log(data);
 		},
 		error:function(data){
 			console.log("로드 실패");
@@ -123,6 +147,8 @@ var projection = d3.geo.mercator()
 .translate([width/2, height/2]);
 
 var path = d3.geo.path().projection(projection);
+
+
 
 //map 세팅
 d3.json("<%=request.getContextPath()%>/files/seoul_municipalities_topo.json", function(error, data) {

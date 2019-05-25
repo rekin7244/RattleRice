@@ -14,16 +14,16 @@ import com.google.gson.Gson;
 import com.kh.rr.admin.model.service.StatisticsService;
 
 /**
- * Servlet implementation class StatisticsSalesServlet
+ * Servlet implementation class StatisticsServiceTimeServlet
  */
-@WebServlet("/statisticsCoinUse.st")
-public class StatisticsCoinUseServlet extends HttpServlet {
+@WebServlet("/statisticsServiceTime.st")
+public class StatisticsServiceTimeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StatisticsCoinUseServlet() {
+    public StatisticsServiceTimeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +32,11 @@ public class StatisticsCoinUseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<HashMap<String,Object>> list = new StatisticsService().statisticsCoinUse();
-		//System.out.println(list);
+		ArrayList<HashMap<String,Object>> list = new StatisticsService().statisticsServiceTime();
+		
 		if(list != null) {
 			response.setContentType("application/json");
-			new Gson().toJson(list, response.getWriter());
+			new Gson().toJson(list,response.getWriter());
 		}
 	}
 

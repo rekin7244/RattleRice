@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>매출 통계</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 </head>
 <body>
 	<%@ include file="menubar_statistics.jsp"%>
@@ -81,14 +80,14 @@
 					var feeData = hmap["list3"];
 					
 					//차트 반영
-					for(var i=0;i<6;i++) {
-						dataArr[i] = [salesData[i].month,salesData[i].sales,settleData[i].sum,salesData[i].sales - settleData[i].sum];	
+					for(var i=0;i<5;i++) {
+						dataArr[i] = [settleData[i].month, salesData[i].sales, settleData[i].sum, salesData[i].sales - settleData[i].sum];	
 					}
 					
+					//테이블 반영
 					var $tableBody = $("#statTable tbody");
 					
-					
-					for(var i=0;i<6;i++) {
+					for(var i=0;i<5;i++) {
 						var $tr = $("<tr>");
 						var $monthTd = $("<td>").text(salesData[i].month+'월');
 						var $salesTd = $("<td>").text(salesData[i].sales+'원');
@@ -120,7 +119,7 @@
 		        options = {
 		          chart: {
 		            title: '매출 통계',
-		            subtitle: '2019.01 ~ 2019.06',
+		            subtitle: '2019.01 ~ 2019.05',
 		          },
 		          //bars: 'horizontal' // Required for Material Bar Charts.
 		        };
