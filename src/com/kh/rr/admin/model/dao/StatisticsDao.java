@@ -1,5 +1,7 @@
 package com.kh.rr.admin.model.dao;
 
+import static com.kh.rr.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,7 +11,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
-import static com.kh.rr.common.JDBCTemplate.*;
 
 public class StatisticsDao {
 	private Properties prop = new Properties();
@@ -141,6 +142,82 @@ public class StatisticsDao {
 				hmap.put("month", rset.getString("month"));
 				
 				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statisticsSettle(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("statisticsSettle");
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				HashMap<String,Object> h = new HashMap<String,Object>();
+				h.put("sum", rset.getInt("SUMPRICE"));
+				h.put("month",rset.getString("MONTH"));
+				list.add(h);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statisticsRefund(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("statisticsRefund");
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				HashMap<String,Object> h = new HashMap<String,Object>();
+				h.put("sum",rset.getInt("sum"));
+				h.put("month",rset.getString("month"));
+				list.add(h);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> getStores(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getStoreLocation");
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				HashMap<String,Object> h = new HashMap<String,Object>();
+				h.put("brand", rset.getString("BRAND"));
+				h.put("lat",rset.getDouble("LAT"));
+				h.put("lon", rset.getDouble("LON"));
+				list.add(h);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.rr.common.model.service.ReservationService;
 import com.kh.rr.common.model.vo.PageInfo;
 import com.kh.rr.common.model.vo.Reservation;
@@ -53,9 +54,14 @@ public class ReserveSettleListServlet extends HttpServlet {
 		
 		ArrayList<HashMap<String,Object>> list = new ReservationService().reserveSettleList(pi);
 		
-		
-		
 		HashMap<String,Object> hmap = new HashMap<String,Object>();
+		
+		hmap.put("list", list);
+		hmap.put("pi",pi);
+		if(hmap != null) {
+			response.setContentType("application/json");
+			new Gson().toJson(hmap,response.getWriter());
+		}
 	}
 
 	/**

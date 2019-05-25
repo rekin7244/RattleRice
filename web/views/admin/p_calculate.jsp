@@ -219,7 +219,7 @@ a.article, a.article:hover {
 	
 	
 	<br><br> 
-	<form method="post" id="formAction">
+	
 		<select id="searchCondition" name="searchCondition">
 			<option value="">정렬</option>
 			<option value="N">미정산</option>
@@ -302,7 +302,7 @@ a.article, a.article:hover {
 		<div class="container-fluid full-width">
 		<button onclick="pSettlementChecked()" class="btn pull-left">정산</button>
 		</div>
-		</form>
+
 	</div>
 	
 	<script>
@@ -329,7 +329,9 @@ a.article, a.article:hover {
 		
 		function paging(nextPage){
 			$("#currentPage").val(nextPage);
-			$("#formAction").attr("action","<%=request.getContextPath()%>/pSettlementSearch.ad").submit();
+			var condition = $("#searchCondition").val();
+			var keyword = $("#searchKeyword").val();
+			location.href="<%=request.getContextPath()%>/pSettlementSearch.ad?currentPage="+nextPage+"&searchCondition="+condition+"&searchKeyword="+keyword;
 		}
 		
 		$("#selectAll").change(function(){

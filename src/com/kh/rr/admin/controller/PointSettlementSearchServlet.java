@@ -60,7 +60,7 @@ public class PointSettlementSearchServlet extends HttpServlet {
 			request.getRequestDispatcher("views/admin/p_calculate.jsp").forward(request, response);;
 		} else {
 			request.setAttribute("msg", "리스트 조회 실패!");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);;
+			request.getRequestDispatcher("views/common/error-500.jsp").forward(request, response);;
 		}
 	}
 

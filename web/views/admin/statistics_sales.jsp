@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>매출 통계</title>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 </head>
 <body>
 	<%@ include file="menubar_statistics.jsp"%>
@@ -47,83 +49,94 @@
 
 		<!-- content -->
 		<div class="outer">
-			<canvas id="firstChart" height="300px"></canvas>
+			<div id="barchart_material" style="width: 700px; height: 300px;"></div>
+			<table class="table table-bordered" id="statTable" align="center">
+				<thead>
+					<td>기간</td>
+					<td>포인트 매출 금액</td>
+					<td>사업자 정산 금액</td>
+					<td>포인트 순이익</td>
+					<td>수수료 이익</td>
+				</thead>
+				<tbody></tbody>
+			</table>
 		</div>
 	</div>
 	<script>
-		var salesData;
-		//first Chart 생성
-		var ctx = $("#firstChart");
-		var salesChart = new Chart(ctx, {
-			type:"line",
-			data:{
-				labels:[],
-				datasets: [{
-					label:"포인트 매출 금액 (만원)",
-					data:[],
-					backgroundColor:'rgba(75,182,192,0.4)',
-					borderColor:'rgba(255,99,132,1)',
-					borderCapStyle:"butt",
-					borderDash:[],
-					borderDashOffset:0.0,
-					borderJoinStyle:"miter",
-					pointBorderColor:'rgba(75,192,192,1)',
-					pointBackgroundColor:'#fff',
-					pointBorderWidth:1,
-					pointHoverRadius:5,
-					pointHoverBackgroundColor:'rgba(75,192,192,1)',
-					pointHoverBorderColor:'rgba(220,220,220,1)',
-					pointHoverBorderWidth:2,
-					pointRadius:1,
-					pointHitRadius:10,
-					spanGaps:false
-				}]
-			},
-			options:{
-				scales:{
-					yAxes:[{
-						ticks:{
-							beginAtZero:true
-						}
-					}]
-				}
-			}
-		});
-		
-		$(function(){
+    var cData;
+	var options;
+	var chart;
+	var dataArr = new Array();
+	$(function(){
+	    google.charts.load('current', {'packages':['bar']});
+	    google.charts.setOnLoadCallback(drawChart);
+			
 			$.ajax({
 				url:"<%=request.getContextPath()%>/statisticsSales.st",
 				type:"post",
 				data:{},
-				success:function(data){
-					salesData = data;
-					console.log(salesData);
-					removeData(salesChart);
-					for ( var key in salesData) {
-						addData(salesChart,salesData[key].month+'월',salesData[key].sales);						
+				success:function(hmap){
+					var salesData = hmap["list"];
+					var settleData = hmap["list2"];
+					var feeData = hmap["list3"];
+					
+					//차트 반영
+					for(var i=0;i<6;i++) {
+						dataArr[i] = [salesData[i].month,salesData[i].sales,settleData[i].sum,salesData[i].sales - settleData[i].sum];	
+					}
+					
+					var $tableBody = $("#statTable tbody");
+					
+					
+					for(var i=0;i<6;i++) {
+						var $tr = $("<tr>");
+						var $monthTd = $("<td>").text(salesData[i].month+'월');
+						var $salesTd = $("<td>").text(salesData[i].sales+'원');
+						var $settleTd = $("<td>").text(settleData[i].sum+'원');
+						var $feesTd = $("<td>").text(feeData[i].sum+'원');
+						
+						$tr.append($monthTd);
+						$tr.append($salesTd);
+						$tr.append($settleTd);
+						$tr.append($("<td>").text(salesData[i].sales - settleData[i].sum+'원'));
+						$tr.append($feesTd);
+						$tableBody.append($tr);
 					}
 				},
 				error:function(){
 					console.log("로드 실패");
 				}
 			});
-		});
-		
-		function addData(chart, label, data) {
-			salesChart.data.labels.push(label);
-			salesChart.data.datasets.forEach((dataset) => {
-		        dataset.data.push(data);
-		    });
-			salesChart.update();
-		}
+			
+			//차트 그리기
+			function drawChart() {
+				cData = new google.visualization.DataTable();
+				cData.addColumn('string', '월');
+				cData.addColumn('number', '포인트 매출');
+				cData.addColumn('number', '사업자 정산');
+				cData.addColumn('number', '포인트 순이익');
+				
+				cData.addRows(dataArr);
+		        options = {
+		          chart: {
+		            title: '매출 통계',
+		            subtitle: '2019.01 ~ 2019.06',
+		          },
+		          //bars: 'horizontal' // Required for Material Bar Charts.
+		        };
 
-		function removeData(chart) {
-			salesChart.data.labels.pop();
-			salesChart.data.datasets.forEach((dataset) => {
-		        dataset.data.pop();
-		    });
-			salesChart.update();
-		}
-	</script>
+		        chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+		        chart.draw(cData, google.charts.Bar.convertOptions(options));
+				//chart.draw(cData, options);
+		      }
+			
+		});
+      
+      function removeData(){
+    	cData.removeRow(0);
+  		chart.draw(cData, options)
+      }
+</script>
 </body>
 </html>
