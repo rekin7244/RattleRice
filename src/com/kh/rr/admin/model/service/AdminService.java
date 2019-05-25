@@ -259,19 +259,6 @@ public class AdminService {
 		
 		return list;
 	}
-	//포인트 한 건 정산 처리
-	public int pSettlementOne(int tid) {
-		Connection con = getConnection();
-		//REFUND 테이블 update
-		int result = new AdminDao().pSettlementOne(con,tid);
-		
-		if(result > 0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		return result;
-	}
 
 	//결제내역조회
 	public ArrayList<Transaction> paymentlist() {
@@ -320,7 +307,56 @@ public class AdminService {
 			return list;
 		}
 
+		public int getPointSettleSearchCount(String condition, String keyword) {
+			Connection con = getConnection();
+			
+			int listCount = new AdminDao().getPointSettleSearchCount(con,condition,keyword);
+			
+			close(con);
+			
+			return listCount;
+		}
 
+		public ArrayList<Settlement> getPointSettleSearchList(PageInfo pi, String condition, String keyword) {
+			Connection con = getConnection();
+			
+			ArrayList<Settlement> list = new AdminDao().getPointSettleSearchList(con,pi,condition,keyword);
+			
+			close(con);
+			
+			return list;
+		}
+		
+		//포인트 한 건 정산 처리
+		public int pSettlementOne(int rid) {
+			Connection con = getConnection();
+			//REFUND 테이블 update
+			int result = new AdminDao().pSettlementOne(con,rid);
+			System.out.println("result : "+result);
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			return result;
+		}
+		
+		public int pSettleChecked(String[] arr) {
+			Connection con = getConnection();
+
+			int result = 0;
+			for (int i = 0; i < arr.length; i++) {
+				//System.out.println("arr"+i+" : "+arr[i]);
+				result += new AdminDao().pSettlementOne(con, Integer.parseInt(arr[i]));
+			}
+			System.out.println("result : "+result);
+			if(result == arr.length) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			return result;
+		}
 
 }
 

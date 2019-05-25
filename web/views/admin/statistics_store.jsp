@@ -5,22 +5,47 @@
 <head>
 <meta charset="UTF-8">
 <title>매장 통계</title>
-<script src="http://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=gisMapJs&key=라이선스키"></script>
-<script>
-var map = L.map('map', {
-	 continuousWorld: true
-	 ,worldCopyJump: false
-	 ,zoomControl: false
-	 ,zoomAnimation: true
-	 ,fadeAnimation : true
-	 ,inertia : false
-	 ,closePopupOnClick : false
-	 ,attributionControl : true
-	 }); 
-</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<style>
+svg circle {
+          fill: orange;
+          opacity: .5;
+          stroke: white;
+        }
+        svg circle:hover {
+          fill: red;
+          stroke: #333;
+        }
+        svg text {
+          pointer-events: none;
+        }
+        svg .municipality {
+          fill: #efefef;
+          stroke: #fff;
+        }
+        svg .municipality-label {
+          fill: #bbb;
+          font-size: 12px;
+          font-weight: 300;
+          text-anchor: middle;
+        }
+        svg #map text {
+          color: #333;
+          font-size: 10px;
+          text-anchor: middle;
+        }
+        svg #places text {
+          color: #777;
+          font: 10px sans-serif;
+          text-anchor: start;
+        }
+</style>
 </head>
 <body>
 	<%@ include file="menubar_statistics.jsp"%>
+	
 	<!-- nav -->
 	<div id="content">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -60,90 +85,84 @@ var map = L.map('map', {
 		
 		<!-- content -->
 		<div class="outer">
-			
-			<canvas id="firstChart" height="30px"></canvas>
+			<div class="mapview">  
+  				<div id="chart" class="feature-box light-gray-bg bordered text-center" style="height:350px;"></div>
+			<canvas id="tableChart" height="250px"></canvas>
+			</div>
 		</div>
 	</div>
-	<script>
-		var storeData;
-		//first Chart 생성
-		var ctx = $("#firstChart");
-		var firstChart = new Chart(ctx, {
-			type:"pie",
-			data:{
-				labels:[],
-				datasets: [{
-					data:[],
-					backgroundColor:[
-						'rgba(255,99,132,0.2)',
-						'rgba(54,162,235,0.2)',
-						'rgba(255,206,86,0.2)',
-						'rgba(75,192,192,0.2)',
-						'rgba(153,102,255,0.2)',
-						'rgba(255,159,64,0.2)',
-						'rgba(100,100,100,0.2)',
-						'rgba(0,255,120,0.2)'
-					],
-					borderColor:[
-						'rgba(255,99,132,1)',
-						'rgba(54,162,235,1)',
-						'rgba(255,206,86,1)',
-						'rgba(75,192,192,1)',
-						'rgba(153,102,255,1)',
-						'rgba(255,159,64,1)',
-						'rgba(100,100,100,1)',
-						'rgba(0,255,120,1)'
-					],
-					borderWidth:1
-				}]
-			},
-			options:{
-				scales:{
-					yAxes:[{
-						ticks:{
-							beginAtZero:true
-						}
-					}]
-				}
-			}
-		});
-		
-		//data loading
-		$(function(){
-			$.ajax({
-				url:"<%=request.getContextPath()%>/statisticsStore.st",
-				type:"post",
-				data:{},
-				success:function(data){
-					var storeData = data;
-					console.log(storeData);
-					removeData(firstChart);
-					for ( var key in storeData) {
-					addData(firstChart,storeData[key].location,storeData[key].value);						
-					}
-				},
-				error:function(data){
-					console.log("로드 실패");
-				}
-			});
-		});
-		
-		function addData(chart, label, data) {
-			firstChart.data.labels.push(label);
-			firstChart.data.datasets.forEach((dataset) => {
-		        dataset.data.push(data);
-		    });
-			firstChart.update();
+<script>
+//data loading
+$(function(){
+	$.ajax({
+		url:"<%=request.getContextPath()%>/statisticsStore.st",
+		type:"post",
+		data:{},
+		success:function(data){
+			console.log(storeData);
+		},
+		error:function(data){
+			console.log("로드 실패");
 		}
+	});
+});
 
-		function removeData(chart) {
-			firstChart.data.labels.pop();
-			firstChart.data.datasets.forEach((dataset) => {
-		        dataset.data.pop();
-		    });
-			firstChart.update();
-		}
-		
-	</script>
+var width = 700
+var height = 500;
+
+var svg = d3.select("#chart").append("svg")
+.attr("width", width)
+.attr("height", height);
+
+var map = svg.append("g").attr("id", "map"),
+places = svg.append("g").attr("id", "places");
+
+var projection = d3.geo.mercator()
+.center([126.9895, 37.5651])
+.scale(100000)
+.translate([width/2, height/2]);
+
+var path = d3.geo.path().projection(projection);
+
+//map 세팅
+d3.json("<%=request.getContextPath()%>/files/seoul_municipalities_topo.json", function(error, data) {
+var features = topojson.feature(data, data.objects.seoul_municipalities_geo).features;
+map.selectAll('path')
+  .data(features)
+.enter().append('path')
+  .attr('class', function(d) { console.log(); return 'municipality c' + d.properties.code })
+  .attr('d', path);
+
+map.selectAll('text')
+  .data(features)
+.enter().append("text")
+  .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
+  .attr("dy", ".35em")
+  .attr("class", "municipality-label")
+  .text(function(d) { return d.properties.name; })
+});
+
+//data 세팅
+d3.csv("<%=request.getContextPath()%>/files/places.csv", function(data) {
+places.selectAll("circle")
+    .data(data)
+  .enter().append("circle")
+    .attr("cx", function(d) { return projection([d.lon, d.lat])[0]; })
+    .attr("cy", function(d) { return projection([d.lon, d.lat])[1]; })
+    .attr("r", 10);
+
+places.selectAll("text")
+    .data(data)
+  .enter().append("text")
+    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })
+    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })
+    .text(function(d) { return d.name });
+});
+////////////////////////////////////////////////////////////
+//주석 제거
+//백업 해둠
+////////////////////////////////////////////////////////////////////
+
+</script>
 </body>
 </html>
