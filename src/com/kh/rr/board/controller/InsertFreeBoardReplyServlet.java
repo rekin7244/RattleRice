@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.rr.board.model.service.BoardService;
+import com.kh.rr.board.model.vo.BoardReply;
 
 /**
  * Servlet implementation class InsertFreeBoardReplyServlet
@@ -38,19 +39,31 @@ public class InsertFreeBoardReplyServlet extends HttpServlet {
 		
 		int bid = new BoardService().selectfbBid(num);
 		
-		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		BoardReply br = new BoardReply();
+		
+		br.setBid(bid);
+		br.setrWriter(writer);
+		br.setrContent(content);
+		
+		/*HashMap<String, Object> hmap = new HashMap<String, Object>();
 		
 		hmap.put("bid", bid); //bid
 		hmap.put("writer", writer); 
-		hmap.put("content", content);
+		hmap.put("content", content);*/
 		
-		int result = new BoardService().insertFBR(hmap);
+		
+		//int result = new BoardService().insertFBR(hmap);
+		
+		int result = new BoardService().insertFBR(br);
 				
 		if(result > 0) {
-			ArrayList<HashMap<String, Object>> replyList = new BoardService().selectReply(bid);
+			/*ArrayList<HashMap<String, Object>> replyList = new BoardService().selectReply(bid);*/
+			ArrayList<BoardReply> replyList = new BoardService().selectReplyList(bid);
 			System.out.println("댓글을 달았습니다!");
+			
 			response.setContentType("application/json");
-			new Gson().toJson(replyList, response.getWriter());			
+			new Gson().toJson(replyList, response.getWriter());
+			System.out.println("댓글 리스트 : " + replyList);		
 		}else {
 			System.out.println("댓글 달기에 실패하셨습니다..");
 		}
