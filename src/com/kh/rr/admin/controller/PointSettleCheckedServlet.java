@@ -29,7 +29,6 @@ public class PointSettleCheckedServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String ridArr = request.getParameter("arr");
-		//System.out.println(ridArr);
 		
 		String arr[] = ridArr.split(",");
 		int result = new AdminService().pSettleChecked(arr);
