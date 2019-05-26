@@ -29,8 +29,8 @@ public class PhoneCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	
-		String api_key = "NCSBWER7HGSJGFAE";
-		String api_secret = "VE4YYCDBKVITIJMO0TY6NIWZ09A6GOVS";
+		String api_key = "NCS1XFAZO37HBNWB";
+		String api_secret = "NXYVYDKHLPVGIMFWGREZHMYF41BRKOHC";
 		Coolsms coolsms = new Coolsms(api_key, api_secret);
 		
 		String rand = request.getParameter("rand");
@@ -38,7 +38,7 @@ public class PhoneCheckServlet extends HttpServlet {
 		
 		HashMap<String, String> set = new HashMap<String, String>();
 		set.put("to", phoneNumber); // 수신번호    
-		set.put("from", "01051540825"); // 발신번호 
+		set.put("from", "01032324439"); // 발신번호 
 		set.put("text", "딸랑밥에서 보낸 인증 문자 입니다! ["+rand+"] 정확하게 입력해 주세요!"); // 문자내용
 		set.put("type", "sms"); // 문자 타입
 		
