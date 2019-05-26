@@ -316,7 +316,6 @@ a.article, a.article:hover {
 				type:"post",
 				data:{brand:brand},
 				success:function(data){
-					console.log(data);
 					setList(data);
 				}
 			});

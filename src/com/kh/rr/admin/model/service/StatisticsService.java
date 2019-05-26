@@ -112,5 +112,15 @@ public class StatisticsService {
 		
 		return list;
 	}
+
+	public ArrayList<HashMap<String, Object>> statisticsMemberbyJob() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new StatisticsDao().statisticsMemberbyJob(con);
+		
+		close(con);
+		
+		return list;
+	}
 	
 }

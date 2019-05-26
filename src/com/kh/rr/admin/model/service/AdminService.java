@@ -462,10 +462,9 @@ public class AdminService {
 
 			int result = 0;
 			for (int i = 0; i < arr.length; i++) {
-				//System.out.println("arr"+i+" : "+arr[i]);
 				result += new AdminDao().pSettlementOne(con, Integer.parseInt(arr[i]));
 			}
-			//System.out.println("result : "+result);
+			
 			if(result == arr.length) {
 				commit(con);
 			}else {

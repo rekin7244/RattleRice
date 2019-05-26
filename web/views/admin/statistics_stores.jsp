@@ -6,40 +6,6 @@
 <meta charset="UTF-8">
 <title>매장 통계</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
-<style>
-svg circle {
-          fill: orange;
-          opacity: .5;
-          stroke: white;
-        }
-        svg circle:hover {
-          fill: red;
-          stroke: #333;
-        }
-        svg text {
-          pointer-events: none;
-        }
-        svg .municipality {
-          fill: #efefef;
-          stroke: #fff;
-        }
-        svg .municipality-label {
-          fill: #bbb;
-          font-size: 12px;
-          font-weight: 300;
-          text-anchor: middle;
-        }
-        svg #map text {
-          color: #333;
-          font-size: 10px;
-          text-anchor: middle;
-        }
-        svg #places text {
-          color: #777;
-          font: 10px sans-serif;
-          text-anchor: start;
-        }
-</style>
 </head>
 <body>
 	<%@ include file="menubar_statistics.jsp"%>
@@ -89,12 +55,13 @@ svg circle {
 <script>
 var storeData;
 //tableChart 생성
-var ctx = $("#firstChart");
+var ctx = $("#tableChart");
 var tableChart = new Chart(ctx, {
 	type:"bar",
 	data:{
 		labels:[],
 		datasets: [{
+			label:['서울내 제휴 매장'],
 			data:[],
 			backgroundColor:[
 				'rgba(255,99,132,0.2)',
@@ -139,7 +106,6 @@ $(function(){
 		success:function(data){
 			var storeData = data;
 			console.log(storeData);
-			removeData(tableChart);
 			for ( var key in storeData) {
 			addData(tableChart,storeData[key].location,storeData[key].value);
 			}
@@ -151,19 +117,11 @@ $(function(){
 });
 
 function addData(chart, label, data) {
-	tableChart.data.labels.push(label);
-	tableChart.data.datasets.forEach((dataset) => {
+	chart.data.labels.push(label);
+	chart.data.datasets.forEach((dataset) => {
         dataset.data.push(data);
     });
-	tableChart.update();
-}
-
-function removeData(chart) {
-	tableChart.data.labels.pop();
-	tableChart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
-    });
-	tableChart.update();
+	chart.update();
 }
 </script>
 </body>
