@@ -12,6 +12,7 @@
 <head>
 <title>SMS 관리</title>
 
+
 </head>
 
 <body>
@@ -56,6 +57,9 @@
 		</nav>
 		<br> <br> 
 		
+	
+					
+		
 		
 		<form
 			action="<%= request.getContextPath() %>/smslist.ad" method="post">
@@ -64,7 +68,7 @@
 
 				<thead>
 					<tr style="background: lightgray" align="center">
-						<th><input type="checkbox"></th>
+						<th><input type="checkbox" class="selectAll"></th>
 						<th>번호</th>
 						<th>수신번호</th>
 						<th>발송내용</th>
@@ -80,7 +84,7 @@
 			   			
 			   <tbody align="center" >
 				<tr id="tr">
-					<td><input type="checkbox"></td>
+					<td><input type="checkbox" class="smschk"></td>
 					<td><%=i+1%></td>
 					<td><%=list.get(i).getPhone() %></td>
 					<td><%=list.get(i).getContent() %></td>		
@@ -103,6 +107,29 @@
 		</form>
 </body>
 
+<script>
+      var selectAll = document.querySelector(".selectAll");
+      selectAll.addEventListener('click', function(){
+          var objs = document.querySelectorAll(".smschk");
+          for (var i = 0; i < objs.length; i++) {
+            objs[i].checked = selectAll.checked;
+          };
+      }, false);
+       
+      var objs = document.querySelectorAll(".smschk");
+      for(var i=0; i<objs.length ; i++){
+        objs[i].addEventListener('click', function(){
+          var selectAll = document.querySelector(".selectAll");
+          for (var j = 0; j < objs.length; j++) {
+            if (objs[j].checked === false) {
+              selectAll.checked = false;
+              return;
+            };
+          };
+          selectAll.checked = true;                                    
+      }, false);
+      }  
+    </script>
 
 </html>
 

@@ -32,17 +32,16 @@ public class SmslistInsertServlet extends HttpServlet {
 		
 		System.out.println("sms servlet");
 		
-		String api_key = "NCSXE6TMZXOSNUXS";
-		String api_secret = "0GLHGAT4DSF68BUBPLJ3GW9KNSOCYTWF";
-		
-		Coolsms coolsms = new Coolsms(api_key, api_secret);
+		String api_key = "NCS1XFAZO37HBNWB";
+	      String api_secret = "NXYVYDKHLPVGIMFWGREZHMYF41BRKOHC";
+	      Coolsms coolsms = new Coolsms(api_key, api_secret);
 		
 		String to = request.getParameter("to");
 		String text = request.getParameter("content");
 		
 		HashMap<String, String> set = new HashMap<String, String>();
 		set.put("to", to); // 수신번호    
-		set.put("from", "01071299363"); // 발신번호 
+		set.put("from", "01032324439"); // 발신번호 
 		set.put("text", text); // 문자내용
 		set.put("type", "sms"); // 문자 타입
 		//set.put("datetime", "201401151230"); // 예약전송시 날짜 설정	

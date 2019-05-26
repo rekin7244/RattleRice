@@ -229,7 +229,7 @@ a.article, a.article:hover {
 						<li><a href="<%=request.getContextPath() %>/views/admin/updateMainForm.jsp">메인페이지 관리</a></li>
 						<li><a href="<%=request.getContextPath() + "/communitylist.ad"%>">공지사항</a></li>
 						<li><a href="<%=request.getContextPath() + "/FAQlist.ad"%>">FAQ</a></li>
-						<li><a href="<%=request.getContextPath() %>/views/admin/visit.jsp">후기게시판</a></li>
+						<%-- <li><a href="<%=request.getContextPath() %>/views/admin/visit.jsp">후기게시판</a></li> --%>
 					</ul>
 				</li>
 

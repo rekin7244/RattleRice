@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.board.model.vo.Board"%>
 <%
-	Board community = (Board)request.getAttribute("community");
+	Board FAQ = (Board)request.getAttribute("FAQ");
 	
 %>
 <!DOCTYPE html>
@@ -133,15 +133,15 @@
 								
 								
 									<tr>
-										<td>글 제목 : <input type="text" name="title" value="<%=community.getTitle() %> ">
-										<input id="nbid" name="nbid" type="hidden" value="<%=community.getFbid()%>"></td>
+										<td>글 제목 : <input type="text" name="title" value="<%=FAQ.getTitle() %> ">
+										<input id="nbid" name="fbid" type="hidden" value="<%=FAQ.getFbid()%>"></td>
 										
 									</tr>
 									
 									<tr>
 										<td><textarea class="form-control"  name="content"
 												maxlength="2048" style="height:400px; width:1000px;">
-												<%=community.getbContent() %>
+												<%=FAQ.getbContent() %>
 											</textarea></td>
 									</tr>
 									
@@ -170,7 +170,6 @@
 					if(confirm("수정한 내용으로 변경하시겠습니까?") == true){
 						alert("변경되었습니다.");
 						
-					<%-- 	location.href="<%=request.getContextPath()%>/communityUpdate.ad?nbid=<%=community.getNbid()%>" ; --%>
 				
 					}else{
 						return;

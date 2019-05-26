@@ -1181,4 +1181,82 @@ public class AdminDao {
 			return list;
 		}
 
+		public int insertFAQ(Connection con, Board FAQ) {
+			PreparedStatement pstmt = null;
+			int result = 0;
+
+			String query = prop.getProperty("insertFAQ");
+
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, FAQ.getTitle());
+				pstmt.setString(2, FAQ.getbContent());
+				pstmt.setString(3, FAQ.getfCategory());
+
+				result = pstmt.executeUpdate();
+
+				/*System.out.println(result);*/
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+
+
+			return result;
+		}
+
+		public int deleteFAQ(Connection con, int fbid) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+
+			String query =prop.getProperty("deleteFAQ");
+
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, fbid);
+
+				result=pstmt.executeUpdate();
+
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+
+				close(pstmt);
+			}
+
+			return result;
+		}
+
+		public Board SelectFAQ(Connection con, int fbid) {
+			Board FAQ = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+
+			String query = prop.getProperty("selectFAQ");
+
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, fbid);
+
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+					FAQ = new Board();
+					FAQ.setTitle(rset.getString("TITLE"));
+					FAQ.setbContent(rset.getString("BCONTENT"));
+					FAQ.setFbid(fbid);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+
+
+			return FAQ;
+		}
+
 }

@@ -36,16 +36,16 @@
 	border-radius: 10px;
 }
 
-.sms {
+/*  .sms {
 	display: inline-block;
-}
+} */
 
-#smsinput>label {
+#smsinput>#to>label {
 	background: lightgray;
 	width: 100px;
 	text-align: center;
 }
-
+/
 #phone {
 	margin-top: -100px;
 }
@@ -55,24 +55,24 @@
 	margin-left: 30px;
 }
 
-#smsinput {
-	width: 500px;
-	margin-left: 450px;
-	margin-top: -450px;
-}
+ #smsinput {
 
-.smsform {
-	margin: 100px;
-}
+	margin-left: 100px;
+	
+} 
 
+
+/* 
 .smsform #btn button {
-	padding: 40px;
-}
+	padding: 30px;
+} */
 
 #btn {
-	margin-top: 30px;
-	margin-left: 30px;
-}
+	margin-top: -30px;
+	margin-left:40px;
+	padding: 40px;
+	
+} 
 
 /* The Modal (background) */
 .modal {
@@ -109,6 +109,11 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+
+#to{
+	margin-left:30px;
+}
+
 </style>
 </head>
 
@@ -155,28 +160,43 @@
 
 		<br> <br>
 
-	<form action="<%=request.getContextPath() %>/smslistInsert.ad"
+	 <form action="<%=request.getContextPath() %>/smslistInsert.ad"
 			method="post">
 		<h3>
 			<b>문자 보내기</b>
 		</h3>
 		<br>
 
-		<div class="smsform">
-
+		<div class="smsform" id="smsinput">
+			
+			<!-- 	
+			<label>제목</label> <input type="text" placeholder="필수 입력 값이 아닙니다.">
+				<br> -->
+			
 			<img id="phone" src="../../images/smartphone.png" width="320px"
 				height="600px">
 
 			<div class="sms-text">
 				<textarea autofocus cols="30" rows="10" name="content"></textarea>
 			</div>
+			
+			
+			<div id = "to">
+				<label>제목</label>  <br>
+				<input type="text" placeholder="필수 입력 값이 아닙니다.">
+				<br>
+				<label>받는사람</label> <br>
+				<input name="to" type="text" placeholder="전화번호('-'제외)">			
+				<br>
+			</div>
+			
 
 			<div id="btn">
-				<button type="reset">재작성</button>
+				<button type="reset" class="btn btn-primary">재작성</button>
 
-
+				&nbsp;&nbsp;&nbsp;
 				<!-- Trigger/Open The Modal -->
-				<button id="myBtn" type="submit">보내기</button>
+				<button id="myBtn" type="submit" class="btn btn-primary">보내기</button>
 
 				<!-- The Modal -->
 				<div id="myModal" class="modal">
@@ -194,21 +214,7 @@
 
 			</div>
 
-			<div id="smsinput">
-				<label>제목</label> <input type="text" placeholder="필수 입력 값이 아닙니다.">
-				<br> <label>회신번호</label> <select>
-					<option name="from">딸랑밥</option>
-				</select><br> 
-				
-			
-				<label>받는사람</label> 
-				<input name="to" type="text" placeholder="전화번호('-'제외)">			
-				<button name="insert" onclick="addpn()">추가</button>
-				<br>
-				<textarea cols="40" rows="10" name="result"></textarea>
-			
-			
-			</div>
+		
 
 		</div>
 	</div>
@@ -245,15 +251,7 @@ window.onclick = function(event) {
     }
 }
 
-function addpn(){
-	
-	var resultStr = "";
-	resultStr = document.testForm.to.value + "\n";
-	
-	console.log(resultStr);
-	
-	document.testForm.result.value = resultStr;
-}
+
 
 
 </script>
