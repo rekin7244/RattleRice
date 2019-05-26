@@ -69,6 +69,48 @@ public class ReservationDao {
 		return list;
 	}
 
+	public ArrayList<Reservation> selectPastReservation(Connection con, Member loginUser) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Reservation reservation = null;
+		ArrayList<Reservation> list = null;
+//		System.out.println("loginUser : "  + loginUser.getUserId());
+		
+
+		
+						
+		String query = prop.getProperty("pastReservation");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, loginUser.getUserId());
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Reservation>();
+			
+			while(rset.next()) {
+				reservation = new Reservation();
+				
+				reservation.setUserName(rset.getString("M_NAME"));
+				reservation.setrTime(rset.getString("R_TIME"));
+				reservation.setmCount(rset.getInt("COUNT"));
+				reservation.setPrice(rset.getInt("PRICE"));
+				
+				list.add(reservation);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+
 }
 
 

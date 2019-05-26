@@ -263,7 +263,7 @@ a.article, a.article:hover {
 			</div>
 
 			
-				<div class="container col-sm-9" style="float:left; bottom:-150px;">
+				<div class="container col-sm-9" style="float:left; bottom:-125px;">
 					<table id="info" border="1">
 						<tbody align="center">
 						<%
@@ -295,7 +295,7 @@ a.article, a.article:hover {
 				</div>
 			</div>
 			
-			<div class="container col-sm-9" style="float: right; width: 30%; bottom:-150px;">
+			<div class="container col-sm-9" style="float: right; width: 30%; bottom:-115px;">
 				<table id="menu" border="1">
 					<thead align="center">
 						<th align="center">메뉴</th>
