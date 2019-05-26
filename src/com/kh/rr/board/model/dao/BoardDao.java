@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.rr.board.model.vo.Board;
+import com.kh.rr.board.model.vo.BoardReply;
 import com.kh.rr.common.model.vo.PageInfo;
 
 import static com.kh.rr.common.JDBCTemplate.*;
@@ -998,13 +999,77 @@ public class BoardDao {
 				hmap.put("rcontent", rset.getString("RCONTENT"));
 				hmap.put("rdate", rset.getString("RDATE"));
 				
-				list.add(hmap);
+				if(list != null) {
+					list.add(hmap);					
+				}
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
+			close(rset);
+		}
+				
+		return list;
+	}
+
+	public int insertFBR(Connection con, BoardReply br) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertFBR");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, br.getBid());
+			pstmt.setString(2, br.getrWriter());
+			pstmt.setString(3, br.getrContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
+
+	//자유게시판 댓글다는 메소드
+	public ArrayList<BoardReply> selectReplyList(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<BoardReply> list = null;
+		
+		String query = prop.getProperty("selectReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<BoardReply>();
+			
+			while(rset.next()) {
+				BoardReply br = new BoardReply();
+				
+				br.setReid(rset.getInt("REID"));
+				br.setBid(rset.getInt("BID"));
+				br.setrWriter(rset.getString("RWRITER"));
+				br.setrContent(rset.getString("RCONTENT"));
+				br.setrDate(rset.getDate("RDATE"));
+				
+				list.add(br);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
 		}
 				
 		return list;

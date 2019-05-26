@@ -1225,10 +1225,10 @@ body::-webkit-scrollbar {
 			var $fbReplyDiv = $("<div class='fbReplyArea'>");	
 			
 			var $fbSRDiv = $("<div id='showFbReply'>");
-			var $fbSRT = $("<table class='table table-striped table-bordered' id='fbSRT' style='width: 100%; text-align: center;'>");
-			var $fbSRTb = $("<tbody id='fbSRTb'></tbody>");
+			var $fbSRT = $("<table class='table table-striped table-bordered' id='fbSRT' style='border: 0px; width: 100%; text-align: center;'>");
+			//var $fbSRTb = $("<tbody id='fbSRTb'></tbody>");
 			
-			$fbSRT.append($fbSRTb);
+			//$fbSRT.append($fbSRTb);
 			$fbSRDiv.append($fbSRT);
 			
 			var $fbWriteRDiv = $("<div class='writeFbReply'>");
@@ -1319,7 +1319,7 @@ body::-webkit-scrollbar {
 		//자유게시판 댓글달기
 		function fbWRBtn(){
 			<% if(loginUser != null) { %>
-			var writer = <%=loginUser.getUserId()%>;
+			var writer = '<%=loginUser.getUserId()%>';
 			<% } %>
 			var num = $("input[name=fbNum]").val();
 			var content = $("#fbWR").val();
@@ -1329,24 +1329,22 @@ body::-webkit-scrollbar {
 				data:{writer:writer,content:content,num:num},
 				type:"get",
 				success:function(data){
-					var $replySelectTable = $("#fbSRTb");
-					$replySelectTable.html('');
+					console.log(data);
+					var $replySelectTable = $("#fbSRT");
 					
 					for(var key in data){
 						var $tr = $("<tr>");
-						var $writerTd = $("<td>")
-											.text(data[key].rwriter)
-											.css("width", "100px");
-						var $contentTd = $("<td>")
-											.text(data[key].rcontent)
-											.css("width", "400px");
-						var $dateTd = $("<td>")
-											.text(data[key].rdate)
-											.css("width", "200px");
+						var $userImg = $("<td style='width: 10%;'><img src='/rr/images/profile.PNG' style='border-radius:6em;'></td>");
+						var $writerTd = $("<td style='font-size: 16px; width: 20%;'>").text(data[key].rWriter);
+						var $contentTd = $("<td style='width: 60%;text-align: left;background: #f9f9f9;border-radius: 1em;padding-left: 15px;'>").text(data[key].rContent);
+						//var $dateTd = $("<td>").text(data[key].rDate).css("width", "25%");
+						var $dateP = $("<p style=' font-size: 12px; color: lightgray; '>").text(data[key].rDate);
 						
+						$tr.append($userImg);
 						$tr.append($writerTd);
+						$writerTd.append($dateP);
 						$tr.append($contentTd);
-						$tr.append($dateTd);
+						//$tr.append($dateTd);
 						$replySelectTable.append($tr);
 					}
 				},

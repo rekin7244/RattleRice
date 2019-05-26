@@ -12,6 +12,7 @@ import java.util.HashMap;
 import com.kh.rr.admin.model.dao.AdminDao;
 import com.kh.rr.board.model.dao.BoardDao;
 import com.kh.rr.board.model.vo.Board;
+import com.kh.rr.board.model.vo.BoardReply;
 import com.kh.rr.common.model.vo.PageInfo;
 
 public class BoardService {
@@ -396,6 +397,32 @@ public class BoardService {
 		Connection con = getConnection();
 		
 		ArrayList<HashMap<String, Object>> list = new BoardDao().selectReply(con, bid);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int insertFBR(BoardReply br) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().insertFBR(con, br);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public ArrayList<BoardReply> selectReplyList(int bid) {
+		Connection con = getConnection();
+		
+		ArrayList<BoardReply> list = new BoardDao().selectReplyList(con, bid);
 		
 		close(con);
 		
