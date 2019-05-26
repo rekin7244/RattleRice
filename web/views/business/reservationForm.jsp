@@ -254,8 +254,6 @@ a.article, a.article:hover {
 		<div class="container col-sm-9 table">
 			<ul>
 				<li>예약 신청 현황</li>
-				<li class="li2"><button>예약 막기</button></li>
-				<li class="li2"><button>예약 등록</button></li>
 			</ul>
 
 			<table class="table table-bordered">
@@ -265,6 +263,7 @@ a.article, a.article:hover {
 						<th>예약시간</th>
 						<th>인원</th>
 						<th>금액</th>
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -277,6 +276,7 @@ a.article, a.article:hover {
 						<td><%=res.getrTime()%></td>
 						<td><%=res.getmCount()%></td>
 						<td><%=res.getPrice() %></td>
+						
 					</tr>
 					<%
 						}
