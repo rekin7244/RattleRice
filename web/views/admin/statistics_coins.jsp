@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>매출 통계</title>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
 	<%@ include file="menubar_statistics.jsp"%>
@@ -47,130 +48,76 @@
 
 		<!-- content -->
 		<div class="outer">
-			<select name="optionSelect" id="optionSelect" onchange="loadChart()">
-				<option value="CH">충전</option>
-				<option value="US">사용</option>
-			</select>
-			<canvas id="coinChart" height="300px"></canvas>
+			<div id="curve_chart" style="width: 900px; height: 500px"></div>
+			<table class="table table-bordered" id="coinTable">
+				<thead>
+					<td>월</td>
+					<td>코인 충전양</td>
+					<td>코인 사용양</td>
+					<td>코인 차액</td>
+				</thead>
+				<tbody></tbody>
+			</table>
 		</div>
 	</div>
 	<script>
-		var coinData;
-		//first Chart 생성
-		var ctx = $("#coinChart");
-		var coinChart;
+		var coinDataArr = new Array();
 		
 		$(function(){
-			loadNewChart();
-			loadChargeCoinChart();
-		});
-		
-		function loadChart(){
-			console.log("loadChart()실행")
-			if($("#optionSelect").val() == 'CH'){
-				console.log("충전 로드");
-				loadNewChart();
-				loadChargeCoinChart();
-			}else{
-				console.log("사용 로드");
-				loadNewChart();
-				loadUseCoinChart();
-			}
-		}
-		
-		function loadChargeCoinChart(){
 			$.ajax({
-				url:"<%=request.getContextPath()%>/statisticsCoinCharge.st",
+				url:"<%=request.getContextPath()%>/statisticsCoin.st",
 				type:"post",
 				data:{},
 				success:function(data){
-					coinData = data;
-					console.log(coinData);
-					removeData(coinChart);
-					for ( var key in coinData) {
-						addData(coinChart,coinData[key].month+'월',coinData[key].sales);	
+					console.log(data);
+					for(var i=0;i<5;i++) {
+						coinDataArr[i] = [data[i].month, data[i].charge, data[i].use];	
+					}
+					
+					//테이블 반영
+					var $tableBody = $("#coinTable tbody");
+					
+					for(var i=0;i<5;i++) {
+						var $tr = $("<tr>");
+						var $monthTd = $("<td>").text(data[i].month+'월');
+						var $chargeTd = $("<td>").text(data[i].charge+'벨');
+						var $useTd = $("<td>").text(data[i].use+'벨');
+						var $valueTd = $("<td>").text((data[i].charge-data[i].use)+'벨');
 						
+						$tr.append($monthTd);
+						$tr.append($chargeTd);
+						$tr.append($useTd);
+						$tr.append($valueTd);
+						$tableBody.append($tr);
 					}
 				},
 				error:function(){
 					console.log("로드 실패");
 				}
 			});
-		}
-		
-		function loadUseCoinChart(){
-			$.ajax({
-				url:"<%=request.getContextPath()%>/statisticsCoinUse.st",
-				type:"post",
-				data:{},
-				success:function(data){
-					coinData = data;
-					//console.log(coinData);
-					removeData(coinChart);
-					for ( var key in coinData) {
-						addData(coinChart,coinData[key].month+'월',coinData[key].sales);		
-					}
-					//console.log(coinChart.config.data.datasets);
-				},
-				error:function(){
-					console.log("로드 실패");
-				}
-			});
-		}
-		
-		function addData(chart, label, data) {
-			coinChart.data.labels.push(label);
-			coinChart.data.datasets.forEach((dataset) => {
-		        dataset.data.push(data);
-		    });
-			coinChart.update();
-		}
+			
+			google.charts.load('current', {'packages':['corechart']});
+		    google.charts.setOnLoadCallback(drawChart);
+			
+		    function drawChart() {
+		        cData = new google.visualization.DataTable();
+		        cData.addColumn('string', '월');
+		        cData.addColumn('number', '코인 충전');
+		        cData.addColumn('number', '코인 사용');
+				
+		        cData.addRows(coinDataArr);
+		        
+		        var options = {
+		          title: '코인 충전 사용',
+		          curveType: 'function',
+		          legend: { position: 'bottom' }
+		        };
 
-		function removeData(chart) {
-			coinChart.data.labels.pop();
-			coinChart.data.datasets.forEach((dataset) => {
-		        dataset.data.pop();
-		    });
-			coinChart.update();
-		}
-		
-		function loadNewChart(){
-			coinChart = new Chart(ctx, {
-				type:"line",
-				data:{
-					labels:[],
-					datasets: [{
-						label:"코인 양",
-						data:[],
-						backgroundColor:'rgba(75,182,192,0.4)',
-						borderColor:'rgba(255,99,132,1)',
-						borderCapStyle:"butt",
-						borderDash:[],
-						borderDashOffset:0.0,
-						borderJoinStyle:"miter",
-						pointBorderColor:'rgba(75,192,192,1)',
-						pointBackgroundColor:'#fff',
-						pointBorderWidth:1,
-						pointHoverRadius:5,
-						pointHoverBackgroundColor:'rgba(75,192,192,1)',
-						pointHoverBorderColor:'rgba(220,220,220,1)',
-						pointHoverBorderWidth:2,
-						pointRadius:1,
-						pointHitRadius:10,
-						spanGaps:false
-					}]
-				},
-				options:{
-					scales:{
-						yAxes:[{
-							ticks:{
-								beginAtZero:true
-							}
-						}]
-					}
-				}
-			});
-		}
+		        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+		        chart.draw(cData, options);
+		      }
+		});
 	</script>
 </body>
 </html>
