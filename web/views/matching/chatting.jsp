@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-
 	pageEncoding="UTF-8"
 	import="com.kh.rr.member.model.vo.*, java.net.*, java.util.*, javax.websocket.Session, java.text.*, com.kh.rr.matching.model.vo.*"%>
 <%
@@ -7,13 +6,6 @@
 	Member m = (Member) (request.getSession().getAttribute("loginUser"));
 	ChattingRoom reqCr = (ChattingRoom) (request.getSession().getAttribute("reqCr"));
 	int rno = (int) session.getAttribute("rno");
-	/* int rno = (int) request.getAttribute("rno"); */
-	/* ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
-
-	HashMap<String, Object> hmap = null;
-	for (int i = 0; i < list.size(); i++) {
-		hmap = list.get(i);
-	} */
 	//현재시간
 	long now = System.currentTimeMillis();
 			
@@ -111,64 +103,10 @@ $(function() {
 					$("#dTime").text(data[key].dTime);
 					if(<%= now%> < deadLineTime){
 						console.log("마감시간 설정");
-					}<%-- else{
-						$("input[name=dTime]").val("25");
-						location.href = "<%= request.getContextPath()%>/deadLine.cr";
 					}
-					
-					if(deadLineTime === "25"){
-						$("#dTime").text("마감시간을 설정하세요.");	
-					} --%>
 						
 					} 
 
-					//-> 잘못된 알고리즘
-					/* if(data[key].type == "USER"){
-						console.log(data[key].type);
-						var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
-						var $imgDiv = $("<div class='profileImg' data-toggle='modal' data-target='#userProfile'>");
-						var $nameDiv = $("<div class='profileName'>");
-						
-						$imgDiv.append("<img src='/rr/profileImg_upload/"+ data[key].changeName +"' style='width:100%; border-radius:6em;'>");
-						
-						if(myId === data[key].userId){
-							$nameDiv.append("<p>" + data[key].nickName + "(나)</p>");						
-						}else{
-							$nameDiv.append("<p>" + data[key].nickName + "</p>");	
-						}
-
-						$div.append($imgDiv);
-						$div.append($nameDiv);
-
-						$chatPersonDiv.append($div);
-					
-						
-					}else{
-						var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
-						var $imgDiv = $("<div class='profileImg' data-toggle='modal' data-target='#userProfile'>");
-						var $nameDiv = $("<div class='profileName'>");
-						var $kickDiv = $("<div style='float: right; margin-top: 8px;'>");
-						
-						$imgDiv.append("<img src='/rr/profileImg_upload/"+ data[key].changeName +"' style='width:100%; border-radius:6em;'>");
-						
-						if(myId === data[key].userId){
-							$nameDiv.append("<p>" + data[key].nickName + "(나)</p>");						
-						}else{
-							$nameDiv.append("<p>" + data[key].nickName + "</p>");	
-							$kickDiv.append("<button type='button' class='btn btn-danger kickBtn' >강퇴</button>");
-						}
-											
-						$div.append($imgDiv);
-						$div.append($nameDiv);
-						$div.append($kickDiv);
-						
-						$chatPersonDiv.append($div);
-
-						$("#deadLineI").append("<i class='fas fa-stopwatch' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>");
-						
-					} */
-								
-				
 			 	$(".close").click(function(){
 					$(".divArea").remove();
 					$(".fa-stopwatch").remove();
@@ -190,9 +128,7 @@ $(function() {
 			data:{dTime:dTime, dtRno:dtRno},
 			type:"get",
 			success:function(data){
-				
-					 $("#reservation").css({"display":"block","opacity":1});
-				 
+				$("#reservation").css({"display":"block","opacity":1});
 			},
 			error:function(){
 			}
@@ -225,16 +161,20 @@ $(function() {
 			  for(var i = 0; i < data[0].length; i++){
 				 var $tr2 = $("<tr class='res'>");
 				 var $userTd = $("<td class='resUser'>").text(data[0][i]);
-				 var $select = $("<select class='resMenu'>");
+				 var $selectTd = $("<td class='selectMenu'>");
+				 var $qttTd = $("<td class='qtt'>");
+				 var $select = $("<select class='resMenu form-control'>");
 				 for(var j = 0; j < data[1].length; j++){
 					 console.log(data[1][j]);
 					 $select.append("<option value='" + data[1][j].price + "'>"+
-							 data[1][j].menu+"</option>");
+					 data[1][j].menu+"</option>");
 				 }
-				 var $qtt = $("<input class='qtt' type='number'>");
+				 var $qtt = $("<input class='qtt form-control' type='number'>");
+				 $selectTd.append($select);
+				 $qttTd.append($qtt);
 				 $tr2.append($userTd);
-				 $tr2.append($select);
-				 $tr2.append($qtt);
+				 $tr2.append($selectTd);
+				 $tr2.append($qttTd);
 				 $selectTable.append($tr2);
 			 } 
 		 }
@@ -252,12 +192,9 @@ $(function() {
 	   var rno = $("input[name=dtRno]").val();
 	   $(".res").each(function(){
 		   users += $(this).children(".resUser").text() + ",";
-		   menus += $(this).children(".resMenu").val() + ",";
-		   qtts += $(this).children(".qtt").val() + ",";
+		   menus += $(this).children(".selectMenu").children(".resMenu").val() + ",";
+		   qtts += $(this).children(".qtt").children(".qtt").val() + ",";
 	   })	   
-	   console.log(users);
-	   console.log(menus);
-	   console.log(qtts);
 	   $.ajax({
 		   url:"<%=request.getContextPath()%>/insert.res",
 		   data:{users:users,menus:menus,qtts:qtts, rno:rno},
@@ -513,6 +450,19 @@ body::-webkit-scrollbar {
 .modal-open .modal {
 	overflow-y: hidden;
 }
+/*예약 내역 테이블 스타일*/
+#resTable {
+	border: 1px solid black;
+}
+
+#selectTable {
+	margin-top: 10px;
+}
+
+#selectTable>tbody>tr>td {
+	vertical-align: middle;
+}
+
 </style>
 </head>
 <body>
@@ -724,13 +674,15 @@ body::-webkit-scrollbar {
 					<div class="modal-header" data-backdrop="static">
 						<h4 class="modal-title" style=' text-align:center '>예약</h4>
 					</div>
-					<div class="modal-body" data-backdrop="static" style="padding: 0; height: 375px;">
-						<table id="resTable">
+					<div class="modal-body" data-backdrop="static" style="padding: 0; height: 375px; margin-top: 10px;">
+						<p align='center'>메뉴 목록</p>
+						<table id="resTable" class="table table-bordered table-striped">
 							<tbody>
 								
 							</tbody>
 						</table>
-						<table id="selectTable">
+						<p align='center'>메뉴를 선택해주세요!</p>
+						<table id="selectTable" class="table table-bordered">
 							<tbody>
 								
 							</tbody>
@@ -738,7 +690,7 @@ body::-webkit-scrollbar {
 					
 								
 					</div>
-					<div class="modal-footer" data-backdrop="static">
+					<div class="modal-footer" data-backdrop="static" style="border:none;">
 						<button type="button" class="btn btn-default" id="resBtn">확인</button>
 					</div>
 				</div>
