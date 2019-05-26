@@ -1277,6 +1277,7 @@ body::-webkit-scrollbar {
 						$fbbtnDiv.append($fbUpdateBtn);
 						$fbbtnDiv.append($fbDeleteBtn);
 						$("input[name=fbT]").removeAttr("readonly");
+						$("textarea[name=fbCon]").removeAttr("readonly");
 					}										
 					<% } %>
 				}
