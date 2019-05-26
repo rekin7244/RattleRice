@@ -172,7 +172,7 @@ a.article, a.article:hover {
 ----------------------------------------------------- */
 #content {
 	width: calc(100% - 250px);
-	padding: 40px;
+	padding: 0px;
 	min-height: 100vh;
 	transition: all 0.3s;
 	position: absolute;
@@ -278,7 +278,7 @@ padding-bottom: 30px;
 				</div> -->
 				<br>
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray;  height: 400px; float: left; width: 33%; padding:10px; 
+					style="border: 0.5px solid lightgray;  height: 400px; width: 400%; padding:10px; 
 					overflow-x: auto;">
 					<h4 align="center">매장정보</h4>
 					<br> <br>
@@ -345,7 +345,7 @@ padding-bottom: 30px;
 					</form>
 				</div>
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray;  height: 400px; float: left; width: 33%; padding:10px; 
+					style="border: 0.5px solid lightgray;  height: 400px; width: 400%; padding:10px; 
 					overflow-x: auto; overflow-y:auto;">
 					<h4 align="center">메뉴</h4>
 					<br><br>
@@ -435,7 +435,7 @@ padding-bottom: 30px;
 				
 				
 				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray; height: 400px;float: left; width: 33%; padding:10px;">
+					style="border: 0.5px solid lightgray; height: 400px; width: 400%; padding:10px;">
 				
 						<form action="<%= request.getContextPath() %>/updateImg" method="post"
 							encType="multipart/form-data">

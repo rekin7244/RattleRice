@@ -462,14 +462,43 @@ public class AdminService {
 
 			int result = 0;
 			for (int i = 0; i < arr.length; i++) {
-				//System.out.println("arr"+i+" : "+arr[i]);
 				result += new AdminDao().pSettlementOne(con, Integer.parseInt(arr[i]));
 			}
-			System.out.println("result : "+result);
+			
 			if(result == arr.length) {
 				commit(con);
 			}else {
 				rollback(con);
+				result=0;
+			}
+			return result;
+		}
+
+		public int reserveSettleOne(int rid) {
+			Connection con = getConnection();
+			
+			int result = new AdminDao().reserveSettleOne(con,rid);
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			return result;
+		}
+
+		public int reserveSettleChecked(String[] arr) {
+			Connection con = getConnection();
+			
+			int result = 0;
+			for (int i = 0; i < arr.length; i++) {
+				result += new AdminDao().reserveSettleOne(con, Integer.parseInt(arr[i]));
+			}
+			if(result == arr.length) {
+				commit(con);
+			}else {
+				rollback(con);
+				result=0;
 			}
 			return result;
 		}

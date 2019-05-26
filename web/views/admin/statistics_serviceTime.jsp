@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>매장 통계</title>
+<title>서비스 통계</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <style>
 svg circle {
@@ -63,7 +63,7 @@ svg circle {
 				</button>
 				&nbsp; &nbsp;
 				<div id="mainbar">
-					<a>매장 분석</a>
+					<a>시간대별 통계</a>
 				</div>
 
 				<iframe name='action' width="0" height="0" frameborder="0"
@@ -71,9 +71,9 @@ svg circle {
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="nav navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link" href="">서비스통계</a></li>
+						<li class="nav-item active"><a class="nav-link" href="">서비스통계</a></li>
 						<li class="nav-item"><a class="nav-link" href="statistics_sales.jsp">매출통계</a></li>
-						<li class="nav-item active"><a class="nav-link" href="statistics_member.jsp">관리통계</a></li>
+						<li class="nav-item"><a class="nav-link" href="statistics_member.jsp">관리통계</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
 					</ul>
@@ -83,18 +83,26 @@ svg circle {
 		
 		<!-- content -->
 		<div class="outer">
-			<canvas id="tableChart" height="250px"></canvas>
+			<canvas id="tableChart" height="150px"></canvas>
+			<table class="table table-bordered" id="serviceTable">
+				<thead>
+					<td>시간대</td>
+					<td>이용방</td>
+				</thead>
+				<tbody></tbody>
+			</table>
 		</div>
 	</div>
 <script>
-var storeData;
+var serviceData;
 //tableChart 생성
-var ctx = $("#firstChart");
+var ctx = $("#tableChart");
 var tableChart = new Chart(ctx, {
-	type:"pie",
+	type:"bar",
 	data:{
 		labels:[],
 		datasets: [{
+			label:['시간대별 채팅방 수'],
 			data:[],
 			backgroundColor:[
 				'rgba(255,99,132,0.2)',
@@ -133,16 +141,27 @@ var tableChart = new Chart(ctx, {
 //data loading
 $(function(){
 	$.ajax({
-		url:"<%=request.getContextPath()%>/statisticsStore.st",
+		url:"<%=request.getContextPath()%>/statisticsServiceTime.st",
 		type:"post",
 		data:{},
 		success:function(data){
-			var storeData = data;
-			console.log(storeData);
+			serviceData = data;
+			console.log(data);
 			removeData(tableChart);
-			for ( var key in storeData) {
-			addData(tableChart,storeData[key].location,storeData[key].value);						
-			}
+			
+			$tableBody = $("#serviceTable tbody");
+			$tableBody.html('');
+			$.each(serviceData, function(index, value){
+				var $tr = $("<tr>");
+				var $timeTd = $("<td>").text(value.time+'시~'+((value.time)*1+1)+'시');
+				var $countTd = $("<td>").text(value.value);
+				
+				$tr.append($timeTd);
+				$tr.append($countTd);
+				$tableBody.append($tr);
+				
+				addData(tableChart,value.time+'시~'+((value.time)*1+1)+'시',value.value);
+			});
 		},
 		error:function(data){
 			console.log("로드 실패");

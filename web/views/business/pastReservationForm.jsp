@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	import="com.kh.rr.member.model.vo.Reservation ,java.util.*"%>
+
+<%
+	ArrayList<Reservation> list = (ArrayList<Reservation>) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 
@@ -252,43 +257,30 @@ a.article, a.article:hover {
 				</ul>
 
 				<table class="table table-bordered">
-					<thead>
-						<tr style="background: lightgray">
-							<th>예약자</th>
-							<th>예약시간</th>
-							<th>인원</th>
-							<th>예약선택</th>
-							<th>특이사항</th>
-
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>홍길동</td>
-							<td>19.04.25<br>18:00
-							</td>
-							<td>4명</td>
-							<td>-</td>
-							<td>완료</td>
-						</tr>
-						<tr>
-							<td>김난지</td>
-							<td>19.04.25<br>18:00
-							</td>
-							<td>3명</td>
-							<td>-</td>
-							<td>완료</td>
-						</tr>
-						<tr>
-							<td>박호세</td>
-							<td>19.04.25<br>18:00
-							</td>
-							<td>6명</td>
-							<td>-</td>
-							<td>완료</td>
-						</tr>
-					</tbody>
-				</table>
+				<thead>
+					<tr style="background: lightgray">
+						<th>예약자 이름</th>
+						<th>예약시간</th>
+						<th>인원</th>
+						<th>금액</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+						for (int i = 0; i < list.size(); i++) {
+							Reservation res = list.get(i);
+					%>
+					<tr>
+						<td><%=res.getUserName()%></td>
+						<td><%=res.getrTime()%></td>
+						<td><%=res.getmCount()%></td>
+						<td><%=res.getPrice() %></td>
+					</tr>
+					<%
+						}
+					%>
+				</tbody>
+			</table>
 			</div>
 
 

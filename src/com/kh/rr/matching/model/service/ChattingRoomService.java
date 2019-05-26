@@ -256,17 +256,6 @@ public class ChattingRoomService {
 		
 		return result;
 	}
-
-//	//방 번호를 받아와서 식당 메뉴정보, 상호명, 위치 가져오는 메소드
-//	public ArrayList<ArrayList> selectStoreInfo(int rno) {
-//		Connection con = getConnection();
-//		ArrayList<ArrayList> resList = new ChattingRoomDao().selectStoreInfo(con, rno);
-//		
-//		close(con);
-//		
-//		return resList;
-//	}
-
 	
 	//방 번호를 받아와서 식당 메뉴정보, 유저정보 가져오는 메소드
 	public ArrayList<ArrayList> reservation(int rno) {

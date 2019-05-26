@@ -60,8 +60,8 @@ public class StatisticsDao {
 			list = new ArrayList<HashMap<String, Object>>();
 			while(rset.next()) {
 				HashMap<String, Object> hmap = new HashMap<String, Object>();
-				hmap.put("value", rset.getInt("COUNT(*)"));
-				hmap.put("location",rset.getString("LOCATION"));
+				hmap.put("value", rset.getInt("count"));
+				hmap.put("location",rset.getString("location"));
 				
 				list.add(hmap);
 			}
@@ -103,7 +103,7 @@ public class StatisticsDao {
 	public ArrayList<HashMap<String, Object>> statisticsCoinCharge(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("statisticsCoinCharge");
+		String sql = prop.getProperty("statisticsCoin");
 		ArrayList<HashMap<String,Object>> list = null;
 		
 		try {
@@ -112,33 +112,8 @@ public class StatisticsDao {
 			list = new ArrayList<HashMap<String,Object>>();
 			while(rset.next()) {
 				HashMap<String,Object> hmap = new HashMap<String,Object>();
-				hmap.put("sales", rset.getInt("sumPrice"));
-				hmap.put("month", rset.getString("month"));
-				
-				list.add(hmap);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-		return list;
-	}
-
-	public ArrayList<HashMap<String, Object>> statisticsCoinUse(Connection con) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("statisticsCoinUse");
-		ArrayList<HashMap<String,Object>> list = null;
-		
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(sql);
-			list = new ArrayList<HashMap<String,Object>>();
-			while(rset.next()) {
-				HashMap<String,Object> hmap = new HashMap<String,Object>();
-				hmap.put("sales", rset.getInt("sumPrice"));
+				hmap.put("charge", rset.getInt("charge"));
+				hmap.put("use",rset.getInt("use"));
 				hmap.put("month", rset.getString("month"));
 				
 				list.add(hmap);
@@ -164,7 +139,7 @@ public class StatisticsDao {
 			list = new ArrayList<HashMap<String,Object>>();
 			while(rset.next()) {
 				HashMap<String,Object> h = new HashMap<String,Object>();
-				h.put("sum", rset.getInt("SUMPRICE"));
+				h.put("sum", rset.getInt("sumPrice"));
 				h.put("month",rset.getString("MONTH"));
 				list.add(h);
 			}
@@ -225,6 +200,114 @@ public class StatisticsDao {
 			close(rset);
 			close(stmt);
 		}
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> serviceTime(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("serviceTime");
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				HashMap<String,Object> h = new HashMap<String,Object>();
+				h.put("time", rset.getString("time"));
+				h.put("value", rset.getInt("value"));
+				list.add(h);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> servicePlace(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("servicePlace");
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				HashMap<String,Object> h = new HashMap<String,Object>();
+				String str[] = rset.getString("place").split(" ");
+				if(str.length > 1) {
+					h.put("place", str[1]);
+				}else {
+					h.put("place",rset.getString("place"));
+				}
+				h.put("value", rset.getInt("value"));
+				
+				list.add(h);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statisticsServiceCategory(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("serviceCategory");
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				HashMap<String,Object> h = new HashMap<String,Object>();
+				h.put("category", rset.getString("category"));
+				h.put("value", rset.getInt("value"));
+				
+				list.add(h);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statisticsMemberbyJob(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("statisticsJob");
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				HashMap<String,Object> h = new HashMap<String,Object>();
+				h.put("job", rset.getString("JOB"));
+				h.put("count", rset.getInt("COUNT"));
+				list.add(h);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
 		return list;
 	}
 

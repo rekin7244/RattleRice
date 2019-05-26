@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.rr.admin.model.service.AdminService;
 
 /**
- * Servlet implementation class PointSettleServlet
+ * Servlet implementation class SettleReservedServlet
  */
-@WebServlet("/pSettlementOne.ad")
-public class PointSettleServlet extends HttpServlet {
+@WebServlet("/reserveSettle.ad")
+public class SettleReservedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PointSettleServlet() {
+    public SettleReservedServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +31,12 @@ public class PointSettleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int rid = Integer.parseInt(request.getParameter("num"));
 		
-		int result = new AdminService().pSettlementOne(rid);
+		int result = new AdminService().reserveSettleOne(rid);
 		
 		if(result > 0) {
-			response.sendRedirect("pSettlementList.ad");
+			response.sendRedirect("views/admin/b_calculate.jsp");
 		}else {
-			request.setAttribute("msg", "정산 실패!");
+			request.setAttribute("msg", "실패!");
 			request.getRequestDispatcher("views/common/error-500.jsp").forward(request, response);
 		}
 	}

@@ -216,9 +216,9 @@ a.article, a.article:hover {
 					data-toggle="collapse" aria-expanded="false"
 					class="dropdown-toggle">서비스 통계</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
-						<li><a href="">시간대별 이용 조회</a></li>
-						<li><a href="">장소별 이용 조회</a></li>
-						<li><a href="">카테고리별 이용 조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/views/admin/statistics_serviceTime.jsp">시간대별 이용 조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/views/admin/statistics_servicePlace.jsp">장소별 이용 조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/views/admin/statistics_serviceCategory.jsp">카테고리별 이용 조회</a></li>
 					</ul>
 				</li>
 
@@ -234,8 +234,8 @@ a.article, a.article:hover {
 					aria-expanded="false" class="dropdown-toggle">관리 통계</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu2">
 						<li><a href="<%=request.getContextPath() %>/views/admin/statistics_member.jsp">회원 분석</a></li>
-						<li><a href="">사업자 분석</a></li>
-						<li><a href="<%=request.getContextPath()%>/views/admin/statistics_store.jsp">매장 분석</a></li>
+						<li><a href="<%=request.getContextPath()%>/views/admin/statistics_stores.jsp">사업장 분석</a></li>
+						<li><a href="<%=request.getContextPath()%>/views/admin/statistics_store.jsp">매장 분포 분석</a></li>
 					</ul>
 				</li>
 				

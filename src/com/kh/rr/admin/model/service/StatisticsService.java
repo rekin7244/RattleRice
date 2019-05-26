@@ -3,13 +3,9 @@ package com.kh.rr.admin.model.service;
 import static com.kh.rr.common.JDBCTemplate.close;
 import static com.kh.rr.common.JDBCTemplate.getConnection;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import com.kh.rr.admin.model.dao.StatisticsDao;
 
@@ -30,10 +26,6 @@ public class StatisticsService {
 		Connection con = getConnection();
 		
 		ArrayList<HashMap<String, Object>> list = new StatisticsDao().statisticsStore(con);
-		
-		//csv 작성
-		ArrayList<HashMap<String,Object>> storeList = new StatisticsDao().getStores(con);
-		int result = createCSV(storeList,"places","/web/files/");
 		
 		close(con);
 		
@@ -60,15 +52,6 @@ public class StatisticsService {
 		return list;
 	}
 
-	public ArrayList<HashMap<String, Object>> statisticsCoinUse() {
-		Connection con = getConnection();
-		
-		ArrayList<HashMap<String,Object>> list = new StatisticsDao().statisticsCoinUse(con);
-		
-		close(con);
-		
-		return list;
-	}
 
 	public ArrayList<HashMap<String, Object>> statisticsSettle() {
 		Connection con = getConnection();
@@ -90,27 +73,54 @@ public class StatisticsService {
 		return list;
 	}
 	
-	public int createCSV(List<HashMap<String,Object>> list, String title, String filePath) {
-		int resultCount = 0;
+	public ArrayList<HashMap<String,Object>> getStores(){
+		Connection con = getConnection();
+		//csv 작성
+		ArrayList<HashMap<String,Object>> storeList = new StatisticsDao().getStores(con);
 		
-		try {
-			BufferedWriter fw = new BufferedWriter(new FileWriter(filePath+"/"+title+".csv",true));
-			
-			for (HashMap<String, Object> h : list) {
-				fw.write(h.get("name")+","+h.get("lat")+","+h.get("lon"));
-				fw.newLine();
-				resultCount++;
-				if(resultCount % 100 == 0) {
-					//log.info("resultCount : "+ resultCount + "/" + list.size());
-				}
-				
-				fw.flush();
-				fw.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return resultCount;
+		close(con);
+		
+		return storeList;
+	}
+
+	public ArrayList<HashMap<String, Object>> statisticsServiceTime() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new StatisticsDao().serviceTime(con);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statisticsServicePlace() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new StatisticsDao().servicePlace(con);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statisticsServiceCategory() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new StatisticsDao().statisticsServiceCategory(con);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statisticsMemberbyJob() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new StatisticsDao().statisticsMemberbyJob(con);
+		
+		close(con);
+		
+		return list;
 	}
 	
 }

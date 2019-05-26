@@ -22,4 +22,16 @@ public class ReservationService {
 		return list;
 	}
 
+	public ArrayList<Reservation> selectPastReservation(Member loginUser) {
+	Connection con = getConnection();
+		
+		ArrayList<Reservation>  list = new ReservationDao().selectPastReservation(con, loginUser);
+		
+		close(con);
+		
+		return list;
+	}
+
+	
+
 }

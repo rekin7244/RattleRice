@@ -1,6 +1,8 @@
 package com.kh.rr.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,19 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.rr.admin.model.service.AdminService;
+import com.google.gson.Gson;
+import com.kh.rr.admin.model.service.StatisticsService;
 
 /**
- * Servlet implementation class PointSettleServlet
+ * Servlet implementation class StatisticsServiceCategoryServlet
  */
-@WebServlet("/pSettlementOne.ad")
-public class PointSettleServlet extends HttpServlet {
+@WebServlet("/statisticsServiceCategory.st")
+public class StatisticsServiceCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PointSettleServlet() {
+    public StatisticsServiceCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,15 +32,11 @@ public class PointSettleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int rid = Integer.parseInt(request.getParameter("num"));
+		ArrayList<HashMap<String,Object>> list = new StatisticsService().statisticsServiceCategory();
 		
-		int result = new AdminService().pSettlementOne(rid);
-		
-		if(result > 0) {
-			response.sendRedirect("pSettlementList.ad");
-		}else {
-			request.setAttribute("msg", "정산 실패!");
-			request.getRequestDispatcher("views/common/error-500.jsp").forward(request, response);
+		if(list != null) {
+			response.setContentType("application/json");
+			new Gson().toJson(list,response.getWriter());
 		}
 	}
 

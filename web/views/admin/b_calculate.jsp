@@ -210,15 +210,13 @@ a.article, a.article:hover {
 	
 	
 	<br><br> 
-		<select>
-			<option>정렬</option>
-		</select> <input type="text">
-		<button>검색</button>
+		<input type="text" id="searchBrand" placeholder="상호명">
+		<button onclick='search()'>검색</button>
 		<table class="table table-bordered" id="tableId">
 
 			<thead>
 				<tr style="background: lightgray" align="center">
-					<th><input type="checkbox" id="checkmember"></th>
+					<th><input type="checkbox" id="selectAll"></th>
 					<th>사업자번호</th>
 					<th>상호명</th>
 					<th>은행</th>
@@ -230,7 +228,8 @@ a.article, a.article:hover {
 
 			<tbody align="center"></tbody>
 		</table>
-		<div id="pagingArea" align="center">
+		<div id="pagingArea" align="left">
+		<button onclick="reserveSettleChecked()" class="btn pull-left">정산</button>
 			<ul id="paging" class="pagination"></ul>
 		</div>
 	</div>
@@ -252,26 +251,36 @@ a.article, a.article:hover {
 			$tableBody = $("#tableId tbody");
 			$tableBody.html('');
 			$.each(list, function(index, value){
-				console.log(value);
-				var $tr = $("<tr>");
-				var $checkInput = $("<input type='checkbox' id='checkid'>");
-				var $checkTd = $("<td>");
-				var $idTd = $("<td>").text(value.sid);
-				var $brandTd = $("<td>").text(value.brand);
-				var $bankTd = $("<td>").text("KH은행");
-				var str = '';
-				for(var i=0;i<15;i++){
-					if(i!=3 && i!= 7){
-						str+=Math.floor(Math.random()*10);
-					}else{
-						str+='-';
-					}
-				}
-				var $accountTd = $("<td>").text(str);
 				var status = value.status;
-				var $sumTd = $("<td>").text(value.sum+'원');
+				var $tr = $("<tr>");
+				if(status=='Y'){
+					var $hiddenRid = $("<input type='hidden' value='"+value.rid+"'>");
+					var $checkInput = $("<input type='checkbox' class='checkMember'>");
+					$checkInput.append($hiddenRid);
+				}else{
+					var $checkInput = $("<input type='checkbox' disabled>");
+				}
+				var $checkTd = $("<td>");
+				var $idTd = $("<td>").text(value.bcode);
+				var $brandTd = $("<td>").text(value.brand);
+				var bankcode = value.bankcode;
+				var bankname = '';
+				switch(bankcode){
+				case '002':bankname='산업은행'; break; case '003':bankname='기업은행'; break; case '004':bankname='국민은행'; break;
+				case '005':bankname='외환은행'; break; case '007':bankname='수협은행'; break; case '011':bankname='농협은행'; break;
+				case '012':bankname='단위농협은행'; break; case '020':bankname='우리은행'; break; case '023':bankname='SC제일은행'; break;
+				case '027':bankname='씨티은행'; break; case '031':bankname='대구은행'; break; case '032':bankname='부산은행'; break;
+				case '034':bankname='광주은행'; break; case '035':bankname='제주은행'; break; case '037':bankname='전북은행'; break;
+				case '039':bankname='경남은행'; break; case '045':bankname='새마을금고'; break; case '048':bankname='신협은행'; break;
+				case '048':bankname='신협은행'; break; case '050':bankname='상호저축은행'; break; case '055':bankname='도이치은행'; break;
+				case '071':bankname='우체국은행'; break; case '081':bankname='하나은행'; break; case '088':bankname='신한은행'; break;
+				case '090':bankname='카카오은행'; break; default : bankname='KH은행'
+				}
+				var $bankTd = $("<td>").text(bankname);
+				var $accountTd = $("<td>").text(value.account);
+				var $sumTd = $("<td>").text(value.price+'원');
 				if(status == 'Y'){
-					var $button = $("<button onclick='settle'>").text('수동정산');
+					var $button = $("<button onclick='settlement("+value.rid+")'>").text('수동정산');
 					var $adminTd = $("<td>");
 				}else{
 					var $button = '정산완료';
@@ -300,8 +309,50 @@ a.article, a.article:hover {
 			$paging.append($endLi);
 		}
 		
-		function settlement(){
-			location.href="<%=request.getContextPath()%>/reserveSettle.ad?num="+idx;
+		function search(){
+			var brand = $("#searchBrand").val();
+			$.ajax({
+				url:"<%=request.getContextPath()%>/reserveSettleSearch.ad",
+				type:"post",
+				data:{brand:brand},
+				success:function(data){
+					setList(data);
+				}
+			});
+		}
+		
+		function paging(nextPage){
+			var brand = $("#searchBrand").val();
+			$.ajax({
+				url:"<%=request.getContextPath()%>/reserveSettleSearch.ad",
+				type:"post",
+				data:{currentPage:nextPage,brand:brand},
+				success:function(data){
+					console.log(data);
+					setList(data);
+				}
+			})
+		}
+		
+		function settlement(index){
+			console.log(index);
+			location.href="<%=request.getContextPath()%>/reserveSettle.ad?num="+index;
+		}
+		
+		function reserveSettleChecked(){
+			var str = "";
+			
+			$('.checkMember:checked').each(function(){
+				console.log($(this).children().eq(0).val());
+				if(str == ""){
+					str+=$(this).children().eq(0).val();					
+				}else{
+					str+=","+$(this).children().eq(0).val();
+				}
+			});
+			console.log(str);
+			
+			location.href="<%=request.getContextPath()%>/reserveSettleChecked.ad?arr="+str;
 		}
 		
 		$("#selectAll").change(function(){
@@ -313,7 +364,7 @@ a.article, a.article:hover {
 				$('.checkMember').each(function(){
 					$(this).attr("checked", false);
 				});
-			}			
+			}
 		});
 		
 		
