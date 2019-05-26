@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.rr.admin.model.service.AdminService;
+import com.kh.rr.board.model.vo.Board;
+
 /**
  * Servlet implementation class FAQinsertServlet
  */
@@ -26,9 +29,37 @@ public class FAQinsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String category = request.getParameter("category");
+		
+		System.out.println("카테고리 : " + category);
+		System.out.println("글 제목 : " +title);
+	
+		
+		Board FAQ = new Board();
+		
+		FAQ.setTitle(title);
+		FAQ.setbContent(content);
+		FAQ.setfCategory(category);
+		
+		System.out.println(FAQ);
+		
+		int result = new AdminService().insertFAQ(FAQ);
+		 
+		
+		String page = "";
+		if(result > 0) {
+			response.sendRedirect("/rr/FAQlist.ad");
+		}else {
+			System.out.println("실패");
+		}
+		
+	
 	}
+
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

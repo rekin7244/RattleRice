@@ -695,7 +695,45 @@ public class AdminDao {
 		}
 		return list;
 	}
-
+	
+	public ArrayList<Settlement> getPointSettleSearchList(Connection con, PageInfo pi, String condition,
+				String keyword) {
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("getPointSettleSearchList");
+			ArrayList<Settlement> list = null;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, condition);
+				pstmt.setString(2, keyword);
+				pstmt.setInt(3, pi.getStartPage());
+				pstmt.setInt(4, pi.getEndpage());
+				rset = pstmt.executeQuery();
+				
+				list = new ArrayList<Settlement>();
+				while(rset.next()) {
+					Settlement s = new Settlement();
+					s.setRid(rset.getInt("RID"));
+					s.settDate(rset.getDate("TDATE"));
+					s.setrDate(rset.getDate("RDATE"));
+					s.setrPrice(rset.getInt("RPRICE"));
+					s.setrFees(rset.getInt("RFEES"));
+					s.setTid(rset.getInt("TID"));
+					s.setaId(rset.getString("A_ID"));
+					s.setmId(rset.getString("M_ID"));
+					s.setStatus(rset.getString("STATUS"));
+					list.add(s);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
+	
 	public int pSettlementOne(Connection con, int rid) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateRefundOne");
@@ -1142,60 +1180,83 @@ public class AdminDao {
 			
 			return result;
 		}
+		
+		public int insertFAQ(Connection con, Board FAQ) {
+			PreparedStatement pstmt = null;
+			int result = 0;
 
-		public ArrayList<Settlement> getPointSettleSearchList(Connection con, PageInfo pi, String condition,
-				String keyword) {
+			String query = prop.getProperty("insertFAQ");
+
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, FAQ.getTitle());
+				pstmt.setString(2, FAQ.getbContent());
+				pstmt.setString(3, FAQ.getfCategory());
+
+				result = pstmt.executeUpdate();
+
+				/*System.out.println(result);*/
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+
+
+			return result;
+		}
+
+		public int deleteFAQ(Connection con, int fbid) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+
+			String query =prop.getProperty("deleteFAQ");
+
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, fbid);
+
+				result=pstmt.executeUpdate();
+
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+
+				close(pstmt);
+			}
+
+			return result;
+		}
+
+		public Board SelectFAQ(Connection con, int fbid) {
+			Board FAQ = null;
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
-			String sql = prop.getProperty("getPointSettleSearchList");
-			ArrayList<Settlement> list = null;
-			
+
+			String query = prop.getProperty("selectFAQ");
+
 			try {
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, condition);
-				pstmt.setString(2, keyword);
-				pstmt.setInt(3, pi.getStartPage());
-				pstmt.setInt(4, pi.getEndpage());
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, fbid);
+
 				rset = pstmt.executeQuery();
-				
-				list = new ArrayList<Settlement>();
-				while(rset.next()) {
-					Settlement s = new Settlement();
-					s.setRid(rset.getInt("RID"));
-					s.settDate(rset.getDate("TDATE"));
-					s.setrDate(rset.getDate("RDATE"));
-					s.setrPrice(rset.getInt("RPRICE"));
-					s.setrFees(rset.getInt("RFEES"));
-					s.setTid(rset.getInt("TID"));
-					s.setaId(rset.getString("A_ID"));
-					s.setmId(rset.getString("M_ID"));
-					s.setStatus(rset.getString("STATUS"));
-					list.add(s);
+
+				if(rset.next()) {
+					FAQ = new Board();
+					FAQ.setTitle(rset.getString("TITLE"));
+					FAQ.setbContent(rset.getString("BCONTENT"));
+					FAQ.setFbid(fbid);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-			} finally {
+			}finally {
 				close(rset);
 				close(pstmt);
 			}
-			return list;
-		}
 
-		public int reserveSettleOne(Connection con, int rid) {
-			PreparedStatement pstmt = null;
-			String sql = prop.getProperty("reserveSettleOne");
-			int result = 0;
-			
-			try {
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, rid);
-				result = pstmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(pstmt);
-			}
-			return result;
+
+			return FAQ;
 		}
 
 }

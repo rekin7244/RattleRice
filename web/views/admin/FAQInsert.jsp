@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*, com.kh.rr.board.model.vo.Board"%>
 <%
-	Board FAQ = (Board)request.getAttribute("FAQ");
-
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -18,8 +17,8 @@
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
-#content {
-	width:  calc(100% - 250px); 
+ #content {
+	width: calc(100% - 250px);
 	padding: 40px;
 	min-height: 100vh;
 	transition: all 0.3s;	
@@ -28,9 +27,9 @@
 	right: 0;
 }
 
-/* #content.active {
+#content.active {
 	width: 100%;
-} */
+}
 
 #mainbar {
 	background-color: lightgreen;
@@ -40,12 +39,14 @@
 }
 
 
-
-#detail{
+#insert{
 	width : 1000px;
 	margin-left:50px;
 }
 
+#insertbtn{
+	margin-left:1000px;
+} 
 
 
 </style>
@@ -54,6 +55,7 @@
 <body>
 	<%@ include file="menubar_admin.jsp" %>
 	<!-- Page Content  -->
+	
 	<div id="content">
 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -73,13 +75,13 @@
 				</button>
 				&nbsp; &nbsp;
 				<div id="mainbar">
-					<a>FAQ</a>
+					<a>공지사항</a>
 				</div>
 
 				<iframe name='action' width="0" height="0" frameborder="0"
 					scrolling='yes'></iframe>
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="nav navbar-nav ml-auto">
 						<li class="nav-item active"><a class="nav-link"
 							href="<%=request.getContextPath() %>/memberlist.ad">회원관리</a></li>
@@ -106,99 +108,48 @@
 				
 				<!-- 게시판 -->
 				
-					<div class="page-wrapper">
-			<div class="container-fluid">
-				<div class="col-lg-8">
-					<!--게시판 넓이 -->
- 	
-				</div>
-				
-				<!-- 게시판 -->
-				
 				<div class="container">
 					<div class="row">
-						<form id="detailForm" method="post">
-							<table class="table table-striped"
+						<form action="<%=request.getContextPath()%>/FAQinsert.ad" method="post">
+							<table class="table table-striped" id="insert"
 								style="text-align:center; border:1px solid #dddddd">
 								<thead>
 									<tr>
-									
 										<th colspan="2" style="background-color:#eeeeee;
 										text-align:center;">
-										게시판 상세보기</th>
-									
+										글 쓰기 양식</th>
 									</tr>
 								</thead>
 								
 								<tbody>
-								
-						
-									<tr>
 									
-										<td>	<select>
-											<option><%= FAQ.getfCategory() %></option>
-									</select>	
-									글 제목 : <input type="text" name="title" value="<%= FAQ.getTitle() %>" readonly>
-										
-									</td>
-										<input id="fbid" name="fbid" type="hidden" value="<%=FAQ.getFbid()%>">
-										
 									</tr>
-
 									<tr>
-										<td><textarea readonly class="form-control"  name="content" 
-												maxlength="2048" style="height:400px; width:1000px;"><%=FAQ.getbContent() %></textarea></td>
+										<td>
+										<select name="category">
+											<option value="회원">회원</option>
+											<option value="결제">결제</option>
+											<option value="환불">환불</option>
+											<option value="약관">약관</option>
+											<option value="기타">기타</option>
+										</select>
+										<input type="text" class="form-control" placeholder="글 제목" name="title"
+												maxlength="50"></td>
+									</tr>
+									
+									<tr>
+										<td><textarea class="form-control" placeholder="글 내용" name="content" 
+												maxlength="2048" style="height:350px;"></textarea></td>
 									</tr>
 									
 												
 								</tbody>
 							</table>
-						</form>
-							
-							<div>
-								<button class="btn btn-primary pull-right" id="before" 
-									onclick="location.href='<%=request.getContextPath() %>/FAQlist.ad'">이전</button>
-							 <button class="btn btn-primary pull-right" id="update" 
-									onclick="location.href='<%=request.getContextPath()%>/FAQselect.ad?fbid=<%=FAQ.getFbid()%>'">수정</button>
-								<button class="btn btn-primary pull-right" id="delete"
-									onclick="deleteCommunity();">삭제</button>
 								
-									
-							</div>
-							
-						
+							<input type="submit" class="btn btn-primary pull-right" value="등록" id="insertbtn"/>
+						</form>
 					</div>
 				</div>
-				
-			
-				<script>
-				function deleteCommunity(){
-					  
-					var fbid = $("#fbid").val();
-				
-					
-						
-						 if(confirm("삭제 하시겠습니까?") == true){
-							
-							alert("삭제되었습니다.");
-							
-							
-							
-							location.href = "<%=request.getContextPath()%>/FAQdelete.ad?fbid=" + fbid;
-							
-						}else{
-							return;
-						} 
-					}
-				
-				
-				
-				
-				
-				</script>
-				
-				
-				
 				
 	
 				

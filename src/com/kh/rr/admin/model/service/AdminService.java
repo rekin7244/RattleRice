@@ -410,7 +410,7 @@ public class AdminService {
 			
 			int result = new AdminDao().updateFAQ(con, FAQ);
 			
-			System.out.println("공지사항 수정 : " + result);
+			
 		
       if(result > 0) {
 				commit(con);
@@ -501,6 +501,60 @@ public class AdminService {
 				result=0;
 			}
 			return result;
+		}
+
+		public int insertFAQ(Board FAQ) {
+			Connection con = getConnection();
+			
+			int result = new AdminDao().insertFAQ(con, FAQ);
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+			close(con);
+			
+			return result;
+		}
+
+		public int deleteFAQ(int fbid) {
+			Connection con = getConnection();
+			
+			int result = new AdminDao().deleteFAQ(con, fbid);
+			
+			
+			if(result>0) {
+				commit(con);
+				
+			}else {
+				rollback(con);
+			}
+			close(con);
+			
+			return result;
+		}
+
+		public Board selectFAQ(int fbid) {
+			Connection con = getConnection();
+			
+			Board FAQ = new AdminDao().SelectFAQ(con, fbid);
+				
+			if(FAQ != null) {
+				int result = new AdminDao().updateCount(con, FAQ.getFbid());
+				
+				if(result>0) {
+					commit(con);
+				}else {
+					rollback(con);
+				}
+			}
+			
+			close(con);
+			
+			
+			return FAQ;
 		}
 
 }

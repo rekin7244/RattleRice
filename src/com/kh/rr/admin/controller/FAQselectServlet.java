@@ -1,7 +1,6 @@
 package com.kh.rr.admin.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +11,16 @@ import com.kh.rr.admin.model.service.AdminService;
 import com.kh.rr.board.model.vo.Board;
 
 /**
- * Servlet implementation class FAQupdateServlet
+ * Servlet implementation class FAQselectServlet
  */
-@WebServlet("/FAQupdate.ad")
-public class FAQupdateServlet extends HttpServlet {
+@WebServlet("/FAQselect.ad")
+public class FAQselectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FAQupdateServlet() {
+    public FAQselectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,35 +29,24 @@ public class FAQupdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		String title = request.getParameter("title");
 		int fbid = Integer.parseInt(request.getParameter("fbid"));
-		String content = request.getParameter("content");
-		
-		System.out.println("제목 : " + title);
-		System.out.println(fbid);
-		System.out.println("내용 : " + content);
 		
 		
-		Board FAQ = new Board();
-		FAQ.setTitle(title);
-		FAQ.setFbid(fbid);
-		FAQ.setbContent(content);
+		Board FAQ = new AdminService().selectFAQ(fbid);
 		
 		
-		int result = new AdminService().updateFAQ(FAQ);
 		
-		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/FAQselectOne.ad?num=" + FAQ.getFbid());
+		String page = "";
+		if(FAQ != null) {
+			page="views/admin/FAQUpdate.jsp";
+			request.setAttribute("FAQ", FAQ);
+			
 		}else {
-			System.out.println("수정실패");
-	
+			System.out.println("실패!!");
 		}
-		
-		
+	
+		request.getRequestDispatcher(page).forward(request, response);
 	}
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
