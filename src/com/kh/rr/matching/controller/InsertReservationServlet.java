@@ -26,27 +26,14 @@ public class InsertReservationServlet extends HttpServlet {
 		int rno = Integer.parseInt(request.getParameter("rno"));
 		
 		String userArr[] = users.split(",");
-		
-		for(int i = 0; i < userArr.length; i++) {
-			System.out.println("userArr : " + userArr[i]);
-		}
 		String menuArr [] = menus.split(",");
-		for(int i = 0; i < menuArr.length; i++) {
-			System.out.println("menuArr : " + menuArr[i]);
-		}
 		String qttArr [] = qtts.split(",");
-		for(int i = 0; i < qttArr.length; i++) {
-			System.out.println("qttArr : " + qttArr[i]);
-		}
-		
 		int result = new ChattingRoomService().insertReservation(rno);
 		
 		if(result > 0) {
-			System.out.println("예약 성공");
 			int currval = new ChattingRoomService().getReservationCurrval(rno);
 			
 			if(currval > 0) {
-				System.out.println("currval : " + currval);
 				for(int i = 0; i < userArr.length; i ++) {
 					HashMap<String, Object> hmap = new HashMap<String, Object>();
 					hmap.put("rid",currval);
@@ -55,12 +42,6 @@ public class InsertReservationServlet extends HttpServlet {
 					
 					//reservation_member 테이블에 맴버 수 만큼 컬럼 추가
 					int result2 = new ChattingRoomService().insertReservationMember(hmap);
-					
-					if(result2 > 0) {
-						System.out.println("reservation_member 삽입 성공!");
-					}else {
-						System.out.println("reservation_member 삽입 실패!");
-					}
 				}
 			}
 			
