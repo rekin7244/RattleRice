@@ -450,9 +450,9 @@ padding-bottom: 30px;
 								 HashMap<String, Object> hamp = list.get(0);
 								%>
 								<img id="contentImg" src="/rr/profileImg_upload/<%=hamp.get("changeName")%>">
-							<div id="fileArea" style="display:none;">
+							<div id="fileArea">
 								<input type="file" id="contentImg2" name="contentImg" 
-									onchange="loadImg(this)">
+									onchange="loadImg(this)" class='form-control'> 
 						    </div>
 								
 						</div>
@@ -466,6 +466,7 @@ padding-bottom: 30px;
 		</div>
 	</div>
 	<script>
+
 	$(function(){
 			$(".submitBtn").click(function(){
 				console.log($(".menuData"));
@@ -482,15 +483,10 @@ padding-bottom: 30px;
 				
 			});
 		
-		/* $("#fileArea").hide(); */
 			$("#thumbnailImg").addClass("active");
 			console.log("thumbnailImg");
 			
-		$("#contentImgArea").click(function(){
-			console.log("contentImgArea");
-			$('#contentImg').click();			
-			
-		});
+		
 		
 	});
 	//이미지 업로드
