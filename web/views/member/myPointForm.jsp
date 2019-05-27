@@ -28,7 +28,7 @@ body::-webkit-scrollbar {
     display: none; 
 }
 .navbar-inverse {
-	background: #F4AC8A;
+	background: #d9edf7;
 	border: none;
 }
 

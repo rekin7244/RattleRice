@@ -103,6 +103,12 @@
 	color: skyblue;
 	float: right;
 }
+.tab-content::-webkit-scrollbar {
+	display: none;
+}
+body::-webkit-scrollbar{
+	display: none;
+}
 
 </style>
 <script>
