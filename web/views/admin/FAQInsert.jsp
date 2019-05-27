@@ -39,14 +39,16 @@
 }
 
 
-#insert{
-	width : 1000px;
-	margin-left:50px;
+#insertForm{
+	
+	width: 1200px;
+    height: auto;
 }
 
-#insertbtn{
-	margin-left:1000px;
-} 
+.form-control{
+	height:500px;
+}
+
 
 
 </style>
@@ -110,7 +112,7 @@
 				
 				<div class="container">
 					<div class="row">
-						<form action="<%=request.getContextPath()%>/FAQinsert.ad" method="post">
+						<form form  id="insertForm" action="<%=request.getContextPath()%>/FAQinsert.ad" method="post">
 							<table class="table table-striped" id="insert"
 								style="text-align:center; border:1px solid #dddddd">
 								<thead>
@@ -133,13 +135,13 @@
 											<option value="약관">약관</option>
 											<option value="기타">기타</option>
 										</select>
-										<input type="text" class="form-control" placeholder="글 제목" name="title"
-												maxlength="50"></td>
+										글 제목 : <input type="text" name="title"
+												></td>
 									</tr>
 									
 									<tr>
 										<td><textarea class="form-control" placeholder="글 내용" name="content" 
-												maxlength="2048" style="height:350px;"></textarea></td>
+												maxlength="2048"></textarea></td>
 									</tr>
 									
 												

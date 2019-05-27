@@ -42,9 +42,15 @@
 
 
 
-#detail{
-	width : 1000px;
-	margin-left:50px;
+#updateForm{
+	
+	width: 1200px;
+    height: auto;
+}
+
+
+.form-control{
+	height:500px;
 }
 
 
@@ -116,7 +122,7 @@
 				 <div class="container">
 					<div class="row">
 					 
-					<form action="<%=request.getContextPath()%>/FAQupdate.ad" method="post">
+					<form id="updateForm" action="<%=request.getContextPath()%>/FAQupdate.ad" method="post">
 					
 							<table class="table table-striped" id="detail"
 								style="text-align:center; border:1px solid #dddddd">
@@ -140,7 +146,7 @@
 									
 									<tr>
 										<td><textarea class="form-control"  name="content"
-												maxlength="2048" style="height:400px; width:1000px;">
+												maxlength="2048">
 												<%=FAQ.getbContent() %>
 											</textarea></td>
 									</tr>
