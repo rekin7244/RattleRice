@@ -1,22 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*,java.sql.*,java.io.*,com.kh.rr.admin.model.service.*"%>
 <%
+String fullPath = "C:/Users/rekin/git/RattleRice/web/files";
 //places.csv 세팅
 request.setCharacterEncoding("utf-8");	//한글 인코딩
-String fullPath = "C:/Users/rekin/git/RattleRice/web/files";
-int resultCount = 0;
 
 try {
 	ArrayList<HashMap<String,Object>> list = new StatisticsService().getStores();
-	BufferedWriter fw = new BufferedWriter(new FileWriter(fullPath+"/places.csv",true));
-	
+	BufferedWriter fw = new BufferedWriter(new FileWriter(fullPath+"/places.csv",false));
+
+	fw.write("name,lat,lon");
+	fw.newLine();
 	for (HashMap<String, Object> h : list) {
 		fw.write(h.get("brand")+","+h.get("lat")+","+h.get("lon"));
 		fw.newLine();
-		resultCount++;
-		if(resultCount % 100 == 0) {
-			//log.info("resultCount : "+ resultCount + "/" + list.size());
-		}		
 	}
 	fw.flush();
 	fw.close();
@@ -110,7 +107,7 @@ svg circle {
 		<!-- content -->
 		<div class="outer">
 			<div class="mapview">  
-  				<div id="chart" class="feature-box light-gray-bg bordered text-center" style="height:350px;"></div>
+  				<div id="chart" class="feature-box light-gray-bg bordered text-center" style="height:450px;"></div>
 			<canvas id="tableChart" height="250px"></canvas>
 			</div>
 		</div>
