@@ -211,6 +211,9 @@ a.article, a.article:hover {
 	margin-left:auto;
 	margin-right:auto;
 }
+#menu th{
+	
+}
 
 </style>
 </head>
@@ -254,49 +257,32 @@ a.article, a.article:hover {
 
 
 			<div class="container col-sm-9">
-				<div style="border: 0.5px solid lightgray; width: 70%; height: 50%;" id="imgArea">
+				<div style="border: 0.5px solid lightgray;" id="imgArea">
 				<%
 						HashMap<String, Object> hmap2 = list.get(0);
 				%>
-				<img src="profileImg_upload/<%=hmap2.get("changeName")%>" width="80%" height="50%" id="imgtag">
+				<img src="profileImg_upload/<%=hmap2.get("changeName")%>" id="imgtag" style="padding:20px; width: 100%;">
 				
-			</div>
-
-			
-				<div class="container col-sm-9" style="float:left; bottom:-125px;">
-					<table id="info" border="1">
-						<tbody align="center">
-						<%
-							HashMap<String, Object> hmap3 = list.get(0);
-						%>
-						<tr>
-							<td>hp :</td>
-							<td><%= hmap3.get("contact") %></td>
-						</tr>
-						<tr>
-								<td>위치 :</td>
-								<td><%= hmap3.get("location") %></td>
-							</tr>
-							<tr>
-								<td>오픈시간 : </td>
-								<td><%=hmap3.get("opening_hore") %></td>
-							</tr>
-							<tr>					
-								<td>종료시간 : </td>			
-								<td><%=hmap3.get("close_hore") %></td>
-							</tr>
-							<tr>
-								<td>매장소개 :</td>
-								<td><%= hmap3.get("intro") %></td>
-							</tr>
 				
-						</tbody>
-					</table>
+				<div id="info" style="padding:0 20px 20px 20px; font-size:17px;"">
+					<%
+						HashMap<String, Object> hmap3 = list.get(0);
+					%>
+							<b>HP</b> : <%= hmap3.get("contact") %><br>
+							<b>위치</b> : <%= hmap3.get("location") %><br>
+							<b>영업시간</b> : <%=hmap3.get("opening_hore") %> ~ <%=hmap3.get("close_hore") %><br>
+							<b>식당소개</b> : <%= hmap3.get("intro") %>
 				</div>
+			
+				
+			</div>
 			</div>
 			
-			<div class="container col-sm-9" style="float: right; width: 30%; bottom:-115px;">
-				<table id="menu" border="1">
+			<div class="container col-sm-9">
+			<br>
+			<h4 style='font-weight:bold;'><%= hmap1.get("brand") %> 메뉴정보</h4>
+			<br>
+				<table id="menu" class="table table-bordered">
 					<thead align="center">
 						<th align="center">메뉴</th>
 						<th>가격</th>

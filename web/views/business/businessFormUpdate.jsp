@@ -269,21 +269,19 @@ padding-bottom: 30px;
 			</nav>
 
 
-			<div class="container col-sm-9">
+			<div class="container col-sm-9" style='text-align:center;'>
 				<!-- div class="buttonPadding">
 					<ul id="topMenu">
 						<li class="li2"><button type="submit" style="float: right;">적용</button></li>
 						<li class="li2"><button style="float: right;">미리보기</button>
 					</ul>
 				</div> -->
-				<br>
-				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray;  height: 400px; width: 400%; padding:10px; 
+				<div class="row"
+					style="border: 0.5px solid lightgray; padding:10px; 
 					overflow-x: auto;">
-					<h4 align="center">매장정보</h4>
-					<br> <br>
-					<form action="<%=request.getContextPath() %>/businessInfoUpdate.b" method="post">
-					<button type="submit" id="submitBtn1">적용하기</button>
+					<h4>매장정보</h4>
+					<form action="<%=request.getContextPath() %>/businessInfoUpdate.b" method="post" class="form-control">
+					
 					<br>
 						<table align="center"
 							style="min-width: 500px; border-collapse: separate; border-spacing: 0 10px;">
@@ -314,7 +312,7 @@ padding-bottom: 30px;
 							<tr>
 								<td><label>간단한 소개 : </label></td>
 								<td><input type="text" name="introducer" value='<%=hmap.get("intro") %>'
-									style="width: 175px; height: 80px;"></td>
+									style="height: 65px;"></td>
 							</tr>
 							<%  
 							  }	else{					
@@ -342,16 +340,16 @@ padding-bottom: 30px;
 							<%} %>
 							
 						</table>
+						<button type="submit" id="submitBtn1" class="btn btn-primary" style='margin: 20px 0;'>적용하기</button>
 					</form>
 				</div>
-				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray;  height: 400px; width: 400%; padding:10px; 
+				<div class="row"
+					style="border: 0.5px solid lightgray; padding:10px; 
 					overflow-x: auto; overflow-y:auto;">
 					<h4 align="center">메뉴</h4>
 					<br><br>
 					
-					<form action="menuInfoUpdate.b" method="post">
-					<button type="submit">수정하기</button>
+					<form action="menuInfoUpdate.b" method="post" class="form-control">
 						<table class="table table-bordered" id="menuTable1" style="min-width: 500px;">
 							<thead>
 								<tr style="background: lightgray">
@@ -374,12 +372,14 @@ padding-bottom: 30px;
 							<% } %>
 							</tbody>
 						</table>
-												
-						
+						<button type="submit" class="btn btn-primary"  style='margin: 20px 0;'>수정하기</button>
 					</form>
-						
+						<br>
+						<div style="width: 100%; text-align: right;margin: 20px 0;">
 						<button id="menuAdd">+</button>
-						<form action="menuInfoInsert.b" method="post">
+						
+						</div>
+						<form action="menuInfoInsert.b" method="post" style="width: 100%;" class="form-control">
 						<table class="table table-bordered" id="menuTable" style="min-width: 500px;">
 							<thead>
 								<tr style="background: lightgray">
@@ -424,7 +424,7 @@ padding-bottom: 30px;
 						alert("매장정보가 수정되었습니다");
 					});
 				</script> -->
-				<button class ="submitBtn2" type="button">추가하기</button>
+							<button class ="submitBtn2 btn btn-primary" type="button" style='margin: 20px 0;'>추가하기</button>
 						</form>
 					
 					<br>
@@ -434,33 +434,32 @@ padding-bottom: 30px;
 				</div>
 				
 				
-				<div class="container col-sm-9"
-					style="border: 0.5px solid lightgray; height: 400px; width: 400%; padding:10px;">
+				<div class="row"
+					style="border: 0.5px solid lightgray; padding:10px;">
 				
 						<form action="<%= request.getContextPath() %>/updateImg" method="post"
-							encType="multipart/form-data">
+							encType="multipart/form-data" class="form-control">
 							
-						<h4 align="center">사진첨부</h4>
+						<h4 align='left'>사진첨부</h4>
 						
-						<button type="submit" id="storeImgUpdate">적용하기</button>
 						
 						<!-- 이미지첨부 -->
 						<div id="contentImgArea"
-							style="border: 0.5px solid lightgray; margin 0 auto; height: 150px;">
+							style="border: 0.5px solid lightgray;">
 							
-							<div id="fileArea">
-							<input type="file" id="contentImg" name="contentImg" 
-									onchange="loadImg(this)">
-						    </div>
 						
 								<%
 								 HashMap<String, Object> hamp = list.get(0);
 								%>
-								<img id="contentImg" src="/rr/profileImg_upload/<%=hamp.get("changeName")%>" style="
-									width:170px; align=center; ">
+								<img id="contentImg" src="/rr/profileImg_upload/<%=hamp.get("changeName")%>">
+							<div id="fileArea" style="display:none;">
+								<input type="file" id="contentImg2" name="contentImg" 
+									onchange="loadImg(this)">
+						    </div>
 								
 						</div>
 					
+						<button type="submit" id="storeImgUpdate" class='btn btn-primary' style='margin: 20px 0;'>적용하기</button>
 					</form>
 					
 				</div>
