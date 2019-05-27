@@ -73,6 +73,7 @@ public class BoardDao {
 				}
 				b.setWriter(rset.getString("M_NAME"));
 				b.setfCategory(rset.getString("F_CATEGORY"));
+				b.setTitle(rset.getString("TITLE"));
 				b.setbContent(rset.getString("BCONTENT"));
 				b.setbDate(rset.getDate("BDATE"));
 				b.setbCount(rset.getInt("BCOUNT"));
@@ -129,6 +130,7 @@ public class BoardDao {
 				}
 				b.setWriter(rset.getString("M_NAME"));
 				b.setTarget(rset.getString("TARGET"));
+				b.setTitle(rset.getString("TITLE"));
 				b.setbContent(rset.getString("BCONTENT"));
 				b.setRefBid(rset.getInt("REF_BID"));
 				b.setbDate(rset.getDate("BDATE"));
@@ -263,6 +265,7 @@ public class BoardDao {
 				}
 				b.setWriter(rset.getString("M_NAME"));
 				b.setTarget(rset.getString("TARGET"));
+				b.setTitle(rset.getString("TITLE"));
 				b.setbContent(rset.getString("BCONTENT"));
 				b.setRefBid(rset.getInt("REF_BID"));
 				b.setbDate(rset.getDate("BDATE"));
@@ -400,6 +403,7 @@ public class BoardDao {
 				}
 				b.setWriter(rset.getString("M_NAME"));
 				b.setfCategory(rset.getString("F_CATEGORY"));
+				b.setTitle(rset.getString("TITLE"));
 				b.setbContent(rset.getString("BCONTENT"));
 				b.setbDate(rset.getDate("BDATE"));
 				b.setbCount(rset.getInt("BCOUNT"));

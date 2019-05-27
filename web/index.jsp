@@ -707,7 +707,7 @@ body::-webkit-scrollbar {
 					var $tr = $("<tr>");
 					var $noTd = $("<td>").text(value.nbid);
 					var $typeTd = $("<td>").text(value.target);
-					var $contentTd = $("<td>").text(value.bContent);
+					var $contentTd = $("<td>").text(value.title);
 					var $writerTd = $("<td>").text(value.writer);
 					var $countTd = $("<td>").text(value.bCount);
 					
@@ -746,7 +746,7 @@ body::-webkit-scrollbar {
 					var $tr = $("<tr>");
 					var $noTd = $("<td>").text(value.fbid);
 					var $typeTd = $("<td>").text(value.fCategory);
-					var $contentTd = $("<td>").text(value.bContent);
+					var $contentTd = $("<td>").text(value.title);
 					var $writerTd = $("<td>").text(value.writer);
 					var $countTd = $("<td>").text(value.bCount);
 					
@@ -970,7 +970,7 @@ body::-webkit-scrollbar {
 					var $tr = $("<tr>");
 					var $noTd = $("<td>").text(value.nbid);
 					var $typeTd = $("<td>").text(value.target);
-					var $contentTd = $("<td>").text(value.bContent);
+					var $contentTd = $("<td>").text(value.title);
 					var $writerTd = $("<td>").text(value.writer);
 					var $countTd = $("<td>").text(value.bCount);
 					
@@ -1015,7 +1015,7 @@ body::-webkit-scrollbar {
 					var $tr = $("<tr>");
 					var $noTd = $("<td>").text(value.fbid);
 					var $typeTd = $("<td>").text(value.fCategory);
-					var $contentTd = $("<td>").text(value.bContent);
+					var $contentTd = $("<td>").text(value.title);
 					var $writerTd = $("<td>").text(value.writer);
 					var $countTd = $("<td>").text(value.bCount);
 					
