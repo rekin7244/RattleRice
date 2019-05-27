@@ -40,11 +40,17 @@
 }
 
 
-
-#detail{
-	width : 1000px;
-	margin-left:50px;
+#detailForm{
+	
+	width: 1200px;
+    height: auto;
 }
+
+
+.form-control{
+	height:500px;
+}
+
 
 
 
@@ -147,7 +153,7 @@
 
 									<tr>
 										<td><textarea readonly class="form-control"  name="content" 
-												maxlength="2048" style="height:400px; width:1000px;"><%=FAQ.getbContent() %></textarea></td>
+												maxlength="2048"><%=FAQ.getbContent() %></textarea></td>
 									</tr>
 									
 												

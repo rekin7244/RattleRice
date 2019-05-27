@@ -168,13 +168,8 @@
 										$(list).append('<td>' + gender + '</td>');
 										$(list).append('<td>' + user.phone + '</td>');
 										$(list).append('<td>' + user.email + '</td>,');
-										
-											
-										}
-										
-								
-										
-
+									}
+					
 									},
 									error : function() {
 										colsole.log("실패");

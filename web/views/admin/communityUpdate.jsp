@@ -41,12 +41,16 @@
 }
 
 
-
-#detail{
-	width : 1000px;
-	margin-left:50px;
+#updateForm{
+	
+	width: 1200px;
+    height: auto;
 }
 
+
+.form-control{
+	height:500px;
+}
 
 
 </style>
@@ -116,9 +120,9 @@
 				 <div class="container">
 					<div class="row">
 					 
-					<form action="<%=request.getContextPath()%>/communityUpdate.ad" method="post">
+					<form id="updateForm" action="<%=request.getContextPath()%>/communityUpdate.ad" method="post">
 					
-							<table class="table table-striped" id="detail"
+							<table class="table table-striped"
 								style="text-align:center; border:1px solid #dddddd">
 								<thead>
 									<tr>
@@ -140,7 +144,7 @@
 									
 									<tr>
 										<td><textarea class="form-control"  name="content"
-												maxlength="2048" style="height:400px; width:1000px;">
+												maxlength="2048">
 												<%=community.getbContent() %>
 											</textarea></td>
 									</tr>

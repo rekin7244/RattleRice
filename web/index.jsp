@@ -210,13 +210,13 @@ body::-webkit-scrollbar {
 
 		<div class="row content">
 
-			<img src="images/section1.jpg" style="width: 100%;"/> <br /> <br /> <br />
+			<img src="images/about.jpg" style="width: 100%;"/> <br /> <br /> <br />
 			<hr>
 		</div>
 		<br><br>
 	</div>
 	
-	<div class="container">
+<!-- 	<div class="container">
 	
 		<div class="row content">
 			<h4>딸랑밥 소개</h4>
@@ -236,7 +236,7 @@ body::-webkit-scrollbar {
 
 	<br />
 	<br />
-	<br />
+	<br /> -->
 
 	<!--    제이쿼리 스크롤 이벤트를 위한 다이브 -->
 	<div id="div2"></div>
