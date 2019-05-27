@@ -37,11 +37,12 @@ img {
 /*네비바 스타일*/
 .navbar-inverse .navbar-nav>li>a:hover {
 	cursor: pointer;
+	color: #4b99dc
 }
 
 .navbar-inverse {
 	opacity: 0.9;
-	background: #F4AC8A;
+	background: white;
 	border: none;
 	font-weight: bold;
 }
@@ -66,10 +67,10 @@ img {
 }
 
 #bgtext:hover {
-	color: orangered;
+	/* color: orangered;
 	text-shadow: 3px 3px orange;
-	font-weight: bold;
-	font-size: 100px;
+	font-weight: bold; */
+	font-size: 80px;
 }
 
 #bgtext {
@@ -77,10 +78,9 @@ img {
 	padding-left: 70px;
 	text-align: center;
 	color: white;
-	font-size: 53px;
-	font-family: 'Megrim', cursive;
-	text-shadow: 0px 0px 10px #000, 0px 0px 10px #000, 0px 0px 10px #000,
-		0px 0px 10px #000, 0px 0px 10px #000;
+	font-size: 60px;
+	font-family: 'sans-serif';
+	text-shadow: 0px 0px 10px #999, 0px 0px 10px #999, 0px 0px 10px #ddd, 0px 0px 10px #999, 0px 0px 10px #eee;
 }
 
 /*섹션별 제목 관련 스타일*/
@@ -91,9 +91,8 @@ img {
 
 /*contact 페이지 스타일*/
 .contact-inner {
-	background: lightblue;
 	border-radius: 2em;
-	padding: 30px 0;
+	padding: 30px;
 }
 
 .contact-form {
@@ -131,7 +130,7 @@ body::-webkit-scrollbar {
 	<div id="bg-img">
 		<div class="context" id="bgtext">
 			<p>Rattle Rice</p>
-			<h4>혼밥 매칭서비스</h4>
+			<h4>Matching service</h4>
 		</div>
 	</div>
 	<!-- 배경이미지 -->
@@ -157,18 +156,18 @@ body::-webkit-scrollbar {
 				</ul>
 				<% if(loginUser != null) {%>
 					<ul class="nav navbar-nav navbar-right">
-					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold; cursor: pointer;" onclick="goProfile()"><%=loginUser.getUserId()%>님</a></li>
-					<li ><a style="font-family: 'Megrim', cursive; font-weight: bold;" 
+					<li ><a style="font-family: '맑은 고딕'; font-weight: bold; cursor: pointer;" onclick="goProfile()"><%=loginUser.getUserId()%>님</a></li>
+					<li ><a style="font-family: '맑은 고딕'; font-weight: bold;" 
 						href="<%= request.getContextPath()%>/logout.me"><span
 							class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 				</ul>
 				<%}else{ %>
 				<ul class="nav navbar-nav navbar-right">
 					<li data-toggle="modal" data-target="#joinModla"><a
-						style="font-family: 'Megrim', cursive; font-weight: bold;"><span
+						style="font-family: '맑은 고딕'; font-weight: bold;"><span
 							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 					<li data-toggle="modal" data-target="#myModal"><a
-						style="font-family: 'Megrim', cursive; font-weight: bold;"><span
+						style="font-family: '맑은 고딕'; font-weight: bold;"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				</ul>
 				<%} %>
@@ -202,20 +201,19 @@ body::-webkit-scrollbar {
 
 	<!-- section1 : about us -->
 	<div class="container-fluid" id="div1">
+		<div class="row content" style="background:#d9edf7;">
 		<h1
-			style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">About
+			style="font-weight: bold; font-family: '맑은 고딕'; text-align: center">About
 			Us</h1>
 		<p style="text-align: center">딸랑밥을 소개합니다.</p>
-
-
+	</div>
+	<br><br><br><br><br><br>
 		<div class="row content">
 
 			<img src="images/about.jpg" style="width: 100%;"/> <br /> <br /> <br />
-			<hr>
-		</div>
-		<br><br>
+		</div>	
 	</div>
-	
+	<br><br><br><br><br>
 <!-- 	<div class="container">
 	
 		<div class="row content">
@@ -243,9 +241,9 @@ body::-webkit-scrollbar {
 	<br>
 	<br>
 	<!--    section2 : service -->
-	<div class="container-fluid" style="background:#F4AC9C">
+	<div class="container-fluid"">
 		<div class="row">
-		<h1 style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">Service</h1>
+		<h1 style="font-weight: bold; font-family: '맑은 고딕'; text-align: center">Service</h1>
 		<p style="text-align: center">딸랑밥에서 제공하는 서비스 입니다.</p>
 		<br />
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -259,28 +257,28 @@ body::-webkit-scrollbar {
 		    <!-- Wrapper for slides -->
 		    <div class="carousel-inner" role="listbox">
 		      <div class="item active">
-		        <img src="images/section1-joker.jpg" alt="New York" width="1200" height="700">
+		        <img src="images/serviceuser.jpg" alt="New York" width="1200" height="700">
 		        <div class="carousel-caption">
-		          <h3>New York</h3>
-		          <p>The atmosphere in New York is lorem ipsum.</p>
 		        </div>      
+		          <!-- <h3>User</h3>
+		          <p>The atmosphere in New York is lorem ipsum.</p> -->
 		      </div>
 		
 		      <div class="item">
-		        <img src="images/section1-joker.jpg" alt="Chicago" width="1200" height="700">
+		        <img src="images/servicebusi.jpg" alt="Chicago" width="1200" height="700">
 		        <div class="carousel-caption">
-		          <h3>Chicago</h3>
-		          <p>Thank you, Chicago - A night we won't forget.</p>
 		        </div>      
+		          <!-- <h3>Business</h3>
+		          <p>Thank you, Chicago - A night we won't forget.</p> -->
 		      </div>
 		    
-		      <div class="item">
+		      <!-- <div class="item">
 		        <img src="images/section1-joker.jpg" alt="Los Angeles" width="1200" height="700">
 		        <div class="carousel-caption">
 		          <h3>LA</h3>
 		          <p>Even though the traffic was a mess, we had the best time playing at Venice Beach!</p>
 		        </div>      
-		      </div>
+		      </div> -->
 		    </div>
 		  <!-- Left and right controls -->
 		    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -306,18 +304,22 @@ body::-webkit-scrollbar {
 			
 		<div id="contact" class="container" >
 		  <div class="row">
+		  <div class="row content" style="background:#d9edf7;margin-left: -45px;">
 			 <h1
-				style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">Contact</h1>
+				style="font-weight: bold; font-family: '맑은 고딕'; text-align: center">Contact</h1>
 			<p style="text-align: center">제휴를 맺읍시다.</p>
 			<br />
-		  <div class="col-md-8 col-md-offset-2 contact-inner" style="background:lightblue;">
-		    <div class="col-md-2 col-md-offset-2">
-		      <p>제휴 인풋</p>
-		      <p><span class="glyphicon glyphicon-map-marker"></span>Chicago, US</p>
-		      <p><span class="glyphicon glyphicon-phone"></span>Phone: +00 1515151515</p>
-		      <p><span class="glyphicon glyphicon-envelope"></span>Email: mail@mail.com</p>
+			</div>
+			<br><br><br><br><br>
+		  <div class="col-md-12 contact-inner">
+		    <div class="col-md-3" style="margin-left: 8%;">
+		      <p style=" font-size: large; ">Contact Us For Affiliation</p>
+		      <br>
+		      <p><span class="glyphicon glyphicon-map-marker"></span>Seoul, Korea</p>
+		      <p><span class="glyphicon glyphicon-phone"></span>Phone: +82 1089361116</p>
+		      <p><span class="glyphicon glyphicon-envelope"></span>Email: wondy96@gmail.com</p>
 		    </div>
-		    <div class="col-md-6">
+		    <div class="col-md-7">
 		      <div class="row">
 		        <div class="col-sm-6 form-group">
 		          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
@@ -330,7 +332,7 @@ body::-webkit-scrollbar {
 		      <br>
 		      <div class="row">
 		        <div class="col-md-12 form-group">
-		          <button class="btn pull-right" type="submit">Send</button>
+		          <button class="btn pull-right btn-default" type="submit">Send</button>
 		        </div>
 		      </div>
 		    </div>
@@ -340,6 +342,8 @@ body::-webkit-scrollbar {
 		  </div>
 		</div>
 	</div>
+	
+	<br><br><br><br>
 	<!--    제이쿼리 스크롤 이벤트를 위한 다이브 -->
 	<div id="div4"></div>
 
@@ -349,7 +353,8 @@ body::-webkit-scrollbar {
 	<!-- section4 : Board  -->
 	<div class="container">
 		<div class="title">
-			<h1	style="font-weight: bold; font-family: 'Megrim', cursive; text-align: center">딸랑밥 게시판</h1>
+			<h1	style="font-weight: bold; font-family: '맑은 고딕'; text-align: center">Board</h1>
+			<p style="text-align: center">딸랑밥 게시판입니다.</p><br>
 		</div>
 		<br><br>
 		<!-- 게시판 선택해서 들어가는 nav -->
