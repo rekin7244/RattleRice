@@ -228,8 +228,7 @@ body {
 								<div class="form-group">
 									<input type="email" name="email" id="email"
 										class="form-control" placeholder="이메일" required>
-									<button type="button" class="btn btn-primary"
-										style="background: white; color: gray;">SMS인증</button>
+									
 								</div>
 								<div class="form-group">
 									<div class="row">

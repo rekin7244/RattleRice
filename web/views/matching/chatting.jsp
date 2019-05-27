@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"
-	import="com.kh.rr.member.model.vo.*, java.net.*, java.util.*, javax.websocket.Session, java.text.*, com.kh.rr.matching.model.vo.*"%>
+   pageEncoding="UTF-8"
+   import="com.kh.rr.member.model.vo.*, java.net.*, java.util.*, javax.websocket.Session, java.text.*, com.kh.rr.matching.model.vo.*"%>
 <%
-	InetAddress Address = InetAddress.getLocalHost();
-	Member m = (Member) (request.getSession().getAttribute("loginUser"));
-	ChattingRoom reqCr = (ChattingRoom) (request.getSession().getAttribute("reqCr"));
-	int rno = (int) session.getAttribute("rno");
-	//현재시간
-	long now = System.currentTimeMillis();
-			
-	Date d = new Date(now);
-	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-	String getTime = sdf.format(d);
+   InetAddress Address = InetAddress.getLocalHost();
+   Member m = (Member) (request.getSession().getAttribute("loginUser"));
+   ChattingRoom reqCr = (ChattingRoom) (request.getSession().getAttribute("reqCr"));
+   int rno = (int) session.getAttribute("rno");
+   //현재시간
+   long now = System.currentTimeMillis();
+         
+   Date d = new Date(now);
+   SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+   String getTime = sdf.format(d);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -19,13 +19,13 @@
 <head>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <!-- jQuery library -->
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- 메뉴바 스타일 -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <meta charset="UTF-8">
@@ -38,176 +38,176 @@ $(function() {
    });
    var deadLineTime = "";
    $("#chatP").click(function(){
-	   var rno = $("input[name=rno]").val();
-// 	   console.log("chatp 선택");
-	   
-		$.ajax({
-			url:"<%=request.getContextPath()%>/chatPerson.cr",
-			data:{rno:rno},
-			type:"get",
-			success:function(data){
-				console.log(data);
-				var myId = "<%=m.getUserId()%>";
-				
-				var $chatPersonDiv = $(".chatPerson");
-				$chatPersonDiv.html('');
-				
-				for (var key in data) {
-					console.log(data[key].type);
-					//alert(typeof(data[key].type)); // ->String
-					
-					/* if( === data[key].userId){
-						
-					} */
-					
-					//-> 잘못된 알고리즘2
-					var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
-					var $imgDiv = $("<div class='profileImg' data-toggle='modal' data-target='#userProfile'>");
-					var $nameDiv = $("<div class='profileName'>");
-					
-					//var $kickDiv = $("<div style='float: right; margin-top: 8px;'>");
-					deadLineTime = data[key].dTime;
-					//alert(typeof(data[key].dTime)); // ->String
-					
-					$imgDiv.append("<img src='/rr/profileImg_upload/"+ data[key].changeName +"' style='width:100%; border-radius:6em;'>");
-					//$kickDiv.append("<button type='button' class='btn btn-danger kickBtn' style='visibility:hidden;' >강퇴</button>");
-					
-					if(myId === data[key].userId){
-						$nameDiv.append("<p>" + data[key].nickName + "(나)</p>");
-						
-						if(data[key].type === "MASTER"){
-							//내가 방장일 경우
- 							$("#deadLineI").append("<i class='fas fa-stopwatch' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>");
-						}
-						
-					}else{
-						var userId = data[key].userId;
-						$nameDiv.append("<p>" + data[key].nickName + "</p>");
-						
-						//$(".kickBtn").css({visibility:"visible"});
-						if(data[key].type === "USER"){
-							/* $("#deadLineI").append("<i class='fas fa-credit-card' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>"); */
-							<%-- $kickDiv.append("<button type='button' class='btn btn-danger kickBtn'>강퇴</button><input type='hidden' value='<%= rno%>' name='rno'>"); --%>
-						}
-						
-					}
-					
-					$div.append($imgDiv);
-					$div.append($nameDiv);
-					//$div.append($kickDiv);
-					
-					$chatPersonDiv.append($div);
-					
-					console.log(data[key].dTime);
-					console.log($("#dTime").text());
-					$("#dTime").text(data[key].dTime);
-					if(<%= now%> < deadLineTime){
-						console.log("마감시간 설정");
-					}
-						
-					} 
+      var rno = $("input[name=rno]").val();
+//       console.log("chatp 선택");
+      
+      $.ajax({
+         url:"<%=request.getContextPath()%>/chatPerson.cr",
+         data:{rno:rno},
+         type:"get",
+         success:function(data){
+            console.log(data);
+            var myId = "<%=m.getUserId()%>";
+            
+            var $chatPersonDiv = $(".chatPerson");
+            $chatPersonDiv.html('');
+            
+            for (var key in data) {
+               console.log(data[key].type);
+               //alert(typeof(data[key].type)); // ->String
+               
+               /* if( === data[key].userId){
+                  
+               } */
+               
+               //-> 잘못된 알고리즘2
+               var $div = $("<div class='divArea' style='margin-bottom: 13px;'>");
+               var $imgDiv = $("<div class='profileImg' data-toggle='modal' data-target='#userProfile'>");
+               var $nameDiv = $("<div class='profileName'>");
+               
+               //var $kickDiv = $("<div style='float: right; margin-top: 8px;'>");
+               deadLineTime = data[key].dTime;
+               //alert(typeof(data[key].dTime)); // ->String
+               
+               $imgDiv.append("<img src='/rr/profileImg_upload/"+ data[key].changeName +"' style='width:100%; border-radius:6em;'>");
+               //$kickDiv.append("<button type='button' class='btn btn-danger kickBtn' style='visibility:hidden;' >강퇴</button>");
+               
+               if(myId === data[key].userId){
+                  $nameDiv.append("<p>" + data[key].nickName + "(나)</p>");
+                  
+                  if(data[key].type === "MASTER"){
+                     //내가 방장일 경우
+                      $("#deadLineI").append("<i class='fas fa-stopwatch' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>");
+                  }
+                  
+               }else{
+                  var userId = data[key].userId;
+                  $nameDiv.append("<p>" + data[key].nickName + "</p>");
+                  
+                  //$(".kickBtn").css({visibility:"visible"});
+                  if(data[key].type === "USER"){
+                     /* $("#deadLineI").append("<i class='fas fa-credit-card' id='dl' style='font-size: 22px; color: #1abc9ccc;' data-toggle='modal' data-target='#deadLine'></i>"); */
+                     <%-- $kickDiv.append("<button type='button' class='btn btn-danger kickBtn'>강퇴</button><input type='hidden' value='<%= rno%>' name='rno'>"); --%>
+                  }
+                  
+               }
+               
+               $div.append($imgDiv);
+               $div.append($nameDiv);
+               //$div.append($kickDiv);
+               
+               $chatPersonDiv.append($div);
+               
+               console.log(data[key].dTime);
+               console.log($("#dTime").text());
+               $("#dTime").text(data[key].dTime);
+               if(<%= now%> < deadLineTime){
+                  console.log("마감시간 설정");
+               }
+                  
+               } 
 
-			 	$(".close").click(function(){
-					$(".divArea").remove();
-					$(".fa-stopwatch").remove();
-					console.log("지운다.")
-				}); 
-				
-			}
-				
-		});
-	});
+             $(".close").click(function(){
+               $(".divArea").remove();
+               $(".fa-stopwatch").remove();
+               console.log("지운다.")
+            }); 
+            
+         }
+            
+      });
+   });
 
    //마감시간 설정 시 값 설정, 예약 모달 띄우는 함수
    $("#dt").click(function(){
-	   var dTime = $("input[name=dTime]").val();
-	   var dtRno = $("input[name=dtRno]").val();
-	   alert("마감 시간이 설정되었습니다!");
-	   $.ajax({
-			url:"<%=request.getContextPath()%>/deadLine.cr",
-			data:{dTime:dTime, dtRno:dtRno},
-			type:"get",
-			success:function(data){
-				$("#reservation").css({"display":"block","opacity":1});
-			},
-			error:function(){
-			}
-	   });
-	   //예약확인 모달창에 식당 메뉴 및 정보 불러오는 ajax
-	    $.ajax({
-		 url:"selectInfo.st",
-		 data:{dtRno:dtRno},
-		 type:"get",
-		 success:function(data){
-			 
-			 var $resTable = $("#resTable tbody");
-			 var $selectTable = $("#selectTable tbody");
-			 $resTable.html('');
-			 console.log("userList"+data[0]);
-			 console.log("menuList"+data[1]);
-			 console.log(data);
-			 //식당 메뉴, 가격 정보 출력하는 부분
-			 for(var i = 0; i < data[1].length;i++){
-				 var $tr = $("<tr>");
-				 var $menuTd = $("<td>").text(data[1][i].menu);
-				 var $priceTd = $("<td>").text(data[1][i].price);
-				 $tr.append($menuTd);
-				 $tr.append($priceTd);
-				 $resTable.append($tr);
-				 
-				 console.log(data[1][i].price);
-			 }
-			 //현재 방에있는 사용자 별로 선택할 수 있는 폼 출력하는 부분
-			  for(var i = 0; i < data[0].length; i++){
-				 var $tr2 = $("<tr class='res'>");
-				 var $userTd = $("<td class='resUser'>").text(data[0][i]);
-				 var $selectTd = $("<td class='selectMenu'>");
-				 var $qttTd = $("<td class='qtt'>");
-				 var $select = $("<select class='resMenu form-control'>");
-				 for(var j = 0; j < data[1].length; j++){
-					 console.log(data[1][j]);
-					 $select.append("<option value='" + data[1][j].price + "'>"+
-					 data[1][j].menu+"</option>");
-				 }
-				 var $qtt = $("<input class='qtt form-control' type='number'>");
-				 $selectTd.append($select);
-				 $qttTd.append($qtt);
-				 $tr2.append($userTd);
-				 $tr2.append($selectTd);
-				 $tr2.append($qttTd);
-				 $selectTable.append($tr2);
-			 } 
-		 }
-	   }) 
+      var dTime = $("input[name=dTime]").val();
+      var dtRno = $("input[name=dtRno]").val();
+      alert("마감 시간이 설정되었습니다!");
+      $.ajax({
+         url:"<%=request.getContextPath()%>/deadLine.cr",
+         data:{dTime:dTime, dtRno:dtRno},
+         type:"get",
+         success:function(data){
+            $("#reservation").css({"display":"block","opacity":1});
+         },
+         error:function(){
+         }
+      });
+      //예약확인 모달창에 식당 메뉴 및 정보 불러오는 ajax
+       $.ajax({
+       url:"selectInfo.st",
+       data:{dtRno:dtRno},
+       type:"get",
+       success:function(data){
+          
+          var $resTable = $("#resTable tbody");
+          var $selectTable = $("#selectTable tbody");
+          $resTable.html('');
+          console.log("userList"+data[0]);
+          console.log("menuList"+data[1]);
+          console.log(data);
+          //식당 메뉴, 가격 정보 출력하는 부분
+          for(var i = 0; i < data[1].length;i++){
+             var $tr = $("<tr>");
+             var $menuTd = $("<td>").text(data[1][i].menu);
+             var $priceTd = $("<td>").text(data[1][i].price);
+             $tr.append($menuTd);
+             $tr.append($priceTd);
+             $resTable.append($tr);
+             
+             console.log(data[1][i].price);
+          }
+          //현재 방에있는 사용자 별로 선택할 수 있는 폼 출력하는 부분
+           for(var i = 0; i < data[0].length; i++){
+             var $tr2 = $("<tr class='res'>");
+             var $userTd = $("<td class='resUser'>").text(data[0][i]);
+             var $selectTd = $("<td class='selectMenu'>");
+             var $qttTd = $("<td class='qtt'>");
+             var $select = $("<select class='resMenu form-control'>");
+             for(var j = 0; j < data[1].length; j++){
+                console.log(data[1][j]);
+                $select.append("<option value='" + data[1][j].price + "'>"+
+                data[1][j].menu+"</option>");
+             }
+             var $qtt = $("<input class='qtt form-control' type='number'>");
+             $selectTd.append($select);
+             $qttTd.append($qtt);
+             $tr2.append($userTd);
+             $tr2.append($selectTd);
+             $tr2.append($qttTd);
+             $selectTable.append($tr2);
+          } 
+       }
+      }) 
    });
    
    
    //예약 모달에서 확인 버튼 눌렀을때
    $("#resBtn").click(function(){
-	   console.log("resBtn 클릭");
-	   var $selectTable = $("#selectTable tbody");
-	   var users = "";
-	   var menus = "";
-	   var qtts = "";
-	   var rno = $("input[name=dtRno]").val();
-	   $(".res").each(function(){
-		   users += $(this).children(".resUser").text() + ",";
-		   menus += $(this).children(".selectMenu").children(".resMenu").val() + ",";
-		   qtts += $(this).children(".qtt").children(".qtt").val() + ",";
-	   })	   
-	   $.ajax({
-		   url:"<%=request.getContextPath()%>/insert.res",
-		   data:{users:users,menus:menus,qtts:qtts, rno:rno},
-		   type:"post",
-		   success:function(){
-			   $("#reservation").css({"display":"none","opacity":0});
-			   alert('예약에 성공했습니다! 매장의 연락을 기다려 주세요^^');
-		   },
-		   error:function(){
-			   console.log("실패!");
-		   }
-	   })
-	   
+      console.log("resBtn 클릭");
+      var $selectTable = $("#selectTable tbody");
+      var users = "";
+      var menus = "";
+      var qtts = "";
+      var rno = $("input[name=dtRno]").val();
+      $(".res").each(function(){
+         users += $(this).children(".resUser").text() + ",";
+         menus += $(this).children(".selectMenu").children(".resMenu").val() + ",";
+         qtts += $(this).children(".qtt").children(".qtt").val() + ",";
+      })      
+      $.ajax({
+         url:"<%=request.getContextPath()%>/insert.res",
+         data:{users:users,menus:menus,qtts:qtts, rno:rno},
+         type:"post",
+         success:function(){
+            $("#reservation").css({"display":"none","opacity":0});
+            alert('예약에 성공했습니다! 매장의 연락을 기다려 주세요^^');
+         },
+         error:function(){
+            console.log("실패!");
+         }
+      })
+      
    })
   
    
@@ -217,83 +217,83 @@ $(function() {
 </script>
 <style>
 #menu i {
-	font-size: 1.7em;
-	color: white;
+   font-size: 1.7em;
+   color: white;
 }
 
 #header i {
-	font-size: 1.5em;
-	color: white;
+   font-size: 1.5em;
+   color: white;
 }
 
 #header .search {
-	float: right;
-	position: absolute;
+   float: right;
+   position: absolute;
 }
 
 .navbar-nav {
-	margin: 0;
+   margin: 0;
 }
 
 .mainbar>li {
-	display: inline-block;
-	width: 24%;
-	text-align: center;
+   display: inline-block;
+   width: 24%;
+   text-align: center;
 }
 
 .navbar {
-	background: #1ABC9C;
+   background: #1ABC9C;
 }
 /* 마이페이지 css */
 ul, body {
-	margin: 0 !important;
+   margin: 0 !important;
 }
 
 .cash>div>a {
-	text-decoration: none;
-	color: black;
+   text-decoration: none;
+   color: black;
 }
 
 .img i {
-	font-size: 1.3em;
-	margin-left: 0.3em;
+   font-size: 1.3em;
+   margin-left: 0.3em;
 }
 
 .content {
-	padding: 15px;
-	margin-bottom: 14%;
-	margin-top: 15%;
+   padding: 15px;
+   margin-bottom: 14%;
+   margin-top: 15%;
 }
 
 .content .line>div {
-	display: inline-block;
-	margin-top: 20px;
+   display: inline-block;
+   margin-top: 20px;
 }
 
 .line {
-	margin: 0 5%;
+   margin: 0 5%;
 }
 
 .pay {
-	margin: 0 5%;
+   margin: 0 5%;
 }
 
 .title {
-	width: 30%;
-	font-weight: bold;
+   width: 30%;
+   font-weight: bold;
 }
 
 .line .contents {
-	border: none;
-	width: 67%;
+   border: none;
+   width: 67%;
 }
 
 .img .icon {
-	font-size: 1.5em;
-	color: red;
+   font-size: 1.5em;
+   color: red;
 }
 body::-webkit-scrollbar {
-	display: none;
+   display: none;
 }
 
 #container {
@@ -302,7 +302,7 @@ body::-webkit-scrollbar {
 
 #messageWindow::-webkit-scrollbar {
 
-	display: none;
+   display: none;
 }
 
 #messageWindow {
@@ -311,24 +311,24 @@ body::-webkit-scrollbar {
 }
 
 #chatForm {
-	position: fixed;
-	width: 100%;
-	height: 15%;
-	text-align: center;
-	background: #4dd3b957;
+   position: fixed;
+   width: 100%;
+   height: 15%;
+   text-align: center;
+   background: #4dd3b957;
 }
 
 #inputMessage {
-	display: inline-block;
-	margin-top: 9px;
-	width: 77%;
-	height: 40px;
+   display: inline-block;
+   margin-top: 9px;
+   width: 77%;
+   height: 40px;
 }
 
 #send {
-	display: inline-block;
-	width: 18%;
-	height: 40px;
+   display: inline-block;
+   width: 18%;
+   height: 40px;
 }
 
 .msgLine {
@@ -337,61 +337,61 @@ body::-webkit-scrollbar {
 
 .smsgBox {
 
-	background: #4dd3b96b /* #d8f0e3 */;
-	padding: 0px 8px;
-	border-radius: 8px;
-	width: 45%;
-	margin-left: auto;
-	margin-right: 8px;
+   background: #4dd3b96b /* #d8f0e3 */;
+   padding: 0px 8px;
+   border-radius: 8px;
+   width: 45%;
+   margin-left: auto;
+   margin-right: 8px;
 }
 
 .rmsgBox {
-	background: #ddddddc7;
-	padding: 0px 8px;
-	border-radius: 8px;
-	width: 45%;
-	margin-left: 8px;
-	margin-right: auto;
+   background: #ddddddc7;
+   padding: 0px 8px;
+   border-radius: 8px;
+   width: 45%;
+   margin-left: 8px;
+   margin-right: auto;
 }
 
 #cs {
-	padding: 4px;
-	border: 5px dotted #fef5cbf2;
-	text-align: center;
-	text-shadow: 1px 0.8px #999;
-	font-size: small;
-	color: #9999993d;
+   padding: 4px;
+   border: 5px dotted #fef5cbf2;
+   text-align: center;
+   text-shadow: 1px 0.8px #999;
+   font-size: small;
+   color: #9999993d;
 }
 
 #cc {
-	padding: 4px;
-	border: 5px dotted #e4e4e4;
-	text-align: center;
-	text-shadow: 1px 0.8px #999;
-	font-size: small;
-	color: #9999993d;
+   padding: 4px;
+   border: 5px dotted #e4e4e4;
+   text-align: center;
+   text-shadow: 1px 0.8px #999;
+   font-size: small;
+   color: #9999993d;
 }
 
 .me {
 
-	text-align: right;
-	font-size: 10px;
-	color: white;
-	margin: 0px;
+   text-align: right;
+   font-size: 10px;
+   color: white;
+   margin: 0px;
 }
 
 #stime {
-	text-align: right;
-	font-size: 9px;
-	color: lightgray;
-	margin-right: 9px;
+   text-align: right;
+   font-size: 9px;
+   color: lightgray;
+   margin-right: 9px;
 }
 
 #rtime {
-	text-align: left;
-	font-size: 9px;
-	color: lightgray;
-	margin-left: 9px;
+   text-align: left;
+   font-size: 9px;
+   color: lightgray;
+   margin-left: 9px;
 }
 
 .profileImg {
@@ -401,17 +401,17 @@ body::-webkit-scrollbar {
 }
 
 .profileName {
-	display: inline-block;
+   display: inline-block;
 }
 
 .chatPerson {
-	height: 250px;
-	padding: 15px;
-	overflow: auto;
+   height: 250px;
+   padding: 15px;
+   overflow: auto;
 }
 
 .chatPerson::-webkit-scrollbar {
-	display: none;
+   display: none;
 }
 
 .deadLine, .evaluation {
@@ -419,7 +419,7 @@ body::-webkit-scrollbar {
 }
 
 .blank {
-	padding: 5px;
+   padding: 5px;
     background: #eee9;
 }
 
@@ -437,268 +437,271 @@ body::-webkit-scrollbar {
 }
 
 .fa-sign-out-alt {
-	margin-top:9px;
+   margin-top:9px;
 }
 
 #busImg {
-	height: 200px;
+   height: 200px;
     width: 250px;
     margin: auto;
     text-align: center;
 }
 /*모달 컨텐츠 스크롤바 없애기*/
 .modal-open .modal {
-	overflow-y: hidden;
+   overflow-y: hidden;
 }
 /*예약 내역 테이블 스타일*/
+#reservation::-webkit-scrollbar  {
+   display: none;
+}
 #resTable {
-	border: 1px solid black;
+   border: 1px solid black;
 }
 
 #selectTable {
-	margin-top: 10px;
+   margin-top: 10px;
 }
 
 #selectTable>tbody>tr>td {
-	vertical-align: middle;
+   vertical-align: middle;
 }
 
 </style>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top" style="padding: 3px 0">
-	<div class="container">
-		<div id="header">
-		<!-- 채팅방에 입장했을때 : rno는 방번호 입니다 -->
-			<%if(request.getParameter("rno") != null) { %>
-				<ul class="nav navbar-nav mainbar">
-					<li class="" style="left: -3%;"><div onclick="leaveRoom();">
-					<a style="padding: 0;margin-top: 9px;">
-					<i class="fas fa-sign-out-alt" style="font-size:1.8em;"></i></a>
-					</div></li>
-					<li id="chatP" data-toggle="modal" data-target="#chatSub" class="search"
-						style="right: 0%;"><a href="#chatSub">
-						<i class="fas fa-bars"></i></a></li>
-				</ul>
-			<%}else if(request.getParameter("info") != null){ %>
-				<!-- 채팅방이 아닌 나머지 경우 -->
-				<ul class="nav navbar-nav mainbar">
-					<li class="" style="left: -3%;"><a href="<%= request.getContextPath()%>/selectAll.cr">
-					<i class="fas fa-arrow-left"></i></a></li>
-				</ul>
-			<%}else{ %>
-				<ul class="nav navbar-nav mainbar">
-					<li data-toggle="modal" data-target="#msearch" class="search"
-						style="right: 0%;"><a href="#msearch">
-						<i class="fas fa-bars"></i></a></li>
-					<li data-toggle="modal" data-target="#ksearch" class="search"
-						style="right: 13%;"><a href="#ksearch">
-						<i class="fas fa-search"></i></a></li>
-				</ul>
-			<%} %>
-		</div>
-	</div>
+   <div class="container">
+      <div id="header">
+      <!-- 채팅방에 입장했을때 : rno는 방번호 입니다 -->
+         <%if(request.getParameter("rno") != null) { %>
+            <ul class="nav navbar-nav mainbar">
+               <li class="" style="left: -3%;"><div onclick="leaveRoom();">
+               <a style="padding: 0;margin-top: 9px;">
+               <i class="fas fa-sign-out-alt" style="font-size:1.8em;"></i></a>
+               </div></li>
+               <li id="chatP" data-toggle="modal" data-target="#chatSub" class="search"
+                  style="right: 0%;"><a href="#chatSub">
+                  <i class="fas fa-bars"></i></a></li>
+            </ul>
+         <%}else if(request.getParameter("info") != null){ %>
+            <!-- 채팅방이 아닌 나머지 경우 -->
+            <ul class="nav navbar-nav mainbar">
+               <li class="" style="left: -3%;"><a href="<%= request.getContextPath()%>/selectAll.cr">
+               <i class="fas fa-arrow-left"></i></a></li>
+            </ul>
+         <%}else{ %>
+            <ul class="nav navbar-nav mainbar">
+               <li data-toggle="modal" data-target="#msearch" class="search"
+                  style="right: 0%;"><a href="#msearch">
+                  <i class="fas fa-bars"></i></a></li>
+               <li data-toggle="modal" data-target="#ksearch" class="search"
+                  style="right: 13%;"><a href="#ksearch">
+                  <i class="fas fa-search"></i></a></li>
+            </ul>
+         <%} %>
+      </div>
+   </div>
 </nav>
    <div id="container" style="margin-top:50px;">
       <div id="messageWindow" style="height: 410px; background: white"></div>
       <div id="chatForm">
          <input type="text" id="inputMessage" class="form-control" >
-   		 <input type="hidden" value="<%= rno%>" name="rno">
+          <input type="hidden" value="<%= rno%>" name="rno">
          <input type="submit" id="send" class="btn btn-default" value="전송" onclick="send()">
       </div>
    </div>
       
    <!-- 채팅방 내 기능을 담당하는 모달 컨텐츠 -->
    <div class="container">
-		<!-- Modal -->
-		<div class="modal fade" id="chatSub" role="dialog"
-			data-backdrop="static">
-			<div class="modal-dialog modal-sm" data-backdrop="static" style="margin:0;">
-				<!-- Modal content-->
-				<div class="modal-content" data-backdrop="static" style="height: 513px;width: 202px;margin-left: auto;">
-					<div class="modal-header" data-backdrop="static">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">대화 상대</h4>
-					</div>
-					<div class="modal-body" data-backdrop="static" style="padding: 0;">
-						<%-- 대화상대 띄우기 --%>
-						<div class="chatPerson">
-						
-						</div>
-						
-						<div class="blank"></div>
-						
-						<%-- 마감시간 설정 --%>
-						<div class="deadLine">
-							<div id="deadLineT" style=" display: inline-block; ">
-								<h4>마감시간</h4>
-							</div>
-							<div id="deadLineI" style=" display: inline-block; margin-left: 10%; ">
-								<p id="dTime" style="float: right; margin-left: 14px; font-size: 16px;"></p>
-							</div>
-						</div>
-						
-						<div class="blank"></div>
-						
-						<%-- 사용자/식당 평가하기 --%>
-						<div class="evaluation">
-							<h4>평가</h4>
-							<button type="button" class="btn btn-default ev" data-toggle="modal" data-target="#userEv">사용자</button>
-							<button type="button" class="btn btn-default ev" data-toggle="modal" data-target="#BusEv">식당</button>
-						</div>
-						
-					</div>
-				</div>
-			</div>
+      <!-- Modal -->
+      <div class="modal fade" id="chatSub" role="dialog"
+         data-backdrop="static">
+         <div class="modal-dialog modal-sm" data-backdrop="static" style="margin:0;">
+            <!-- Modal content-->
+            <div class="modal-content" data-backdrop="static" style="height: 513px;width: 202px;margin-left: auto;">
+               <div class="modal-header" data-backdrop="static">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">대화 상대</h4>
+               </div>
+               <div class="modal-body" data-backdrop="static" style="padding: 0;">
+                  <%-- 대화상대 띄우기 --%>
+                  <div class="chatPerson">
+                  
+                  </div>
+                  
+                  <div class="blank"></div>
+                  
+                  <%-- 마감시간 설정 --%>
+                  <div class="deadLine">
+                     <div id="deadLineT" style=" display: inline-block; ">
+                        <h4>마감시간</h4>
+                     </div>
+                     <div id="deadLineI" style=" display: inline-block; margin-left: 10%; ">
+                        <p id="dTime" style="float: right; margin-left: 14px; font-size: 16px;"></p>
+                     </div>
+                  </div>
+                  
+                  <div class="blank"></div>
+                  
+                  <%-- 사용자/식당 평가하기 --%>
+                  <div class="evaluation">
+                     <h4>평가</h4>
+                     <button type="button" class="btn btn-default ev" data-toggle="modal" data-target="#userEv">사용자</button>
+                     <button type="button" class="btn btn-default ev" data-toggle="modal" data-target="#BusEv">식당</button>
+                  </div>
+                  
+               </div>
+            </div>
+         </div>
 
-		</div>
-	</div>
-	
-	<!-- 사용자 프로필 확인하는 모달 컨텐츠 -->
+      </div>
+   </div>
+   
+   <!-- 사용자 프로필 확인하는 모달 컨텐츠 -->
    <div class="container">
-		<!-- Modal -->
-		<div class="modal fade" id="userProfile" role="dialog"
-			data-backdrop="static">
-			<div class="modal-dialog modal-sm" data-backdrop="static">
-				<!-- Modal content-->
-				<div class="modal-content" data-backdrop="static" style=' height: 500px; '>
-					<div class="modal-header" data-backdrop="static">
-						<h4 class="modal-title" style=' text-align:center '>프로필</h4>
-					</div>
-					<div class="modal-body" data-backdrop="static" style="padding: 0; height: 375px;">
-															
-					</div>
-					<div class="modal-footer" data-backdrop="static">
-						<button type="button" class="btn btn-default" data-dismiss="modal" >확인</button>
-					</div>
-				</div>
-			</div>
+      <!-- Modal -->
+      <div class="modal fade" id="userProfile" role="dialog"
+         data-backdrop="static">
+         <div class="modal-dialog modal-sm" data-backdrop="static">
+            <!-- Modal content-->
+            <div class="modal-content" data-backdrop="static" style=' height: 500px; '>
+               <div class="modal-header" data-backdrop="static">
+                  <h4 class="modal-title" style=' text-align:center '>프로필</h4>
+               </div>
+               <div class="modal-body" data-backdrop="static" style="padding: 0; height: 375px;">
+                                             
+               </div>
+               <div class="modal-footer" data-backdrop="static">
+                  <button type="button" class="btn btn-default" data-dismiss="modal" >확인</button>
+               </div>
+            </div>
+         </div>
 
-		</div>
-	</div>
-	
+      </div>
+   </div>
+   
    
    <!-- 마감시간 설정하는 모달 컨텐츠 -->
    <div class="container">
-		<!-- Modal -->
-		<div class="modal fade" id="deadLine" role="dialog"
-			data-backdrop="static">
-			<div class="modal-dialog modal-sm" data-backdrop="static">
-				<!-- Modal content-->
-				<div class="modal-content" data-backdrop="static" style=' width: 80%; margin: 10% 10%; '>
-					<div class="modal-header" data-backdrop="static">
-						<h4 class="modal-title" style=' text-align:center '>마감시간 설정</h4>
-					</div>
-					<div class="modal-body" data-backdrop="static" style="padding: 0;">
-						<input type="time" class="form-control" name="dTime" style="width: 80%; margin: 30px; text-align: center;">
-						<input type="hidden" value="<%= rno%>" name="dtRno">						
-					</div>
-					<div class="modal-footer" data-backdrop="static">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							aria-label="Close">취소</button>
-						<button type="button" id="dt" class="btn btn-default" data-dismiss="modal">확인</button>
-					</div>
-				</div>
-			</div>
+      <!-- Modal -->
+      <div class="modal fade" id="deadLine" role="dialog"
+         data-backdrop="static">
+         <div class="modal-dialog modal-sm" data-backdrop="static">
+            <!-- Modal content-->
+            <div class="modal-content" data-backdrop="static" style=' width: 80%; margin: 10% 10%; '>
+               <div class="modal-header" data-backdrop="static">
+                  <h4 class="modal-title" style=' text-align:center '>마감시간 설정</h4>
+               </div>
+               <div class="modal-body" data-backdrop="static" style="padding: 0;">
+                  <input type="time" class="form-control" name="dTime" style="width: 80%; margin: 30px; text-align: center;">
+                  <input type="hidden" value="<%= rno%>" name="dtRno">                  
+               </div>
+               <div class="modal-footer" data-backdrop="static">
+                  <button type="button" class="btn btn-default" data-dismiss="modal"
+                     aria-label="Close">취소</button>
+                  <button type="button" id="dt" class="btn btn-default" data-dismiss="modal">확인</button>
+               </div>
+            </div>
+         </div>
 
-		</div>
-	</div>
-	
-	
-	<!-- 사용자 평가 모달 컨텐츠 -->
+      </div>
+   </div>
+   
+   
+   <!-- 사용자 평가 모달 컨텐츠 -->
    <div class="container">
-		<!-- Modal -->
-		<div class="modal fade" id="userEv" role="dialog"
-			data-backdrop="static">
-			<div class="modal-dialog modal-sm" data-backdrop="static">
-				<!-- Modal content-->
-				<div class="modal-content" data-backdrop="static" style=' width: 80%; margin: 10% 10%; '>
-					<div class="modal-header" data-backdrop="static">
-						<h4 class="modal-title" style=' text-align:center '>사용자 평가</h4>
-					</div>
-					<div class="modal-body" data-backdrop="static" style="padding: 0;">
-						<%-- 대화상대 --%>
-						<div id="chatPersonEv">
-						
-						</div>									
-					</div>
-					<div class="modal-footer" data-backdrop="static">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							aria-label="Close">취소</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal" >평가</button>
-					</div>
-				</div>
-			</div>
+      <!-- Modal -->
+      <div class="modal fade" id="userEv" role="dialog"
+         data-backdrop="static">
+         <div class="modal-dialog modal-sm" data-backdrop="static">
+            <!-- Modal content-->
+            <div class="modal-content" data-backdrop="static" style=' width: 80%; margin: 10% 10%; '>
+               <div class="modal-header" data-backdrop="static">
+                  <h4 class="modal-title" style=' text-align:center '>사용자 평가</h4>
+               </div>
+               <div class="modal-body" data-backdrop="static" style="padding: 0;">
+                  <%-- 대화상대 --%>
+                  <div id="chatPersonEv">
+                  
+                  </div>                           
+               </div>
+               <div class="modal-footer" data-backdrop="static">
+                  <button type="button" class="btn btn-default" data-dismiss="modal"
+                     aria-label="Close">취소</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" >평가</button>
+               </div>
+            </div>
+         </div>
 
-		</div>
-	</div>
-	
-	<!-- 식당 평가 모달 컨텐츠 -->
+      </div>
+   </div>
+   
+   <!-- 식당 평가 모달 컨텐츠 -->
    <div class="container">
-		<!-- Modal -->
-		<div class="modal fade" id="BusEv" role="dialog"
-			data-backdrop="static">
-			<div class="modal-dialog modal-sm" data-backdrop="static">
-				<!-- Modal content-->
-				<div class="modal-content" data-backdrop="static" style=' width: 80%; margin: 10% 10%; '>
-					<div class="modal-header" data-backdrop="static">
-						<h4 class="modal-title" style=' text-align:center '>식당 평가</h4>
-					</div>
-					<div class="modal-body" data-backdrop="static" style="padding: 0;">
-						<h4 style="text-align:center;">식당이름</h4>
-						<p style="color:lightgray; margin-left: 15px;">오늘 방문하신 식당은 어떠셨나요?</p>
-						<div id="busImg">
-							<img src="/rr/images/picture.png" style=" width: 250px; height: 200px; ">
-						</div>
-						<div id="">
-						</div>					
-					</div>
-					<div class="modal-footer" data-backdrop="static">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							aria-label="Close">취소</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal" >평가</button>
-					</div>
-				</div>
-			</div>
+      <!-- Modal -->
+      <div class="modal fade" id="BusEv" role="dialog"
+         data-backdrop="static">
+         <div class="modal-dialog modal-sm" data-backdrop="static">
+            <!-- Modal content-->
+            <div class="modal-content" data-backdrop="static" style=' width: 80%; margin: 10% 10%; '>
+               <div class="modal-header" data-backdrop="static">
+                  <h4 class="modal-title" style=' text-align:center '>식당 평가</h4>
+               </div>
+               <div class="modal-body" data-backdrop="static" style="padding: 0;">
+                  <h4 style="text-align:center;">식당이름</h4>
+                  <p style="color:lightgray; margin-left: 15px;">오늘 방문하신 식당은 어떠셨나요?</p>
+                  <div id="busImg">
+                     <img src="/rr/images/picture.png" style=" width: 250px; height: 200px; ">
+                  </div>
+                  <div id="">
+                  </div>               
+               </div>
+               <div class="modal-footer" data-backdrop="static">
+                  <button type="button" class="btn btn-default" data-dismiss="modal"
+                     aria-label="Close">취소</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" >평가</button>
+               </div>
+            </div>
+         </div>
 
-		</div>
-	</div>
+      </div>
+   </div>
 <!-- 예약 작성폼 모달 컨텐츠 -->
    <div class="container">
-		<!-- Modal -->
-		<div class="modal fade in" id="reservation" role="dialog"
-			data-backdrop="static">
-			<div class="modal-dialog modal-sm" data-backdrop="static">
-				<!-- Modal content-->
-				<div class="modal-content" data-backdrop="static" style=' height: 500px; '>
-					<div class="modal-header" data-backdrop="static">
-						<h4 class="modal-title" style=' text-align:center '>예약</h4>
-					</div>
-					<div class="modal-body" data-backdrop="static" style="padding: 0; height: 375px; margin-top: 10px;">
-						<p align='center'>메뉴 목록</p>
-						<table id="resTable" class="table table-bordered table-striped">
-							<tbody>
-								
-							</tbody>
-						</table>
-						<p align='center'>메뉴를 선택해주세요!</p>
-						<table id="selectTable" class="table table-bordered">
-							<tbody>
-								
-							</tbody>
-						</table>
-					
-								
-					</div>
-					<div class="modal-footer" data-backdrop="static" style="border:none;">
-						<button type="button" class="btn btn-default" id="resBtn">확인</button>
-					</div>
-				</div>
-			</div>
+      <!-- Modal -->
+      <div class="modal fade in" id="reservation" role="dialog"
+         data-backdrop="static" style="overflow: auto;">
+         <div class="modal-dialog modal-sm" data-backdrop="static">
+            <!-- Modal content-->
+            <div class="modal-content" data-backdrop="static">
+               <div class="modal-header" data-backdrop="static">
+                  <h4 class="modal-title" style=' text-align:center '>예약</h4>
+               </div>
+               <div class="modal-body" data-backdrop="static" style="padding: 0;margin-top: 10px;">
+                  <p align='center'>메뉴 목록</p>
+                  <table id="resTable" class="table table-bordered table-striped">
+                     <tbody>
+                        
+                     </tbody>
+                  </table>
+                  <p align='center'>메뉴를 선택해주세요!</p>
+                  <table id="selectTable" class="table table-bordered">
+                     <tbody>
+                        
+                     </tbody>
+                  </table>
+               
+                        
+               </div>
+               <div class="modal-footer" data-backdrop="static" style="border:none;">
+                  <button type="button" class="btn btn-default" id="resBtn">확인</button>
+               </div>
+            </div>
+         </div>
 
-		</div>
-	</div>
-	
+      </div>
+   </div>
+   
    
 </body>
 
@@ -751,43 +754,43 @@ webSocket.onmessage = function(event) {
   onMessage(event)
 };
 webSocket.onclose = function(event) {  
-	onClose(event)
+   onClose(event)
 };
-	
+   
 function onMessage(event) {
-	var msg = event.data;
-	var str2 = "-";
-	var str3 = ":";
-	
-	if(msg.includes(str2) == true){
-		var rtime = new Date().format('yyyy.MM.dd a/p hh:mm');
-		var srr = msg.split("-");
-		var rno = srr[0];
-		console.log("rno : "+rno);
-		var userId = srr[1];
-		var message = srr[2];
-		if(rno == <%=rno%>)
-		$("#messageWindow").append("<div><div class='rmsgBox'>" + message + "<br><p class='me'>" + userId + "</p></div><p class='ct' id='rtime'>" + rtime + "</p></div>");
-	}else if(msg.includes(str3) == true){
-		var srr = msg.split(":");
-		var rno = srr[0];
-		var userId = srr[1]
-		var message = srr[2];
-		if(rno == <%=rno%>){
-			$("#messageWindow").append("<p id='cs'>" + userId + message + "</p>");
-			
-			<%-- 방 나가지는 기능 --%>
-			<%-- if(message.includes("나가셨습니다.")){
-				location.href = "<%= request.getContextPath()%>/leave.cr";
-			} --%>
-		}
-	}
-	
-	textarea.scrollTop = textarea.scrollHeight;
+   var msg = event.data;
+   var str2 = "-";
+   var str3 = ":";
+   
+   if(msg.includes(str2) == true){
+      var rtime = new Date().format('yyyy.MM.dd a/p hh:mm');
+      var srr = msg.split("-");
+      var rno = srr[0];
+      console.log("rno : "+rno);
+      var userId = srr[1];
+      var message = srr[2];
+      if(rno == <%=rno%>)
+      $("#messageWindow").append("<div><div class='rmsgBox'>" + message + "<br><p class='me'>" + userId + "</p></div><p class='ct' id='rtime'>" + rtime + "</p></div>");
+   }else if(msg.includes(str3) == true){
+      var srr = msg.split(":");
+      var rno = srr[0];
+      var userId = srr[1]
+      var message = srr[2];
+      if(rno == <%=rno%>){
+         $("#messageWindow").append("<p id='cs'>" + userId + message + "</p>");
+         
+         <%-- 방 나가지는 기능 --%>
+         <%-- if(message.includes("나가셨습니다.")){
+            location.href = "<%= request.getContextPath()%>/leave.cr";
+         } --%>
+      }
+   }
+   
+   textarea.scrollTop = textarea.scrollHeight;
 }
 function onOpen(event) {
-   	var userId = "<%=m.getUserName()%>";
-   	$("#messageWindow").append("<br><p id='cs'>" + userId + "님이 채팅방에 참여하셨습니다.</p>");
+      var userId = "<%=m.getUserName()%>";
+      $("#messageWindow").append("<br><p id='cs'>" + userId + "님이 채팅방에 참여하셨습니다.</p>");
 
     var str = userId + ":님이 채팅방에 참여하셨습니다.";
     send(str);
@@ -802,36 +805,36 @@ function onClose(event){
 
 function send(msg) {   
 
-	var sendMsg = '';
-	var userId = "<%=m.getUserName()%>";
-	var rno =<%=rno%>;
-	var stime = new Date().format('yyyy.MM.dd a/p hh:mm');
+   var sendMsg = '';
+   var userId = "<%=m.getUserName()%>";
+   var rno =<%=rno%>;
+   var stime = new Date().format('yyyy.MM.dd a/p hh:mm');
 
-		console.log(msg);
+      console.log(msg);
 
-		if (msg == undefined) {
-			//console.log("채팅");
-			$("#messageWindow")
-					.append(
-							"<div><div class='smsgBox'>"
-									+ inputMessage.value
-									+ "<br><p class='me'>나</p></div><p class='ct' id='stime'>"
-									+ stime + "</p></div>");
-			sendMsg = rno + "-" + userId + "-" + inputMessage.value;
-		} else {
-			console.log("입장/퇴장test");
-			sendMsg = rno + ":" + msg;
-		}
-		//webSocket.send(userId + ":" + inputMessage.value);
-		webSocket.send(sendMsg);
+      if (msg == undefined) {
+         //console.log("채팅");
+         $("#messageWindow")
+               .append(
+                     "<div><div class='smsgBox'>"
+                           + inputMessage.value
+                           + "<br><p class='me'>나</p></div><p class='ct' id='stime'>"
+                           + stime + "</p></div>");
+         sendMsg = rno + "-" + userId + "-" + inputMessage.value;
+      } else {
+         console.log("입장/퇴장test");
+         sendMsg = rno + ":" + msg;
+      }
+      //webSocket.send(userId + ":" + inputMessage.value);
+      webSocket.send(sendMsg);
 
-		textarea.scrollTop = textarea.scrollHeight;
-		$("#inputMessage").val(' ');
-	}
+      textarea.scrollTop = textarea.scrollHeight;
+      $("#inputMessage").val(' ');
+   }
 function leaveRoom(){
-	var userId = "<%=m.getUserName()%>";
-	send(userId + ":님이 채팅방을 나가셨습니다.");
-	location.href = "<%= request.getContextPath()%>/leave.cr";
+   var userId = "<%=m.getUserName()%>";
+   send(userId + ":님이 채팅방을 나가셨습니다.");
+   location.href = "<%= request.getContextPath()%>/leave.cr";
 }
 </script>
 </html>
